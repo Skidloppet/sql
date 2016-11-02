@@ -148,6 +148,7 @@ call _newReport (1, now(), '2016-10-13', '3', '2', '1', '1', 23.1, 1, 3);
 
 select * from ReportSubPlace;
 
+-- gitgitasdasd
 
 /*
 SELECT entID, startDate, workDate, rating, underlay, edges, grip, depth, name
