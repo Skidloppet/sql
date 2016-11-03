@@ -8,7 +8,7 @@ PROCEDURER FÖR SKIDLOPPET AB -Innehållsförteckning
 6.
 7.Procedure för Rapportering
 */
--- patrik
+-- niklas
 -- 1. Procedure för att skapa en Entrepenör
  -- IF satsen kollar om Ski har tagit email adressen redan
 
