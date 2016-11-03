@@ -8,12 +8,7 @@ PROCEDURER FÖR SKIDLOPPET AB -Innehållsförteckning
 6.
 7.Procedure för Rapportering
 */
-<<<<<<< HEAD
--- asdasdasdasd
-=======
--- blabla
->>>>>>> 595526ad408407437774ac347c9c344b9cd9444d
-
+asd
 -- 1. Procedure för att skapa en Entrepenör
  -- IF satsen kollar om Ski har tagit email adressen redan
 
