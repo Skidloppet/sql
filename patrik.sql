@@ -3,7 +3,7 @@ create database b15patkh;
 use b15patkh;
 
 -- detta stämmer
-
+-- asdas
 create table VapenTillverkare( -- codes exempel 4
 Tillverkarkod mediumint,
 Tillverkatnamn varchar (25),
