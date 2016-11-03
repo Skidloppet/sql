@@ -1,8 +1,9 @@
-Drop database b15patkh;
+﻿Drop database b15patkh;
 create database b15patkh;
 use b15patkh;
- -- balbal
--- asdas
+
+-- detta stämmer
+
 create table VapenTillverkare( -- codes exempel 4
 Tillverkarkod mediumint,
 Tillverkatnamn varchar (25),
