@@ -1,7 +1,7 @@
 ﻿Drop database b15patkh;
 create database b15patkh;
 use b15patkh;
-
+-- gorra
 -- detta stämmer
 -- asdas
 create table VapenTillverkare( -- codes exempel 4
