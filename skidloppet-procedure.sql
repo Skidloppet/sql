@@ -8,7 +8,11 @@ PROCEDURER FÖR SKIDLOPPET AB -Innehållsförteckning
 6.
 7.Procedure för Rapportering
 */
+<<<<<<< HEAD
 -- asdasdasdasd
+=======
+-- blabla
+>>>>>>> 595526ad408407437774ac347c9c344b9cd9444d
 
 -- 1. Procedure för att skapa en Entrepenör
  -- IF satsen kollar om Ski har tagit email adressen redan
@@ -148,7 +152,10 @@ call _newReport (1, now(), '2016-10-13', '3', '2', '1', '1', 23.1, 1, 3);
 
 select * from ReportSubPlace;
 
+<<<<<<< HEAD
 -- gitgitasdasdasd
+=======
+>>>>>>> 595526ad408407437774ac347c9c344b9cd9444d
 
 /*
 SELECT entID, startDate, workDate, rating, underlay, edges, grip, depth, name
@@ -163,4 +170,8 @@ grip = newGrip and
 depth = newDepth and
 name = newName and
 name = newName2;
+<<<<<<< HEAD
 */
+=======
+*/
+>>>>>>> 595526ad408407437774ac347c9c344b9cd9444d
