@@ -1,7 +1,7 @@
 Drop database b15patkh;
 create database b15patkh;
 use b15patkh;
-
+ -- balbal
 create table VapenTillverkare( -- codes exempel 4
 Tillverkarkod mediumint,
 Tillverkatnamn varchar (25),
