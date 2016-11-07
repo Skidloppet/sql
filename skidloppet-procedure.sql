@@ -9,7 +9,7 @@ PROCEDURER FÖR SKIDLOPPET AB -Innehållsförteckning
 7. procedure för Rapportering
 */
 
--- edit 20:29 /n
+-- edit 20:56..
 
  -- IF satsen kollar om Ski har tagit email adressen redan
 -- 1. Procedure för att skapa en Entrepenör
@@ -156,9 +156,6 @@ select * from ReportSubPlace;
 
 
 
-
-<<<<<<< HEAD
-
 /*
 create table Comment(
 commentID int auto_increment unique,
@@ -209,9 +206,6 @@ DELIMITER ;
 
 
 
--- 2101	-- 1837 21:31
-=======
-
 
 /*
 SELECT entID, startDate, workDate, rating, underlay, edges, grip, depth, name
@@ -229,4 +223,3 @@ name = newName2;
 <<<<<<< HEAD
 */
 
->>>>>>> 6d31296b8fd0c1a721b084c7edd2b7cd48af86c6
