@@ -98,7 +98,6 @@ reportID int not null auto_increment unique,
 entID smallint not null,
 startDate timestamp,
 workDate datetime,
-endName int,
 -- workDate är nästa förväntade arbetspass
 rating enum('1','2','3','4','5'),
 underlay enum('1','2','3','4','5'),
@@ -106,7 +105,7 @@ edges enum('1','2','3','4','5'),
 grip enum('1','2','3','4','5'),
 depth DECIMAL(3,1),
 -- depth är uppskattat snödjup efter dagligt underhåll
--- DECIMAL 3 integer 1 decimal. 
+-- DECIMAL 3 integer 1 decimal. (t.ex. 123.1)
 primary key (reportID),
 foreign key (entID) references Ent(entID)
 )engine=innodb;
@@ -222,12 +221,12 @@ insert into Error (entID, sentDate, grade, errorDesc, type) values
 ('1',now(),'akut','grus','dirt'),
 ('1',now(),'high','fallna träd','trees');
 
-
+/*
 insert into ReportSubPlace(reportID, name) values
 ('1','3'),
 ('2','1'),
 ('2','2');
-
+*/
 
 insert into SubPlaceWorkOrder(name,orderID) values 
 ('1','1'),
