@@ -7,11 +7,11 @@ PROCEDURER FÖR SKIDLOPPET AB -Innehållsförteckning
 5. procedur för ny snökanon
 6. procedur för att flytta/status snökanon
 7. procedure för Rapportering
+8. procedure för nya kommentarer
 */
+-- last edit 21:36 /nik
 
--- edit 20:56..
 
- -- IF satsen kollar om Ski har tagit email adressen redan
 -- 1. Procedure för att skapa en Entrepenör
 -- IF satsen kollar om Ski har tagit email adressen redan
 DROP PROCEDURE IF EXISTS CreateEnt;
@@ -115,27 +115,28 @@ startName tinyint,
 endName tinyint
 )
 BEGIN
-
 DECLARE LastInsert int;
 DECLARE nameCounter tinyint;
 DECLARE switch tinyint;
 DECLARE switch2 tinyint;
 
+
 START TRANSACTION;
 
-while startName>endName do
-	set switch = startName;
-	set switch2 = endName;
-	set endName = switch2;
-	set startName = switch;
-	END WHILE;
+if startName>endName then
+set switch = startName;
+set switch2 = endName;
+set endName = switch;
+set startName = switch2;
+end if;
 
-INSERT INTO Report (entID, startDate, workDate, rating, underlay, edges, grip, depth)
-values (newEntID, newStartDate, newWorkDate, newRating, newUnderlay, newEdges, newGrip, newDepth);
+INSERT INTO Report (entID, startDate, workDate, rating, underlay, edges, grip)
+values (newEntID, newStartDate, newWorkDate, newRating, newUnderlay, newEdges, newGrip);
 SET LastInsert = last_insert_id();
 
 SET nameCounter = startName;
 
+--     for ($i=0;$i<$numRecs;$i++) {       <-- alternativ lösning (ev. bättre & snyggare)
 WHILE nameCounter<=endName DO
 
 	insert into ReportSubPlace(name, reportID) values (nameCounter, LastInsert);
@@ -148,10 +149,14 @@ DELIMITER ;
 
 
 
+call _newReport (2, now(), '2016-10-13', '3', '2', '1', '1', 23.1, 1,3);
+call _newReport (2, now(), '2016-10-13', '3', '2', '1', '1', 23.1, 3,1);
+call _newReport (2, now(), '2016-10-13', '3', '2', '1', '1', 23.1, 2,1);
+call _newReport (2, now(), '2016-10-13', '3', '2', '1', '1', 23.1, 1,1);
+call _newReport (2, now(), '2016-10-13', '3', '2', '1', '1', 23.1, 1,2);
 
-call _newReport (2, now(), '2016-10-13', '3', '2', '1', '1', 23.1, 3, 1);
-select * from ReportSubPlace;
 
+-- select * from ReportSubPlace;
 
 
 
@@ -168,7 +173,7 @@ primary key (commentID)
 
 
 
--- 7. Procedure för nya daglig rapportering
+-- 8. Procedure för nya kommentarer
 DROP PROCEDURE IF EXISTS _NewComment;
 
 DELIMITER //
@@ -201,25 +206,4 @@ WHILE nameCounter<=endName DO
 COMMIT ;
 END //
 DELIMITER ;
-
---     for ($i=0;$i<$numRecs;$i++) {
-
-
-
-
-/*
-SELECT entID, startDate, workDate, rating, underlay, edges, grip, depth, name
-FROM Reporting
-WHERE entID = newEntID and
-startDate = newStartDate and
-workDate = newWorkDate and
-rating = newRating and
-underlay = newUnderlay and
-edges = newEdges and
-grip = newGrip and
-depth = newDepth and
-name = newName and
-name = newName2;
-<<<<<<< HEAD
-*/
 
