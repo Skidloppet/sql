@@ -8,6 +8,12 @@ PROCEDURER FÖR SKIDLOPPET AB -Innehållsförteckning
 6. procedur för att flytta/status snökanon
 7. procedure för Rapportering
 */
+<<<<<<< HEAD
+=======
+-- niklas
+-- 1. Procedure för att skapa en Entrepenör
+ -- IF satsen kollar om Ski har tagit email adressen redan
+>>>>>>> 6d31296b8fd0c1a721b084c7edd2b7cd48af86c6
 
 
 
@@ -157,6 +163,7 @@ select * from ReportSubPlace;
 
 
 
+<<<<<<< HEAD
 
 /*
 create table Comment(
@@ -209,3 +216,23 @@ DELIMITER ;
 
 
 -- 2101	-- 1837 21:31
+=======
+
+
+/*
+SELECT entID, startDate, workDate, rating, underlay, edges, grip, depth, name
+FROM Reporting
+WHERE entID = newEntID and
+startDate = newStartDate and
+workDate = newWorkDate and
+rating = newRating and
+underlay = newUnderlay and
+edges = newEdges and
+grip = newGrip and
+depth = newDepth and
+name = newName and
+name = newName2;
+<<<<<<< HEAD
+*/
+
+>>>>>>> 6d31296b8fd0c1a721b084c7edd2b7cd48af86c6
