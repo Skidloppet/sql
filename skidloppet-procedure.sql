@@ -9,7 +9,7 @@ PROCEDURER FÖR SKIDLOPPET AB -Innehållsförteckning
 7. procedure för Rapportering
 8. procedure för nya kommentarer
 */
--- last edit 21:36 /nik
+-- last edit 21:45 /nik
 
 
 -- 1. Procedure för att skapa en Entrepenör
