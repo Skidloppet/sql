@@ -15,7 +15,7 @@ CREATE VIEW AllUsers AS
 
 
 
-/*
+
 CREATE VIEW Reporting AS
 SELECT 
 Report.reportID, Report.entID, Report.startDate, 
@@ -27,3 +27,4 @@ WHERE	Report.reportID = ReportSubPlace.reportID;
 
 Select * From Reporting;
 
+-- Bör skapa så man kan se snittet på den specifika delsträckan, SubPlace.name!Med (avg)? (count)?

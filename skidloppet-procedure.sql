@@ -2,16 +2,18 @@
 PROCEDURER FÖR SKIDLOPPET AB -Innehållsförteckning
 1. procedur CreateEnt
 2. procedur CreateSki
-3. Vy för alla användare
+3.
 4. procedur för kontroll av inlogg
-5. 
-6.
-7.Procedure för Rapportering
+5. procedur för ny snökanon
+6. procedur för att flytta/status snökanon
+7. procedure för Rapportering
 */
--- asd
--- 1. Procedure för att skapa en Entrepenör
- -- IF satsen kollar om Ski har tagit email adressen redan
 
+
+
+-- kommentar 17:27
+-- 1. Procedure för att skapa en Entrepenör
+-- IF satsen kollar om Ski har tagit email adressen redan
 DROP PROCEDURE IF EXISTS CreateEnt;
 DELIMITER //
 CREATE PROCEDURE CreateEnt(pass varchar(32), firstName varchar(32), lastName varchar(32), email varchar (64), number int(10))
@@ -96,7 +98,6 @@ DELIMITER ;
 -- Call AlterCannon ('1','11','on');
 -- select * from Cannon;
 
-
 -- 7. Procedure för nya daglig rapportering
 DROP PROCEDURE IF EXISTS _newReport;
 
@@ -117,14 +118,23 @@ BEGIN
 
 DECLARE LastInsert int;
 DECLARE nameCounter tinyint;
-SET nameCounter = startName;
+DECLARE switch tinyint;
+DECLARE switch2 tinyint;
 
 START TRANSACTION;
 
-INSERT INTO Report (entID, startDate, workDate, rating, underlay, edges, grip, depth, endName)
-values (newEntID, newStartDate, newWorkDate, newRating, newUnderlay, newEdges, newGrip, newDepth, endName);
+while startName>endName do
+	set switch = startName;
+	set switch2 = endName;
+	set endName = switch2;
+	set startName = switch;
+	END WHILE;
 
-set LastInsert = last_insert_id();
+INSERT INTO Report (entID, startDate, workDate, rating, underlay, edges, grip, depth)
+values (newEntID, newStartDate, newWorkDate, newRating, newUnderlay, newEdges, newGrip, newDepth);
+SET LastInsert = last_insert_id();
+
+SET nameCounter = startName;
 
 WHILE nameCounter<=endName DO
 
@@ -139,34 +149,63 @@ DELIMITER ;
 
 
 
-
-call _newReport (1, now(), '2016-10-13', '3', '2', '1', '1', 23.1, 1, 2);
-call _newReport (1, now(), '2016-10-13', '3', '2', '1', '1', 23.1, 1, 3);
-
--- Select * from Reporting;
-
+call _newReport (2, now(), '2016-10-13', '3', '2', '1', '1', 23.1, 3, 1);
 select * from ReportSubPlace;
 
-<<<<<<< HEAD
--- gitgitasdasdasd
-=======
->>>>>>> 595526ad408407437774ac347c9c344b9cd9444d
+
+
+
+
+
 
 /*
-SELECT entID, startDate, workDate, rating, underlay, edges, grip, depth, name
-FROM Reporting
-WHERE entID = newEntID and
-startDate = newStartDate and
-workDate = newWorkDate and
-rating = newRating and
-underlay = newUnderlay and
-edges = newEdges and
-grip = newGrip and
-depth = newDepth and
-name = newName and
-name = newName2;
-<<<<<<< HEAD
+create table Comment(
+commentID int auto_increment unique,
+comment varchar(1024) not null,
+alias varchar(32) not null,
+date timestamp,
+primary key (commentID)
+)engine=innodb;
 */
-=======
-*/
->>>>>>> 595526ad408407437774ac347c9c344b9cd9444d
+
+
+
+-- 7. Procedure för nya daglig rapportering
+DROP PROCEDURE IF EXISTS _NewComment;
+
+DELIMITER //
+CREATE PROCEDURE _NewComment (
+newComment varchar(1024),
+newAlias varchar (32),
+newDate timestamp,
+startName tinyint,
+endName tinyint
+)
+BEGIN
+
+DECLARE LastInsert int;
+DECLARE nameCounter tinyint;
+SET nameCounter = startName;
+
+START TRANSACTION;
+
+INSERT INTO Report (entID, startDate, workDate, rating, underlay, edges, grip, depth)
+values (newEntID, newStartDate, newWorkDate, newRating, newUnderlay, newEdges, newGrip, newDepth);
+
+set LastInsert = last_insert_id();
+
+WHILE nameCounter<=endName DO
+
+	insert into ReportSubPlace(name, reportID) values (nameCounter, LastInsert);
+	set nameCounter = nameCounter + 1;
+
+	END WHILE;
+COMMIT ;
+END //
+DELIMITER ;
+
+--     for ($i=0;$i<$numRecs;$i++) {
+
+
+
+-- 2101	-- 1837 21:31
