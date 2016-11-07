@@ -8,16 +8,10 @@ PROCEDURER FÖR SKIDLOPPET AB -Innehållsförteckning
 6. procedur för att flytta/status snökanon
 7. procedure för Rapportering
 */
-<<<<<<< HEAD
-=======
--- niklas
--- 1. Procedure för att skapa en Entrepenör
+
+-- edit 20:29 /n
+
  -- IF satsen kollar om Ski har tagit email adressen redan
->>>>>>> 6d31296b8fd0c1a721b084c7edd2b7cd48af86c6
-
-
-
--- kommentar 17:27
 -- 1. Procedure för att skapa en Entrepenör
 -- IF satsen kollar om Ski har tagit email adressen redan
 DROP PROCEDURE IF EXISTS CreateEnt;
