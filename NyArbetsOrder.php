@@ -42,7 +42,7 @@ include'connect.php';
 	<h3>Add a new report</h3>
 	<form action='<?php $_PHP_SELF ?>' method='POST'>
 		<input type="text" name="SkiID" placeholder="SkiID.."></p>
-	<!--	<input type="text" name="EntID" placeholder="EntID.."></p> -->
+		<input type="text" name="EntID" placeholder="EntID.."></p>
 		<input type="text" name="Prioritering" placeholder="Prioritering.."></p>
 		<input type="text" name="Info" placeholder="Info.."></p>
 		<input type="text" name="Start" placeholder="Start.."></p>
@@ -54,13 +54,13 @@ include'connect.php';
 
 	if(isset($_POST['_newWorkOrder'])){
 
-    $sql = "CALL _newWorkOrder(:newSkiID, NOW() ,:newPriority, :newInfo, :startName, :endName)";
+    $sql = "CALL _newWorkOrder(:newSkiID, :newEntID, NOW() ,:newPriority, :newInfo, :startName, :endName)";
 
     $stmt = $pdo->prepare($sql);
 
     $stmt->bindParam(":newSkiID", $_POST['SkiID'], PDO::PARAM_INT);
 
-#    $stmt->bindParam(":newEntID", $_POST['EntID'], PDO::PARAM_INT);
+    $stmt->bindParam(":newEntID", $_POST['EntID'], PDO::PARAM_INT);
 
     $stmt->bindParam(":newPriority", $_POST['Prioritering'], PDO::PARAM_STR);
 
