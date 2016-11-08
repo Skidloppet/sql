@@ -61,7 +61,7 @@ Nedanför kan man skriva php kod..
 	echo $PASS."</Br>";
 
 	# skapa en koppling till DB
-	$pdo = new PDO('mysql:dbname=Skidloppet;host=localhost','admin','pass');
+	$pdo = new PDO('mysql:dbname=a15jakso;host=localhost','sqllab','Tomten2009');
 	$pdo->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING );
 
 	# gör insert om endast namnet är ifyllt(ändra till alla fält?)

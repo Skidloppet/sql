@@ -1,6 +1,6 @@
-drop database Skidloppet;
-create database Skidloppet;
-use Skidloppet;
+drop database SlitABSkidloppet;
+create database SlitABSkidloppet;
+use SlitABSkidloppet;
 -- asdasd
 -- Tabell för Skidloppet anställda
 create table Ski(

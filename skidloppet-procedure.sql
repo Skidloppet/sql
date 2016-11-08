@@ -258,9 +258,64 @@ COMMIT ;
 END //
 DELIMITER ;
 
-<<<<<<< HEAD
+-- ------------------------------------------------------------------------------------------------------------
 
--- jakkoo
-=======
--- nikko
->>>>>>> d77a01fb861e886b20b3c02557513e1f3a666e8b
+-- Lägg till ny arbetsorder
+
+DROP PROCEDURE IF EXISTS _newWorkOrder;
+DELIMITER //
+CREATE PROCEDURE _newWorkOrder ( -- skiID, entID, sentDate, startDate, priority, info, startName, endName
+-- newSkiID och newEntID skall vara user() sedan.
+newSkiID smallint,
+-- newEntID smallint,
+-- (entID) Kan inte tilldelas till en specifik entreprenör vid akut prio.
+newSentDate timestamp,
+-- newStartDate timestamp,
+newPriority enum('high','medium','low','akut'),
+newInfo varchar(1024),
+startName tinyint,
+endName tinyint
+)
+BEGIN
+DECLARE LastInsert int;
+DECLARE nameCounter tinyint;
+DECLARE switch tinyint;
+DECLARE switch2 tinyint;
+
+
+START TRANSACTION;
+
+-- kontrollerar om startName har det lägre värdet 
+if startName>endName then
+set switch = startName;
+set switch2 = endName;
+set endName = switch;
+set startName = switch2;
+end if;
+
+INSERT INTO WorkOrder (skiID, sentDate, priority, info)
+values (newSkiID, newSentDate, newPriority, newInfo);
+-- tilldelar LastInsert reportID's auto_increment värde för kopplingen i N:M tabellen
+SET LastInsert = last_insert_id();
+
+SET nameCounter = startName;
+
+--     for ($i=0;$i<$numRecs;$i++) {       <-- alternativ lösning (ev. bättre & snyggare)
+WHILE nameCounter<=endName DO
+
+	insert into SubPlaceWorkOrder(name, orderID) values (nameCounter, LastInsert);
+	set nameCounter = nameCounter + 1;
+
+	END WHILE;
+COMMIT ;
+END //
+DELIMITER ;
+
+-- skiID, entID, sentDate, startDate, priority, info, startName, endName
+CALL _newWorkOrder (1, now(), 'low', 'KOTTAR ÖVERALLT RÄDDA MIG', 1, 3);
+
+select * from WorkOrdersAndPlaces;
+
+-- ----------------------------------------------------------------------------------------------
+
+
