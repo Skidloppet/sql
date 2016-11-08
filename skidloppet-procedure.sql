@@ -248,8 +248,14 @@ COMMIT ;
 END //
 DELIMITER ;
 
-<<<<<<< HEAD
--- ------------------------------------------------------------------------------------------------------------
+call _NewError ('mörkt överallt','1',now(),'low','lights','1','3');
+call _NewError ('grus vid övergångstället','2',now(),'low','dirt','2','2');
+call _NewError ('träd över spåret','2',now(),'low','trees','3','1');
+-- select * from ErrorSubPlace;
+
+
+
+
 
 -- Lägg till ny arbetsorder
 
@@ -307,14 +313,4 @@ CALL _newWorkOrder (1, now(), 'low', 'KOTTAR ÖVERALLT RÄDDA MIG', 1, 3);
 
 select * from WorkOrdersAndPlaces;
 
--- ----------------------------------------------------------------------------------------------
 
-
-=======
-call _NewError ('mörkt överallt','1',now(),'low','lights','1','3');
-call _NewError ('grus vid övergångstället','2',now(),'low','dirt','2','2');
-call _NewError ('träd över spåret','2',now(),'low','trees','3','1');
--- select * from ErrorSubPlace;
-
--- blablab ny procedur
->>>>>>> 43ea5c3b2eb6575f974da960633a62fbb3efc8fc
