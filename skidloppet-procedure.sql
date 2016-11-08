@@ -253,3 +253,4 @@ call _NewError ('grus vid övergångstället','2',now(),'low','dirt','2','2');
 call _NewError ('träd över spåret','2',now(),'low','trees','3','1');
 -- select * from ErrorSubPlace;
 
+-- blablab ny procedur
