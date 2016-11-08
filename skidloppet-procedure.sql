@@ -2,14 +2,15 @@
 PROCEDURER FÖR SKIDLOPPET AB -Innehållsförteckning
 1. procedur CreateEnt
 2. procedur CreateSki
-3.
+3. 
 4. procedur för kontroll av inlogg
 5. procedur för ny snökanon
 6. procedur för att flytta/status snökanon
 7. procedure för Rapportering
 8. procedure för nya kommentarer
+9. procedur för nya felmedelanden
 */
--- last edit 21:45 /nik
+
 
 
 -- 1. Procedure för att skapa en Entrepenör
@@ -199,30 +200,20 @@ DELIMITER ;
 
 call _NewComment ('en kommentar på några spår','kalle',now(),'3','1');
 call _NewComment ('NY comment, bögjävel!','rasselasse',now(),'1','2');
-select * from CommentSubPlace;
+-- select * from CommentSubPlace;
 
 
 
-
-
-/*
-
-entID smallint null,
--- null entID för alla felanmälanden som skapas av motionärer
-sentDate timestamp,
-grade enum('low','medium','high','akut'),
-errorDesc varchar(128),
-type enum('lights','tracks','dirt','trees','other') not null,
-
-*/
--- 9. Procedure för nya kommentarer
+-- 9. Procedure för nya felmedelanden
 DROP PROCEDURE IF EXISTS _NewError;
 
 DELIMITER //
 CREATE PROCEDURE _NewError (
 newErrorDesc varchar(1024),
-newAlias varchar (32),
-newDate timestamp,
+newEntID smallint,
+newSentDate timestamp,
+newGrade enum('low','medium','high','akut'),
+newType enum('lights','tracks','dirt','trees','other'),
 startName tinyint,
 endName tinyint
 )
@@ -242,10 +233,9 @@ set endName = switch;
 set startName = switch2;
 end if;
 
-INSERT INTO Error (comment, alias, date) values (newComment, newAlias, newDate);
+INSERT INTO Error (entID, sentDate , grade, errorDesc , type) values (newEntID, newSentDate, newGrade, newErrorDesc, newType);
 
-set LastInsert = last_insert_id();
-
+SET LastInsert = last_insert_id();
 SET nameCounter = startName;
 
 WHILE nameCounter<=endName DO
@@ -258,6 +248,7 @@ COMMIT ;
 END //
 DELIMITER ;
 
+<<<<<<< HEAD
 -- ------------------------------------------------------------------------------------------------------------
 
 -- Lägg till ny arbetsorder
@@ -319,3 +310,11 @@ select * from WorkOrdersAndPlaces;
 -- ----------------------------------------------------------------------------------------------
 
 
+=======
+call _NewError ('mörkt överallt','1',now(),'low','lights','1','3');
+call _NewError ('grus vid övergångstället','2',now(),'low','dirt','2','2');
+call _NewError ('träd över spåret','2',now(),'low','trees','3','1');
+-- select * from ErrorSubPlace;
+
+-- blablab ny procedur
+>>>>>>> 43ea5c3b2eb6575f974da960633a62fbb3efc8fc
