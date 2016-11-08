@@ -123,6 +123,7 @@ DECLARE switch2 tinyint;
 
 START TRANSACTION;
 
+-- kontrollerar om startName har det lägre värdet 
 if startName>endName then
 set switch = startName;
 set switch2 = endName;
@@ -132,6 +133,7 @@ end if;
 
 INSERT INTO Report (entID, startDate, workDate, rating, underlay, edges, grip)
 values (newEntID, newStartDate, newWorkDate, newRating, newUnderlay, newEdges, newGrip);
+-- tilldelar LastInsert reportID's auto_increment värde för kopplingen i N:M tabellen
 SET LastInsert = last_insert_id();
 
 SET nameCounter = startName;
@@ -147,30 +149,9 @@ COMMIT ;
 END //
 DELIMITER ;
 
-
-
 call _newReport (2, now(), '2016-10-13', '3', '2', '1', '1', 23.1, 1,3);
 call _newReport (2, now(), '2016-10-13', '3', '2', '1', '1', 23.1, 3,1);
-call _newReport (2, now(), '2016-10-13', '3', '2', '1', '1', 23.1, 2,1);
-call _newReport (2, now(), '2016-10-13', '3', '2', '1', '1', 23.1, 1,1);
-call _newReport (2, now(), '2016-10-13', '3', '2', '1', '1', 23.1, 1,2);
-
-
 -- select * from ReportSubPlace;
-
-
-
-
-/*
-create table Comment(
-commentID int auto_increment unique,
-comment varchar(1024) not null,
-alias varchar(32) not null,
-date timestamp,
-primary key (commentID)
-)engine=innodb;
-*/
-
 
 
 -- 8. Procedure för nya kommentarer
@@ -188,18 +169,27 @@ BEGIN
 
 DECLARE LastInsert int;
 DECLARE nameCounter tinyint;
-SET nameCounter = startName;
+DECLARE switch tinyint;
+DECLARE switch2 tinyint;
 
 START TRANSACTION;
 
-INSERT INTO Report (entID, startDate, workDate, rating, underlay, edges, grip, depth)
-values (newEntID, newStartDate, newWorkDate, newRating, newUnderlay, newEdges, newGrip, newDepth);
+if startName>endName then
+set switch = startName;
+set switch2 = endName;
+set endName = switch;
+set startName = switch2;
+end if;
+
+INSERT INTO Comment (comment, alias, date) values (newComment, newAlias, newDate);
 
 set LastInsert = last_insert_id();
 
+SET nameCounter = startName;
+
 WHILE nameCounter<=endName DO
 
-	insert into ReportSubPlace(name, reportID) values (nameCounter, LastInsert);
+	insert into CommentSubPlace(name, commentID) values (nameCounter, LastInsert);
 	set nameCounter = nameCounter + 1;
 
 	END WHILE;
@@ -207,3 +197,63 @@ COMMIT ;
 END //
 DELIMITER ;
 
+call _NewComment ('en kommentar på några spår','kalle',now(),'3','1');
+call _NewComment ('NY comment, bögjävel!','rasselasse',now(),'1','2');
+select * from CommentSubPlace;
+
+
+
+
+
+/*
+
+entID smallint null,
+-- null entID för alla felanmälanden som skapas av motionärer
+sentDate timestamp,
+grade enum('low','medium','high','akut'),
+errorDesc varchar(128),
+type enum('lights','tracks','dirt','trees','other') not null,
+
+*/
+-- 9. Procedure för nya kommentarer
+DROP PROCEDURE IF EXISTS _NewError;
+
+DELIMITER //
+CREATE PROCEDURE _NewError (
+newErrorDesc varchar(1024),
+newAlias varchar (32),
+newDate timestamp,
+startName tinyint,
+endName tinyint
+)
+BEGIN
+
+DECLARE LastInsert int;
+DECLARE nameCounter tinyint;
+DECLARE switch tinyint;
+DECLARE switch2 tinyint;
+
+START TRANSACTION;
+
+if startName>endName then
+set switch = startName;
+set switch2 = endName;
+set endName = switch;
+set startName = switch2;
+end if;
+
+INSERT INTO Error (comment, alias, date) values (newComment, newAlias, newDate);
+
+set LastInsert = last_insert_id();
+
+SET nameCounter = startName;
+
+WHILE nameCounter<=endName DO
+
+	insert into ErrorSubPlace(name, errorID) values (nameCounter, LastInsert);
+	set nameCounter = nameCounter + 1;
+
+	END WHILE;
+COMMIT ;
+END //
+DELIMITER ;

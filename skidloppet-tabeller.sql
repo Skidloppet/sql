@@ -119,7 +119,7 @@ entID smallint null,
 -- null entID för alla felanmälanden som skapas av motionärer
 sentDate timestamp,
 grade enum('low','medium','high','akut'),
-errorDesc varchar(128),
+errorDesc varchar(1024),
 type enum('lights','tracks','dirt','trees','other') not null,
 primary key (errorID),
 foreign key (entID) references Ent(entID)
@@ -191,12 +191,12 @@ insert into WorkOrder (skiID, entID, sentDate, startDate, priority, info) values
 ('1','2',now(),'2016-11-03','high',''),
 ('1','3',now(),'2016-11-04','medium','');
 
-
+/*
 insert into Comment (comment, alias, date) values 
 ('blabla','Stina','2017-12-31'),
 ('oj vilka spår','göran p','2016-12-24'),
 ('jävla kottar och grus i spåren','gunde svan','2017-01-01');
-
+*/
 
 insert into SubPlace (name, placeName, entID, length, height, fakesnow) values 
 ('1','Delsträckor','1','12','21','23'),
@@ -215,11 +215,12 @@ insert into Report (entID, startDate, workDate, rating, underlay, edges, grip, d
 ('1','2011-11-11','2011-11-11','3','3','2','4','65'),
 ('1','2011-11-11','2011-11-11','2','2','4','3','43');
 
-
+/*
 insert into Error (entID, sentDate, grade, errorDesc, type) values 
 ('1',now(),'high','fallna träd','trees'),
 ('1',now(),'akut','grus','dirt'),
 ('1',now(),'high','fallna träd','trees');
+*/
 
 /*
 insert into ReportSubPlace(reportID, name) values
@@ -232,12 +233,14 @@ insert into SubPlaceWorkOrder(name,orderID) values
 ('1','1'),
 ('1','2'),
 ('1','3');
-
+/*
 insert into ErrorSubPlace(name,errorID) values 
 ('1','1'),
 ('1','2'),
 ('1','3');
+*/
 
+/*
 insert into CommentSubPlace (CommentID, name) values 
 ('1','1'),
 ('3','2'),
