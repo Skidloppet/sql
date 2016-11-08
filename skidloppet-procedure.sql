@@ -2,13 +2,14 @@
 PROCEDURER FÖR SKIDLOPPET AB -Innehållsförteckning
 1. procedur CreateEnt
 2. procedur CreateSki
-3. 
+3. procedur för att göra en SKI till arenachef/other
 4. procedur för kontroll av inlogg
 5. procedur för ny snökanon
 6. procedur för att flytta/status snökanon
 7. procedure för Rapportering
 8. procedure för nya kommentarer
 9. procedur för nya felmedelanden
+10. Lägg till ny arbetsorder
 */
 
 
@@ -51,8 +52,19 @@ DELIMITER ;
 -- call CreateSki ('pass','Stefan','Holm','lasseBH@gmail.com','0732738934','other');
 
 
--- 3. 
-
+-- 3. procedur för att göra en SKI till arenachef/other
+ -- IF satsen kollar om Ent har tagit email adressen redan
+DROP PROCEDURE IF EXISTS EditSki;
+DELIMITER //
+CREATE PROCEDURE EditSki(editSkiID smallint , newType enum('arenachef','other'))
+BEGIN
+  UPDATE Ski SET type=newType WHERE skiID=editSkiID;
+END;
+// 
+DELIMITER ;
+-- call CreateSki ('pass','Stefan','Holm','StaffeOG@hotmail.com','0732728934','other');
+-- call EditSki ('4','arenachef');
+-- select * from Ski;
 
 -- 4. Procedur för att logga in.
 DROP PROCEDURE IF EXISTS CheckLogin; 
@@ -150,8 +162,8 @@ COMMIT ;
 END //
 DELIMITER ;
 
-call _newReport (2, now(), '2016-10-13', '3', '2', '1', '1', 23.1, 1,3);
-call _newReport (2, now(), '2016-10-13', '3', '2', '1', '1', 23.1, 3,1);
+-- call _newReport (2, now(), '2016-10-13', '3', '2', '1', '1', 23.1, 1,3);
+-- call _newReport (2, now(), '2016-10-13', '3', '2', '1', '1', 23.1, 3,1);
 -- select * from ReportSubPlace;
 
 
@@ -198,8 +210,8 @@ COMMIT ;
 END //
 DELIMITER ;
 
-call _NewComment ('en kommentar på några spår','kalle',now(),'3','1');
-call _NewComment ('NY comment, bögjävel!','rasselasse',now(),'1','2');
+-- call _NewComment ('en kommentar på några spår','kalle',now(),'3','1');
+-- call _NewComment ('NY comment, bögjävel!','rasselasse',now(),'1','2');
 -- select * from CommentSubPlace;
 
 
@@ -248,16 +260,15 @@ COMMIT ;
 END //
 DELIMITER ;
 
-call _NewError ('mörkt överallt','1',now(),'low','lights','1','3');
-call _NewError ('grus vid övergångstället','2',now(),'low','dirt','2','2');
-call _NewError ('träd över spåret','2',now(),'low','trees','3','1');
+-- call _NewError ('mörkt överallt','1',now(),'low','lights','1','3');
+-- call _NewError ('träd över spåret','2',now(),'low','trees','3','1');
 -- select * from ErrorSubPlace;
 
 
 
 
 
--- Lägg till ny arbetsorder
+-- 10. Lägg till ny arbetsorder
 
 DROP PROCEDURE IF EXISTS _newWorkOrder;
 DELIMITER //
@@ -309,9 +320,6 @@ END //
 DELIMITER ;
 
 -- skiID, entID, sentDate, startDate, priority, info, startName, endName
-CALL _newWorkOrder (1, 2, now(), 'low', 'KOTTAR ÖVERALLT RÄDDA MIG', 1, 3);
-
+-- CALL _newWorkOrder (1, 2, now(), 'low', 'KOTTAR ÖVERALLT RÄDDA MIG', 1, 3);
 -- select * from WorkOrdersAndPlaces;
-
-
-Select * From Reporting;
+-- Select * From Reporting;
