@@ -111,7 +111,7 @@ newRating enum('1','2','3','4','5'),
 newUnderlay enum('1','2','3','4','5'),
 newEdges enum('1','2','3','4','5'),
 newGrip enum('1','2','3','4','5'),
-newDepth DECIMAL(3,1),
+newDepth DECIMAL(4,1),
 startName tinyint,
 endName tinyint
 )
@@ -132,8 +132,8 @@ set endName = switch;
 set startName = switch2;
 end if;
 
-INSERT INTO Report (entID, startDate, workDate, rating, underlay, edges, grip)
-values (newEntID, newStartDate, newWorkDate, newRating, newUnderlay, newEdges, newGrip);
+INSERT INTO Report (entID, startDate, workDate, rating, underlay, edges, grip, depth)
+values (newEntID, newStartDate, newWorkDate, newRating, newUnderlay, newEdges, newGrip, newDepth);
 -- tilldelar LastInsert reportID's auto_increment värde för kopplingen i N:M tabellen
 SET LastInsert = last_insert_id();
 
@@ -311,7 +311,7 @@ DELIMITER ;
 -- skiID, entID, sentDate, startDate, priority, info, startName, endName
 CALL _newWorkOrder (1, 2, now(), 'low', 'KOTTAR ÖVERALLT RÄDDA MIG', 1, 3);
 
-select * from SubPlaceWorkOrder;
-select * from WorkOrdersAndPlaces;
+-- select * from WorkOrdersAndPlaces;
 
 
+Select * From Reporting;
