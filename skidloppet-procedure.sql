@@ -257,3 +257,6 @@ WHILE nameCounter<=endName DO
 COMMIT ;
 END //
 DELIMITER ;
+
+
+-- jakkoo
