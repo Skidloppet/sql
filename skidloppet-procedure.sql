@@ -258,5 +258,9 @@ COMMIT ;
 END //
 DELIMITER ;
 
+<<<<<<< HEAD
 
 -- jakkoo
+=======
+-- nikko
+>>>>>>> d77a01fb861e886b20b3c02557513e1f3a666e8b
