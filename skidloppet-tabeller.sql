@@ -1,7 +1,7 @@
 drop database Skidloppet;
 create database Skidloppet;
 use Skidloppet;
-
+-- asdasd
 -- Tabell för Skidloppet anställda
 create table Ski(
 skiID smallint not null auto_increment unique,
