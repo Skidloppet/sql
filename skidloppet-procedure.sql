@@ -264,7 +264,7 @@ DELIMITER //
 CREATE PROCEDURE _newWorkOrder ( -- skiID, entID, sentDate, startDate, priority, info, startName, endName
 -- newSkiID och newEntID skall vara user() sedan.
 newSkiID smallint,
--- newEntID smallint,
+newEntID smallint,
 -- (entID) Kan inte tilldelas till en specifik entreprenör vid akut prio.
 newSentDate timestamp,
 -- newStartDate timestamp,
@@ -290,8 +290,8 @@ set endName = switch;
 set startName = switch2;
 end if;
 
-INSERT INTO WorkOrder (skiID, sentDate, priority, info)
-values (newSkiID, newSentDate, newPriority, newInfo);
+INSERT INTO WorkOrder (skiID, entID, sentDate, priority, info)
+values (newSkiID, newEntID, newSentDate, newPriority, newInfo);
 -- tilldelar LastInsert reportID's auto_increment värde för kopplingen i N:M tabellen
 SET LastInsert = last_insert_id();
 
@@ -309,7 +309,7 @@ END //
 DELIMITER ;
 
 -- skiID, entID, sentDate, startDate, priority, info, startName, endName
-CALL _newWorkOrder (1, now(), 'low', 'KOTTAR ÖVERALLT RÄDDA MIG', 1, 3);
+CALL _newWorkOrder (1, 2, now(), 'low', 'KOTTAR ÖVERALLT RÄDDA MIG', 1, 3);
 
 select * from SubPlaceWorkOrder;
 select * from WorkOrdersAndPlaces;
