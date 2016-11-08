@@ -26,7 +26,7 @@ ReportSubPlace.name
 FROM 	Report, ReportSubPlace
 WHERE	Report.reportID = ReportSubPlace.reportID;
 
-Select * From Reporting;
+-- Select * From Reporting;
 
 DROP VIEW IF EXISTS WorkOrdersAndPlaces;
 -- skiID, entID, sentDate, startDate, priority, info, startName, endName
@@ -42,3 +42,5 @@ WHERE	WorkOrder.orderID = SubPlaceWorkOrder.orderID;
 Select * From WorkOrdersAndPlaces;
 
 -- Bör skapa så man kan se snittet på den specifika delsträckan, SubPlace.name!Med (avg)? (count)?
+
+-- SELECT * FROM Report;
