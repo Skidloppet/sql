@@ -33,6 +33,9 @@ Här kan man skriva kommentarer..
 Nedanför kan man skriva php kod..
 -->
 
+<?php
+include'connect.php';
+?>
 
 
 <div>
@@ -60,10 +63,6 @@ Nedanför kan man skriva php kod..
 	echo $EMAIL."</Br>";
 	echo $PASS."</Br>";
 
-	# skapa en koppling till DB
-	$pdo = new PDO('mysql:dbname=Skidloppet;host=localhost','admin','pass');
-	$pdo->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING );
-
 	# gör insert om endast namnet är ifyllt(ändra till alla fält?)
 	# något fel med inserten samt att den kör if satsen även fast name inte är angivet!!
 	if(isset($_POST['name'])){
@@ -90,9 +89,6 @@ Nedanför kan man skriva php kod..
 	<h3>Utskrift av Entrepenörer</h3>
     <table>
 	    <?php  
-			$pdo = new PDO('mysql:dbname=Skidloppet;host=localhost','admin','pass');
-		    $pdo->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING );
-
 		        echo "<th>entID</th>"; 
 		        echo "<th>name</th>"; 
 		        echo "<th>surname</th>"; 
