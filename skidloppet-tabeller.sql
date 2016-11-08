@@ -66,8 +66,9 @@ primary key (commentID)
 
 -- tabell för specifika platser
 create table SubPlace (
-name varchar(32) not null,
+name smallint not null,
 placeName varchar(32) not null,
+realName varchar (32) not null,
 entID smallint null,
 length mediumint,
 height smallint,
@@ -81,7 +82,7 @@ foreign key (entID) references Ent(entID)
 -- cannon är snökanon, model namn avgör om den är stationär
 create table Cannon (
 cannonID smallint not null auto_increment unique,
-subPlaceName varchar(32),
+subPlaceName smallint,
 model char (4) not null,
 -- model visar om det är stationär eller ej
 status enum('on','off','unplugged','broken'),
@@ -129,7 +130,7 @@ foreign key (entID) references Ent(entID)
 -- N:M tabell för rapporter till delsträckor
 create table ReportSubPlace(
 reportID int not null,
-name varchar(32) not null,
+name smallint not null,
 -- Kanske lägga till datum för pågående arbete eller annat?
 primary key (reportID, name),
 foreign key (reportID) references Report(reportID),
@@ -139,7 +140,7 @@ foreign key (name) references SubPlace(name)
 
 
 create table SubPlaceWorkOrder(
-name varchar(32) not null,
+name smallint not null,
 orderID int not null,
 -- Kanske lägga till datum för pågående arbete eller annat?
 primary key (orderID, name),
@@ -148,7 +149,7 @@ foreign key (name) references SubPlace(name)
 )engine=innodb;
 
 create table ErrorSubPlace(
-name varchar(32) not null,
+name smallint not null,
 errorID int not null,
 -- Kanske lägga till datum för pågående arbete eller annat?
 primary key (errorID, name),
@@ -158,7 +159,7 @@ foreign key (name) references SubPlace(name)
 
 create table CommentSubPlace(
 CommentID int not null,
-name varchar(32) not null,
+name smallint not null,
 -- Kanske lägga till datum för att ta bort gamla kommentarer?
 primary key (commentID, name),
 foreign key (commentID) references Comment(commentID),
@@ -191,17 +192,17 @@ insert into WorkOrder (skiID, entID, sentDate, startDate, priority, info) values
 ('1','2',now(),'2016-11-03','high',''),
 ('1','3',now(),'2016-11-04','medium','');
 
-/*
+
 insert into Comment (comment, alias, date) values 
 ('blabla','Stina','2017-12-31'),
 ('oj vilka spår','göran p','2016-12-24'),
 ('jävla kottar och grus i spåren','gunde svan','2017-01-01');
-*/
 
-insert into SubPlace (name, placeName, entID, length, height, fakesnow) values 
-('1','Delsträckor','1','12','21','23'),
-('2','Delsträckor','2','17','476','11'),
-('3','Delsträckor','3','9','243','0');
+
+insert into SubPlace (name, placeName, realName, entID, length, height, fakesnow) values 
+('1','Delsträckor','Hedemora 1:3','1','12','21','23'),
+('2','Delsträckor','Hedemora 2:3','2','17','476','11'),
+('3','Delsträckor','Hedemora 3:3','3','9','243','0');
 
 
 insert into Cannon (subPlaceName, model, status, effect) values

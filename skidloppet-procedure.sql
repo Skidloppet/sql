@@ -210,7 +210,7 @@ COMMIT ;
 END //
 DELIMITER ;
 
--- call _NewComment ('en kommentar på några spår','kalle',now(),'3','1');
+call _NewComment ('en kommentar på några spår','kalle',now(),'3','1');
 -- call _NewComment ('NY comment, bögjävel!','rasselasse',now(),'1','2');
 -- select * from CommentSubPlace;
 
@@ -323,3 +323,6 @@ DELIMITER ;
 -- CALL _newWorkOrder (1, 2, now(), 'low', 'KOTTAR ÖVERALLT RÄDDA MIG', 1, 3);
 -- select * from WorkOrdersAndPlaces;
 -- Select * From Reporting;
+SELECT * FROM SubPlace where name<"21" ORDER BY name;
+
+SELECT * FROM Comment;
