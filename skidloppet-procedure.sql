@@ -311,6 +311,7 @@ DELIMITER ;
 -- skiID, entID, sentDate, startDate, priority, info, startName, endName
 CALL _newWorkOrder (1, now(), 'low', 'KOTTAR ÖVERALLT RÄDDA MIG', 1, 3);
 
+select * from SubPlaceWorkOrder;
 select * from WorkOrdersAndPlaces;
 
 
