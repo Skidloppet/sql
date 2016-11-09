@@ -47,7 +47,7 @@ include'connect.php';
 	<h3>Ny kundkommentar</h3>
 	<form action='<?php $_PHP_SELF ?>' method='POST'>
 		<textarea rows="5" cols="70" name="comment" placeholder="freetext comment"></textarea>
-	</br>
+		</br>
 		<input type="text" name="alias" placeholder="Alias..">
 	    <select size='1' name='startName'>
 	    	<option selected="selected"> Choose startingpoint </option>
@@ -70,6 +70,7 @@ include'connect.php';
 			  	    }    
 			    ?>
 	    </select>
+
 		<button type="submit" name="CreateComment">SEND COMMENT</button>
 	</form>
 
@@ -79,7 +80,7 @@ include'connect.php';
 
 	if(isset($_POST['CreateComment'])){
 
-    $sql = "CALL _NewComment(:newComment, :newAlias, now(), :startName, endName);";
+    $sql = "CALL _NewComment(:newComment, :newAlias, now(), :startName, :endName);";
     $stmt = $pdo->prepare($sql);
 
     $stmt->bindParam(":newComment", $_POST['comment'], PDO::PARAM_STR);
