@@ -33,7 +33,7 @@ DROP VIEW IF EXISTS WorkOrdersAndPlaces;
 CREATE VIEW WorkOrdersAndPlaces AS
 SELECT 
 WorkOrder.orderID, WorkOrder.skiID, WorkOrder.entID, 
-WorkOrder.sentDate, WorkOrder.startDate, WorkOrder.priority, 
+WorkOrder.sentDate, WorkOrder.endDate, WorkOrder.priority, 
 WorkOrder.info,
 SubPlaceWorkOrder.name
 FROM 	WorkOrder, SubPlaceWorkOrder

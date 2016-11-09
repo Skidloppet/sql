@@ -43,11 +43,29 @@ orderID int not null auto_increment unique,
 skiID smallint not null,
 entID smallint null,
 -- (entID) Kan inte tilldelas till en specifik entreprenör vid akut prio.
-sentDate timestamp,
-startDate timestamp,
--- kanske ha endDate också
+sentDate datetime,
+-- ändrade från timestamp till datetime pga att det blev fel datum i finnishedworkorder när man flyttade över
+endDate timestamp,
 priority enum('high','medium','low','akut'),
 info varchar(1024),
+EntComment varchar(1024),
+primary key (orderID),
+foreign key (skiID) references Ski(skiID),
+foreign key (entID) references Ent(entID)
+)engine=innodb;
+
+
+-- tabell för arbetsorder
+create table FinnishedWorkOrder (
+orderID int not null unique,
+skiID smallint not null,
+entID smallint not null,
+-- not null här pga den som genomförde arbetet
+sentDate datetime,
+endDate timestamp,
+priority enum('high','medium','low','akut'),
+info varchar(1024),
+EntComment varchar(1024),
 primary key (orderID),
 foreign key (skiID) references Ski(skiID),
 foreign key (entID) references Ent(entID)
@@ -144,7 +162,7 @@ name smallint not null,
 orderID int not null,
 -- Kanske lägga till datum för pågående arbete eller annat?
 primary key (orderID, name),
-foreign key (orderID) references WorkOrder(orderID),
+foreign key (orderID) references WorkOrder(orderID)ON DELETE CASCADE,
 foreign key (name) references SubPlace(name)
 )engine=innodb;
 
@@ -187,10 +205,10 @@ insert into Place (name, info) values
 ('Garage','Garage för pistmaskiner');
 
 
-insert into WorkOrder (skiID, entID, sentDate, startDate, priority, info) values
-('1','1',now(),'2016-11-02','akut','ligger en död uteliggare på spåret'),
-('1','2',now(),'2016-11-03','high',''),
-('1','3',now(),'2016-11-04','medium','');
+insert into WorkOrder (skiID, entID, sentDate, endDate, priority, info) values
+('1','1',now(),'','akut','ligger en död uteliggare på spåret'),
+('1','2',now(),'','high','träd som ligger över spåren'),
+('1','3',now(),'','medium','grus vid lerdalen');
 
 
 insert into Comment (comment, alias, date) values 
@@ -246,4 +264,4 @@ insert into CommentSubPlace (CommentID, name) values
 ('1','1'),
 ('3','2'),
 ('3','3');
-
+*/

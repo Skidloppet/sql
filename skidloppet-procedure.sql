@@ -8,7 +8,7 @@ PROCEDURER FÖR SKIDLOPPET AB -Innehållsförteckning
 6. procedur för att flytta/status snökanon
 7. procedure för Rapportering
 8. procedure för nya kommentarer
-9. procedur för nya felmedelanden
+9. procedur för nya felanmälan
 10. Lägg till ny arbetsorder
 */
 
@@ -91,9 +91,6 @@ END; //
 DELIMITER ;
 -- call NewCannon('11','MO11','off','12');
 -- select * from Cannon;
-
-
-
 
 
 -- fungerar ej
@@ -216,7 +213,7 @@ call _NewComment ('en kommentar på några spår','kalle',now(),'3','1');
 
 
 
--- 9. Procedure för nya felmedelanden
+-- 9. Procedure för nya felanmälan
 DROP PROCEDURE IF EXISTS _NewError;
 
 DELIMITER //
@@ -326,3 +323,34 @@ DELIMITER ;
 SELECT * FROM SubPlace where name<"21" ORDER BY name;
 
 SELECT * FROM Comment;
+
+
+
+
+
+-- 10. skapa färdig arbetsorder (logg)
+
+-- PROBLEM MED ATT SÄTTA IN KOMMENTAREN I NYA FINNISHED TABELLEN!!!!
+
+DROP PROCEDURE IF EXISTS _finnishedWorkOrder;
+DELIMITER //
+CREATE PROCEDURE _finnishedWorkOrder (finnishedOrderID int,finnishedEntID smallint, finnishedDate timestamp, finnishedComment varchar(1024))
+
+begin
+
+   UPDATE WorkOrder SET endDate=finnishedDate and entID=finnishedEntID and EntComment=finnishedComment WHERE orderID=finnishedOrderID;
+
+   INSERT INTO FinnishedWorkOrder(orderID, skiID, entID, sentDate, endDate, priority, info, EntComment)
+   SELECT orderID, skiID, entID, sentDate, endDate, priority, info, EntComment
+   FROM WorkOrder
+   WHERE orderID=finnishedOrderID;
+   
+   DELETE FROM WorkOrder where orderID=finnishedOrderID;
+   
+   COMMIT ;
+END //
+DELIMITER ;
+
+-- call _finnishedWorkOrder('1','1',now(),'nu är den avklarad, inga större problem');
+-- select * from WorkOrder;
+-- select * from FinnishedWorkOrder;
