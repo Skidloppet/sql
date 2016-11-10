@@ -3,6 +3,12 @@ create database SlitABSkidloppet;
 use SlitABSkidloppet;
 
 
+-- Tabell för inloggningsförsök (anti brute-force)
+create table login_attempts(
+userID int(11) not null,
+time varchar (30) not null
+)engine=innodb;
+
 -- Tabell för Skidloppet anställda
 create table Ski(
 skiID smallint not null auto_increment unique,

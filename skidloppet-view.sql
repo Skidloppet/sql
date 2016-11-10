@@ -28,11 +28,11 @@ Vy för snö och konstsnö
 DROP VIEW IF EXISTS AllUsers;
 CREATE VIEW AllUsers AS
     SELECT 
-        email, password
+        skiID as id, email, password
     FROM
         Ski 
     UNION SELECT 
-        email, password
+        entID as id, email, password
     FROM
         Ent;
 -- select * from AllUsers;
@@ -66,7 +66,7 @@ SubPlaceWorkOrder.name
 FROM 	WorkOrder, SubPlaceWorkOrder
 WHERE	WorkOrder.orderID = SubPlaceWorkOrder.orderID;
 
-Select * From WorkOrdersAndPlaces;
+-- Select * From WorkOrdersAndPlaces;
 
 -- Bör skapa så man kan se snittet på den specifika delsträckan, SubPlace.name!Med (avg)? (count)?
 
