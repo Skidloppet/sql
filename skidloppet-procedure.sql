@@ -9,7 +9,24 @@ PROCEDURER FÖR SKIDLOPPET AB -Innehållsförteckning
 7. procedure för Rapportering
 8. procedure för nya kommentarer
 9. procedur för nya felanmälan
-10. Lägg till ny arbetsorder
+10. procedur för att lägg till ny arbetsorder
+11. procedur för avklarad arbetsorder
+
+
+Kvar att göra:
+- implementera SMS för akut arbetsorder (10._newWorkOrder & NyArbetsOrder.php).
+- ändra .8 _NewComment så man kan ange spårskick också. alt. redigera 7. _NewReport så den fungerar för kund
+- ändra .11 _finnishedWorkOrder så man även kan automatiskt flytta/ändra sttus på snkökanoner (om det var arbetsordern)
+- ny procedur för att acceptera skut order (ändra ansvar till den entID som accepterar)
+- procedurer för notiser till ENT & SKI
+- procedur för att ta bort arbetsorder
+- procedur för att ta bort arbetsorder(val för borttagning eller loggning(genomförd))
+- procedur för automatiskt borttagning av kommentarer 48h
+- procedur för att beställa snö (ex. flytta kanon & ha den igång x timmar?)
+- procedur för att sätta en tävlingsarbetsorder (arbetsorder som berör allt?!) LÅG PRIO
+- 
+
+
 */
 
 
@@ -328,7 +345,7 @@ SELECT * FROM Comment;
 
 
 
--- 10. skapa färdig arbetsorder (logg)
+-- 11. skapa färdig arbetsorder (logg)
 
 -- PROBLEM MED ATT SÄTTA IN KOMMENTAREN I NYA FINNISHED TABELLEN!!!!
 

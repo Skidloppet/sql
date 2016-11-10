@@ -1,7 +1,8 @@
 drop database SlitABSkidloppet;
 create database SlitABSkidloppet;
 use SlitABSkidloppet;
--- asdasd
+
+
 -- Tabell för Skidloppet anställda
 create table Ski(
 skiID smallint not null auto_increment unique,
