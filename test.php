@@ -29,7 +29,7 @@ tr:hover {
 <body>
 <!--
 Här kan man skriva kommentarer..
-test
+
 Nedanför kan man skriva php kod..
 -->
 

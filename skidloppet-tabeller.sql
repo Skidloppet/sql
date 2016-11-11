@@ -4,6 +4,7 @@ use SlitABSkidloppet;
 
 
 -- Tabell för inloggningsförsök (anti brute-force)
+-- 
 create table login_attempts(
 userID int(11) not null,
 time varchar (30) not null
@@ -84,6 +85,7 @@ create table Comment(
 commentID int auto_increment unique,
 comment varchar(1024) not null,
 alias varchar(32) not null,
+-- lägg till kolumn för skicket
 date timestamp,
 primary key (commentID)
 )engine=innodb;
@@ -98,6 +100,7 @@ entID smallint null,
 length mediumint,
 height smallint,
 fakesnow smallint,
+-- fakesnow kommer nollställas när en arbetsorder hämtar snö, kommer öka när kanoner har status on * tid * effekt
 primary key (name),
 foreign key (placeName) references Place(name),
 foreign key (entID) references Ent(entID)

@@ -24,7 +24,6 @@ Kvar att göra:
 - procedur för automatiskt borttagning av kommentarer 48h
 - procedur för att beställa snö (ex. flytta kanon & ha den igång x timmar?)
 - procedur för att sätta en tävlingsarbetsorder (arbetsorder som berör allt?!) LÅG PRIO
-- 
 
 
 */
@@ -38,7 +37,7 @@ DELIMITER //
 CREATE PROCEDURE CreateEnt(pass varchar(32), firstName varchar(32), lastName varchar(32), email varchar (64), number int(10))
 BEGIN
     DECLARE encryptedpassword VARCHAR(32);
-    set encryptedpassword=LEFT(PASSWORD(pass),32);
+    set encryptedpassword=LEFT(PASSWORD(pass),32); -- krypterar lösenorder
     INSERT INTO Ent(password, firstName, lastName, email, number, regDate) VALUES (encryptedpassword, firstName, lastName, email, number, NOW());
 IF exists(select email from Ski where Ski.email=email)>0 THEN
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'This email is already taken by Skidloppet';
@@ -213,7 +212,7 @@ INSERT INTO Comment (comment, alias, date) values (newComment, newAlias, newDate
 set LastInsert = last_insert_id();
 
 SET nameCounter = startName;
-
+-- gör en if sats som kollar om det första värdet är större, därefter gör 2 whileloopar där ena adderar och andra subtraherar
 WHILE nameCounter<=endName DO
 
 	insert into CommentSubPlace(name, commentID) values (nameCounter, LastInsert);
