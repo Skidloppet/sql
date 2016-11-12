@@ -47,6 +47,7 @@ Nedanför kan man skriva php kod..
 	<div>
 		<h3>finnish workorder</h3>
 		<h3>KOMMENTAREN KOMMER EJ MED!</h3>
+		<h3>GÅ IGENOM DEN FELAKTIGA PROCEDUREN!</h3>
 
 		<form action='<?php $_PHP_SELF ?>' method='POST'>
 			<input type="text" name="orderID" placeholder="orderID..">
