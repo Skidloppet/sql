@@ -4,6 +4,7 @@ use SlitABSkidloppet;
 
 
 -- Tabell för inloggningsförsök (anti brute-force)
+-- 
 create table login_attempts(
 userID int(11) not null,
 time varchar (30) not null
@@ -84,6 +85,7 @@ create table Comment(
 commentID int auto_increment unique,
 comment varchar(1024) not null,
 alias varchar(32) not null,
+grade tinyint,
 date timestamp,
 primary key (commentID)
 )engine=innodb;
@@ -97,7 +99,12 @@ realName varchar (32) not null,
 entID smallint null,
 length mediumint,
 height smallint,
+<<<<<<< HEAD
 fakesnow smallint,-- kubikmeter
+=======
+fakesnow smallint,
+-- fakesnow kommer nollställas när en arbetsorder hämtar snö, kommer öka när kanoner har status on * tid * effekt
+>>>>>>> d31b07d726c49889ae71f4380cc216ad5b52f4e6
 primary key (name),
 foreign key (placeName) references Place(name),
 foreign key (entID) references Ent(entID)
@@ -219,12 +226,13 @@ insert into WorkOrder (skiID, entID, sentDate, endDate, priority, info) values
 ('1','2',now(),'','low','sten');
 
 
-insert into Comment (comment, alias, date) values 
-('blabla','Stina','2017-12-31'),
-('oj vilka spår','göran p','2016-12-24'),
-('jävla kottar och grus i spåren','gunde svan','2017-01-01');
+insert into Comment (comment,grade, alias, date) values 
+('blabla','2','Stina','2017-12-31'),
+('oj vilka spår','4','göran p','2016-12-24'),
+('jävla kottar och grus i spåren','1','gunde svan','2017-01-01');
 
-
+select avg(grade) from Comment;
+select grade from Comment;
 insert into SubPlace (name, placeName, realName, entID, length, height, fakesnow) values 
 ('1','Delsträckor','Hedemora 1:3','1','12','21','23'),
 ('2','Delsträckor','Hedemora 2:3','2','17','476','11'),

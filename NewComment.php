@@ -49,6 +49,14 @@ include'connect.php';
 		<textarea rows="5" cols="70" name="comment" placeholder="freetext comment"></textarea>
 		</br>
 		<input type="text" name="alias" placeholder="Alias..">
+		<select name='grade'>
+			<option selected="selected">Betygsätt spåren</option>
+			<option value="1">1 - Ej åkbart</option>
+			<option value="2">2 - Undermåliga spår</option>
+			<option value="3">3 - Okej</option>
+			<option value="4">4 - Bra spår</option>
+			<option value="5">5 - Perfekt</option>
+		</select>
 	    <select size='1' name='startName'>
 	    	<option selected="selected"> Choose startingpoint </option>
 			    <?php    
@@ -80,11 +88,12 @@ include'connect.php';
 
 	if(isset($_POST['CreateComment'])){
 
-    $sql = "CALL _NewComment(:newComment, :newAlias, now(), :startName, :endName);";
+    $sql = "CALL _NewComment(:newComment, :newAlias, :newGrade, now(), :startName, :endName);";
     $stmt = $pdo->prepare($sql);
 
     $stmt->bindParam(":newComment", $_POST['comment'], PDO::PARAM_STR);
     $stmt->bindParam(":newAlias", $_POST['alias'], PDO::PARAM_STR);
+    $stmt->bindParam(":newGrade", $_POST['grade'], PDO::PARAM_INT);
     $stmt->bindParam(":startName", $_POST['startName'], PDO::PARAM_INT);
     $stmt->bindParam(":endName", $_POST['endName'], PDO::PARAM_INT);
     $stmt->execute();
@@ -100,6 +109,7 @@ include'connect.php';
 		        echo "<th>commentID</th>"; 
 		        echo "<th>comment</th>"; 
 		        echo "<th>alias</th>"; 
+		        echo "<th>grade</th>"; 
 		        echo "<th>date</th>"; 
 		        echo "</tr>";
 
@@ -110,6 +120,7 @@ include'connect.php';
 		        echo "<td>".$row['commentID']."</td>";
 		        echo "<td>".$row['comment']."</td>";
 		        echo "<td>".$row['alias']."</td>";
+		        echo "<td>".$row['grade']."</td>";
 		        echo "<td>".$row['date']."</td>";
 		        echo "</tr>";  
 		    }

@@ -29,7 +29,12 @@ tr:hover {
 <body>
 <!--
 Här kan man skriva kommentarer..
-test
+
+<<<<<<< HEAD
+=======
+
+terdsgfddfg
+>>>>>>> fcc0b9d45a2c9aa50efe7bb710cbf8a228c72b34
 Nedanför kan man skriva php kod..
 -->
 
