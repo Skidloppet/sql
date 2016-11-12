@@ -25,6 +25,7 @@ Kvar att göra:
 - procedur för att beställa snö (ex. flytta kanon & ha den igång x timmar?)
 - procedur för att sätta en tävlingsarbetsorder (arbetsorder som berör allt?!) LÅG PRIO
 
+ändra procedure N:M så den räknar ner vid baklänges åkning
 
 */
 

@@ -42,8 +42,11 @@ include'connect.php';
 	<h3>NEW ERROR</h3>
 	<form action='<?php $_PHP_SELF ?>' method='POST'>
 		<textarea rows="5" cols="70" name="desc" placeholder="please describe the problem explicit here.."></textarea>
+		</br>
+		<p>Ange graden av problemets påverkan</p>
+
 		<select name='grade'>
-			<option selected="selected">	Ange hur pressande ärendet är</option>
+			<option selected="selected"> Sätt nivå</option>
 			<option value="low">Lågt - Påverkar knappt</option>
 			<option value="medium">Medium - Påverkar en del</option>
 			<option value="high">Hög - Påverkar mycket</option>
