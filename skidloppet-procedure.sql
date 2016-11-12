@@ -15,7 +15,7 @@ PROCEDURER FÖR SKIDLOPPET AB -Innehållsförteckning
 
 Kvar att göra:
 - implementera SMS för akut arbetsorder (10._newWorkOrder & NyArbetsOrder.php).
-- ändra .8 _NewComment så man kan ange spårskick också. alt. redigera 7. _NewReport så den fungerar för kund
+-  redigera 7. _NewReport så den fungerar för kund
 - ändra .11 _finnishedWorkOrder så man även kan automatiskt flytta/ändra sttus på snkökanoner (om det var arbetsordern)
 - ny procedur för att acceptera skut order (ändra ansvar till den entID som accepterar)
 - procedurer för notiser till ENT & SKI
@@ -187,6 +187,7 @@ DELIMITER //
 CREATE PROCEDURE _NewComment (
 newComment varchar(1024),
 newAlias varchar (32),
+newGrade tinyint,
 newDate timestamp,
 startName tinyint,
 endName tinyint
@@ -207,7 +208,7 @@ set endName = switch;
 set startName = switch2;
 end if;
 
-INSERT INTO Comment (comment, alias, date) values (newComment, newAlias, newDate);
+INSERT INTO Comment (comment, grade, alias, date) values (newComment, newGrade, newAlias, newDate);
 
 set LastInsert = last_insert_id();
 
@@ -223,7 +224,7 @@ COMMIT ;
 END //
 DELIMITER ;
 
-call _NewComment ('en kommentar på några spår','kalle',now(),'3','1');
+call _NewComment ('en kommentar på några spår','kalle','2',now(),'3','1');
 -- call _NewComment ('NY comment, bögjävel!','rasselasse',now(),'1','2');
 -- select * from CommentSubPlace;
 
