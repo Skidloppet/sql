@@ -97,7 +97,7 @@ realName varchar (32) not null,
 entID smallint null,
 length mediumint,
 height smallint,
-fakesnow smallint,
+fakesnow smallint,-- kubikmeter
 primary key (name),
 foreign key (placeName) references Place(name),
 foreign key (entID) references Ent(entID)
@@ -212,10 +212,11 @@ insert into Place (name, info) values
 ('Garage','Garage för pistmaskiner');
 
 
-insert into WorkOrder (skiID, entID, sentDate, endDate, priority, info) values
+insert into WorkOrder (skiID, entID, sentDate, endDate, priority, info) values 
 ('1','1',now(),'','akut','ligger en död uteliggare på spåret'),
 ('1','2',now(),'','high','träd som ligger över spåren'),
-('1','3',now(),'','medium','grus vid lerdalen');
+('1','3',now(),'','medium','grus vid lerdalen'),
+('1','2',now(),'','low','sten');
 
 
 insert into Comment (comment, alias, date) values 
