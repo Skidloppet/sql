@@ -225,7 +225,7 @@ COMMIT ;
 END //
 DELIMITER ;
 
-call _NewComment ('en kommentar på några spår','kalle','2',now(),'3','1');
+-- call _NewComment ('en kommentar på några spår','kalle','2',now(),'3','1');
 -- call _NewComment ('NY comment, bögjävel!','rasselasse',now(),'1','2');
 -- select * from CommentSubPlace;
 
@@ -338,37 +338,28 @@ DELIMITER ;
 -- CALL _newWorkOrder (1, 2, now(), 'low', 'KOTTAR ÖVERALLT RÄDDA MIG', 1, 3);
 -- select * from WorkOrdersAndPlaces;
 -- Select * From Reporting;
-SELECT * FROM SubPlace where name<"21" ORDER BY name;
-
-SELECT * FROM Comment;
-
-
-
+-- SELECT * FROM SubPlace where name<"21" ORDER BY name;
+-- SELECT * FROM Comment;
 
 
 -- 11. skapa färdig arbetsorder (logg)
 
--- PROBLEM MED ATT SÄTTA IN KOMMENTAREN I NYA FINNISHED TABELLEN!!!!
-
+-- problem med att få proceduren nedan att fungera, prövat flera lösningsalternativ utan resultat. hjälp sökes
 DROP PROCEDURE IF EXISTS _finnishedWorkOrder;
 DELIMITER //
 CREATE PROCEDURE _finnishedWorkOrder (finnishedOrderID int,finnishedEntID smallint, finnishedDate timestamp, finnishedComment varchar(1024))
 
 begin
-
-   UPDATE WorkOrder SET endDate=finnishedDate and entID=finnishedEntID and EntComment=finnishedComment WHERE orderID=finnishedOrderID;
-
-   INSERT INTO FinnishedWorkOrder(orderID, skiID, entID, sentDate, endDate, priority, info, EntComment)
-   SELECT orderID, skiID, entID, sentDate, endDate, priority, info, EntComment
-   FROM WorkOrder
-   WHERE orderID=finnishedOrderID;
-   
-   DELETE FROM WorkOrder where orderID=finnishedOrderID;
-   
+   insert into FinnishedWorkOrder (orderID, entID, endDate, EntComment) values (finnishedOrderID, finnishedEntID, finnishedDate, finnishedComment);
+   /*update FinnishedWorkOrder 
+   set skiID = WorkOrder.skiID, sentDate = WorkOrder.sentDate, prio = WorkOrder.priority, info = WorkOrder.info
+   from WorkDate
+   where FinnishedWorkOrder.orderID = WorkOrder.orderID;
+   */DELETE FROM WorkOrder where orderID=finnishedOrderID;
    COMMIT ;
 END //
 DELIMITER ;
 
--- call _finnishedWorkOrder('1','1',now(),'nu är den avklarad, inga större problem');
+-- call _finnishedWorkOrder('1','1',now(),'text');
 -- select * from WorkOrder;
 -- select * from FinnishedWorkOrder;

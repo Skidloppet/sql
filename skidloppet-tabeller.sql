@@ -66,7 +66,7 @@ foreign key (entID) references Ent(entID)
 -- tabell för arbetsorder
 create table FinnishedWorkOrder (
 orderID int not null unique,
-skiID smallint not null,
+-- skiID smallint not null,
 entID smallint not null,
 -- not null här pga den som genomförde arbetet
 sentDate datetime,
@@ -75,7 +75,7 @@ priority enum('high','medium','low','akut'),
 info varchar(1024),
 EntComment varchar(1024),
 primary key (orderID),
-foreign key (skiID) references Ski(skiID),
+-- foreign key (skiID) references Ski(skiID),
 foreign key (entID) references Ent(entID)
 )engine=innodb;
 
@@ -99,12 +99,8 @@ realName varchar (32) not null,
 entID smallint null,
 length mediumint,
 height smallint,
-<<<<<<< HEAD
-fakesnow smallint,-- kubikmeter
-=======
 fakesnow smallint,
--- fakesnow kommer nollställas när en arbetsorder hämtar snö, kommer öka när kanoner har status on * tid * effekt
->>>>>>> d31b07d726c49889ae71f4380cc216ad5b52f4e6
+-- fakesnow kommer nollställas när en arbetsorder hämtar snö, kommer öka när kanoner har status on * tid * effekt (m2)
 primary key (name),
 foreign key (placeName) references Place(name),
 foreign key (entID) references Ent(entID)
@@ -219,11 +215,11 @@ insert into Place (name, info) values
 ('Garage','Garage för pistmaskiner');
 
 
-insert into WorkOrder (skiID, entID, sentDate, endDate, priority, info) values 
-('1','1',now(),'','akut','ligger en död uteliggare på spåret'),
-('1','2',now(),'','high','träd som ligger över spåren'),
-('1','3',now(),'','medium','grus vid lerdalen'),
-('1','2',now(),'','low','sten');
+insert into WorkOrder (skiID, entID, sentDate, endDate, priority, info, EntComment) values 
+('1','1',now(),'','akut','ligger en död uteliggare på spåret', 'text1'),
+('1','2',now(),'','high','träd som ligger över spåren','text2'),
+('1','3',now(),'','medium','grus vid lerdalen','text3'),
+('1','2',now(),'','low','sten','text4');
 
 
 insert into Comment (comment,grade, alias, date) values 
@@ -231,8 +227,8 @@ insert into Comment (comment,grade, alias, date) values
 ('oj vilka spår','4','göran p','2016-12-24'),
 ('jävla kottar och grus i spåren','1','gunde svan','2017-01-01');
 
-select avg(grade) from Comment;
-select grade from Comment;
+-- select avg(grade) from Comment;
+-- select grade from Comment;
 insert into SubPlace (name, placeName, realName, entID, length, height, fakesnow) values 
 ('1','Delsträckor','Hedemora 1:3','1','12','21','23'),
 ('2','Delsträckor','Hedemora 2:3','2','17','476','11'),
