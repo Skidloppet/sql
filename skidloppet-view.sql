@@ -4,24 +4,22 @@
 2. Vy för allt dagligt arbete & delsträckor
 3. Vy för arbetsorder och delsträckor
 4. Vy för snökannoner
-5. Vy För snökannoner
+5. Vy för akuta arbetsordrar
 6. Vy för kundkommentar
+7. Vy för senaste rapporten på en delsträcka
+8. Vy för senaste statusen på del-sträcka (överblicks-kartan)
+9. Vy för status på del-sträcka (KUND-VY)
+10. Vy för status på del-sträcka (SKI-VY)
+11. Vy för snökanoner och konstsnöstatus på del-sträcka
+
 KVAR ATT GÖRA!
 
 Vy för inskickade felanälningar (Error från kund & ent)ink. procedure för borttagning
 Vy för avklarade arbesordrar (finnishedWorkOrder)
-Vy för skick per sträcka(inte del-sträcka)
-Vy för detaljerat skick på delsträcka (ink Ent report & kund kommentar & snitt av båda)
-VY för samma som ovan men ink. vem som ansvarar över sträckan och ev. extra info
 Vy för entrepenörer samt senaste genomförd arbetsorder, arbete & nästa planerade
 
-
 Vy för inkommande arbetsordrar
-
-Vy för snö och konstsnö
 */
-
-
 
 
 -- 1. Vy för alla användare
@@ -37,7 +35,6 @@ CREATE VIEW AllUsers AS
     FROM
         Ent;
 -- select * from AllUsers;
-
 
 
 -- 2. Vy för allt dagligt arbete & delsträckor
@@ -69,59 +66,7 @@ WHERE	WorkOrder.orderID = SubPlaceWorkOrder.orderID;
 
 -- Select * From WorkOrdersAndPlaces;
 
--- denna vyn hämtar den senaste rapportID för en del-sträcka
-DROP VIEW IF EXISTS overview;
 
-create view overview as
-SELECT ReportSubPlace.name as rspName, max(ReportSubPlace.reportID) as rspID
-from ReportSubPlace
-group by ReportSubPlace.name;
-
--- denna vyn hämtar rating från senaste rapporten på en viss del-sträcka.
--- select * from ReportSubPlace;
-DROP VIEW IF EXISTS overview2;
-
-create view overview2 as
-select rspName,rating from overview, Report where reportID = rspID;
-
-select * from overview2;
-
-
-
--- denna vyn hämtar detaljerad information om del-sträckan (KUNDVY)
-DROP VIEW IF EXISTS overview3;
-
-create view overview3 as
-select rspName, startDate, rating, underlay, edges, grip, depth, length, height, realname 
-from overview, Report, SubPlace
-where reportID = rspID and rspName = SubPlace.name;
-
-select * from overview3;
-
--- denna vyn hämtar detaljerad information om rapport på vald del-sträcka (SKI-VY)
-DROP VIEW IF EXISTS overview3;
-
-create view overview3 as
-select rspName, Report.entID as ReportEnt, workDate, startDate, rating, underlay, edges, grip, depth, realName, SubPlace.entID as SubPlaceEnt, length, height, fakesnow
-from overview, Report, SubPlace
-where reportID = rspID and rspName = SubPlace.name;
-
-select * from overview3;
-
-
--- denna vyn hämtar detaljerad information om snökanonerna på vald del-sträcka (SKI-VY)
-DROP VIEW IF EXISTS overview4;
-
-create view overview4 as
-select realName, fakesnow, cannonID, model, status, effect
-from overview, SubPlace, Cannon
-where Cannon.subPlaceName = SubPlace.name and rspName = SubPlace.name;
-
-select * from overview4;
-
-<<<<<<< HEAD
-=======
--- SELECT * FROM Report;
 
 -- 4. Vy för snökannoner
 DROP VIEW IF EXISTS SnowCannons;
@@ -131,6 +76,8 @@ Cannon.cannonID, Cannon.subPlaceName,Cannon.model,Cannon.effect
 FROM Cannon
 WHERE Cannon.CannonID >0; 
 -- SELECT * FROM SnowCannons;
+
+
 
 -- 5. Vy för akuta arbetsordrar
 DROP VIEW IF EXISTS UrgentWorkOrder;
@@ -142,10 +89,78 @@ FROM WorkOrder
 WHERE WorkOrder.priority='akut';
 -- SELECT * FROM UrgentWorkOrder;
 
+
+
 -- 6. Vy för kund kommentar
 DROP VIEW IF EXISTS CustommerComment;
 CREATE VIEW CustommerComment AS
 SELECT * FROM Comment
 WHERE CommentID >0;
 -- SELECT * FROM  Comment;
->>>>>>> origin
+
+
+
+-- 7. Vy för senaste rapporten på en delsträcka
+-- denna vyn hämtar den senaste rapportID för en del-sträcka
+DROP VIEW IF EXISTS overview;
+
+create view overview as
+SELECT ReportSubPlace.name as rspName, max(ReportSubPlace.reportID) as rspID
+from ReportSubPlace
+group by ReportSubPlace.name;
+
+-- denna vyn hämtar rating från senaste rapporten på en viss del-sträcka.
+-- select * from ReportSubPlace;
+
+
+
+
+-- 8. Vy för senaste statusen på del-sträcka (överblicks-kartan)
+DROP VIEW IF EXISTS overview2;
+
+create view overview2 as
+select rspName,rating from overview, Report where reportID = rspID;
+
+-- select * from overview2;
+
+
+
+
+-- 9. Vy för status på sträcka (överblicks-kartan)
+-- denna vyn hämtar detaljerad information om del-sträckan (KUNDVY)
+DROP VIEW IF EXISTS overview3;
+
+create view overview3 as
+select rspName, startDate, rating, underlay, edges, grip, depth, length, height, realname 
+from overview, Report, SubPlace
+where reportID = rspID and rspName = SubPlace.name;
+
+-- select * from overview3;
+
+
+
+-- 10. Vy för detaljerad spårningsinformation på del-sträcka
+-- denna vyn hämtar detaljerad information om rapport på vald del-sträcka (SKI-VY)
+DROP VIEW IF EXISTS overview3;
+
+create view overview3 as
+select rspName, Report.entID as ReportEnt, workDate, startDate, rating, underlay, edges, grip, depth, realName, SubPlace.entID as SubPlaceEnt, length, height, fakesnow
+from overview, Report, SubPlace
+where reportID = rspID and rspName = SubPlace.name;
+
+-- select * from overview3;
+
+
+
+
+-- 11. Vy för snökanoner och konstsnöstatus på del-sträcka
+-- denna vyn hämtar detaljerad information om snökanonerna på vald del-sträcka (SKI-VY)
+DROP VIEW IF EXISTS overview4;
+
+create view overview4 as
+select realName, fakesnow, cannonID, model, status, effect
+from overview, SubPlace, Cannon
+where Cannon.subPlaceName = SubPlace.name and rspName = SubPlace.name;
+
+-- select * from overview4;
+
