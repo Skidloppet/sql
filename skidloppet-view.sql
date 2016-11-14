@@ -3,7 +3,8 @@
 1. Vy för alla användare
 2. Vy för allt dagligt arbete & delsträckor
 3. Vy för arbetsorder och delsträckor
-4.
+4. Vy för snökannoner
+5. Vy För snökannoner
 
 KVAR ATT GÖRA!
 
@@ -71,3 +72,24 @@ WHERE	WorkOrder.orderID = SubPlaceWorkOrder.orderID;
 -- Bör skapa så man kan se snittet på den specifika delsträckan, SubPlace.name!Med (avg)? (count)?
 
 -- SELECT * FROM Report;
+
+-- 4. Vy för snökannoner
+DROP VIEW IF EXISTS SnowCannons;
+CREATE VIEW SnowCannons AS
+SELECT
+Cannon.cannonID, Cannon.subPlaceName,Cannon.model,Cannon.effect
+FROM Cannon
+WHERE Cannon.CannonID >0; 
+-- SELECT * FROM SnowCannons;
+
+-- 5. Vy för akuta arbetsordrar
+DROP VIEW IF EXISTS UrgentWorkOrder;
+CREATE VIEW UrgentWorkOrder AS
+SELECT
+WorkOrder.orderID,WorkOrder.skiID,WorkOrder.entID,WorkOrder.sentDate,
+WorkOrder.endDate,WorkOrder.priority,WorkOrder.info,WorkOrder.EntComment
+FROM WorkOrder
+WHERE WorkOrder.priority='akut';
+-- SELECT * FROM UrgentWorkOrder;
+
+
