@@ -3,8 +3,9 @@
 1. Vy för alla användare
 2. Vy för allt dagligt arbete & delsträckor
 3. Vy för arbetsorder och delsträckor
-4.
-
+4. Vy för snökannoner
+5. Vy För snökannoner
+6. Vy för kundkommentar
 KVAR ATT GÖRA!
 
 Vy för inskickade felanälningar (Error från kund & ent)ink. procedure för borttagning
@@ -13,10 +14,10 @@ Vy för skick per sträcka(inte del-sträcka)
 Vy för detaljerat skick på delsträcka (ink Ent report & kund kommentar & snitt av båda)
 VY för samma som ovan men ink. vem som ansvarar över sträckan och ev. extra info
 Vy för entrepenörer samt senaste genomförd arbetsorder, arbete & nästa planerade
-Vy för kundkommentarer
+
 
 Vy för inkommande arbetsordrar
-Vy för snökanoner
+
 Vy för snö och konstsnö
 */
 
@@ -118,3 +119,33 @@ where Cannon.subPlaceName = SubPlace.name and rspName = SubPlace.name;
 
 select * from overview4;
 
+<<<<<<< HEAD
+=======
+-- SELECT * FROM Report;
+
+-- 4. Vy för snökannoner
+DROP VIEW IF EXISTS SnowCannons;
+CREATE VIEW SnowCannons AS
+SELECT
+Cannon.cannonID, Cannon.subPlaceName,Cannon.model,Cannon.effect
+FROM Cannon
+WHERE Cannon.CannonID >0; 
+-- SELECT * FROM SnowCannons;
+
+-- 5. Vy för akuta arbetsordrar
+DROP VIEW IF EXISTS UrgentWorkOrder;
+CREATE VIEW UrgentWorkOrder AS
+SELECT
+WorkOrder.orderID,WorkOrder.skiID,WorkOrder.entID,WorkOrder.sentDate,
+WorkOrder.endDate,WorkOrder.priority,WorkOrder.info,WorkOrder.EntComment
+FROM WorkOrder
+WHERE WorkOrder.priority='akut';
+-- SELECT * FROM UrgentWorkOrder;
+
+-- 6. Vy för kund kommentar
+DROP VIEW IF EXISTS CustommerComment;
+CREATE VIEW CustommerComment AS
+SELECT * FROM Comment
+WHERE CommentID >0;
+-- SELECT * FROM  Comment;
+>>>>>>> origin
