@@ -5,7 +5,7 @@
 3. Vy för arbetsorder och delsträckor
 4. Vy för snökannoner
 5. Vy För snökannoner
-
+6. Vy för kundkommentar
 KVAR ATT GÖRA!
 
 Vy för inskickade felanälningar (Error från kund & ent)ink. procedure för borttagning
@@ -14,10 +14,10 @@ Vy för skick per sträcka(inte del-sträcka)
 Vy för detaljerat skick på delsträcka (ink Ent report & kund kommentar & snitt av båda)
 VY för samma som ovan men ink. vem som ansvarar över sträckan och ev. extra info
 Vy för entrepenörer samt senaste genomförd arbetsorder, arbete & nästa planerade
-Vy för kundkommentarer
+
 
 Vy för inkommande arbetsordrar
-Vy för snökanoner
+
 Vy för snö och konstsnö
 */
 
@@ -92,4 +92,9 @@ FROM WorkOrder
 WHERE WorkOrder.priority='akut';
 -- SELECT * FROM UrgentWorkOrder;
 
-
+-- 6. Vy för kund kommentar
+DROP VIEW IF EXISTS CustommerComment;
+CREATE VIEW CustommerComment AS
+SELECT * FROM Comment
+WHERE CommentID >0;
+-- SELECT * FROM  Comment;
