@@ -230,9 +230,12 @@ insert into Comment (comment,grade, alias, date) values
 -- select avg(grade) from Comment;
 -- select grade from Comment;
 insert into SubPlace (name, placeName, realName, entID, length, height, fakesnow) values 
-('1','Delsträckor','Hedemora 1:3','1','12','21','23'),
-('2','Delsträckor','Hedemora 2:3','2','17','476','11'),
-('3','Delsträckor','Hedemora 3:3','3','9','243','0');
+('1','Delsträckor','Hedemora 3:1','1','12','21','23'),
+('2','Delsträckor','Hedemora 3:2','2','17','476','11'),
+('3','Delsträckor','Hedemora 3:3','3','29','376','3'),
+('4','Delsträckor','Hedemora2 3:1','3','12','198','5'),
+('5','Delsträckor','Hedemora2 3:2','3','6','264','1'),
+('6','Delsträckor','Hedemora2 3:3','3','22','333','31');
 
 
 insert into Cannon (subPlaceName, model, status, effect) values
