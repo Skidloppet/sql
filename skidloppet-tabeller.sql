@@ -158,6 +158,7 @@ foreign key (entID) references Ent(entID)
 -- N:M tabell för rapporter till delsträckor
 create table ReportSubPlace(
 reportID int not null,
+stamp timestamp,
 name smallint not null,
 -- Kanske lägga till datum för pågående arbete eller annat?
 primary key (reportID, name),
@@ -193,7 +194,6 @@ primary key (commentID, name),
 foreign key (commentID) references Comment(commentID),
 foreign key (name) references SubPlace(name)
 )engine=innodb;
-
 
 
 
