@@ -301,6 +301,7 @@ newPriority enum('high','medium','low','akut'),
 newInfo varchar(1024),
 startName tinyint,
 endName tinyint
+-- lägga till cannon...?!
 )
 BEGIN
 DECLARE LastInsert int;
@@ -366,3 +367,35 @@ DELIMITER ;
 -- call _finnishedWorkOrder('1','1',now(),'text');
 -- select * from WorkOrder;
 -- select * from FinnishedWorkOrder;
+
+
+
+-- 12. Procedure för nya felanmälan
+DROP PROCEDURE IF EXISTS _newCannonOrder;
+
+DELIMITER //
+CREATE PROCEDURE _newCannonOrder (
+cannonID smallint,
+name smallint,
+entID smallint,
+newStatus enum('on','off','unplugged','broken'))
+BEGIN
+
+INSERT INTO CannonSubPlace (cannonID, name, entID, newStatus) values (cannonID, name, entID, newStatus);
+
+COMMIT ;
+END //
+DELIMITER ;
+
+-- call _newCannonOrder ('1','2','1','on');
+-- select * from CannonSubPlace;
+
+
+-- call _NewError ('mörkt överallt','1',now(),'low','lights','1','3');
+-- call _NewError ('träd över spåret','2',now(),'low','trees','3','1');
+-- select * from ErrorSubPlace;
+
+
+
+
+

@@ -171,6 +171,7 @@ foreign key (name) references SubPlace(name)
 create table SubPlaceWorkOrder(
 name smallint not null,
 orderID int not null,
+cannonID smallint,
 -- Kanske lägga till datum för pågående arbete eller annat?
 primary key (orderID, name),
 foreign key (orderID) references WorkOrder(orderID)ON DELETE CASCADE,
@@ -195,6 +196,21 @@ foreign key (commentID) references Comment(commentID),
 foreign key (name) references SubPlace(name)
 )engine=innodb;
 
+-- N:M tabell för N:M förhållande mellan cannon och sträckor så en arbetsorder kan flytta en eller flera snökanoner.
+-- TRANSAKTION
+create table CannonSubPlace (
+cannonID smallint,
+name smallint,
+entID smallint,
+stamp timestamp,
+newStatus enum('on','off','unplugged','broken'),
+primary key (stamp),
+foreign key (cannonID) references Cannon(cannonID),
+foreign key (name) references SubPlace(name),
+foreign key (entID) references Ent(entID)
+)engine=innodb;
+
+
 
 
 insert into Ski (skiID, password, firstName, lastName, email, number, type, regDate) values
@@ -211,7 +227,7 @@ insert into Ent (entID, password, firstName, lastName, email, number, regDate) v
 
 insert into Place (name, info) values 
 ('Vattendrag','Vattendrag som är tillängliga för snötillverkning'),
-('Delsträckor','Delsträckor som kan användas under vinterhalvåret'),
+('Delstrackor','Delsträckor som kan användas under vinterhalvåret'),
 ('Garage','Garage för pistmaskiner');
 
 
@@ -230,12 +246,13 @@ insert into Comment (comment,grade, alias, date) values
 -- select avg(grade) from Comment;
 -- select grade from Comment;
 insert into SubPlace (name, placeName, realName, entID, length, height, fakesnow) values 
-('1','Delsträckor','Hedemora 3:1','1','12','21','23'),
-('2','Delsträckor','Hedemora 3:2','2','17','476','11'),
-('3','Delsträckor','Hedemora 3:3','3','29','376','3'),
-('4','Delsträckor','Hedemora2 3:1','3','12','198','5'),
-('5','Delsträckor','Hedemora2 3:2','3','6','264','1'),
-('6','Delsträckor','Hedemora2 3:3','3','22','333','31');
+('1','Delstrackor','Hedemora 3:1','1','12','21','23'),
+('2','Delstrackor','Hedemora 3:2','2','17','476','11'),
+('3','Delstrackor','Hedemora 3:3','3','29','376','3'),
+('4','Delstrackor','Hedemora2 3:1','3','12','198','5'),
+('5','Delstrackor','Hedemora2 3:2','3','6','264','1'),
+('55','Garage','HUVUDGARAGET','1','6','264','1'),
+('6','Delstrackor','Hedemora2 3:3','3','22','333','31');
 
 
 insert into Cannon (subPlaceName, model, status, effect) values
