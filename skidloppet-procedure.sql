@@ -212,7 +212,7 @@ set endName = switch;
 set startName = switch2;
 end if;
 
-INSERT INTO Comment (comment, grade, alias, date) values (newComment, newGrade, newAlias, newDate);
+INSERT INTO Commenta (comment, grade, alias, date) values (newComment, newGrade, newAlias, newDate);
 
 set LastInsert = last_insert_id();
 
