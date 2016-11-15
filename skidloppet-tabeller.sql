@@ -221,6 +221,10 @@ insert into WorkOrder (skiID, entID, sentDate, endDate, priority, info, EntComme
 ('1','3',now(),'','medium','grus vid lerdalen','text3'),
 ('1','2',now(),'','low','sten','text4');
 
+insert into FinnishedWorkOrder (OrderID, entID, sentDate, endDate, priority, info, EntComment) values
+('1','1','2016-01-15','','akut','död snubbe på spåret','text1'),
+('3','1','2016-01-17','','low','sten','text2');
+
 
 insert into Comment (comment,grade, alias, date) values 
 ('blabla','2','Stina','2017-12-31'),
@@ -245,9 +249,9 @@ insert into Cannon (subPlaceName, model, status, effect) values
 
 
 insert into Report (entID, startDate, workDate, rating, underlay, edges, grip, depth) values
-('1','2011-11-11','2011-11-11','1','2','3','4','54'),
-('1','2011-11-11','2011-11-11','3','3','2','4','65'),
-('1','2011-11-11','2011-11-11','2','2','4','3','43');
+('1','2011-11-11','2011-09-11','1','2','3','4','54'),
+('1','2011-11-11','2011-10-11','3','3','2','4','65'),
+('1','2011-11-11','2011-12-11','2','2','4','3','43');
 
 /*
 insert into Error (entID, sentDate, grade, errorDesc, type) values 

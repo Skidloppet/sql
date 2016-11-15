@@ -11,16 +11,14 @@
 9. Vy för status på del-sträcka (KUND-VY)
 10. Vy för status på del-sträcka (SKI-VY)
 11. Vy för snökanoner och konstsnöstatus på del-sträcka
-
+12. Vy för avklarade arbetsordrar
 KVAR ATT GÖRA!
 
 Vy för inskickade felanälningar (Error från kund & ent)ink. procedure för borttagning
-Vy för avklarade arbesordrar (finnishedWorkOrder)
-Vy för entrepenörer samt senaste genomförd arbetsorder, arbete & nästa planerade
 
 Vy för inkommande arbetsordrar
 */
-
+ 
 
 -- 1. Vy för alla användare
 -- Vy för att skapa en entreprenör
@@ -176,3 +174,20 @@ where Cannon.subPlaceName = SubPlace.name and rspName = SubPlace.name;
 
 -- select * from overview4;
 
+-- 12. Vy för avklarade arbesordrar 
+
+DROP VIEW IF EXISTS finnishedWorkOrder;
+CREATE VIEW finnishedWorkOrder AS
+	SELECT FinnishedWorkOrder.orderID,FinnishedWorkOrder.entID,FinnishedWorkOrder.sentDate,FinnishedWorkOrder.endDate,
+    FinnishedWorkOrder.priority,FinnishedWorkOrder.info,FinnishedWorkOrder.EntComment
+	FROM FinnishedWorkOrder,WorkOrder
+	WHERE WorkOrder.orderID=FinnishedWorkOrder.orderID;
+
+-- select * from finnishedWorkOrder;
+
+-- Vy för entrepenörer samt senaste genomförd arbetsorder, arbete & nästa planerade
+DROP VIEW IF EXISTS lastWorkOrderEnt;
+CREATE VIEW lastWorkOrderEnt AS
+	SELECT max(FinnishedWorkOrder.OrderID),max(Report.workDate) 
+    FROM FinnishedWorkOrder,Report;
+select * from lastWorkOrderEnt
