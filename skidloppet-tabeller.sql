@@ -81,7 +81,7 @@ foreign key (entID) references Ent(entID)
 
 
 -- tabell för kundkommentarer
-create table Comment(
+create table Commenta(
 commentID int auto_increment unique,
 comment varchar(1024) not null,
 alias varchar(32) not null,
@@ -191,7 +191,7 @@ CommentID int not null,
 name smallint not null,
 -- Kanske lägga till datum för att ta bort gamla kommentarer?
 primary key (commentID, name),
-foreign key (commentID) references Comment(commentID),
+foreign key (commentID) references Commenta(commentID),
 foreign key (name) references SubPlace(name)
 )engine=innodb;
 
@@ -226,7 +226,7 @@ insert into FinnishedWorkOrder (OrderID, entID, sentDate, endDate, priority, inf
 ('3','1','2016-01-17','','low','sten','text2');
 
 
-insert into Comment (comment,grade, alias, date) values 
+insert into Commenta (comment,grade, alias, date) values 
 ('blabla','2','Stina','2017-12-31'),
 ('oj vilka spår','4','göran p','2016-12-24'),
 ('jävla kottar och grus i spåren','1','gunde svan','2017-01-01');

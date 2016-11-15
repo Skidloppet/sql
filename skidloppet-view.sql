@@ -92,7 +92,7 @@ WHERE WorkOrder.priority='akut';
 -- 6. Vy för kund kommentar
 DROP VIEW IF EXISTS CustommerComment;
 CREATE VIEW CustommerComment AS
-SELECT * FROM Comment
+SELECT * FROM Commenta
 WHERE CommentID >0;
 -- SELECT * FROM  Comment;
 
