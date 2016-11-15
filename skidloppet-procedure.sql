@@ -11,8 +11,8 @@ PROCEDURER FÖR SKIDLOPPET AB -Innehållsförteckning
 9. procedur för nya felanmälan
 10. procedur för att lägg till ny arbetsorder
 11. procedur för avklarad arbetsorder
-12. procedur för att ta bort arbetsorder
-
+12. Procedure för nya cannon arbetsordrar
+13. procedur för att ta bort arbetsorder
 
 Kvar att göra:
 - implementera SMS för akut arbetsorder (10._newWorkOrder & NyArbetsOrder.php).
@@ -418,9 +418,7 @@ DELIMITER ;
 -- select * from FinnishedWorkOrder;
 
 
-<<<<<<< HEAD
-
--- 12. Procedure för nya felanmälan
+-- 12. Procedure för nya cannon arbetsordrar
 DROP PROCEDURE IF EXISTS _newCannonOrder;
 
 DELIMITER //
@@ -446,12 +444,7 @@ DELIMITER ;
 -- select * from ErrorSubPlace;
 
 
-
-
-
-=======
--- procedur för att ta bort arbetsorder
-
+-- 13. procedur för att ta bort arbetsorder
 DROP PROCEDURE IF EXISTS _deleteWorkOrder;
 DELIMITER //
 
@@ -472,5 +465,4 @@ DELIMITER ;
 
 -- CALL _deleteWorkOrder(5);
 
-SELECT * FROM WorkOrder;
->>>>>>> e10282939ea8f3687f50758df0baddc426d9c423
+-- SELECT * FROM WorkOrder;
