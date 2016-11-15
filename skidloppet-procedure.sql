@@ -11,6 +11,7 @@ PROCEDURER FÖR SKIDLOPPET AB -Innehållsförteckning
 9. procedur för nya felanmälan
 10. procedur för att lägg till ny arbetsorder
 11. procedur för avklarad arbetsorder
+12. procedur för att ta bort arbetsorder
 
 
 Kvar att göra:
@@ -19,7 +20,6 @@ Kvar att göra:
 - ändra .11 _finnishedWorkOrder så man även kan automatiskt flytta/ändra sttus på snkökanoner (om det var arbetsordern)
 - ny procedur för att acceptera skut order (ändra ansvar till den entID som accepterar)
 - procedurer för notiser till ENT & SKI
-- procedur för att ta bort arbetsorder
 - procedur för att ta bort arbetsorder(val för borttagning eller loggning(genomförd))
 - procedur för automatiskt borttagning av kommentarer 48h
 - procedur för att beställa snö (ex. flytta kanon & ha den igång x timmar?)
@@ -235,6 +235,7 @@ DELIMITER ;
 
 
 -- 9. Procedure för nya felanmälan
+/*
 DROP PROCEDURE IF EXISTS _NewError;
 
 DELIMITER //
@@ -274,13 +275,61 @@ WHILE nameCounter<=endName DO
 	set nameCounter = nameCounter + 1;
 
 	END WHILE;
+    
 COMMIT ;
 END //
 DELIMITER ;
 
--- call _NewError ('mörkt överallt','1',now(),'low','lights','1','3');
--- call _NewError ('träd över spåret','2',now(),'low','trees','3','1');
+call _NewError ('mörkt överallt','1',now(),'low','lights','1','3');
+call _NewError ('träd över spåret','2',now(),'low','trees','3','1');
 -- select * from ErrorSubPlace;
+*/
+
+-- 9. Procedure för nya felanmälan
+DROP PROCEDURE IF EXISTS _NewErrorV2;
+
+DELIMITER //
+CREATE PROCEDURE _NewErrorV2 (
+newErrorDesc varchar(1024),
+newEntID smallint,
+newSentDate timestamp,
+newGrade enum('low','medium','high','akut'),
+newType enum('lights','tracks','dirt','trees','other'),
+startName tinyint,
+endName tinyint
+)
+BEGIN
+
+DECLARE LastInsert int;
+DECLARE nameCounter tinyint;
+START TRANSACTION;
+
+INSERT INTO Error (entID, sentDate , grade, errorDesc , type) values (newEntID, newSentDate, newGrade, newErrorDesc, newType);
+
+SET LastInsert = last_insert_id();
+
+IF startName<=endName THEN
+	SET nameCounter = startName;
+	FirstWhile: WHILE nameCounter<=endName DO
+		insert into ErrorSubPlace(name, errorID) values (nameCounter, LastInsert);
+		set nameCounter = nameCounter + 1;
+	END WHILE FirstWhile;
+	-- else IF;
+ELSEIF endName<=startName THEN
+	SET nameCounter=startName;
+    SecondWhile: WHILE nameCounter>=endName DO
+	insert into ErrorSubPlace(name, errorID) values (nameCounter, LastInsert);
+	set nameCounter = nameCounter - 1;
+    END WHILE SecondWhile;
+	END IF;
+    
+COMMIT ;
+END //
+DELIMITER ;
+
+call _NewErrorV2 ('V2 träd över spåret','1',now(),'low','lights','1','3');
+call _NewErrorV2 ('V2 problem i början men bättre i slutet','2',now(),'low','trees','3','1');
+select * from ErrorSubPlace;
 
 
 
@@ -366,3 +415,28 @@ DELIMITER ;
 -- call _finnishedWorkOrder('1','1',now(),'text');
 -- select * from WorkOrder;
 -- select * from FinnishedWorkOrder;
+
+
+-- procedur för att ta bort arbetsorder
+
+DROP PROCEDURE IF EXISTS _deleteWorkOrder;
+DELIMITER //
+
+CREATE PROCEDURE _deleteWorkOrder (delWorkOrderID INT)
+
+BEGIN
+
+IF (delWorkOrderID IS NOT NULL) THEN
+	DELETE FROM WorkOrder WHERE delWorkOrderID=orderID;
+ELSE
+	SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'This orderID does not exist!';
+END IF;
+
+END //
+DELIMITER ;
+
+-- CALL _newWorkOrder (1, 2, now(), 'low', 'KOTTAR ÖVERALLT RÄDDA MIG', 1, 3);
+
+-- CALL _deleteWorkOrder(5);
+
+SELECT * FROM WorkOrder;
