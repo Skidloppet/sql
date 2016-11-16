@@ -45,6 +45,7 @@ span.dropt:hover span {margin: 20px 0 0 170px; background: #ffffff; z-index:6;}
 include'connect.php';
 ?>
 <!--
+README
 
 Denna är gjord specifikt för Milad då länkarna går till kund sidan,
 kanske behöver göra en kopia av denna som vi har på ent/ski sidan
@@ -58,7 +59,6 @@ if !isset(session_id) {
 } else if ( isset(session_id) && session_role='other'))
 	kör kod som länkar till Ski-användare/Entrepenör
 }
-
 
 popup stulet från..
 http://www.scientificpsychic.com/etc/css-mouseover.html

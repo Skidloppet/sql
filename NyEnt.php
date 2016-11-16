@@ -56,23 +56,15 @@ include'connect.php';
     $sql = "CALL CreateEnt(:pass, :firstName, :lastName ,:email, :number)";
 
     $stmt = $pdo->prepare($sql);
-
     $stmt->bindParam(":pass", $_POST['pass'], PDO::PARAM_STR);
-
     $stmt->bindParam(":firstName", $_POST['firstName'], PDO::PARAM_STR);
-
     $stmt->bindParam(":lastName", $_POST['lastName'], PDO::PARAM_STR);
-
     $stmt->bindParam(":email", $_POST['email'], PDO::PARAM_STR);
-
     $stmt->bindParam(":number", $_POST['number'], PDO::PARAM_INT);
-
     $stmt->execute();
-}
-	    
+}	    
 ?>
 </div>
-
 
 
 <div>
@@ -97,7 +89,7 @@ include'connect.php';
 		        echo "<td>".$row['lastName']."</td>";
 		        echo "<td>".$row['email']."</td>";
 		        echo "<td>".$row['number']."</td>";
-		        echo "<td>".$row['pass']."</td>";
+		        echo "<td>".$row['password']."</td>";
 		        echo "</tr>";  
 		    }
 	      ?>

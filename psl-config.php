@@ -1,5 +1,5 @@
 <?php
-/**
+/**början på säker login...
  * These are the database login details
  */  
 

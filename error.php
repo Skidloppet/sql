@@ -28,9 +28,8 @@ tr:hover {
 </head>
 <body>
 <!--
-Här kan man skriva kommentarer..
 
-Nedanför kan man skriva php kod..
+	fungerar ej..
 -->
 
 <?php
@@ -73,8 +72,7 @@ include'connect.php';
     $stmt->bindParam(":startName", $_POST['Start'], PDO::PARAM_INT);
     $stmt->bindParam(":endName", $_POST['Slut'], PDO::PARAM_INT);
     $stmt->execute();
-}
-	    
+}    
 ?>
 </div>
 
@@ -96,8 +94,5 @@ include'connect.php';
 	    ?>
     </table>
 </div>
-
 </body>
 </html>
-
-

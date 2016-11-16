@@ -192,4 +192,4 @@ DROP VIEW IF EXISTS lastWorkOrderEnt;
 CREATE VIEW lastWorkOrderEnt AS
 	SELECT max(FinnishedWorkOrder.OrderID),max(Report.workDate) 
     FROM FinnishedWorkOrder,Report;
-select * from lastWorkOrderEnt
+-- select * from lastWorkOrderEnt

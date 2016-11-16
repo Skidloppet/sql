@@ -54,9 +54,7 @@ entID smallint null,
 sentDate datetime,
 -- ändrade från timestamp till datetime pga att det blev fel datum i finnishedworkorder när man flyttade över
 endDate timestamp,
-priority enum('high','medium','low','akut'),
 info varchar(1024),
-EntComment varchar(1024),
 primary key (orderID),
 foreign key (skiID) references Ski(skiID),
 foreign key (entID) references Ent(entID)
@@ -133,6 +131,7 @@ underlay enum('1','2','3','4','5'),
 edges enum('1','2','3','4','5'),
 grip enum('1','2','3','4','5'),
 depth DECIMAL(4,1),
+comment varchar(1024),
 -- depth är uppskattat snödjup efter dagligt underhåll
 -- DECIMAL 3 integer 1 decimal. (t.ex. 123.1)
 primary key (reportID),

@@ -45,7 +45,6 @@ include'connect.php';
 		<table>
 
 		<?php
-
 		    if(isset($_GET['DS'])){
 		      
 		        $query='SELECT * FROM SkiDetaljer where rspName = :DS';

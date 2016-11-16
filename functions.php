@@ -1,4 +1,5 @@
 <?php
+// detta är för säker login (ej färdig)
 include_once 'psl-config.php';
  
 function sec_session_start() {

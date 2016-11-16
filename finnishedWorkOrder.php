@@ -32,23 +32,13 @@ tr:hover {
 include'connect.php';
 ?>
 <!--
-Här kan man skriva kommentarer..
 
-detta är en procedure för avklarade arbetsordrar
-Nedanför kan man skriva php kod..
+
+
 -->
-
-
-<div>
-<h1>wowo</h1>
-</div>
-
 
 	<div>
 		<h3>finnish workorder</h3>
-		<h3>KOMMENTAREN KOMMER EJ MED!</h3>
-		<h3>GÅ IGENOM DEN FELAKTIGA PROCEDUREN!</h3>
-
 		<form action='<?php $_PHP_SELF ?>' method='POST'>
 			<input type="text" name="orderID" placeholder="orderID..">
 			<input type="text" name="entID" placeholder="entID..">
@@ -63,21 +53,15 @@ Nedanför kan man skriva php kod..
 		    $sql = "CALL _finnishedWorkOrder(:finnishedOrderID , :finnishedEntID , now() , :finnishedComment);";
 
 		    $stmt = $pdo->prepare($sql);
-
 		    $stmt->bindParam(":finnishedOrderID", $_POST['orderID'], PDO::PARAM_INT);
-
 		    $stmt->bindParam(":finnishedEntID", $_POST['entID'], PDO::PARAM_INT);
-
 		    $stmt->bindParam(":finnishedComment", $_POST['EntComment'], PDO::PARAM_STR);
-
 		    $stmt->execute();
 			
 			}
 		    
 		?>
 	</div>
-
-
 
 <div>
 	<h3>Utskrift av workorder(arbetsorder)</h3>
@@ -106,8 +90,6 @@ Nedanför kan man skriva php kod..
 
 </div>
 
-
-
 <div>
 	<h3>Utskrift av avklarat arbete</h3>
     <table>
@@ -131,8 +113,5 @@ Nedanför kan man skriva php kod..
 	    ?>
     </table>
 </div>
-
-
-
 </body>
 </html>

@@ -29,15 +29,9 @@ tr:hover {
 </head>
 <body>
 <!--
-
+README!
 
 vi måste göra så att länken från kartan avgör vilken del-sträcka man får information om.
-
-
-
-
-create view KundDetaljer as
-select rspName, startDate, rating, underlay, edges, grip, depth, length, height, realname 
 
 -->
 <?php

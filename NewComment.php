@@ -28,15 +28,8 @@ tr:hover {
 </head>
 <body>
 <!--
-Här kan man skriva kommentarer..
 
 
-
-FÅR INTE INSERTEN ATT FUNGERA!
-
-
-
-Nedanför kan man skriva php kod..
 -->
 
 <?php
@@ -113,12 +106,12 @@ include'connect.php';
 		        echo "<th>date</th>"; 
 		        echo "</tr>";
 
-		      foreach($pdo->query( 'SELECT * FROM Comment;' ) as $row){
+		      foreach($pdo->query( 'SELECT * FROM Commenta;' ) as $row){
 		        //echo "<tr><td>";
 		        //echo "<a href='test.php?entID=".urlencode($row['entID'])."'>".$row['entID'];
 		        echo "<tr>";
 		        echo "<td>".$row['commentID']."</td>";
-		        echo "<td>".$row['comment']."</td>";
+		        echo "<td>".$row['commenta']."</td>";
 		        echo "<td>".$row['alias']."</td>";
 		        echo "<td>".$row['grade']."</td>";
 		        echo "<td>".$row['date']."</td>";

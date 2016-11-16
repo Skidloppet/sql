@@ -15,6 +15,11 @@ PROCEDURER FÖR SKIDLOPPET AB -Innehållsförteckning
 13. procedur för att ta bort arbetsorder
 
 Kvar att göra:
+
+procedur & php för avklarade workorder
+procedur & php för avklarade snökanon-workorder
+
+
 - implementera SMS för akut arbetsorder (10._newWorkOrder & NyArbetsOrder.php).
 -  redigera 7. _NewReport så den fungerar för kund
 - ändra .11 _finnishedWorkOrder så man även kan automatiskt flytta/ändra sttus på snkökanoner (om det var arbetsordern)
@@ -138,6 +143,7 @@ newUnderlay enum('1','2','3','4','5'),
 newEdges enum('1','2','3','4','5'),
 newGrip enum('1','2','3','4','5'),
 newDepth DECIMAL(4,1),
+newComment varchar (1024),
 startName tinyint,
 endName tinyint
 )
@@ -158,8 +164,8 @@ set endName = switch;
 set startName = switch2;
 end if;
 
-INSERT INTO Report (entID, startDate, workDate, rating, underlay, edges, grip, depth)
-values (newEntID, newStartDate, newWorkDate, newRating, newUnderlay, newEdges, newGrip, newDepth);
+INSERT INTO Report (entID, startDate, workDate, rating, underlay, edges, grip, depth, comment)
+values (newEntID, newStartDate, newWorkDate, newRating, newUnderlay, newEdges, newGrip, newDepth, newComment);
 -- tilldelar LastInsert reportID's auto_increment värde för kopplingen i N:M tabellen
 SET LastInsert = last_insert_id();
 
@@ -176,12 +182,10 @@ COMMIT ;
 END //
 DELIMITER ;
 /*
-call _newReport (2, now(), '2016-10-12', '3', '2', '1', '1', 23.1, 2,3);
+call _newReport (2, now(), '2016-10-12', '3', '2', '1', '1', 23.1, 'lade till kommentar bild snart?', 2, 3);
 call _newReport (1, now(), '2016-10-12', '2', '4', '4', '4', 23.1, 5,5);
-call _newReport (2, now(), '2016-10-13', '5', '2', '1', '1', 23.1, 1,1);
-call _newReport (1, now(), '2016-10-14', '1', '4', '4', '4', 23.1, 1,6);
-call _newReport (1, now(), '2016-10-14', '4', '4', '4', '4', 23.1, 2,1);
--- select * from ReportSubPlace;
+
+select * from ReportSubPlace;
 */
 
 -- 8. Procedure för nya kommentarer
@@ -228,10 +232,10 @@ COMMIT ;
 END //
 DELIMITER ;
 
--- call _NewComment ('en kommentar på några spår','kalle','2',now(),'3','1');
--- call _NewComment ('NY comment, bögjävel!','rasselasse',now(),'1','2');
--- select * from CommentSubPlace;
 
+-- call _NewComment ('en kommentar på några spår','kalle','2',now(),'3','1');
+-- select * from CommentSubPlace;
+-- select * from Commenta;
 
 
 -- 9. Procedure för nya felanmälan
@@ -286,10 +290,10 @@ call _NewError ('träd över spåret','2',now(),'low','trees','3','1');
 */
 
 -- 9. Procedure för nya felanmälan
-DROP PROCEDURE IF EXISTS _NewErrorV2;
+DROP PROCEDURE IF EXISTS _NewError;
 
 DELIMITER //
-CREATE PROCEDURE _NewErrorV2 (
+CREATE PROCEDURE _NewError (
 newErrorDesc varchar(1024),
 newEntID smallint,
 newSentDate timestamp,
@@ -327,9 +331,9 @@ COMMIT ;
 END //
 DELIMITER ;
 
-call _NewErrorV2 ('V2 träd över spåret','1',now(),'low','lights','1','3');
-call _NewErrorV2 ('V2 problem i början men bättre i slutet','2',now(),'low','trees','3','1');
-select * from ErrorSubPlace;
+call _NewError ('V2 träd över spåret','1',now(),'low','lights','1','3');
+call _NewError ('V2 problem i början men bättre i slutet','2',now(),'low','trees','3','1');
+-- select * from ErrorSubPlace;
 
 
 
@@ -350,7 +354,6 @@ newPriority enum('high','medium','low','akut'),
 newInfo varchar(1024),
 startName tinyint,
 endName tinyint
--- lägga till cannon...?!
 )
 BEGIN
 DECLARE LastInsert int;
@@ -369,8 +372,8 @@ set endName = switch;
 set startName = switch2;
 end if;
 
-INSERT INTO WorkOrder (skiID, entID, sentDate, priority, info)
-values (newSkiID, newEntID, newSentDate, newPriority, newInfo);
+INSERT INTO WorkOrder (skiID, entID, sentDate, priority, info, EntComment)
+values (newSkiID, newEntID, now(), newPriority, newInfo, "not finnished/accepted(emergency) yet");
 -- tilldelar LastInsert reportID's auto_increment värde för kopplingen i N:M tabellen
 SET LastInsert = last_insert_id();
 
@@ -390,7 +393,7 @@ DELIMITER ;
 -- skiID, entID, sentDate, startDate, priority, info, startName, endName
 -- CALL _newWorkOrder (1, 2, now(), 'low', 'KOTTAR ÖVERALLT RÄDDA MIG', 1, 3);
 -- select * from WorkOrdersAndPlaces;
--- Select * From Reporting;
+-- Select * From WorkOrder;
 -- SELECT * FROM SubPlace where name<"21" ORDER BY name;
 -- SELECT * FROM Comment;
 
@@ -400,20 +403,31 @@ DELIMITER ;
 -- problem med att få proceduren nedan att fungera, prövat flera lösningsalternativ utan resultat. hjälp sökes
 DROP PROCEDURE IF EXISTS _finnishedWorkOrder;
 DELIMITER //
-CREATE PROCEDURE _finnishedWorkOrder (finnishedOrderID int,finnishedEntID smallint, finnishedDate timestamp, finnishedComment varchar(1024))
+CREATE PROCEDURE _finnishedWorkOrder (
+finnishedOrderID int,
+finnishedEntID smallint, 
+finnishedDate timestamp, 
+finnishedComment varchar(1024))
 
 begin
-   insert into FinnishedWorkOrder (orderID, entID, endDate, EntComment) values (finnishedOrderID, finnishedEntID, finnishedDate, finnishedComment);
-   /*update FinnishedWorkOrder 
-   set skiID = WorkOrder.skiID, sentDate = WorkOrder.sentDate, prio = WorkOrder.priority, info = WorkOrder.info
-   from WorkDate
-   where FinnishedWorkOrder.orderID = WorkOrder.orderID;
-   */DELETE FROM WorkOrder where orderID=finnishedOrderID;
+
+  INSERT INTO FinnishedWorkOrder
+  SELECT * FROM WorkOrder where WorkOrder.orderID = finnishedOrderID;
+   
+   update FinnishedWorkOrder
+    set 
+     entID = finnishedEntID,
+     endDate = finnishedDate,
+     EntComment = finnishedComment
+      where
+       orderID = finnishedOrderID;
+     
+
+   DELETE FROM WorkOrder where orderID=finnishedOrderID;
    COMMIT ;
 END //
 DELIMITER ;
-
--- call _finnishedWorkOrder('1','1',now(),'text');
+call _finnishedWorkOrder('1','1',now(),'text');
 -- select * from WorkOrder;
 -- select * from FinnishedWorkOrder;
 
@@ -466,3 +480,7 @@ DELIMITER ;
 -- CALL _deleteWorkOrder(5);
 
 -- SELECT * FROM WorkOrder;
+
+
+
+    
