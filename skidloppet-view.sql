@@ -126,12 +126,14 @@ group by ReportSubPlace.name;
 
 
 -- 8. Vy för senaste statusen på del-sträcka (överblicks-kartan)
-DROP VIEW IF EXISTS overview2;
+DROP VIEW IF EXISTS karta;
 
-create view overview2 as
+create view karta as
 select rspName,rating from overview, Report where reportID = rspID;
 
--- select * from overview2;
+-- call _newReport (1, now(), '2016-10-14', '1', '4', '4', '4', 23.1, 1,6);
+-- i skidloppet-procedurer.sql finns fler exempel för rapporter för test av N:M (rad 179-183)
+-- select * from karta order by rspName;
 
 
 
