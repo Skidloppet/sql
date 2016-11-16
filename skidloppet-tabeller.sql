@@ -83,7 +83,7 @@ foreign key (entID) references Ent(entID)
 -- tabell för kundkommentarer
 create table Commenta(
 commentID int auto_increment unique,
-comment varchar(1024) not null,
+kommentar varchar(1024) not null,
 alias varchar(32) not null,
 grade tinyint,
 date timestamp,
@@ -222,7 +222,7 @@ insert into WorkOrder (skiID, entID, sentDate, endDate, priority, info, EntComme
 ('1','2',now(),'','low','sten','text4');
 
 
-insert into Commenta (comment,grade, alias, date) values 
+insert into Commenta (Kommentar,grade, alias, date) values 
 ('blabla','2','Stina','2017-12-31'),
 ('oj vilka spår','4','göran p','2016-12-24'),
 ('jävla kottar och grus i spåren','1','gunde svan','2017-01-01');
