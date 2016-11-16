@@ -47,36 +47,37 @@ include'connect.php';
 	<a href="karta.php">karta.php</a>
 </div>
 
-<div>
-<table>
+	<div>
+		<h3>skriver bara ut den som en enkel tabell för test</h3>
+		<table>
 
-<?php
+		<?php
 
-    if(isset($_GET['DS'])){
-      
-        $query='SELECT * FROM KundDetaljer where rspName = :DS';
-        $stmt = $pdo->prepare($query);
-        $stmt->bindParam(':DS', $_GET['DS']);
-        $stmt->execute();
+		    if(isset($_GET['DS'])){
+		      
+		        $query='SELECT * FROM KundDetaljer where rspName = :DS';
+		        $stmt = $pdo->prepare($query);
+		        $stmt->bindParam(':DS', $_GET['DS']);
+		        $stmt->execute();
 
-	foreach($stmt as $key => $row){
-			echo '<tr>';
-			echo "<td>".$row['rspName']."</td>";
-			echo "<td>".$row['startDate']."</td>";
-			echo "<td>".$row['rating']."</td>";
-			echo "<td>".$row['underlay']."</td>";
-			echo "<td>".$row['edges']."</td>";
-			echo "<td>".$row['grip']."</td>";
-			echo "<td>".$row['depth']."</td>";
-			echo "<td>".$row['length']."</td>";
-			echo "<td>".$row['height']."</td>";
-			echo "<td>".$row['realname']."</td>";
-			echo "</tr>";	
-		}
-		}
-		echo "</table>";
-?>
-</div>
+			foreach($stmt as $key => $row){
+					echo '<tr>';
+					echo "<td>".$row['rspName']."</td>";
+					echo "<td>".$row['startDate']."</td>";
+					echo "<td>".$row['rating']."</td>";
+					echo "<td>".$row['underlay']."</td>";
+					echo "<td>".$row['edges']."</td>";
+					echo "<td>".$row['grip']."</td>";
+					echo "<td>".$row['depth']."</td>";
+					echo "<td>".$row['length']."</td>";
+					echo "<td>".$row['height']."</td>";
+					echo "<td>".$row['realname']."</td>";
+					echo "</tr>";	
+					}
+				}
+				echo "</table>";
+		?>
+	</div>
 </body>
 </html>
 
