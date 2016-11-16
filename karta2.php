@@ -66,7 +66,7 @@ http://www.scientificpsychic.com/etc/css-mouseover.html
 -->
 
 <div>
-	<a href="kundDetaljer.php">kundDetaljer.php</a>
+	<a href="entDetaljer.php">entDetaljer.php</a>
 </div>
 
 		<div>
@@ -76,6 +76,7 @@ http://www.scientificpsychic.com/etc/css-mouseover.html
 					    $SubPlaceNameArray[] = $row['rspName']; 
 					    $RatingArray[] = $row['rating'];
 					}
+/*  tror inte det behövs popup för ski/ent?
 
 			foreach($pdo->query( 'select * from KundDetaljer order by rspName;' ) as $row){
 					    $popUnderlay[] = $row['underlay']; 
@@ -87,7 +88,7 @@ http://www.scientificpsychic.com/etc/css-mouseover.html
 					    $popRealname[] = $row['realname']; 
 					    $popRating[] = $row['rating']; 
 					}
-
+*/
 			//testart att skriva ut arrayerna.
 			print_r($SubPlaceNameArray);
 			echo "</br>";
@@ -98,9 +99,10 @@ http://www.scientificpsychic.com/etc/css-mouseover.html
 			echo "</br></br></br>";
 
 			// span skiten är för hover...
-			echo "<span class='dropt'>";
+		// echo "<span class='dropt'>";
 			// skapar en länk och skickar till kundDetaljer, samt skriver ut betyget.
 			echo "<a href='kundDetaljer.php?DS=".$SubPlaceNameArray[0]."'>delsträcka # ".$SubPlaceNameArray[0]."</a> med rating: ".$RatingArray[0]."</br>";
+			/*
 			echo "<span>";
 			echo "<b>Name: </b>".$popRealname[0]."</br>";
 			echo "<b>M.Ö.H: </b>".$popHeight[0]."</br>";
@@ -111,7 +113,7 @@ http://www.scientificpsychic.com/etc/css-mouseover.html
 			echo "<b>Spårkanter: </b>".$popEdges[0]."</br>";
 			echo "<b>Stavfäste: </b>".$popGrip[0]."</br>";
 			echo "</span></span>";
-			
+			*/
 			echo "<a href='kundDetaljer.php?DS=".$SubPlaceNameArray[1]."'>delsträcka # ".$SubPlaceNameArray[1]."</a> med rating: ".$RatingArray[1]."</br>";
 			echo "<a href='kundDetaljer.php?DS=".$SubPlaceNameArray[2]."'>delsträcka # ".$SubPlaceNameArray[2]."</a> med rating: ".$RatingArray[2]."</br>";
 			echo "<a href='kundDetaljer.php?DS=".$SubPlaceNameArray[3]."'>delsträcka # ".$SubPlaceNameArray[3]."</a> med rating: ".$RatingArray[3]."</br>";

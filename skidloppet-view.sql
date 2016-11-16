@@ -153,14 +153,14 @@ where reportID = rspID and rspName = SubPlace.name;
 
 -- 10. Vy för detaljerad spårningsinformation på del-sträcka
 -- denna vyn hämtar detaljerad information om rapport på vald del-sträcka (SKI-VY)
-DROP VIEW IF EXISTS overview3;
+DROP VIEW IF EXISTS SkiDetaljer;
 
-create view overview3 as
+create view SkiDetaljer as
 select rspName, Report.entID as ReportEnt, workDate, startDate, rating, underlay, edges, grip, depth, realName, SubPlace.entID as SubPlaceEnt, length, height, fakesnow
 from overview, Report, SubPlace
 where reportID = rspID and rspName = SubPlace.name;
 
--- select * from overview3;
+-- select * from SkiDetaljer;
 
 
 
