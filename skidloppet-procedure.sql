@@ -13,7 +13,7 @@ PROCEDURER FÖR SKIDLOPPET AB -Innehållsförteckning
 11. procedur för avklarad arbetsorder
 12. Procedure för nya cannon arbetsordrar
 13. procedur för att ta bort arbetsorder
-
+14. skapa färdig CANNONorder (logg)
 Kvar att göra:
 
 procedur & php för avklarade workorder
@@ -427,8 +427,10 @@ begin
    COMMIT ;
 END //
 DELIMITER ;
-call _finnishedWorkOrder('1','1',now(),'text');
+-- call _finnishedWorkOrder('2','3',now(),'text');
+
 -- select * from WorkOrder;
+
 -- select * from FinnishedWorkOrder;
 
 
@@ -440,22 +442,18 @@ CREATE PROCEDURE _newCannonOrder (
 cannonID smallint,
 name smallint,
 entID smallint,
+info varchar (1024),
 newStatus enum('on','off','unplugged','broken'))
 BEGIN
 
-INSERT INTO CannonSubPlace (cannonID, name, entID, newStatus) values (cannonID, name, entID, newStatus);
+INSERT INTO CannonSubPlace (cannonID, name, entID, newStatus, info, comment) values (cannonID, name, entID, newStatus, info,"not finnished/accepted(emergency) yet");
 
 COMMIT ;
 END //
 DELIMITER ;
+-- call _newCannonOrder ('1','2','1','tecxt example','on');
 
--- call _newCannonOrder ('1','2','1','on');
 -- select * from CannonSubPlace;
-
-
--- call _NewError ('mörkt överallt','1',now(),'low','lights','1','3');
--- call _NewError ('träd över spåret','2',now(),'low','trees','3','1');
--- select * from ErrorSubPlace;
 
 
 -- 13. procedur för att ta bort arbetsorder
@@ -483,4 +481,35 @@ DELIMITER ;
 
 
 
-    
+    -- 14. skapa färdig CANNONorder (logg)
+
+-- problem med att få proceduren nedan att fungera, prövat flera lösningsalternativ utan resultat. hjälp sökes
+DROP PROCEDURE IF EXISTS _finnishedCannonOrder;
+DELIMITER //
+CREATE PROCEDURE _finnishedCannonOrder (
+finnishedOrderID int,
+finnishedEntID smallint, 
+finnishedEnd timestamp, 
+finnishedComment varchar(1024))
+
+begin
+  INSERT INTO FinnishedCannonSubPlace
+  SELECT * FROM CannonSubPlace where CannonSubPlace.orderID = finnishedOrderID;
+   
+   update FinnishedCannonSubPlace
+    set 
+     entID = finnishedEntID,
+     endStamp = finnishedEnd,
+     comment = finnishedComment
+      where
+       orderID = finnishedOrderID;
+       
+   DELETE FROM CannonSubPlace where orderID=finnishedOrderID;
+   COMMIT ;
+END //
+DELIMITER ;
+-- call _finnishedCannonOrder('2','1',now(),'texttesttets');
+
+-- select * from FinnishedCannonSubPlace;
+
+-- select * from CannonSubPlace;

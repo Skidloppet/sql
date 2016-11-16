@@ -54,7 +54,9 @@ entID smallint null,
 sentDate datetime,
 -- ändrade från timestamp till datetime pga att det blev fel datum i finnishedworkorder när man flyttade över
 endDate timestamp,
+priority enum('high','medium','low','akut'),
 info varchar(1024),
+EntComment varchar(1024),
 primary key (orderID),
 foreign key (skiID) references Ski(skiID),
 foreign key (entID) references Ent(entID)
@@ -64,7 +66,7 @@ foreign key (entID) references Ent(entID)
 -- tabell för arbetsorder
 create table FinnishedWorkOrder (
 orderID int not null unique,
--- skiID smallint not null,
+skiID smallint not null,
 entID smallint not null,
 -- not null här pga den som genomförde arbetet
 sentDate datetime,
@@ -198,18 +200,36 @@ foreign key (name) references SubPlace(name)
 -- N:M tabell för N:M förhållande mellan cannon och sträckor så en arbetsorder kan flytta en eller flera snökanoner.
 -- TRANSAKTION
 create table CannonSubPlace (
+orderID int not null auto_increment unique,
 cannonID smallint,
 name smallint,
 entID smallint,
-stamp timestamp,
+startStamp timestamp,
+endStamp timestamp,
 newStatus enum('on','off','unplugged','broken'),
-primary key (stamp),
+info varchar(1024),
+comment varchar(1024),
+primary key (orderID),
 foreign key (cannonID) references Cannon(cannonID),
 foreign key (name) references SubPlace(name),
 foreign key (entID) references Ent(entID)
 )engine=innodb;
 
-
+create table FinnishedCannonSubPlace (
+orderID int not null unique,
+cannonID smallint,
+name smallint,
+entID smallint,
+startStamp timestamp,
+endStamp timestamp,
+newStatus enum('on','off','unplugged','broken'),
+info varchar(1024),
+comment varchar(1024),
+primary key (orderID),
+foreign key (cannonID) references Cannon(cannonID),
+foreign key (name) references SubPlace(name),
+foreign key (entID) references Ent(entID)
+)engine=innodb;
 
 
 insert into Ski (skiID, password, firstName, lastName, email, number, type, regDate) values

@@ -1,8 +1,8 @@
 /*
 -- Vyer till Skidloppet AB
 1. Vy för alla användare
-2. Vy för allt dagligt arbete & delsträckor
-3. Vy för arbetsorder och delsträckor
+!	2. Vy för allt dagligt arbete & delsträckor
+!	3. Vy för arbetsorder och delsträckor
 4. Vy för snökannoner
 5. Vy för akuta arbetsordrar
 6. Vy för kundkommentar
@@ -14,8 +14,10 @@
 12. Vy för avklarade arbetsordrar
 KVAR ATT GÖRA!
 
-Vy för inskickade felanälningar (Error från kund & ent)ink. procedure för borttagning
+Vy för där alla arbetsordar och snökanonsordrar som är tilldelade en visas skiID 
 
+
+Vy för inskickade felanälningar (Error från kund & ent)ink. procedure för borttagning
 Vy för inkommande arbetsordrar
 */
  
