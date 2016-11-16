@@ -140,14 +140,14 @@ select rspName,rating from overview, Report where reportID = rspID;
 
 -- 9. Vy för status på sträcka (överblicks-kartan)
 -- denna vyn hämtar detaljerad information om del-sträckan (KUNDVY)
-DROP VIEW IF EXISTS overview3;
+DROP VIEW IF EXISTS KundDetaljer;
 
-create view overview3 as
+create view KundDetaljer as
 select rspName, startDate, rating, underlay, edges, grip, depth, length, height, realname 
 from overview, Report, SubPlace
 where reportID = rspID and rspName = SubPlace.name;
 
--- select * from overview3;
+-- select * from KundDetaljer;
 
 
 
