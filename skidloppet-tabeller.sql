@@ -10,6 +10,14 @@ userID int(11) not null,
 time varchar (30) not null
 )engine=innodb;
 
+create table img (
+	img_id		int 	not null auto_increment,
+    name	varchar (50),
+    path	varchar(100),
+    -- img			blob	,
+    -- img_size 	varchar (25) not null default '',
+    primary key (img_id)
+)engine=innodb;
 -- Tabell för Skidloppet anställda
 create table Ski(
 skiID smallint not null auto_increment unique,
@@ -263,9 +271,10 @@ insert into FinnishedWorkOrder (OrderID, entID, sentDate, endDate, priority, inf
 
 
 insert into Commenta (comment,grade, alias, date) values 
-('blabla','2','Stina','2017-12-31'),
-('oj vilka spår','4','göran p','2016-12-24'),
-('jävla kottar och grus i spåren','1','gunde svan','2017-01-01');
+('blabla','4','Stina','2015-12-31'),
+('blabla','2','Stina','2016-11-15 14:00:11'),
+('blabla','3','Stina','2016-11-15 17:00:11'),
+('jävla kottar och grus i spåren','1','gunde svan','2015-01-01');
 
 -- select avg(grade) from Comment;
 -- select grade from Comment;
