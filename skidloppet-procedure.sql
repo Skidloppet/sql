@@ -14,6 +14,7 @@ PROCEDURER FÖR SKIDLOPPET AB -Innehållsförteckning
 12. Procedure för nya cannon arbetsordrar
 13. procedur för att ta bort arbetsorder
 14. skapa färdig CANNONorder (logg)
+15. Ta bort gammla kund kommentarer
 Kvar att göra:
 
 procedur & php för avklarade workorder
@@ -182,7 +183,7 @@ COMMIT ;
 END //
 DELIMITER ;
 /*
-call _newReport (2, now(), '2016-10-12', '3', '2', '1', '1', 23.1, 'lade till kommentar bild snart?', 2, 3);
+call _newReport (2, now(), '2016-10-12', '3', '2', '1', '1', 23.1, 'lade till kommentar bild snart?', 1, 6);
 call _newReport (1, now(), '2016-10-12', '2', '4', '4', '4', 23.1, 5,5);
 
 select * from ReportSubPlace;
@@ -506,6 +507,8 @@ END //
 DELIMITER ;
 -- call _finnishedCannonOrder('2','1',now(),'texttesttets');
 
--- select * from FinnishedCannonSubPlace;
-
--- select * from CannonSubPlace;
+-- 15 tar alla gammla kommentarer äldre än 48 h
+DELETE FROM Commenta 
+WHERE
+    date < NOW() - INTERVAL 48 HOUR;
+-- select * from Commenta;

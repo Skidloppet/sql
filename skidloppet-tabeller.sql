@@ -10,6 +10,14 @@ userID int(11) not null,
 time varchar (30) not null
 )engine=innodb;
 
+create table img (
+	img_id		int 	not null auto_increment,
+    name	varchar (50),
+    path	varchar(100),
+    -- img			blob	,
+    -- img_size 	varchar (25) not null default '',
+    primary key (img_id)
+)engine=innodb;
 -- Tabell för Skidloppet anställda
 create table Ski(
 skiID smallint not null auto_increment unique,
@@ -233,13 +241,13 @@ foreign key (entID) references Ent(entID)
 )engine=innodb;
 
 insert into Ski (skiID, password, firstName, lastName, email, number, type, regDate) values
-('1','pass','Tomas','Stormhagen','Tomas360@gmail.com','1234567891','arenachef','2016-11-01'),
+('1','pass','Tomas','Stormhagen','tomas','1234567891','arenachef','2016-11-01'),
 ('2','pass','Göran','Smith','g_smith@gmail.com','1234567892','other','2016-11-01'),
 ('3','pass','Ove','Svensson','OveSwag@hotmail.com','1234567893','other','2016-11-01');
 
 
 insert into Ent (entID, password, firstName, lastName, email, number, regDate) values 
-('1','pass','Stefan','Fridström','blatjoo@aol.com','1234567891','2016-11-01'),
+('1','pass','Stefan','Fridström','stefan','1234567891','2016-11-01'),
 ('2','pass','Adrian','Abrahamsson','rotfs@hotmail.com','1234567892','2016-11-01'),
 ('3','pass','Philip','Svensson','asd@gmail.com','1234567893','2016-11-01');
 
@@ -262,9 +270,10 @@ insert into FinnishedWorkOrder (OrderID, entID, sentDate, endDate, priority, inf
 
 
 insert into Commenta (comment,grade, alias, date) values 
-('blabla','2','Stina','2017-12-31'),
-('oj vilka spår','4','göran p','2016-12-24'),
-('jävla kottar och grus i spåren','1','gunde svan','2017-01-01');
+('blabla','4','Stina','2015-12-31'),
+('blabla','2','Stina','2016-11-15 14:00:11'),
+('blabla','3','Stina','2016-11-15 17:00:11'),
+('jävla kottar och grus i spåren','1','gunde svan','2015-01-01');
 
 -- select avg(grade) from Comment;
 -- select grade from Comment;
@@ -290,9 +299,9 @@ insert into Report (entID, startDate, workDate, rating, underlay, edges, grip, d
 ('1','2011-11-11','2011-12-11','2','2','4','3','43');
 
 insert into CannonSubPlace (CannonID, name, entID, startStamp, endStamp, newStatus, info, comment) values
-('1','1','2',now(),now(),'off','text från ski',''),
-('2','1','1',now(),now(),'off','text från ski1',''),
-('3','1','3',now(),now(),'on','text från ski2','');
+('1','1','2',now(),now(),'off','text från ski','not finnished'),
+('2','1','1',now(),now(),'off','text från ski1','not finnished'),
+('3','1','3',now(),now(),'on','text från ski2','not finnished');
 
 /*
 insert into Error (entID, sentDate, grade, errorDesc, type) values 

@@ -1,8 +1,8 @@
 /*
 -- Vyer till Skidloppet AB
 1. Vy för alla användare
-!	2. Vy för allt dagligt arbete & delsträckor
-!	3. Vy för arbetsorder och delsträckor
+	2. Vy för allt dagligt arbete & delsträckor
+	3. Vy för arbetsorder och delsträckor
 4. Vy för snökannoner
 5. Vy för akuta arbetsordrar
 6. Vy för kundkommentar
@@ -15,8 +15,6 @@
 KVAR ATT GÖRA!
 
 Vy för där alla arbetsordar och snökanonsordrar som är tilldelade en visas skiID 
-
-
 Vy för inskickade felanälningar (Error från kund & ent)ink. procedure för borttagning
 Vy för inkommande arbetsordrar
 */
@@ -27,14 +25,15 @@ Vy för inkommande arbetsordrar
 DROP VIEW IF EXISTS AllUsers;
 CREATE VIEW AllUsers AS
     SELECT 
-        skiID as id, email, password
+        skiID as id, email, password, type
     FROM
         Ski 
     UNION SELECT 
-        entID as id, email, password
+        entID as id, email, password, number as type
     FROM
         Ent;
 -- select * from AllUsers;
+-- select * from AllUsers WHERE password='pass' and email='stefan';
 
 
 -- 2. Vy för allt dagligt arbete & delsträckor
