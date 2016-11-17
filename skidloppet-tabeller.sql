@@ -232,7 +232,6 @@ foreign key (name) references SubPlace(name),
 foreign key (entID) references Ent(entID)
 )engine=innodb;
 
-
 insert into Ski (skiID, password, firstName, lastName, email, number, type, regDate) values
 ('1','pass','Tomas','Stormhagen','Tomas360@gmail.com','1234567891','arenachef','2016-11-01'),
 ('2','pass','Göran','Smith','g_smith@gmail.com','1234567892','other','2016-11-01'),
