@@ -14,8 +14,11 @@ if(!$row = $result->fetch_assoc()) {
 	ECHO "wrong email or password";
 
 } else {
-$_SESSION['email'] = $row['email'];
-$_SESSION['type'] = $row['type'];
+
+	#$_SESSION['ids'] = array($row['type'], $row['email']);
+	$_SESSION['email'] = $row['email'];
+	$_SESSION['type'] = $row['type'];
+
 }
 
 header("Location: loginform.php");

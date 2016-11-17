@@ -40,6 +40,9 @@ SESSION_START();
 ?>
   <div>
     <?php
+    # print_r($_SESSION );
+    # echo "<div>ids:".$_SESSION[0]." :wallas: ".$_SESSION[1]."</div>";
+
   if (isset($_SESSION['email'])) {
     echo "logged in as: ";
     echo $_SESSION['email']." role: ";
@@ -62,8 +65,29 @@ SESSION_START();
      </div>
      <?php
         }
+
+?>
+
+<div>
+  <?php
+      if (!isset($_SESSION['type']['email'])) {
+echo "your not logged in";
+}
+      elseif (isset($_SESSION['email'])&&($_SESSION['type'] == 'arenachef')) {
+echo "your logged in as an arenachef broski";
+}
+      elseif (isset($_SESSION['email'])&&($_SESSION['type'] == 'other')) {
+echo "your logged in as an other";
+}
+      elseif (isset($_SESSION['email'])&&($_SESSION['type'] > '1')) {
+echo "your logged in as an ent";
+}
+
+ else{
+  echo "if this message is showing your logged in as a hacker or smt";
+ }
       ?>
-     
+ </div>    
 
 </body>
 </html>
