@@ -32,10 +32,7 @@ procedur & php för avklarade snökanon-workorder
 - procedur för att sätta en tävlingsarbetsorder (arbetsorder som berör allt?!) LÅG PRIO
 
 ändra procedure N:M så den räknar ner vid baklänges åkning
-
 */
-
-
 
 -- 1. Procedure för att skapa en Entrepenör
 -- IF satsen kollar om Ski har tagit email adressen redan
@@ -508,6 +505,7 @@ DELIMITER ;
 -- call _finnishedCannonOrder('2','1',now(),'texttesttets');
 
 -- 15 tar alla gammla kommentarer äldre än 48 h
+/*
 DELETE FROM Commenta 
 WHERE
     date < NOW() - INTERVAL 48 HOUR;
