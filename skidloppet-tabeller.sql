@@ -215,6 +215,7 @@ foreign key (name) references SubPlace(name),
 foreign key (entID) references Ent(entID)
 )engine=innodb;
 
+
 create table FinnishedCannonSubPlace (
 orderID int not null unique,
 cannonID smallint,
@@ -288,6 +289,11 @@ insert into Report (entID, startDate, workDate, rating, underlay, edges, grip, d
 ('1','2011-11-11','2011-09-11','1','2','3','4','54'),
 ('1','2011-11-11','2011-10-11','3','3','2','4','65'),
 ('1','2011-11-11','2011-12-11','2','2','4','3','43');
+
+insert into CannonSubPlace (CannonID, name, entID, startStamp, endStamp, newStatus, info, comment) values
+('1','1','2',now(),now(),'off','text från ski',''),
+('2','1','1',now(),now(),'off','text från ski1',''),
+('3','1','3',now(),now(),'on','text från ski2','');
 
 /*
 insert into Error (entID, sentDate, grade, errorDesc, type) values 

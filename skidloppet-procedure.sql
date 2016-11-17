@@ -456,20 +456,17 @@ DELIMITER ;
 -- select * from CannonSubPlace;
 
 
+
 -- 13. procedur för att ta bort arbetsorder
 DROP PROCEDURE IF EXISTS _deleteWorkOrder;
 DELIMITER //
-
 CREATE PROCEDURE _deleteWorkOrder (delWorkOrderID INT)
-
 BEGIN
-
 IF (delWorkOrderID IS NOT NULL) THEN
 	DELETE FROM WorkOrder WHERE delWorkOrderID=orderID;
 ELSE
 	SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'This orderID does not exist!';
 END IF;
-
 END //
 DELIMITER ;
 
@@ -491,7 +488,6 @@ finnishedOrderID int,
 finnishedEntID smallint, 
 finnishedEnd timestamp, 
 finnishedComment varchar(1024))
-
 begin
   INSERT INTO FinnishedCannonSubPlace
   SELECT * FROM CannonSubPlace where CannonSubPlace.orderID = finnishedOrderID;
