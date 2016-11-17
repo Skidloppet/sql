@@ -1,10 +1,12 @@
 ﻿<!DOCTYPE html>
 <html>
-<title>W3.CSS Template</title>
+<title>Skidloppet AB</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+
+
 
 <style>
 body {font-family: "Lato", sans-serif}
@@ -147,7 +149,8 @@ tr:nth-child(even) {
 
 
 </style>
-<body>
+
+ <body>
 
 <!-- Navbar -->
 <div class="w3-top">
@@ -161,12 +164,23 @@ tr:nth-child(even) {
   <li class="w3-hide-small"><a href="#Kommentar2" class="w3-padding-large">Kommentera sträckan</a></li>
   <li class="w3-hide-small"><a href="#Kontakt" class="w3-padding-large">Kontakta oss</a></li>
   
+  <!- kollar om man INTE är inloggad -!>
+  	      
 <li style="float: right">
 <button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Logga in</button>
 </li>
+
+<?php>
+  }
+  else{
+  ?>
+  <button action="logout.php" style="width:auto;">Logga ut</button>
+
+  
+    
 <div id="id01" class="modal">
   
-  <form class="modal-content animate" action="action_page.php">
+  <form class="modal-content animate" action="skidlogin.php" method="POST">
     <div class="imgcontainer">
       <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
       <img src="Logotype.jpg" alt="Avatar" class="avatar">
@@ -174,15 +188,16 @@ tr:nth-child(even) {
 
     <div class="container">
 	<div class="login3">
+
       <label><b>Username</b></label>
-      <input type="text" placeholder="Användarnamn" name="uname" required>
+      <input type="text" placeholder="Emailadress" name="email" required>
 
       <label><b>Password</b></label>
-      <input type="password" placeholder="Lösenord" name="psw" required>
+      <input type="password" placeholder="Lösenord" name="pass" required>
         
       <button type="submit">Logga in</button>
       <input type="checkbox" checked="checked"> <font color="black">Kom ihåg mig </font>
-	  </div>
+	</div>
     </div>
 
     <div class="container" style="background-color:#f1f1f1">
@@ -191,11 +206,12 @@ tr:nth-child(even) {
     </div>
   </form>
 </div>
-
-
 </ul>
-</div>
 
+
+
+
+</div>
 <!-- Navbar on small screens -->
 <div id="navDemo" class="w3-hide w3-hide-large w3-hide-medium w3-top" style="margin-top:46px">
   <ul class="w3-navbar w3-left-align w3-black">
@@ -307,38 +323,9 @@ tr:nth-child(even) {
 </svg>
 <br>
 
-<select id="Sträcka" name="Sträcka">                  
-<option value="0">Välj status för valfri sträcka</option>
-<option value="1">sträcka 1</option>
-<option value="2">sträcka 2</option>
-<option value="3">sträcka 3</option>
-<option value="4">sträcka 4</option>
-<option value="5">sträcka 5</option>
-<option value="6">sträcka 6</option>
-<option value="7">sträcka 7</option>
-<option value="8">sträcka 8</option>
-<option value="9">sträcka 9</option>
-<option value="10">sträcka 10</option>
-<option value="10">sträcka 11</option>
-<option value="10">sträcka 12</option>
-<option value="10">sträcka 13</option>
-<option value="10">sträcka 14</option>
-<option value="10">sträcka 15</option>
-<option value="10">sträcka 16</option>
-<option value="10">sträcka 17</option>
-<option value="10">sträcka 18</option>
-<option value="10">sträcka 19</option>
-<option value="10">sträcka 20</option>
-</select>
-
-
-
-
-<table border='1'><th>Rating</th><th>Underlay</th><th>Edges</th><th>Grip</th><th>Depth ( Cm )</th><br />
-<b>Warning</b>:  PDO::query(): SQLSTATE[42S02]: Base table or view not found: 1146 Table 'SlitABSkidloppet.Report' doesn't exist in <b>/mnt/data/a13milra/grupp/Kund.php</b> on line <b>276</b><br />
-<br />
-<b>Warning</b>:  Invalid argument supplied for foreach() in <b>/mnt/data/a13milra/grupp/Kund.php</b> on line <b>276</b><br />
-</table>
+<!-- Detaljer för del-sträckan -->
+<h1>Detaljer för del-sträckan</h1>
+<table border='1'><th>Rating</th><th>Underlay</th><th>Edges</th><th>Grip</th><th>Depth ( Cm )</th><tr><td>1</td><td>2</td><td>3</td><td>4</td><td>54.0</td></tr><tr><td>3</td><td>3</td><td>2</td><td>4</td><td>65.0</td></tr><tr><td>2</td><td>2</td><td>4</td><td>3</td><td>43.0</td></tr></table>
   <div class="w3-container w3-content w3-padding-64" style="max-width:800px" id="Kommentar1">
   <form action="Kund.php" method="POST">
 	<table>
@@ -347,33 +334,40 @@ tr:nth-child(even) {
 	</table>
   </form>
   </div>
-  <table border='1'><th>Kommentar</th><th>Alias</th><th>Betyg</th><th>Datum</th><br />
-<b>Warning</b>:  PDO::query(): SQLSTATE[42S02]: Base table or view not found: 1146 Table 'SlitABSkidloppet.Commenta' doesn't exist in <b>/mnt/data/a13milra/grupp/Kund.php</b> on line <b>303</b><br />
-<br />
-<b>Warning</b>:  Invalid argument supplied for foreach() in <b>/mnt/data/a13milra/grupp/Kund.php</b> on line <b>303</b><br />
-</table>  
+  <table border='1'><th>Kommentar</th><th>Alias</th><th>Betyg</th><th>Datum</th></table>  
   
   
   
   
   
-  <div class="w3-container w3-content w3-padding-64" style="max-width:800px" id="Kommentar2">
-  <form action="Kund.php" method="POST">
-	<table>
+<div>
+	<h3>Lägg till en kundkommentar</h3>
+	<form action='' method='POST'>
+		<textarea rows="5" cols="70" name="comment" placeholder="freetext comment"></textarea>
+		</br>
+		<input type="text" name="alias" placeholder="Alias..">
+		<select name='grade'>
+			<option selected="selected">Betygsätt spåren</option>
+			<option value="1">1 - Ej åkbart</option>
+			<option value="2">2 - Undermåliga spår</option>
+			<option value="3">3 - Okej</option>
+			<option value="4">4 - Bra spår</option>
+			<option value="5">5 - Perfekt</option>
+		</select>
+	    <select size='1' name='startName'>
+	    	<option selected="selected"> Välj startpunkt </option>
+			    <option value="1">Hedemora 3:1</option><option value="2">Hedemora 3:2</option><option value="3">Hedemora 3:3</option><option value="4">Hedemora2 3:1</option><option value="5">Hedemora2 3:2</option><option value="6">Hedemora2 3:3</option>	    </select>
 
-    <h2 class="w3-wide w3-center">Kundernas kommentar</h2>
-	<p class="w3-opacity w3-center"><i>Kommentera sträckorna du åkt på</i></p>
-	<form action="Kund.php" method="post">
-	<td>  Namn:<input type="text" name="alias"> <br></td>
-	<td>  Betyg 1-5:<input type="text" name="grade"><br></td>
-	<tr><td colspan="2">Comment: </td></tr>
-	<tr><td colspan="5"><textarea name="kommentar" rows="10" cols="39"></textarea></td></tr>
-	<tr><td colspan="2"><input type="submit" name="submit" value="Comment"></td></tr>
+	    <select size='1' name='endName'>
+	    	<option selected="selected"> Välj slutpunkt </option>
+			    <option value="1">Hedemora 3:1</option><option value="2">Hedemora 3:2</option><option value="3">Hedemora 3:3</option><option value="4">Hedemora2 3:1</option><option value="5">Hedemora2 3:2</option><option value="6">Hedemora2 3:3</option>	    </select>
 
+		<button type="submit" name="CreateComment">Skicka in kommentar</button>
 	</form>
-	</table>
-  </form>
-  </div>
+
+
+</div>
+
 
 
 

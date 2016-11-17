@@ -70,19 +70,26 @@ SESSION_START();
 
 <div>
   <?php
-      if (!isset($_SESSION['type']['email'])) {
-echo "your not logged in";
-}
+      if (!isset($_SESSION['email'])) {
+      ?>
+      <h3>Här är all kod för ICKE inloggade</h3>
+  <?php 
+      } 
       elseif (isset($_SESSION['email'])&&($_SESSION['type'] == 'arenachef')) {
-echo "your logged in as an arenachef broski";
-}
+      ?>
+      <h3>Här är all kod för ARENACHEFER</h3>  
+  <?php
+      }
       elseif (isset($_SESSION['email'])&&($_SESSION['type'] == 'other')) {
-echo "your logged in as an other";
-}
+      ?>
+      <h3>Här är all kod för OTHERS(Skidloppet)</h3>
+  <?php 
+      }
       elseif (isset($_SESSION['email'])&&($_SESSION['type'] > '1')) {
-echo "your logged in as an ent";
-}
-
+      ?>
+      <h3>Här är all kod för ENT</h3>
+  <?php
+      }
  else{
   echo "if this message is showing your logged in as a hacker or smt";
  }
