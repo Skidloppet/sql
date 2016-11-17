@@ -30,12 +30,7 @@ tr:hover {
 <!--
 Här kan man skriva kommentarer..
 
-Denna filen är inte klar, vi måste avgöra vilken säkerhetsnivå vi vill ha på hemsidan,
-
-alternativ:
-1. enkelt login (ganska osäkert, icke användbart i verkligheten)
-2. skapa login utifrån wikihow: create a secure login script in php & mySql
-
+fungerar ej!wikihow..
 
 Nedanför kan man skriva php kod..
 -->

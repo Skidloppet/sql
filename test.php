@@ -27,20 +27,14 @@ tr:hover {
 </style>
 </head>
 <body>
-<!--
-Här kan man skriva kommentarer..
-
-<<<<<<< HEAD
-=======
-
-terdsgfddfg
->>>>>>> fcc0b9d45a2c9aa50efe7bb710cbf8a228c72b34
-Nedanför kan man skriva php kod..
--->
-
 <?php
 include'connect.php';
 ?>
+<!--
+Här kan man skriva kommentarer..
+
+Nedanför kan man skriva php kod..
+-->
 
 
 </body>

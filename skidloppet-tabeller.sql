@@ -66,7 +66,7 @@ foreign key (entID) references Ent(entID)
 -- tabell för arbetsorder
 create table FinnishedWorkOrder (
 orderID int not null unique,
--- skiID smallint not null,
+skiID smallint not null,
 entID smallint not null,
 -- not null här pga den som genomförde arbetet
 sentDate datetime,
@@ -133,6 +133,7 @@ underlay enum('1','2','3','4','5'),
 edges enum('1','2','3','4','5'),
 grip enum('1','2','3','4','5'),
 depth DECIMAL(4,1),
+comment varchar(1024),
 -- depth är uppskattat snödjup efter dagligt underhåll
 -- DECIMAL 3 integer 1 decimal. (t.ex. 123.1)
 primary key (reportID),
@@ -171,6 +172,7 @@ foreign key (name) references SubPlace(name)
 create table SubPlaceWorkOrder(
 name smallint not null,
 orderID int not null,
+cannonID smallint,
 -- Kanske lägga till datum för pågående arbete eller annat?
 primary key (orderID, name),
 foreign key (orderID) references WorkOrder(orderID)ON DELETE CASCADE,
@@ -195,23 +197,57 @@ foreign key (commentID) references Commenta(commentID),
 foreign key (name) references SubPlace(name)
 )engine=innodb;
 
+-- N:M tabell för N:M förhållande mellan cannon och sträckor så en arbetsorder kan flytta en eller flera snökanoner.
+-- TRANSAKTION
+create table CannonSubPlace (
+orderID int not null auto_increment unique,
+cannonID smallint,
+name smallint,
+entID smallint,
+startStamp timestamp,
+endStamp timestamp,
+newStatus enum('on','off','unplugged','broken'),
+info varchar(1024),
+comment varchar(1024),
+primary key (orderID),
+foreign key (cannonID) references Cannon(cannonID),
+foreign key (name) references SubPlace(name),
+foreign key (entID) references Ent(entID)
+)engine=innodb;
+
+
+create table FinnishedCannonSubPlace (
+orderID int not null unique,
+cannonID smallint,
+name smallint,
+entID smallint,
+startStamp timestamp,
+endStamp timestamp,
+newStatus enum('on','off','unplugged','broken'),
+info varchar(1024),
+comment varchar(1024),
+primary key (orderID),
+foreign key (cannonID) references Cannon(cannonID),
+foreign key (name) references SubPlace(name),
+foreign key (entID) references Ent(entID)
+)engine=innodb;
 
 
 insert into Ski (skiID, password, firstName, lastName, email, number, type, regDate) values
-('1','pass','Tomas','Stormhagen','Tomas360@gmail.com','1234567891','arenachef','2016-11-01'),
+('1','pass','Tomas','Stormhagen','tomas','1234567891','arenachef','2016-11-01'),
 ('2','pass','Göran','Smith','g_smith@gmail.com','1234567892','other','2016-11-01'),
 ('3','pass','Ove','Svensson','OveSwag@hotmail.com','1234567893','other','2016-11-01');
 
 
 insert into Ent (entID, password, firstName, lastName, email, number, regDate) values 
-('1','pass','Stefan','Fridström','blatjoo@aol.com','1234567891','2016-11-01'),
+('1','pass','Stefan','Fridström','stefan','1234567891','2016-11-01'),
 ('2','pass','Adrian','Abrahamsson','rotfs@hotmail.com','1234567892','2016-11-01'),
 ('3','pass','Philip','Svensson','asd@gmail.com','1234567893','2016-11-01');
 
 
 insert into Place (name, info) values 
 ('Vattendrag','Vattendrag som är tillängliga för snötillverkning'),
-('Delsträckor','Delsträckor som kan användas under vinterhalvåret'),
+('Delstrackor','Delsträckor som kan användas under vinterhalvåret'),
 ('Garage','Garage för pistmaskiner');
 
 
@@ -220,6 +256,10 @@ insert into WorkOrder (skiID, entID, sentDate, endDate, priority, info, EntComme
 ('1','2',now(),'','high','träd som ligger över spåren','text2'),
 ('1','3',now(),'','medium','grus vid lerdalen','text3'),
 ('1','2',now(),'','low','sten','text4');
+
+insert into FinnishedWorkOrder (OrderID, entID, sentDate, endDate, priority, info, EntComment) values
+('1','1','2016-01-15','','akut','död snubbe på spåret','text1'),
+('3','1','2016-01-17','','low','sten','text2');
 
 
 insert into Commenta (Kommentar,grade, alias, date) values 
@@ -230,12 +270,13 @@ insert into Commenta (Kommentar,grade, alias, date) values
 -- select avg(grade) from Comment;
 -- select grade from Comment;
 insert into SubPlace (name, placeName, realName, entID, length, height, fakesnow) values 
-('1','Delsträckor','Hedemora 3:1','1','12','21','23'),
-('2','Delsträckor','Hedemora 3:2','2','17','476','11'),
-('3','Delsträckor','Hedemora 3:3','3','29','376','3'),
-('4','Delsträckor','Hedemora2 3:1','3','12','198','5'),
-('5','Delsträckor','Hedemora2 3:2','3','6','264','1'),
-('6','Delsträckor','Hedemora2 3:3','3','22','333','31');
+('1','Delstrackor','Hedemora 3:1','1','12','21','23'),
+('2','Delstrackor','Hedemora 3:2','2','17','476','11'),
+('3','Delstrackor','Hedemora 3:3','3','29','376','3'),
+('4','Delstrackor','Hedemora2 3:1','3','12','198','5'),
+('5','Delstrackor','Hedemora2 3:2','3','6','264','1'),
+('55','Garage','HUVUDGARAGET','1','6','264','1'),
+('6','Delstrackor','Hedemora2 3:3','3','22','333','31');
 
 
 insert into Cannon (subPlaceName, model, status, effect) values
@@ -245,9 +286,14 @@ insert into Cannon (subPlaceName, model, status, effect) values
 
 
 insert into Report (entID, startDate, workDate, rating, underlay, edges, grip, depth) values
-('1','2011-11-11','2011-11-11','1','2','3','4','54'),
-('1','2011-11-11','2011-11-11','3','3','2','4','65'),
-('1','2011-11-11','2011-11-11','2','2','4','3','43');
+('1','2011-11-11','2011-09-11','1','2','3','4','54'),
+('1','2011-11-11','2011-10-11','3','3','2','4','65'),
+('1','2011-11-11','2011-12-11','2','2','4','3','43');
+
+insert into CannonSubPlace (CannonID, name, entID, startStamp, endStamp, newStatus, info, comment) values
+('1','1','2',now(),now(),'off','text från ski','not finnished'),
+('2','1','1',now(),now(),'off','text från ski1','not finnished'),
+('3','1','3',now(),now(),'on','text från ski2','not finnished');
 
 /*
 insert into Error (entID, sentDate, grade, errorDesc, type) values 

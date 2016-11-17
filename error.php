@@ -28,9 +28,8 @@ tr:hover {
 </head>
 <body>
 <!--
-Här kan man skriva kommentarer..
 
-Nedanför kan man skriva php kod..
+	fungerar ej..
 -->
 
 <?php
@@ -39,7 +38,7 @@ include'connect.php';
 
 
 <div>
-	<h3>NEW ERROR</h3>
+	<h3>NEW WORK ORDER</h3>
 	<form action='<?php $_PHP_SELF ?>' method='POST'>
 		<textarea rows="5" cols="70" name="desc" placeholder="please describe the problem explicit here.."></textarea>
 		</br>
@@ -73,36 +72,27 @@ include'connect.php';
     $stmt->bindParam(":startName", $_POST['Start'], PDO::PARAM_INT);
     $stmt->bindParam(":endName", $_POST['Slut'], PDO::PARAM_INT);
     $stmt->execute();
-}
-	    
+}    
 ?>
 </div>
 
 
-
 <div>
-	<h3>Utskrift av Error's</h3>
+	<h3>Utskrift av Ent's nästa beräknade arbetspass</h3>
     <table>
 	    <?php  
-		        echo "<th>ERROR ID</th>"; 
-		        echo "<th>ENT ID</th>"; 
-		        echo "<th>SENT DATE</th>"; 
-		        echo "<th>GRADE</th>"; 
-		        echo "<th>DESCRIPTION</th>"; 
-		        echo "<th>TYPE</th>"; 
-		      foreach($pdo->query( 'SELECT * FROM Error;' ) as $row){
+		        echo "<th>Next Date (estimated)</th>"; 
+		        echo "<th>Name</th>";
+
+		      foreach($pdo->query( 'select workDate, firstName, lastName from Report,Ent where Report.entID = Ent.entID group by Ent.EntID;' ) as $row){
 		        echo "<tr>";
-		        echo "<td>".$row['errorID']."</td>";
-		        echo "<td>".$row['entID']."</td>";
-		        echo "<td>".$row['sentDate']."</td>";
-		        echo "<td>".$row['grade']."</td>";
-		        echo "<td>".$row['errorDesc']."</td>";
-		        echo "<td>".$row['type']."</td>";
+		        echo "<td>".$row['workDate']."</td>";
+		        echo "<td>".$row['firstName']." ".$row['lastName']."</td>";
+
 		        echo "</tr>";  
 	      }
 	    ?>
     </table>
 </div>
-
 </body>
 </html>

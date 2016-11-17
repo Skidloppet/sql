@@ -40,13 +40,14 @@ include'connect.php';
 <div>
 	<h3>Create new Ski</h3>
 	<form action='<?php $_PHP_SELF ?>' method='POST'>
-		<input type="text" name="firstName" placeholder="first name.."></p>
-		<input type="text" name="lastName" placeholder="surname.."></p>
-		<input type="text" name="email" placeholder="email.."></p>
-		<input type="text" name="number" placeholder="number.."></p>
-		<input type="text" name="type" placeholder="type.."></p>
-		<input type="text" name="pass" placeholder="password.."></p>
-		<p><button type="submit" name="CreateSki" id="CreateSki">NEW SKI</button></p></form>
+		<input type="text" name="firstName" placeholder="first name..">
+		<input type="text" name="lastName" placeholder="surname..">
+		<input type="text" name="email" placeholder="email..">
+		<input type="text" name="number" placeholder="number..">
+		<input type="text" name="type" placeholder="type..">
+		<input type="text" name="pass" placeholder="password..">
+		<button type="submit" name="CreateSki" id="CreateSki">NEW SKI</button>
+	</form>
 
 
 	<?php
@@ -56,19 +57,12 @@ include'connect.php';
     $sql = "CALL CreateSki( :pass, :firstName, :lastName , :email, :number, :type)";
 
     $stmt = $pdo->prepare($sql);
-
     $stmt->bindParam(":pass", $_POST['pass'], PDO::PARAM_STR);
-
     $stmt->bindParam(":firstName", $_POST['firstName'], PDO::PARAM_STR);
-
     $stmt->bindParam(":lastName", $_POST['lastName'], PDO::PARAM_STR);
-
     $stmt->bindParam(":email", $_POST['email'], PDO::PARAM_STR);
-
     $stmt->bindParam(":number", $_POST['number'], PDO::PARAM_INT);
-
     $stmt->bindParam(":type", $_POST['type'], PDO::PARAM_STR);
-
    	$stmt->execute();
 	}	    
 ?>
@@ -95,7 +89,7 @@ include'connect.php';
 	        echo "<td>".$row['email']."</td>";
 	        echo "<td>".$row['number']."</td>";
 	        echo "<td>".$row['type']."</td>";
-	        echo "<td>".$row['pass']."</td>";
+	        echo "<td>".$row['password']."</td>";
 	        echo "</tr>";  
 	    }
       ?>

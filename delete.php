@@ -30,12 +30,13 @@ tr:hover {
 <body>
 <!--
 Här kan man skriva kommentarer..
-test
+
 Nedanför kan man skriva php kod..
 -->
 <?php
 include'connect.php';
 ?>
+<div>
 <?php
 			
 	if(isset($_GET['orderID'])){
@@ -75,6 +76,7 @@ include'connect.php';
 		
 		echo "</table>";
 ?>
+</div>
 </body>
 </html>
 

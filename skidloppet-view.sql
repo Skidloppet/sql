@@ -1,8 +1,8 @@
 /*
 -- Vyer till Skidloppet AB
 1. Vy för alla användare
-2. Vy för allt dagligt arbete & delsträckor
-3. Vy för arbetsorder och delsträckor
+	2. Vy för allt dagligt arbete & delsträckor
+	3. Vy för arbetsorder och delsträckor
 4. Vy för snökannoner
 5. Vy för akuta arbetsordrar
 6. Vy för kundkommentar
@@ -11,30 +11,29 @@
 9. Vy för status på del-sträcka (KUND-VY)
 10. Vy för status på del-sträcka (SKI-VY)
 11. Vy för snökanoner och konstsnöstatus på del-sträcka
-
+12. Vy för avklarade arbetsordrar
 KVAR ATT GÖRA!
 
+Vy för där alla arbetsordar och snökanonsordrar som är tilldelade en visas skiID 
 Vy för inskickade felanälningar (Error från kund & ent)ink. procedure för borttagning
-Vy för avklarade arbesordrar (finnishedWorkOrder)
-Vy för entrepenörer samt senaste genomförd arbetsorder, arbete & nästa planerade
-
 Vy för inkommande arbetsordrar
 */
-
+ 
 
 -- 1. Vy för alla användare
 -- Vy för att skapa en entreprenör
 DROP VIEW IF EXISTS AllUsers;
 CREATE VIEW AllUsers AS
     SELECT 
-        skiID as id, email, password
+        skiID as id, email, password, type
     FROM
         Ski 
     UNION SELECT 
-        entID as id, email, password
+        entID as id, email, password, number as type
     FROM
         Ent;
 -- select * from AllUsers;
+-- select * from AllUsers WHERE password='pass' and email='stefan';
 
 
 -- 2. Vy för allt dagligt arbete & delsträckor
@@ -128,39 +127,41 @@ group by ReportSubPlace.name;
 
 
 -- 8. Vy för senaste statusen på del-sträcka (överblicks-kartan)
-DROP VIEW IF EXISTS overview2;
+DROP VIEW IF EXISTS karta;
 
-create view overview2 as
+create view karta as
 select rspName,rating from overview, Report where reportID = rspID;
 
--- select * from overview2;
+-- call _newReport (1, now(), '2016-10-14', '1', '4', '4', '4', 23.1, 1,6);
+-- i skidloppet-procedurer.sql finns fler exempel för rapporter för test av N:M (rad 179-183)
+-- select * from karta order by rspName;
 
 
 
 
 -- 9. Vy för status på sträcka (överblicks-kartan)
 -- denna vyn hämtar detaljerad information om del-sträckan (KUNDVY)
-DROP VIEW IF EXISTS overview3;
+DROP VIEW IF EXISTS KundDetaljer;
 
-create view overview3 as
+create view KundDetaljer as
 select rspName, startDate, rating, underlay, edges, grip, depth, length, height, realname 
 from overview, Report, SubPlace
 where reportID = rspID and rspName = SubPlace.name;
 
--- select * from overview3;
+-- select * from KundDetaljer;
 
 
 
 -- 10. Vy för detaljerad spårningsinformation på del-sträcka
 -- denna vyn hämtar detaljerad information om rapport på vald del-sträcka (SKI-VY)
-DROP VIEW IF EXISTS overview3;
+DROP VIEW IF EXISTS SkiDetaljer;
 
-create view overview3 as
+create view SkiDetaljer as
 select rspName, Report.entID as ReportEnt, workDate, startDate, rating, underlay, edges, grip, depth, realName, SubPlace.entID as SubPlaceEnt, length, height, fakesnow
 from overview, Report, SubPlace
 where reportID = rspID and rspName = SubPlace.name;
 
--- select * from overview3;
+-- select * from SkiDetaljer;
 
 
 
@@ -176,3 +177,20 @@ where Cannon.subPlaceName = SubPlace.name and rspName = SubPlace.name;
 
 -- select * from overview4;
 
+-- 12. Vy för avklarade arbesordrar 
+
+DROP VIEW IF EXISTS finnishedWorkOrder;
+CREATE VIEW finnishedWorkOrder AS
+	SELECT FinnishedWorkOrder.orderID,FinnishedWorkOrder.entID,FinnishedWorkOrder.sentDate,FinnishedWorkOrder.endDate,
+    FinnishedWorkOrder.priority,FinnishedWorkOrder.info,FinnishedWorkOrder.EntComment
+	FROM FinnishedWorkOrder,WorkOrder
+	WHERE WorkOrder.orderID=FinnishedWorkOrder.orderID;
+
+-- select * from finnishedWorkOrder;
+
+-- Vy för entrepenörer samt senaste genomförd arbetsorder, arbete & nästa planerade
+DROP VIEW IF EXISTS lastWorkOrderEnt;
+CREATE VIEW lastWorkOrderEnt AS
+	SELECT max(FinnishedWorkOrder.OrderID),max(Report.workDate) 
+    FROM FinnishedWorkOrder,Report;
+-- select * from lastWorkOrderEnt

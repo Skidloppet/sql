@@ -36,8 +36,6 @@ Nedanför kan man skriva php kod..
 <?php
 include'connect.php';
 ?>
-
-
 <div>
 	<h3>Add a new report</h3>
 	<form action='<?php $_PHP_SELF ?>' method='POST'>
@@ -51,80 +49,67 @@ include'connect.php';
 		<input type="text" name="Depth" placeholder="Depth.."></p>
 		<input type="text" name="startName" placeholder="StartName.."></p>
 		<input type="text" name="endName" placeholder="EndName.."></p>
+		<input type="text" name="comment" placeholder="comment.."></p>
 		<p><button type="submit" name="_newReport" id="_newReport">NEW Report</button></p></form>
 
 	<?php
 
 	if(isset($_POST['_newReport'])){
 
-    $sql = "CALL _newReport(:newEntID, now(), :newWorkDate, :newRating, :newUnderlay, :newEdges, :newGrip, :newDepth, :startName, :endName)";
+    $sql = "CALL _newReport(:newEntID, now(), :newWorkDate, :newRating, :newUnderlay, :newEdges, :newGrip, :newDepth, :newComment, :startName, :endName)";
 
     $stmt = $pdo->prepare($sql);
-
     $stmt->bindParam(":newEntID", $_POST['EntID'], PDO::PARAM_INT);
-
     //$stmt->bindParam(":newStartDate", $_POST['StartDate'], PDO::PARAM_STR);
-
     $stmt->bindParam(":newWorkDate", $_POST['WorkDate'], PDO::PARAM_STR);
-
     $stmt->bindParam(":newRating", $_POST['Rating'], PDO::PARAM_INT);
-
     $stmt->bindParam(":newUnderlay", $_POST['Underlay'], PDO::PARAM_INT);
-
     $stmt->bindParam(":newEdges", $_POST['Edges'], PDO::PARAM_INT);
-
     $stmt->bindParam(":newGrip", $_POST['Grip'], PDO::PARAM_INT);
-
     $stmt->bindParam(":newDepth", $_POST['Depth'], PDO::PARAM_INT);
-
+    $stmt->bindParam(":newComment", $_POST['comment'], PDO::PARAM_STR);
     $stmt->bindParam(":startName", $_POST['startName'], PDO::PARAM_INT);
-
     $stmt->bindParam(":endName", $_POST['endName'], PDO::PARAM_INT);
-
     $stmt->execute();
 }
 	    
 ?>
 </div>
 
-
-
 <div>
-    	<h3>Utskrift av rapporter</h3>
+    <h3>Utskrift av rapporter</h3>
     <table>
 	    <?php  	
-	    		echo "<tr>";
-		        echo "<th>reportID</th>"; 
-		        echo "<th>newEntID</th>"; 
-		        echo "<th>newStartDate</th>"; 
-		        echo "<th>newWorkDate</th>"; 
-		        echo "<th>newRating</th>"; 
-		        echo "<th>newUnderlay</th>"; 
-		        echo "<th>newEdges</th>"; 
-		        echo "<th>newGrip</th>"; 
-		        echo "<th>newDepth</th>";
-		        echo "<th>Sträcka</th>"; 
-		        echo "</tr>";
+    		echo "<tr>";
+	        echo "<th>reportID</th>"; 
+	        echo "<th>newEntID</th>"; 
+	        echo "<th>newStartDate</th>"; 
+	        echo "<th>newWorkDate</th>"; 
+	        echo "<th>newRating</th>"; 
+	        echo "<th>newUnderlay</th>"; 
+	        echo "<th>newEdges</th>"; 
+	        echo "<th>newGrip</th>"; 
+	        echo "<th>newDepth</th>";
+	        echo "<th>kommentar</th>"; 
+	        echo "</tr>";
 
-//newEntID, newStartDate, newWorkDate, newRating, newUnderlay, newEdges, newGrip, newDepth, startName, endName
-
-		      foreach($pdo->query( 'SELECT * FROM Reporting;' ) as $row){
-		        //echo "<tr><td>";
-		        //echo "<a href='test.php?entID=".urlencode($row['entID'])."'>".$row['entID'];
-		        echo "<tr>";
-		        echo "<td>".$row['reportID']."</td>";
-		        echo "<td>".$row['entID']."</td>";
-		        echo "<td>".$row['startDate']."</td>";
-		        echo "<td>".$row['workDate']."</td>";
-		        echo "<td>".$row['rating']."</td>";
-		        echo "<td>".$row['underlay']."</td>";
-		        echo "<td>".$row['edges']."</td>";
-		        echo "<td>".$row['grip']."</td>";
-		        echo "<td>".$row['depth']."</td>";
-		        echo "<td>".$row['name']."</td>";
-		        echo "</tr>";  
-	      }
-	    ?>
+	      foreach($pdo->query( 'SELECT * FROM Report;' ) as $row){
+	        //echo "<tr><td>";
+	        //echo "<a href='test.php?entID=".urlencode($row['entID'])."'>".$row['entID'];
+	        echo "<tr>";
+	        echo "<td>".$row['reportID']."</td>";
+	        echo "<td>".$row['entID']."</td>";
+	        echo "<td>".$row['startDate']."</td>";
+	        echo "<td>".$row['workDate']."</td>";
+	        echo "<td>".$row['rating']."</td>";
+	        echo "<td>".$row['underlay']."</td>";
+	        echo "<td>".$row['edges']."</td>";
+	        echo "<td>".$row['grip']."</td>";
+	        echo "<td>".$row['depth']."</td>";
+	        echo "<td>".$row['comment']."</td>";
+	        echo "</tr>";  
+      		}
+    	?>
     </table>
 </div>
 

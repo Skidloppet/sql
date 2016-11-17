@@ -35,36 +35,33 @@ include'connect.php';
 	<h3>Create new cannon</h3>
 	<form action='<?php $_PHP_SELF ?>' method="post">
 		<select size='1' name='status'>
-			<option > status cannon</option>
 			<option value="on"> On</option>
-			<option value="off"> Off</option>
-			<option value="broken"> broken</option>
-			<option value="unplugged"> unplugged</option>
-		</select><br></br>
+			<option value="off" selected="selected"> Off</option>
+			<option value="broken" > Broken</option>
+			<option value="unplugged"> Unplugged</option>
+			</select><br></br>
 		<input type="text" name="subPlaceName" placeholder="plats.."></p>
 		<input type="text" name="model" placeholder="modell.."></p>
 		<input type="text" name="effect" placeholder="effekt.."></p>
 		<input type="submit" value="Lägg till"/>
 
 
-<?php
-
-    if(isset($_POST['subPlaceName'])){
-        $sql="CALL NewCannon(:subPlaceName,:model,:status,:effect)";
-        $stmt = $pdo->prepare($sql);
-        $stmt->bindParam(':subPlaceName', $_POST['subPlaceName'],PDO::PARAM_INT);
-        $stmt->bindParam(':model', $_POST['model'],PDO::PARAM_STR);
-        $stmt->bindParam(':status', $_POST['status'],PDO::PARAM_STR);
-		$stmt->bindParam(':effect', $_POST['effect'],PDO::PARAM_INT);
-        $stmt->execute();
-    }
+	<?php
+	    if(isset($_POST['subPlaceName'])){
+	        $sql="CALL NewCannon(:subPlaceName,:model,:status,:effect)";
+	        $stmt = $pdo->prepare($sql);
+	        $stmt->bindParam(':subPlaceName', $_POST['subPlaceName'],PDO::PARAM_INT);
+	        $stmt->bindParam(':model', $_POST['model'],PDO::PARAM_STR);
+	        $stmt->bindParam(':status', $_POST['status'],PDO::PARAM_STR);
+			$stmt->bindParam(':effect', $_POST['effect'],PDO::PARAM_INT);
+	        $stmt->execute();
+	    }
 	?>
-    </div>
+</div>
 
- <div>
+<div>
     <h3>Kanoner!</h3>
-	<table>
-	 <tr>
+	<table><tr>
 	 <th>subPlaceName</th> 
 	 <th>model</th>
      <th>status</th>
