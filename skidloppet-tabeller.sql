@@ -18,6 +18,8 @@ create table img (
     -- img_size 	varchar (25) not null default '',
     primary key (img_id)
 )engine=innodb;
+
+
 -- Tabell för Skidloppet anställda
 create table Ski(
 skiID smallint not null auto_increment unique,

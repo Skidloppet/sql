@@ -40,6 +40,9 @@ SESSION_START();
 ?>
   <div>
     <?php
+    # print_r($_SESSION );
+    # echo "<div>ids:".$_SESSION[0]." :wallas: ".$_SESSION[1]."</div>";
+
   if (isset($_SESSION['email'])) {
     echo "logged in as: ";
     echo $_SESSION['email']." role: ";
@@ -62,8 +65,36 @@ SESSION_START();
      </div>
      <?php
         }
+
+?>
+
+<div>
+  <?php
+      if (!isset($_SESSION['email'])) {
       ?>
-     
+      <h3>Här är all kod för ICKE inloggade</h3>
+  <?php 
+      } 
+      elseif (isset($_SESSION['email'])&&($_SESSION['type'] == 'arenachef')) {
+      ?>
+      <h3>Här är all kod för ARENACHEFER</h3>  
+  <?php
+      }
+      elseif (isset($_SESSION['email'])&&($_SESSION['type'] == 'other')) {
+      ?>
+      <h3>Här är all kod för OTHERS(Skidloppet)</h3>
+  <?php 
+      }
+      elseif (isset($_SESSION['email'])&&($_SESSION['type'] > '1')) {
+      ?>
+      <h3>Här är all kod för ENT</h3>
+  <?php
+      }
+ else{
+  echo "if this message is showing your logged in as a hacker or smt";
+ }
+      ?>
+ </div>    
 
 </body>
 </html>
