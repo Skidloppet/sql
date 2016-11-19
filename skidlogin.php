@@ -21,4 +21,4 @@ if(!$row = $result->fetch_assoc()) {
 
 }
 
-header("Location: loginform.php");
+header("Location: Kund.php");
