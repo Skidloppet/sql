@@ -234,7 +234,10 @@ DELIMITER ;
 call _NewComment ('fet kommentar på spåren 2-5','kalle','2',now(),'2','5');
 call _NewComment ('ny kommentar med fett','balle','2',now(),'6','1');
 call _NewComment ('en kommentar på några spår','tralle','2',now(),'1','6');
-select * from CommentSubPlace;
+call _NewComment ('korar','kalle','2',now(),'2','5');
+call _NewComment ('sånt kul','balle','2',now(),'6','1');
+call _NewComment ('hejdär','tralle','2',now(),'1','6');
+-- select * from CommentSubPlace;
 -- select * from Commenta;
 
 
@@ -507,6 +510,19 @@ DELIMITER ;
 -- call _finnishedCannonOrder('2','1',now(),'texttesttets');
 
 -- 15 tar alla gammla kommentarer äldre än 48 h
+/*
+ALTERNATIV LÖSNING! (stulet från Christoffer S)
+
+DELIMITER //
+CREATE PROCEDURE _removeComment()
+begin
+delete *
+from Commenta
+where date < DATE_SUB(CURDATE(), interval 48 hour);
+DELIMITER ;
+
+
+
 /*
 DELETE FROM Commenta 
 WHERE

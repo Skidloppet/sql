@@ -1,6 +1,8 @@
 ﻿<?php
 SESSION_START();
 include'connect.php';
+# funkar ej
+# default_charset = "utf-8";
 ?>
 
 
@@ -408,7 +410,7 @@ tr:nth-child(even) {
 
 
   <div class="w3-container w3-content w3-padding-64" style="max-width:800px" id="Kontakt">
-    <h3>kundkommentarer (limit 5)</h3>
+    <h3>kundkommentarer</h3>
 </h4>
     <table>
 <tr>
@@ -447,12 +449,7 @@ tr:nth-child(even) {
     ?>
   </div>
 
-
-
-
-
-  
-  
+<!--  
 <div>
 	<h3>Lägg till en kundkommentar</h3>
 	<form action='' method='POST'>
@@ -479,6 +476,73 @@ tr:nth-child(even) {
 	</form>
 
 
+</div>
+-->
+
+
+<div>
+  <h3>Ny kundkommentar</h3>
+  <form action ='Kund.php' method='POST'>
+    <textarea rows="5" cols="70" name="comment" placeholder="freetext !comment"></textarea>
+    </br>
+    <input type="text" name="alias" placeholder="Alias..">
+    <select name='grade'>
+      <option selected="selected">Betygsätt spåren</option>
+      <option value="1">1 - Ej åkbart</option>
+      <option value="2">2 - Undermåliga spår</option>
+      <option value="3">3 - Okej</option>
+      <option value="4">4 - Bra spår</option>
+      <option value="5">5 - Perfekt</option>
+    </select>
+      <select size='1' name='startName'>
+        <option selected="selected"> Choose startingpoint </option>
+          <?php    
+          foreach($pdo->query( 'SELECT * FROM SubPlace where name<"21" ORDER BY name;' ) as $row){
+              echo '<option value="'.$row['name'].'">';
+            echo $row['realName'];      
+            echo '</option>';
+              }               
+          
+          ?>
+      </select>
+
+      <select size='1' name='endName'>
+        <option selected="selected"> Choose endingpoint </option>
+          <?php    
+          foreach($pdo->query( 'SELECT * FROM SubPlace where name<"21" ORDER BY name;' ) as $row){
+              echo '<option value="'.$row['name'].'">';
+            echo $row['realName'];      
+            echo '</option>';
+              }    
+          ?>
+      </select>
+
+    <button type="submit" name="CreateComment">SEND COMMENT</button>
+    
+  </form>
+
+
+<?php
+  # skapa ett errormedelande vid fel input (inget alias, kommentar över 1024 tecken, inget start/slut)
+
+  if(isset($_POST['CreateComment'])){
+  /*deleteC skulle vart bättre att göra i mysql som ett event men då man måste ha super behörighet för detta gjordes det i php 
+  med koden: DELETE FROM Commenta WHERE date < NOW() - INTERVAL 48 HOUR; i mysql. nackdelen med detta är att kommentarerna endast tas bort 
+  när någon skriver en ny. Om man gjort ett mysql event kunde man ställt in så att detta tas bort i ett bestämmt intervall*/
+    
+    #$deleteC = "DELETE FROM Commenta WHERE date < NOW() - INTERVAL 48 HOUR;";
+    $sql = "CALL _NewComment(:newComment, :newAlias, :newGrade, now(), :startName, :endName);";
+    $stmt = $pdo->prepare($sql);
+    #$stmt = $pdo->query($deleteC);
+
+    $stmt->bindParam(":newComment", $_POST['comment'], PDO::PARAM_STR);
+    $stmt->bindParam(":newAlias", $_POST['alias'], PDO::PARAM_STR);
+    $stmt->bindParam(":newGrade", $_POST['grade'], PDO::PARAM_INT);
+    $stmt->bindParam(":startName", $_POST['startName'], PDO::PARAM_INT);
+    $stmt->bindParam(":endName", $_POST['endName'], PDO::PARAM_INT);
+    $stmt->execute();
+  }  
+?>
 </div>
 
 

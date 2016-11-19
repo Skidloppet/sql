@@ -197,22 +197,14 @@ CREATE VIEW lastWorkOrderEnt AS
 
 
 
-
-
-
-
-
-
 -- 13. Vy för senaste kommentaren på en delsträcka
 -- denna vyn hämtar den senaste commentID för en del-sträcka
 DROP VIEW IF EXISTS overviewComment;
 create view overviewComment as
 SELECT CommentSubPlace.name as rspName, CommentSubPlace.commentID as cmtID
-from CommentSubPlace
-group by CommentSubPlace.name;
-
+from CommentSubPlace;
 -- denna vyn hämtar rating från senaste rapporten på en viss del-sträcka.
--- select * from overviewComment;
+select * from overviewComment;
 
 
 -- 14. Vy för kommentar på del-sträcka (överblicks-kartan)
@@ -222,6 +214,7 @@ DROP VIEW IF EXISTS KundComment;
 create view KundComment as
 select rspName, cmtID, kommentar, alias, grade, date, realname
 from overviewComment, Commenta, SubPlace
-where commentID = cmtID and rspName = SubPlace.name;
+where commentID = cmtID and rspName = SubPlace.name
+order by cmtID desc;
 
 select * from KundComment;
