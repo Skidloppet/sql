@@ -1,4 +1,11 @@
-﻿<!DOCTYPE html>
+﻿<?php
+SESSION_START();
+include'connect.php';
+?>
+
+
+
+<!DOCTYPE html>
 <html>
 <title>Skidloppet AB</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -164,19 +171,29 @@ tr:nth-child(even) {
   <li class="w3-hide-small"><a href="#Kommentar2" class="w3-padding-large">Kommentera sträckan</a></li>
   <li class="w3-hide-small"><a href="#Kontakt" class="w3-padding-large">Kontakta oss</a></li>
   
-  <!- kollar om man INTE är inloggad -!>
-  	      
+  <!-- kollar om man INTE är inloggad -->
+  	      <?php
+           if (!isset($_SESSION['email'])) {
+?>
+
+
+
 <li style="float: right">
 <button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Logga in</button>
 </li>
 
-<?php>
+<?php
   }
-  else{
+  elseif (isset($_SESSION['email'])){
   ?>
-  <button action="logout.php" style="width:auto;">Logga ut</button>
-
-  
+  <li style="float: right">
+    <form action="logout.php" >
+  <button style="width:auto;">Logga ut</button>
+  </form>
+</li>
+  <?php
+}
+?>
     
 <div id="id01" class="modal">
   
@@ -224,6 +241,7 @@ tr:nth-child(even) {
 <div class="w3-content" style="max-width:2000px;margin-top:46px">
 
   <!-- Automatic Slideshow Images -->
+<!--
   <div class="mySlides w3-display-container w3-center">
     <img src="ny1.jpg" style="width:100%">
     <div class="w3-display-bottommiddle w3-container w3-text-white w3-padding-32 w3-hide-small">
@@ -244,9 +262,8 @@ tr:nth-child(even) {
       <p><b></b></p>
     </div>
   </div>
-
+-->
 <!-- div för kartan -->
-
 
 
 <!-- Add Google Maps -->
@@ -323,7 +340,7 @@ tr:nth-child(even) {
 </svg>
 <br>
 
-<!-- Detaljer för del-sträckan -->
+<!-- Detaljer för del-sträckan 
 <h1>Detaljer för del-sträckan</h1>
 <table border='1'><th>Rating</th><th>Underlay</th><th>Edges</th><th>Grip</th><th>Depth ( Cm )</th><tr><td>1</td><td>2</td><td>3</td><td>4</td><td>54.0</td></tr><tr><td>3</td><td>3</td><td>2</td><td>4</td><td>65.0</td></tr><tr><td>2</td><td>2</td><td>4</td><td>3</td><td>43.0</td></tr></table>
   <div class="w3-container w3-content w3-padding-64" style="max-width:800px" id="Kommentar1">
@@ -336,8 +353,104 @@ tr:nth-child(even) {
   </div>
   <table border='1'><th>Kommentar</th><th>Alias</th><th>Betyg</th><th>Datum</th></table>  
   
+  -->
   
-  
+  <div class="w3-container w3-content w3-padding-64" style="max-width:800px" id="Kontakt">
+    <h3>skriver bara ut den som en enkel tabell för test</h3>
+    <h4>  <a href="karta.php">tillfällig länk till karta.php</a>
+</h4>
+    <table>
+<tr>
+    <th>name</th>
+    <th>startDate</th>
+    <th>rating</th>
+    <th>underlay</th>
+    <th>edges</th>
+    <th>grip</th>
+    <th>depth</th>
+    <th>length</th>
+    <th>height</th>
+    <th>realname</th>
+</tr>
+    <?php
+
+        if(isset($_GET['DS'])){
+          
+            $query='SELECT * FROM KundDetaljer where rspName = :DS';
+            $stmt = $pdo->prepare($query);
+            $stmt->bindParam(':DS', $_GET['DS']);
+            $stmt->execute();
+
+      foreach($stmt as $key => $row){
+          echo '<tr>';
+          echo "<td>".$row['rspName']."</td>";
+          echo "<td>".$row['startDate']."</td>";
+          echo "<td>".$row['rating']."</td>";
+          echo "<td>".$row['underlay']."</td>";
+          echo "<td>".$row['edges']."</td>";
+          echo "<td>".$row['grip']."</td>";
+          echo "<td>".$row['depth']."</td>";
+          echo "<td>".$row['length']."</td>";
+          echo "<td>".$row['height']."</td>";
+          echo "<td>".$row['realname']."</td>";
+          echo "</tr>"; 
+          }
+        }
+        echo "</table>";
+    ?>
+  </div>
+
+
+
+
+
+
+
+
+  <div class="w3-container w3-content w3-padding-64" style="max-width:800px" id="Kontakt">
+    <h3>kundkommentarer (limit 5)</h3>
+</h4>
+    <table>
+<tr>
+    <th>rspName</th>
+    <th>cmtID</th>
+    <th>kommentar</th>
+    <th>alias</th>
+    <th>grade</th>
+    <th>date</th>
+    <th>realname</th>
+
+</tr>
+    <?php
+
+        if(isset($_GET['DS'])){
+          
+            $query='SELECT * FROM KundComment where rspName = :DS';
+            $stmt = $pdo->prepare($query);
+            $stmt->bindParam(':DS', $_GET['DS']);
+            $stmt->execute();
+
+      foreach($stmt as $key => $row){
+          echo '<tr>';
+          echo "<td>".$row['rspName']."</td>";
+          echo "<td>".$row['cmtID']."</td>";
+          echo "<td>".$row['kommentar']."</td>";
+          echo "<td>".$row['alias']."</td>";
+          echo "<td>".$row['grade']."</td>";
+          echo "<td>".$row['date']."</td>";
+          echo "<td>".$row['realname']."</td>";
+
+          echo "</tr>"; 
+          }
+        }
+        echo "</table>";
+    ?>
+  </div>
+
+
+
+
+
   
   
 <div>

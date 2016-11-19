@@ -194,3 +194,34 @@ CREATE VIEW lastWorkOrderEnt AS
 	SELECT max(FinnishedWorkOrder.OrderID),max(Report.workDate) 
     FROM FinnishedWorkOrder,Report;
 -- select * from lastWorkOrderEnt
+
+
+
+
+
+
+
+
+
+-- 13. Vy för senaste kommentaren på en delsträcka
+-- denna vyn hämtar den senaste commentID för en del-sträcka
+DROP VIEW IF EXISTS overviewComment;
+create view overviewComment as
+SELECT CommentSubPlace.name as rspName, CommentSubPlace.commentID as cmtID
+from CommentSubPlace
+group by CommentSubPlace.name;
+
+-- denna vyn hämtar rating från senaste rapporten på en viss del-sträcka.
+-- select * from overviewComment;
+
+
+-- 14. Vy för kommentar på del-sträcka (överblicks-kartan)
+-- denna vyn hämtar detaljerad information om del-sträckan (KUNDVY)
+DROP VIEW IF EXISTS KundComment;
+
+create view KundComment as
+select rspName, cmtID, kommentar, alias, grade, date, realname
+from overviewComment, Commenta, SubPlace
+where commentID = cmtID and rspName = SubPlace.name;
+
+select * from KundComment;
