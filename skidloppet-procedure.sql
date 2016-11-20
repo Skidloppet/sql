@@ -22,16 +22,12 @@ procedur & php för avklarade snökanon-workorder
 
 
 - implementera SMS för akut arbetsorder (10._newWorkOrder & NyArbetsOrder.php).
--  redigera 7. _NewReport så den fungerar för kund
-- ändra .11 _finnishedWorkOrder så man även kan automatiskt flytta/ändra sttus på snkökanoner (om det var arbetsordern)
-- ny procedur för att acceptera skut order (ändra ansvar till den entID som accepterar)
-- procedurer för notiser till ENT & SKI
+- bilder för Report(daligt underhåll samt alternativt kundkommentar, ent, ski bilder?)
+- ny procedur för att acceptera akut order (ändra ansvar till den entID som accepterar)
 - procedur för att ta bort arbetsorder(val för borttagning eller loggning(genomförd))
 - procedur för automatiskt borttagning av kommentarer 48h
 - procedur för att beställa snö (ex. flytta kanon & ha den igång x timmar?)
 - procedur för att sätta en tävlingsarbetsorder (arbetsorder som berör allt?!) LÅG PRIO
-
-ändra procedure N:M så den räknar ner vid baklänges åkning
 */
 
 -- 1. Procedure för att skapa en Entrepenör
@@ -230,7 +226,6 @@ COMMIT ;
 END //
 DELIMITER ;
 
-
 call _NewComment ('fet kommentar på spåren 2-5','kalle','2',now(),'2','5');
 call _NewComment ('ny kommentar med fett','balle','2',now(),'6','1');
 call _NewComment ('en kommentar på några spår','tralle','2',now(),'1','6');
@@ -241,8 +236,9 @@ call _NewComment ('hejdär','tralle','2',now(),'1','6');
 -- select * from Commenta;
 
 
+
 -- 9. Procedure för nya felanmälan
-/*
+
 DROP PROCEDURE IF EXISTS _NewError;
 
 DELIMITER //
@@ -250,7 +246,7 @@ CREATE PROCEDURE _NewError (
 newErrorDesc varchar(1024),
 newEntID smallint,
 newSentDate timestamp,
-newGrade enum('low','medium','high','akut'),
+-- newGrade enum('low','medium','high','akut'),
 newType enum('lights','tracks','dirt','trees','other'),
 startName tinyint,
 endName tinyint
@@ -271,7 +267,7 @@ set endName = switch;
 set startName = switch2;
 end if;
 
-INSERT INTO Error (entID, sentDate , grade, errorDesc , type) values (newEntID, newSentDate, newGrade, newErrorDesc, newType);
+INSERT INTO Error (entID, sentDate , errorDesc , type) values (newEntID, newSentDate, newErrorDesc, newType);
 
 SET LastInsert = last_insert_id();
 SET nameCounter = startName;
@@ -287,56 +283,8 @@ COMMIT ;
 END //
 DELIMITER ;
 
-call _NewError ('mörkt överallt','1',now(),'low','lights','1','3');
-call _NewError ('träd över spåret','2',now(),'low','trees','3','1');
--- select * from ErrorSubPlace;
-*/
-
--- 9. Procedure för nya felanmälan
-DROP PROCEDURE IF EXISTS _NewError;
-
-DELIMITER //
-CREATE PROCEDURE _NewError (
-newErrorDesc varchar(1024),
-newEntID smallint,
-newSentDate timestamp,
--- newGrade enum('low','medium','high','akut'),
--- tog bort prio graden för felanmälan
-newType enum('lights','tracks','dirt','trees','other'),
-startName tinyint,
-endName tinyint
-)
-BEGIN
-
-DECLARE LastInsert int;
-DECLARE nameCounter tinyint;
-START TRANSACTION;
-
-INSERT INTO Error (entID, sentDate , errorDesc , type) values (newEntID, newSentDate, newErrorDesc, newType);
-
-SET LastInsert = last_insert_id();
-
-IF startName<=endName THEN
-	SET nameCounter = startName;
-	FirstWhile: WHILE nameCounter<=endName DO
-		insert into ErrorSubPlace(name, errorID) values (nameCounter, LastInsert);
-		set nameCounter = nameCounter + 1;
-	END WHILE FirstWhile;
-	-- else IF;
-ELSEIF endName<=startName THEN
-	SET nameCounter=startName;
-    SecondWhile: WHILE nameCounter>=endName DO
-	insert into ErrorSubPlace(name, errorID) values (nameCounter, LastInsert);
-	set nameCounter = nameCounter - 1;
-    END WHILE SecondWhile;
-	END IF;
-    
-COMMIT ;
-END //
-DELIMITER ;
-
-call _NewError ('V2 träd över spåret','1',now(),'lights','1','3');
-call _NewError ('V2 problem i början men bättre i slutet','2',now(),'trees','3','1');
+call _NewError ('mörkt överallt','1',now(),'lights','1','3');
+call _NewError ('träd över spåret','2',now(),'trees','3','1');
 -- select * from ErrorSubPlace;
 
 
@@ -360,12 +308,10 @@ startName tinyint,
 endName tinyint
 )
 BEGIN
-DECLARE split bool;
 DECLARE LastInsert int;
 DECLARE nameCounter tinyint;
 DECLARE switch tinyint;
 DECLARE switch2 tinyint;
-
 
 START TRANSACTION;
 
@@ -379,7 +325,6 @@ end if;
 
 -- sätter nameCounter som den första sträckan 
 SET nameCounter = startName;
-SET split = newSplit;
 -- kollar om arbetsordern skall uppdelas för de som har ansvarsområde för del-sträckorna
 if newSplit = 1 then
 
@@ -419,9 +364,10 @@ call _newSplitWorkOrder ('1','1',now(),'high','tracks','spåra spåren','1','1',
 call _newSplitWorkOrder ('1','1',now(),'high','trees','träda träden','0','1','6');
 select * from SubPlaceWorkOrder;
 select * from WorkOrder;
-
-fixa så att 
 */
+
+
+
 -- 11. skapa färdig arbetsorder (logg)
 
 -- problem med att få proceduren nedan att fungera, prövat flera lösningsalternativ utan resultat. hjälp sökes
@@ -452,9 +398,7 @@ begin
 END //
 DELIMITER ;
 -- call _finnishedWorkOrder('2','3',now(),'text');
-
 -- select * from WorkOrder;
-
 -- select * from FinnishedWorkOrder;
 
 
@@ -530,6 +474,9 @@ END //
 DELIMITER ;
 -- call _finnishedCannonOrder('2','1',now(),'texttesttets');
 
+
+
+
 -- 15 tar alla gammla kommentarer äldre än 48 h
 /*
 ALTERNATIV LÖSNING! (stulet från Christoffer S)
@@ -541,8 +488,6 @@ delete *
 from Commenta
 where date < DATE_SUB(CURDATE(), interval 48 hour);
 DELIMITER ;
-
-
 
 /*
 DELETE FROM Commenta 
