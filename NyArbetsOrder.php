@@ -74,7 +74,6 @@ include'connect.php';
 </div>
 
 
-
 <div>
 	<h3>Utskrift av Entrepenörer</h3>
     <table>
