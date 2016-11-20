@@ -204,7 +204,7 @@ create view overviewComment as
 SELECT CommentSubPlace.name as rspName, CommentSubPlace.commentID as cmtID
 from CommentSubPlace;
 -- denna vyn hämtar rating från senaste rapporten på en viss del-sträcka.
-select * from overviewComment;
+-- select * from overviewComment;
 
 
 -- 14. Vy för kommentar på del-sträcka (överblicks-kartan)
@@ -217,4 +217,4 @@ from overviewComment, Commenta, SubPlace
 where commentID = cmtID and rspName = SubPlace.name
 order by cmtID desc;
 
-select * from KundComment;
+-- select * from KundComment;

@@ -300,7 +300,8 @@ CREATE PROCEDURE _NewError (
 newErrorDesc varchar(1024),
 newEntID smallint,
 newSentDate timestamp,
-newGrade enum('low','medium','high','akut'),
+-- newGrade enum('low','medium','high','akut'),
+-- tog bort prio graden för felanmälan
 newType enum('lights','tracks','dirt','trees','other'),
 startName tinyint,
 endName tinyint
@@ -311,7 +312,7 @@ DECLARE LastInsert int;
 DECLARE nameCounter tinyint;
 START TRANSACTION;
 
-INSERT INTO Error (entID, sentDate , grade, errorDesc , type) values (newEntID, newSentDate, newGrade, newErrorDesc, newType);
+INSERT INTO Error (entID, sentDate , errorDesc , type) values (newEntID, newSentDate, newErrorDesc, newType);
 
 SET LastInsert = last_insert_id();
 
@@ -334,19 +335,17 @@ COMMIT ;
 END //
 DELIMITER ;
 
-call _NewError ('V2 träd över spåret','1',now(),'low','lights','1','3');
-call _NewError ('V2 problem i början men bättre i slutet','2',now(),'low','trees','3','1');
+call _NewError ('V2 träd över spåret','1',now(),'lights','1','3');
+call _NewError ('V2 problem i början men bättre i slutet','2',now(),'trees','3','1');
 -- select * from ErrorSubPlace;
-
-
 
 
 
 -- 10. Lägg till ny arbetsorder
 
-DROP PROCEDURE IF EXISTS _newWorkOrder;
+DROP PROCEDURE IF EXISTS _newSplitWorkOrder;
 DELIMITER //
-CREATE PROCEDURE _newWorkOrder ( -- skiID, entID, sentDate, startDate, priority, info, startName, endName
+CREATE PROCEDURE _newSplitWorkOrder ( -- skiID, entID, sentDate, startDate, priority, info, startName, endName
 -- newSkiID och newEntID skall vara user() sedan.
 newSkiID smallint,
 newEntID smallint,
@@ -354,11 +353,14 @@ newEntID smallint,
 newSentDate timestamp,
 -- newStartDate timestamp,
 newPriority enum('high','medium','low','akut'),
+newType enum('lights','tracks','dirt','trees','other'),
 newInfo varchar(1024),
+newSplit bool,
 startName tinyint,
 endName tinyint
 )
 BEGIN
+DECLARE split bool;
 DECLARE LastInsert int;
 DECLARE nameCounter tinyint;
 DECLARE switch tinyint;
@@ -375,32 +377,51 @@ set endName = switch;
 set startName = switch2;
 end if;
 
-INSERT INTO WorkOrder (skiID, entID, sentDate, priority, info, EntComment)
-values (newSkiID, newEntID, now(), newPriority, newInfo, "not finnished/accepted(emergency) yet");
--- tilldelar LastInsert reportID's auto_increment värde för kopplingen i N:M tabellen
-SET LastInsert = last_insert_id();
-
+-- sätter nameCounter som den första sträckan 
 SET nameCounter = startName;
+SET split = newSplit;
+-- kollar om arbetsordern skall uppdelas för de som har ansvarsområde för del-sträckorna
+if newSplit = 1 then
 
+-- while loop eftersom det blir flera arbetsordrar.. (delar upp arbetsordern på delsträckornas ansvarsområde)
+	WHILE nameCounter<=endName DO
+-- eid är entrepenörens id från delsträckan som = nameCounter
+        -- skapar en arbetsorder för varje delsträcka
+		INSERT INTO WorkOrder (skiID, entID, sentDate, priority,type, info, EntComment)
+		values (newSkiID, newEntID, now(), newPriority,newType, newInfo, "BAJS finnished/accepted(emergency) yet");
+        		SET LastInsert = last_insert_id();
+
+        		update WorkOrder
+			set entID = (select entID from SubPlace where name = nameCounter) 
+            where WorkOrder.orderID = LastInsert;
+-- tilldelar LastInsert reportID's auto_increment värde för kopplingen i N:M tabellen
+		insert into SubPlaceWorkOrder(name, orderID) values (nameCounter, LastInsert);
+		set nameCounter = nameCounter + 1;
+		END WHILE;
+	else
+    
+-- skapar bara en arbetsorder för alla delsträckor. (INGEN SPLIT!)
+		INSERT INTO WorkOrder (skiID, entID, sentDate, priority, type, info, EntComment)
+		values (newSkiID, newEntID, now(), newPriority,newType, newInfo, "not finnished/accepted(emergency) yet");
+-- tilldelar LastInsert reportID's auto_increment värde för kopplingen i N:M tabellen
+		SET LastInsert = last_insert_id();
 --     for ($i=0;$i<$numRecs;$i++) {       <-- alternativ lösning (ev. bättre & snyggare)
-WHILE nameCounter<=endName DO
-
-	insert into SubPlaceWorkOrder(name, orderID) values (nameCounter, LastInsert);
-	set nameCounter = nameCounter + 1;
-
-	END WHILE;
+		WHILE nameCounter<=endName DO
+			insert into SubPlaceWorkOrder(name, orderID) values (nameCounter, LastInsert);
+			set nameCounter = nameCounter + 1;
+			END WHILE;
+		end if;
 COMMIT ;
 END //
 DELIMITER ;
+/*
+call _newSplitWorkOrder ('1','1',now(),'high','tracks','spåra spåren','1','1','6');
+call _newSplitWorkOrder ('1','1',now(),'high','trees','träda träden','0','1','6');
+select * from SubPlaceWorkOrder;
+select * from WorkOrder;
 
--- skiID, entID, sentDate, startDate, priority, info, startName, endName
--- CALL _newWorkOrder (1, 2, now(), 'low', 'KOTTAR ÖVERALLT RÄDDA MIG', 1, 3);
--- select * from WorkOrdersAndPlaces;
--- Select * From WorkOrder;
--- SELECT * FROM SubPlace where name<"21" ORDER BY name;
--- SELECT * FROM Comment;
-
-
+fixa så att 
+*/
 -- 11. skapa färdig arbetsorder (logg)
 
 -- problem med att få proceduren nedan att fungera, prövat flera lösningsalternativ utan resultat. hjälp sökes

@@ -62,6 +62,7 @@ sentDate datetime,
 -- ändrade från timestamp till datetime pga att det blev fel datum i finnishedworkorder när man flyttade över
 endDate timestamp,
 priority enum('high','medium','low','akut'),
+type enum('lights','tracks','dirt','trees','other') null,
 info varchar(1024),
 EntComment varchar(1024),
 primary key (orderID),
@@ -79,6 +80,7 @@ entID smallint not null,
 sentDate datetime,
 endDate timestamp,
 priority enum('high','medium','low','akut'),
+type enum('lights','tracks','dirt','trees','other') null,
 info varchar(1024),
 EntComment varchar(1024),
 primary key (orderID),
@@ -155,7 +157,7 @@ errorID int not null auto_increment,
 entID smallint null,
 -- null entID för alla felanmälanden som skapas av motionärer
 sentDate timestamp,
-grade enum('low','medium','high','akut'),
+-- grade enum('low','medium','high','akut'),
 errorDesc varchar(1024),
 type enum('lights','tracks','dirt','trees','other') not null,
 primary key (errorID),
@@ -179,7 +181,6 @@ foreign key (name) references SubPlace(name)
 create table SubPlaceWorkOrder(
 name smallint not null,
 orderID int not null,
-cannonID smallint,
 -- Kanske lägga till datum för pågående arbete eller annat?
 primary key (orderID, name),
 foreign key (orderID) references WorkOrder(orderID)ON DELETE CASCADE,
@@ -279,9 +280,9 @@ insert into SubPlace (name, placeName, realName, entID, length, height, fakesnow
 ('2','Delstrackor','Hedemora 3:2','2','17','476','11'),
 ('3','Delstrackor','Hedemora 3:3','3','29','376','3'),
 ('4','Delstrackor','Hedemora2 3:1','3','12','198','5'),
-('5','Delstrackor','Hedemora2 3:2','3','6','264','1'),
+('5','Delstrackor','Hedemora2 3:2','2','6','264','1'),
 ('55','Garage','HUVUDGARAGET','1','6','264','1'),
-('6','Delstrackor','Hedemora2 3:3','3','22','333','31');
+('6','Delstrackor','Hedemora2 3:3','1','22','333','31');
 
 
 insert into Cannon (subPlaceName, model, status, effect) values
