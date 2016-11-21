@@ -216,5 +216,40 @@ select rspName, cmtID, kommentar, alias, grade, date, realname
 from overviewComment, Commenta, SubPlace
 where commentID = cmtID and rspName = SubPlace.name
 order by cmtID desc;
-
 -- select * from KundComment;
+
+
+
+DROP VIEW IF EXISTS snittBetyg;
+create view snittBetyg as
+select 
+avg(underlay)*20 as under, 
+avg(edges)*20 as edge, 
+avg(grip)*20 as grip, 
+avg(rating)*20 as rat 
+from Report;
+select * from snittBetyg;
+
+
+DROP VIEW IF EXISTS snitt;
+create view snitt as
+select 
+CAST(AVG(underlay) AS DECIMAL(2,1)) as u, 
+CAST(AVG(edges) AS DECIMAL(2,1)) as e, 
+CAST(AVG(grip) AS DECIMAL(2,1)) as g, 
+CAST(AVG(rating) AS DECIMAL(2,1)) as r
+from Report;
+select * from snitt;
+SELECT * FROM snittBetyg, snitt;
+
+
+
+
+DROP VIEW IF EXISTS entWork;
+create view entWork as
+select lastName, firstName, max(workDate) as date , startDate
+from Ent, Report 
+where Ent.entID = Report.entID
+group by Ent.entID;
+
+select * from entWork;

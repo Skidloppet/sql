@@ -176,8 +176,8 @@ COMMIT ;
 END //
 DELIMITER ;
 
-call _newReport (2, now(), '2016-10-12', '3', '2', '1', '1', 23.1, 'lade till kommentar bild snart?', 1, 6);
--- call _newReport (1, now(), '2016-10-12', '2', '4', '4', '4', 23.1, 5,5);
+call _newReport (3, now(), '2016-11-12', '5', '5', '5', '5', 23.1, 'lade till kommentar bild snart?', 1, 6);
+-- call _newReport (3, now(), '2016-10-13', '2', '4', '4', '4', 23.1, 5,5);
 
 -- select * from ReportSubPlace;
 
@@ -473,6 +473,42 @@ begin
 END //
 DELIMITER ;
 -- call _finnishedCannonOrder('2','1',now(),'texttesttets');
+
+
+
+
+
+    -- 15. Byt ent ansvarig för arbetsorder.
+    
+DROP PROCEDURE IF EXISTS _newResponsability;
+DELIMITER //
+CREATE PROCEDURE _newResponsability (
+_entID smallint,
+_orderID int)
+begin
+
+	update WorkOrder
+    set
+    entID = _entID
+    where
+    orderID = _orderID;
+
+   COMMIT ;
+END //
+DELIMITER ;
+
+call _newResponsability ('3','1');
+select * from WorkOrder;
+-- call _finnishedCannonOrder('2','1',now(),'texttesttets');
+
+
+
+
+
+
+
+
+
 
 
 
