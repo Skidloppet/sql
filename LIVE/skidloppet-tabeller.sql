@@ -26,7 +26,7 @@ lastName varchar(32) not null,
 email varchar(64) unique,
 number int(10) not null unique,
 type ENUM('arenachef','other'),
-regDate timestamp,
+regDate datetime,
 primary key (skiID)
 )engine=innodb;
 
