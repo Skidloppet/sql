@@ -1,12 +1,16 @@
+LIVE = alla filer som används på hemsidan
+phpFunc = php funktioner som bör implementeras
+finnished = avklarade.
 
-|@@@|
-|@@@|
-|@@@|
+lägg in connect.php i live.
+Flyttade runt lite filer och sorterade till 3 mappar, bilderna i en ny mapp innuti live(tänk på rättigheterna för nya mappen på skolans server). 
+________________________________________________
 
-1.github
+http://www.w3schools.com/xml/ajax_intro.asp
+________________________________________________
 
-1.installera, starta github, koppla github
-2.jobbflödet i github:
+GITHUB..
+
 
 kommandon för att röra sig runt i cmd/terminal/git terminalen
 cd ..
