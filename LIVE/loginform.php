@@ -55,18 +55,7 @@ SESSION_START();
     </div>
 <?php
   }
-  else {
-    ?>
-     <div id='log'>
-     <form action ='skidlogin.php' method='POST'>
-     <input type='text'  name='email' placeholder='email..'></br>
-     <input type='Password'  name='pass' placeholder='pass..'>
-     <p><button type='submit'>LOGIN</button></p></form></div>
-     </div>
-     <?php
-        }
-
-?>
+  ?>
 
 <div>
   <?php
