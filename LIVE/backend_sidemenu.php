@@ -1,10 +1,24 @@
+<?php
+SESSION_START();
+include 'connect.php';
+?>
+
+
 <nav class="w3-sidenav w3-collapse w3-white w3-animate-left" style="z-index:3;width:300px;" id="mySidenav"><br>
   <div class="w3-container w3-row">
     <div class="w3-col s4">
       <img src="/w3images/avatar2.png" class="w3-circle w3-margin-right" style="width:46px">
     </div>
     <div class="w3-col s8">
-      <span>Välkommen, <strong>Tomas</strong></span><br>
+      <span>Välkommen, <strong><table>
+        <?php 
+        $em = $_SESSION['email'];
+   foreach($pdo->query("SELECT * FROM AllUsers WHERE email = '$em'") as $row){
+      echo $row['firstName']." ".$row['lastName'];      
+      }
+
+      ?>
+           </table></strong></span><br>
       <a href="#" class="w3-hover-none w3-hover-text-red w3-show-inline-block"><i class="fa fa-envelope"></i></a>
       <a href="#" class="w3-hover-none w3-hover-text-green w3-show-inline-block"><i class="fa fa-user"></i></a>
       <a href="#" class="w3-hover-none w3-hover-text-blue w3-show-inline-block"><i class="fa fa-cog"></i></a>

@@ -190,7 +190,7 @@ tr:nth-child(even) {
         ?>
         <li style="float: right">
           <form action="logout.php" >
-            <button style="width:auto;">Logga ut</button>
+            <button style="width:auto;">Logga ut: <?php echo $_SESSION[email];?></button>
           </form>
         </li>
         <?php
@@ -208,7 +208,7 @@ tr:nth-child(even) {
           <div class="container">
            <div class="login3">
 
-            <label><b>Username</b></label>
+            <label><b>Email</b></label>
             <input type="text" placeholder="Emailadress" name="email" required>
 
             <label><b>Password</b></label>

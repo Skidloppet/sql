@@ -25,11 +25,11 @@ Vy för inkommande arbetsordrar
 DROP VIEW IF EXISTS AllUsers;
 CREATE VIEW AllUsers AS
     SELECT 
-        skiID as id, email, password, type
+        skiID as id, email, password, type, firstName, lastName
     FROM
         Ski 
     UNION SELECT 
-        entID as id, email, password, number as type
+        entID as id, email, password, number as type, firstName, lastName
     FROM
         Ent;
 -- select * from AllUsers;
