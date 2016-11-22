@@ -243,28 +243,27 @@ tr:nth-child(even) {
 <div class="w3-content" style="max-width:2000px;margin-top:46px">
 
   <!-- Automatic Slideshow Images -->
-<!--
   <div class="mySlides w3-display-container w3-center">
-    <img src="bilder/ny1.jpg" style="width:100%">
+    <img src="Sny1.jpg" style="width:100%;height:450px">
     <div class="w3-display-bottommiddle w3-container w3-text-white w3-padding-32 w3-hide-small">
-      <p><b></b></p>
+      <p></p>
     </div>
   </div>
   <div class="mySlides w3-display-container w3-center">
-    <img src="bilder/ny2.jpg" style="width:100%">
-    <div class="w3-display-bottommiddle w3-container w3-text-white w3-padding-32 w3-hide-small">
-      <h3></h3>
-      <p><b></b></p>
-    </div>
-  </div>
-  <div class="mySlides w3-display-container w3-center">
-    <img src="bilder/ny3.jpg" style="width:100%">
+    <img src="ny2.jpg" style="width:100%;;height:450px">
     <div class="w3-display-bottommiddle w3-container w3-text-white w3-padding-32 w3-hide-small">
       <h3></h3>
       <p><b></b></p>
     </div>
   </div>
--->
+  <div class="mySlides w3-display-container w3-center">
+    <img src="ny3.jpg" style="width:100%;height:450px">
+    <div class="w3-display-bottommiddle w3-container w3-text-white w3-padding-32 w3-hide-small">
+      <h3></h3>
+      <p><b></b></p>
+    </div>
+  </div>
+
 <!-- div för kartan -->
 
 <!-- Detaljer för del-sträckan 
