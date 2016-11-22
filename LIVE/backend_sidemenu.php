@@ -17,10 +17,10 @@
   <a href="#" class="w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>  Stäng meny</a>
   <a href="backend_index.php" class="w3-padding w3-blue"><i class="fa fa-dashboard fa-fw"></i>  Översikt</a>
   <a href="backend_wo.php" class="w3-padding"><i class="fa fa-eye fa-fw"></i>  Arbetsordrar</a>
-  <a href="#" class="w3-padding"><i class="fa fa-comment fa-fw"></i>  Felanmälan</a>
-  <a href="#" class="w3-padding"><i class="fa fa-users fa-fw"></i>  Kundkommentarer</a>
-  <a href="#" class="w3-padding"><i class="fa fa-share-alt fa-fw"></i>  Sträckor</a>
-  <a href="#" class="w3-padding"><i class="fa fa-history fa-fw"></i>  Arkiv</a>
-  <a href="#" class="w3-padding"><i class="fa fa-cog fa-fw"></i>  Inställningar</a>
-  <a href="#" class="w3-padding"><i class="fa fa-user fa-fw"></i>  Användaradministration</a><br><br>
+  <a href="backend_fel.php" class="w3-padding"><i class="fa fa-comment fa-fw"></i>  Felanmälan</a>
+  <a href="backend_kom.php" class="w3-padding"><i class="fa fa-users fa-fw"></i>  Kundkommentarer</a>
+  <a href="backend_stra.php" class="w3-padding"><i class="fa fa-share-alt fa-fw"></i>  Sträckor</a>
+  <a href="backend_ark.php" class="w3-padding"><i class="fa fa-history fa-fw"></i>  Arkiv</a>
+  <a href="backend_ins.php" class="w3-padding"><i class="fa fa-cog fa-fw"></i>  Inställningar</a>
+  <a href="backend_anv.php" class="w3-padding"><i class="fa fa-user fa-fw"></i>  Användaradministration</a><br><br>
 </nav>
