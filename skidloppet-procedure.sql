@@ -181,12 +181,12 @@ WHILE nameCounter<=endName DO
 COMMIT ;
 END //
 DELIMITER ;
-/*
-call _newReport (2, now(), '2016-10-12', '3', '2', '1', '1', 23.1, 'lade till kommentar bild snart?', 2, 3);
-call _newReport (1, now(), '2016-10-12', '2', '4', '4', '4', 23.1, 5,5);
+
+-- call _newReport (1, now(), '2016-10-12', '3', '2', '1', '1', 23.1, 'lade till kommentar bild snart?', 1, 6);
+-- call _newReport (1, now(), '2016-10-12', '2', '4', '4', '4', 23.1, 5,5);
 
 select * from ReportSubPlace;
-*/
+
 
 -- 8. Procedure för nya kommentarer
 DROP PROCEDURE IF EXISTS _NewComment;
