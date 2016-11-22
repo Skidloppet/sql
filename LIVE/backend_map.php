@@ -1,6 +1,6 @@
 <?php
 
-include 'backend_connect.php';
+include 'connect.php';
 
 $spar = '
 <!-- Delsträcka 0 -->

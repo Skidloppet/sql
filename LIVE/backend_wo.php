@@ -60,7 +60,6 @@ skapa dropdown alternativ för prio & type? (går att fixa en php funktion man kan
 
 <?php
 include'connect.php';
-#include './backend_connect.php';
 ?>
 <div class="w3-container">
   <h3>Add a new workorder</h3>
