@@ -15,6 +15,7 @@ PROCEDURER FÖR SKIDLOPPET AB -Innehållsförteckning
 13. procedur för att ta bort arbetsorder
 14. skapa färdig CANNONorder (logg)
 15. Ta bort gammla kund kommentarer
+16. för att ändra tel-nummer för en ent.
 Kvar att göra:
 
 procedur & php för avklarade workorder
@@ -183,8 +184,10 @@ DELIMITER ;
 select * from ReportSubPlace;
 =======
 
-call _newReport (3, now(), '2016-11-12', '5', '5', '5', '5', 23.1, 'lade till kommentar bild snart?', 1, 6);
+-- call _newReport (3, now(), '2016-11-12', '5', '5', '5', '5', 23.1, 'lade till kommentar bild snart?', 1, 6);
 -- call _newReport (3, now(), '2016-10-13', '2', '4', '4', '4', 23.1, 5,5);
+call _newReport (3, now(), '2016-10-13', '3', '4', '4', '4', 23.1, 'beep',1,21);
+call _newReport (3, now(), '2016-11-12', '5', '5', '5', '5', 23.1, 'lade till kommentar bild snart?', 1, 6);
 
 -- select * from ReportSubPlace;
 >>>>>>> bea9dcdc4cafabf8a91f936b248338f88f0bed02:LIVE/skidloppet-procedure.sql
@@ -506,19 +509,60 @@ END //
 DELIMITER ;
 
 call _newResponsability ('3','1');
-select * from WorkOrder;
+-- select * from WorkOrder;
 -- call _finnishedCannonOrder('2','1',now(),'texttesttets');
 
 
 
 
+    -- 15. Byt ent tel-nummber 
+DROP PROCEDURE IF EXISTS _newNumber;
+DELIMITER //
+CREATE PROCEDURE _newNumber (
+_number int(10),
+_entID smallint)
+begin
+
+	update Ent
+    set
+    number = _number
+    where
+    entID = _entID;
+
+   COMMIT ;
+END //
+DELIMITER ;
+
+call _newNumber ('1487654321','1');
+-- select * from Ent;
+-- call _finnishedCannonOrder('2','1',now(),'texttesttets');
 
 
 
 
+    -- 16. mottagen akutarbetsorder
+DROP PROCEDURE IF EXISTS _akut;
+DELIMITER //
+CREATE PROCEDURE _akut (
+_orderID int,
+_EM varchar(64))
+begin
+	update WorkOrder
+    set
+    entID = (select entID from Ent where email = _EM)
+    where
+    orderID = _orderID;
 
+   COMMIT ;
+END //
+DELIMITER ;
 
-
+ call _akut ('1','asd@hotmail.com');
+select * from WorkOrder;
+-- select * from Ent;
+-- call _finnishedCannonOrder('2','1',now(),'texttesttets');
+select * from WorkOrder where priority="akut" and entID != '1';
+SELECT * FROM WorkOrder where priority="akut";
 
 
 -- 15 tar alla gammla kommentarer äldre än 48 h
@@ -538,3 +582,6 @@ DELETE FROM Commenta
 WHERE
     date < NOW() - INTERVAL 48 HOUR;
 -- select * from Commenta;
+
+
+

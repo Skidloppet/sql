@@ -26,11 +26,11 @@ Vy för inkommande arbetsordrar
 DROP VIEW IF EXISTS AllUsers;
 CREATE VIEW AllUsers AS
     SELECT 
-        skiID as id, email, password, type
+        skiID as id, email, password, type, firstName, lastName
     FROM
         Ski 
     UNION SELECT 
-        entID as id, email, password, number as type
+        entID as id, email, password, number as type, firstName, lastName
     FROM
         Ent;
 -- select * from AllUsers;
@@ -229,7 +229,7 @@ avg(edges)*20 as edge,
 avg(grip)*20 as grip, 
 avg(rating)*20 as rat 
 from Report;
-select * from snittBetyg;
+-- select * from snittBetyg;
 
 
 DROP VIEW IF EXISTS snitt;
@@ -240,8 +240,8 @@ CAST(AVG(edges) AS DECIMAL(2,1)) as e,
 CAST(AVG(grip) AS DECIMAL(2,1)) as g, 
 CAST(AVG(rating) AS DECIMAL(2,1)) as r
 from Report;
-select * from snitt;
-SELECT * FROM snittBetyg, snitt;
+-- select * from snitt;
+-- SELECT * FROM snittBetyg, snitt;
 
 
 
@@ -253,4 +253,4 @@ from Ent, Report
 where Ent.entID = Report.entID
 group by Ent.entID;
 
-select * from entWork;
+-- select * from entWork;

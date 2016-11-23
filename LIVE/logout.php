@@ -1,4 +1,4 @@
 <?php
 SESSION_START();
 SESSION_DESTROY();
-header("Location: skidlogin.php");
+header("Location: Kund.php");

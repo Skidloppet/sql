@@ -26,7 +26,7 @@ lastName varchar(32) not null,
 email varchar(64) unique,
 number int(10) not null unique,
 type ENUM('arenachef','other'),
-regDate timestamp,
+regDate datetime,
 primary key (skiID)
 )engine=innodb;
 
@@ -39,7 +39,7 @@ firstName varchar(32)not null,
 lastName varchar(32) not null,
 email varchar (64) unique,
 number int(10) not null unique,
-regDate timestamp,
+regDate datetime,
 primary key (entID)
 )engine=innodb;
 
@@ -248,7 +248,7 @@ insert into Ski (skiID, password, firstName, lastName, email, number, type, regD
 
 insert into Ent (entID, password, firstName, lastName, email, number, regDate) values 
 ('1','pass','Stefan','Fridström','stefan','1234567891','2016-11-01'),
-('2','pass','Adrian','Abrahamsson','rotfs@hotmail.com','1234567892','2016-11-01'),
+('2','pass','Adrian','Abrahamsson','asd@hotmail.com','1234567892','2016-11-01'),
 ('3','pass','Philip','Svensson','asd@gmail.com','1234567893','2016-11-01');
 
 
@@ -276,13 +276,29 @@ insert into Commenta (Kommentar,grade, alias, date) values
 -- select avg(grade) from Comment;
 -- select grade from Comment;
 insert into SubPlace (name, placeName, realName, entID, length, height, fakesnow) values 
-('1','Delstrackor','Hedemora 3:1','1','12','21','23'),
-('2','Delstrackor','Hedemora 3:2','2','17','476','11'),
-('3','Delstrackor','Hedemora 3:3','3','29','376','3'),
-('4','Delstrackor','Hedemora2 3:1','3','12','198','5'),
-('5','Delstrackor','Hedemora2 3:2','2','6','264','1'),
-('55','Garage','HUVUDGARAGET','1','6','264','1'),
-('6','Delstrackor','Hedemora2 3:3','1','22','333','31');
+('1','Delstrackor','Hedemora 1:1','1','12','21','23'),
+('2','Delstrackor','Hedemora 1:2','1','17','476','11'),
+('3','Delstrackor','Hedemora 1:3','1','29','376','3'),
+('4','Delstrackor','Norrhyttan 2:1','2','12','198','5'),
+('5','Delstrackor','Norrhyttan 2:2','2','6','264','1'),
+('6','Delstrackor','Norrhyttan 2:3','2','22','333','31'),
+('7','Delstrackor','Norrhyttan 2:4','2','22','333','31'),
+('8','Delstrackor','Bondhyttan 3:1','3','22','333','31'),
+('9','Delstrackor','Bondhyttan 3:2','3','22','333','31'),
+('10','Delstrackor','Bondhyttan 3:3','3','22','333','31'),
+('11','Delstrackor','Bommansbo 4:1','1','22','333','31'),
+('12','Delstrackor','Bommansbo 4:2','1','22','333','31'),
+('13','Delstrackor','Bommansbo 4:3','1','22','333','31'),
+('14','Delstrackor','Bommansbo 4:4','1','22','333','31'),
+('15','Delstrackor','Smedjebacken 5:1','2','22','333','31'),
+('16','Delstrackor','Smedjebacken 5:2','2','22','333','31'),
+('17','Delstrackor','Smedjebacken 5:3','2','22','333','31'),
+('18','Delstrackor','Björsjö 6:1','3','22','333','31'),
+('19','Delstrackor','Björsjö 6:2','3','22','333','31'),
+('20','Delstrackor','Björsjö 6:3','3','22','333','31'),
+('21','Delstrackor','Björsjö 6:4','3','22','333','31'),
+('55','Garage','HUVUDGARAGET','1','6','264','1');
+
 
 
 insert into Cannon (subPlaceName, model, status, effect) values

@@ -21,4 +21,4 @@ if(!$row = $result->fetch_assoc()) {
 
 }
 
-header("Location: Kund.php");
+header("Location: backend_index.php");
