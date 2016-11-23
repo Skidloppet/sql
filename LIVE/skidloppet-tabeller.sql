@@ -248,7 +248,7 @@ insert into Ski (skiID, password, firstName, lastName, email, number, type, regD
 
 insert into Ent (entID, password, firstName, lastName, email, number, regDate) values 
 ('1','pass','Stefan','Fridström','stefan','1234567891','2016-11-01'),
-('2','pass','Adrian','Abrahamsson','rotfs@hotmail.com','1234567892','2016-11-01'),
+('2','pass','Adrian','Abrahamsson','asd@hotmail.com','1234567892','2016-11-01'),
 ('3','pass','Philip','Svensson','asd@gmail.com','1234567893','2016-11-01');
 
 

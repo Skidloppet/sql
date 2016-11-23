@@ -2,6 +2,7 @@
 <?php
 include'connect.php';
 SESSION_START();
+
 ?>
 
 <html>
@@ -46,6 +47,17 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
         <div class="w3-threethird">
           <?php
           include 'wo/backend_wo_feeds.php';
+
+      
+  if(isset($_GET['akutOrderID'])){
+       $querystring='call _akut (:_orderID, :_EM);';
+       $stmt = $pdo->prepare($querystring);
+       $stmt->bindParam(':_orderID', $_GET['akutOrderID']);
+       $stmt->bindParam(':_EM', $em);
+       $stmt->execute();
+       echo "akut order uppdaterad";
+    }
+    
           ?>
         </div>
         <hr>
@@ -56,10 +68,6 @@ förbättringsmöjligheter:
 alt. skapa json som tar bort input 'entID' om man kör split
 skapa dropdown alternativ för prio & type? (går att fixa en php funktion man kan skapa för att hantera alla ENUM dropdown (återanvändningsbar kod för FLERA enum inputs))
 -->
-
-<?php
-include'connect.php';
-?>
 <div class="w3-container">
   <h3>Add a new workorder</h3>
   <form action='backend_wo.php' method='POST'>

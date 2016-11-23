@@ -532,6 +532,29 @@ call _newNumber ('1487654321','1');
 
 
 
+    -- 16. mottagen akutarbetsorder
+DROP PROCEDURE IF EXISTS _akut;
+DELIMITER //
+CREATE PROCEDURE _akut (
+_orderID int,
+_EM varchar(64))
+begin
+	update WorkOrder
+    set
+    entID = (select entID from Ent where email = _EM)
+    where
+    orderID = _orderID;
+
+   COMMIT ;
+END //
+DELIMITER ;
+
+ call _akut ('1','asd@hotmail.com');
+select * from WorkOrder;
+-- select * from Ent;
+-- call _finnishedCannonOrder('2','1',now(),'texttesttets');
+select * from WorkOrder where priority="akut" and entID != '1';
+SELECT * FROM WorkOrder where priority="akut";
 
 
 -- 15 tar alla gammla kommentarer äldre än 48 h
