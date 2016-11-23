@@ -94,7 +94,7 @@ $grey ="#d2d1e6";
 					
 			}
 
-	print_r ($SubPlaceNameArray);
+	#print_r ($SubPlaceNameArray);
 
 
 foreach($sparArr AS $key => $val){

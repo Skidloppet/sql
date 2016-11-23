@@ -501,7 +501,7 @@ END //
 DELIMITER ;
 
 call _newResponsability ('3','1');
-select * from WorkOrder;
+-- select * from WorkOrder;
 -- call _finnishedCannonOrder('2','1',now(),'texttesttets');
 
 
@@ -526,7 +526,7 @@ END //
 DELIMITER ;
 
 call _newNumber ('1487654321','1');
-select * from Ent;
+-- select * from Ent;
 -- call _finnishedCannonOrder('2','1',now(),'texttesttets');
 
 

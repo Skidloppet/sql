@@ -228,7 +228,7 @@ avg(edges)*20 as edge,
 avg(grip)*20 as grip, 
 avg(rating)*20 as rat 
 from Report;
-select * from snittBetyg;
+-- select * from snittBetyg;
 
 
 DROP VIEW IF EXISTS snitt;
