@@ -4,7 +4,9 @@ Kommentarer:
 stängde 2 div taggar som var öppna
 
 -->
-
+<?php
+ SESSION_START();
+  ?>
 <html>
 <title>Skidloppet AB - Monitor</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -96,8 +98,9 @@ include'connect.php';
 
 
     <!-- Ändra till session! (Entreprenör) -->
-    <p>Ange ansvarig entreprenörs id, ex: 1:</p>
+    <!--<p>Ange ansvarig entreprenörs id, ex: 1:</p>
     <input type="text" name="entID" placeholder="entID.."></p>
+    -->
 
     <!-- Listbox till att välja startsträcka-->
     <p>Vart startade problemet?:</p>
@@ -134,6 +137,7 @@ include'connect.php';
 
 
   <?php
+#  $em = $_SESSION['email'];
 
   if(isset($_POST['Error'])){
 
@@ -141,7 +145,7 @@ include'connect.php';
 
     $stmt = $pdo->prepare($sql);
     $stmt->bindParam(":newErrorDesc", $_POST['desc'], PDO::PARAM_STR);
-    $stmt->bindParam(":newEntID", $_POST['entID'], PDO::PARAM_INT);
+    $stmt->bindParam(":newEntID", $_SESSION['id'], PDO::PARAM_INT);
     //$stmt->bindParam(":newGrade", $_POST['grade'], PDO::PARAM_STR);
     $stmt->bindParam(":newType", $_POST['type'], PDO::PARAM_STR);
     $stmt->bindParam(":startName", $_POST['Start'], PDO::PARAM_INT);
@@ -156,12 +160,14 @@ include'connect.php';
   <h3>Utskrift av registrerade felanmälningar</h3>
     <table border="1">
       <?php  
-            echo "<th>Errorid:</th>"; 
-            echo "<th>Entreprenör:</th>";
-            echo "<th>Skickad:</th>";
-            echo "<th>Beskrivning:</th>";
-            echo "<th>Typ:</th>";
-            echo "<th>Sträcka:</th>";
+            echo "<tr>";
+            echo "<th style='background-color:white;'>Errorid:</th>"; 
+            echo "<th style='background-color:white;'>Entreprenör:</th>";
+            echo "<th style='background-color:white;'>Skickad:</th>";
+            echo "<th style='background-color:white;'>Beskrivning:</th>";
+            echo "<th style='background-color:white;'>Typ:</th>";
+            echo "<th style='background-color:white;'>Sträcka:</th>";
+            echo "</tr>";
 
           foreach($pdo->query( 'SELECT * FROM Error, ErrorSubPlace WHERE Error.errorID = ErrorSubPlace.errorID;' ) as $row){
             echo "<tr>";
