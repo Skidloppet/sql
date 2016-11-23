@@ -38,7 +38,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 
     <!-- Header -->
     <?php
-   // include './backend_headerbox.php';
+   include './backend_ErrorReport_headerbox.php';
     ?>
 
     <div class="w3-container w3-section">
@@ -90,13 +90,46 @@ include'backend_connect.php';
       <option value="other">Annat</option>
     </select>
     <br>
+
+
     <!--<input type="text" name="type" placeholder="type.."></p>-->
+
+
+    <!-- Ändra till session! (Entreprenör) -->
     <p>Ange ansvarig entreprenörs id, ex: 1:</p>
     <input type="text" name="entID" placeholder="entID.."></p>
+
+    <!-- Listbox till att välja startsträcka-->
     <p>Vart startade problemet?:</p>
-    <input type="text" name="Start" placeholder="Start.."></p>
+    <select name='Start'>    
+      <?php 
+      foreach ($pdo->query('SELECT * FROM SubPlace') as $row) {
+        echo '<option value="'.$row['name'].'">';
+        echo $row['realName'];
+        echo "</option>";
+      }
+    ?>
+    </select><br>
+
+
+    <!--<input type="text" name="Start" placeholder="Start.."></p>-->
+
+
+    <!-- Listbox till att välja slutsträcka-->
     <p>Vart slutar problemets inverkan?:</p>
-    <input type="text" name="Slut" placeholder="Slut.."></p>
+        <select name='Slut'>    
+      <?php 
+      foreach ($pdo->query('SELECT * FROM SubPlace') as $row) {
+        echo '<option value="'.$row['name'].'">';
+        echo $row['realName'];
+        echo "</option>";
+      }
+    ?>
+    </select><br><br>
+
+    <!--<input type="text" name="Slut" placeholder="Slut.."></p>-->
+
+
     <p><button type="submit" name="Error">Ny felanmälan</button></p></form>
 
 
