@@ -39,7 +39,7 @@ firstName varchar(32)not null,
 lastName varchar(32) not null,
 email varchar (64) unique,
 number int(10) not null unique,
-regDate timestamp,
+regDate datetime,
 primary key (entID)
 )engine=innodb;
 

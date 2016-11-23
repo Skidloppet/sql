@@ -15,6 +15,7 @@ PROCEDURER FÖR SKIDLOPPET AB -Innehållsförteckning
 13. procedur för att ta bort arbetsorder
 14. skapa färdig CANNONorder (logg)
 15. Ta bort gammla kund kommentarer
+16. för att ändra tel-nummer för en ent.
 Kvar att göra:
 
 procedur & php för avklarade workorder
@@ -506,9 +507,27 @@ select * from WorkOrder;
 
 
 
+    -- 15. Byt ent tel-nummber 
+DROP PROCEDURE IF EXISTS _newNumber;
+DELIMITER //
+CREATE PROCEDURE _newNumber (
+_number int(10),
+_entID smallint)
+begin
 
+	update Ent
+    set
+    number = _number
+    where
+    entID = _entID;
 
+   COMMIT ;
+END //
+DELIMITER ;
 
+call _newNumber ('1487654321','1');
+select * from Ent;
+-- call _finnishedCannonOrder('2','1',now(),'texttesttets');
 
 
 
@@ -532,3 +551,6 @@ DELETE FROM Commenta
 WHERE
     date < NOW() - INTERVAL 48 HOUR;
 -- select * from Commenta;
+
+
+

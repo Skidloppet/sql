@@ -34,12 +34,78 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
     ?>
 
 
+    <!-- utskrift SKI -->
+<div class="w3-container w3-right w3-purple w3-large w3-padding" style="z-index:4">  <h3>Utskrift av Skidloppet-anställde</h3>
+    <table>
+      <?php   
+          echo "<tr>";
+            echo "<th>skiID</th>"; 
+            echo "<th>FirstName</th>"; 
+            echo "<th>LastName</th>"; 
+            echo "<th>emailadress</th>"; 
+            echo "<th>type</th>"; 
+            echo "<th>tel-number</th>"; 
+            echo "<th>password</th>"; 
+            echo "<th>regDate</th>"; 
+
+            echo "</tr>";
+          foreach($pdo->query( 'SELECT * FROM Ski;' ) as $row){
+            //echo "<tr><td>";
+            //echo "<a href='test.php?entID=".urlencode($row['entID'])."'>".$row['entID'];
+            echo "<tr>";
+            echo "<td>".$row['entID']."</td>";
+            echo "<td>".$row['firstName']."</td>";
+            echo "<td>".$row['lastName']."</td>";
+            echo "<td>".$row['email']."</td>";
+            echo "<td>".$row['type']."</td>";
+            echo "<td>".$row['number']."</td>";
+            echo "<td>".$row['password']."</td>";
+            echo "<td>".$row['regDate']."</td>";
+            echo "</tr>";  
+        }
+        ?>
+      </table>
+</div>
+    <!-- utskrift ent -->
+<div class="w3-container w3-right w3-pink w3-large" style="z-index:4">  <h3>Utskrift av feta entreprenörer</h3>
+    <table>
+      <?php   
+          echo "<tr>";
+            echo "<th>entID</th>"; 
+            echo "<th>FirstName</th>"; 
+            echo "<th>LastName</th>"; 
+            echo "<th>emailadress</th>"; 
+            echo "<th>tel-number</th>"; 
+            echo "<th>password</th>"; 
+            echo "<th>regDate</th>"; 
+
+            echo "</tr>";
+          foreach($pdo->query( 'SELECT * FROM Ent;' ) as $row){
+            //echo "<tr><td>";
+            //echo "<a href='test.php?entID=".urlencode($row['entID'])."'>".$row['entID'];
+            echo "<tr>";
+            echo "<td>".$row['entID']."</td>";
+            echo "<td>".$row['firstName']."</td>";
+            echo "<td>".$row['lastName']."</td>";
+            echo "<td>".$row['email']."</td>";
+            echo "<td>".$row['number']."</td>";
+            echo "<td>".$row['password']."</td>";
+            echo "<td>".$row['regDate']."</td>";
+            echo "</tr>";  
+        }
+        ?>
+      </table>
+</div>
+
+
+
+
 
     <!-- ny ski roll -->
     <?php
     include'connect.php';
     ?>
-    <div>
+    <div class="w3-green">
       <h3>Sätt ny roll för en Skidloppet användare</h3>
       <h4>fel när det inte finns någon av en viss typ(då försvinner alternativet)</h4>
       <form action='<?php $_PHP_SELF ?>' method='POST'>
@@ -66,6 +132,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
         </select>
         <input type="submit" value="Send" name="send">
         <input type="reset">
+        </form>
 
         <?php 
         if(isset($_POST['send'])){
@@ -84,11 +151,48 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
       </div>
 
 
+
+
+       <div class ="w3-cyan w3-container-small w3-border-radius">
+      <h3>Sätt nytt tel-nummer för en entreprenör användare</h3>
+      <form action='<?php $_PHP_SELF ?>' method='POST'>
+        <select size='1' name='entID'>
+          <option selected="selected"> välj entreprenör </option>
+          <?php    
+          foreach($pdo->query( 'SELECT * FROM Ent ORDER BY entID;' ) as $row){
+            echo '<option value="'.$row['entID'].'">';
+            echo $row['firstName']." ".$row['lastName']." (".$row['number'].")";      
+            echo '</option>';
+          }    
+          ?>
+        </select>
+        <input type="text" name="number">
+        <input type="submit" value="Send" name="send">
+        <input type="reset">
+        </form>
+
+        <?php 
+        if(isset($_POST['send'])){
+          $querystring='Call _newNumber (:_number, :_entID);';
+          $stmt = $pdo->prepare($querystring);
+          $stmt->bindParam(':_number', $_POST['number'], PDO::PARAM_INT);
+          # select's name är skiID
+          $stmt->bindParam(':_entID', $_POST['entID'], PDO::PARAM_INT);
+          # select's name är type
+          $stmt->execute();
+
+  #uppdaterar sidan och visar nya lönen
+        //  header("Location: hemsida5.php");
+        }
+        ?>
+      </div>
+
+
       <!-- ny ent användare -->
       <div>
         <h3>Create new Ent</h3>
         <form action='<?php $_PHP_SELF ?>' method='POST'>
-          <input type="text" name="firstName" placeholder="first name.."></p>
+          <input type="text" name="firstName" placeholder="firstname.."></p>
           <input type="text" name="lastName" placeholder="surname.."></p>
           <input type="text" name="email" placeholder="email.."></p>
           <input type="text" name="number" placeholder="number.."></p>
@@ -109,7 +213,18 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
             $stmt->bindParam(":lastName", $_POST['lastName'], PDO::PARAM_STR);
             $stmt->bindParam(":email", $_POST['email'], PDO::PARAM_STR);
             $stmt->bindParam(":number", $_POST['number'], PDO::PARAM_INT);
-            $stmt->execute();
+
+
+  try{ 
+            $stmt->execute();                  
+        }catch (PDOException $e){
+            if($e->getCode()=="23000"){
+                echo "Duplicate company code!";
+            }else{
+                echo "<p>".$e->getMessage()."</p>";
+            }
+        }
+
           }     
           ?>
         </div>
@@ -119,7 +234,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
         <div>
           <h3>Create new Ski</h3>
           <form action='<?php $_PHP_SELF ?>' method='POST'>
-            <input type="text" name="firstName" placeholder="first name..">
+            <input type="text" name="firstName" placeholder="firstname..">
             <input type="text" name="lastName" placeholder="surname..">
             <input type="text" name="email" placeholder="email..">
             <input type="text" name="number" placeholder="number..">
