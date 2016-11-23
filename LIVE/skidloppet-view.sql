@@ -12,6 +12,7 @@
 10. Vy för status på del-sträcka (SKI-VY)
 11. Vy för snökanoner och konstsnöstatus på del-sträcka
 12. Vy för avklarade arbetsordrar
+13. Vy för tidigare fel (historik, vad som åtgärdats)
 KVAR ATT GÖRA!
 
 Vy för där alla arbetsordar och snökanonsordrar som är tilldelade en visas skiID 
