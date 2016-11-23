@@ -42,25 +42,29 @@ include'connect.php';
 	<h3>Add a new workorder</h3>
 	<form action='<?php $_PHP_SELF ?>' method='POST'>
 		<input type="text" name="SkiID" placeholder="SkiID.."></p>
-		<input type="text" name="EntID" placeholder="leave empty to make it global.."></p>
+		<input type="text" name="EntID" placeholder="EntID.."></p>
 		<input type="text" name="Prioritering" placeholder="Prioritering..(low,akut)"></p>
+		<input type="text" name="type" placeholder="type (tracks, trees osv.)"></p>
 		<input type="text" name="Info" placeholder="Info.."></p>
+		<input type="checkbox" name="split" value="1">split order for each track 'owner' <br>
 		<input type="text" name="Start" placeholder="Start.."></p>
 		<input type="text" name="Slut" placeholder="Slut.."></p>
-		<p><button type="submit" name="_newWorkOrder" id="_newWorkOrder">NEW Report</button></p></form>
+		<p><button type="submit" name="_newSplitWorkOrder" id="_newWorkOrder">NEW Report</button></p></form>
 
 
 	<?php
 
-	if(isset($_POST['_newWorkOrder'])){
+	if(isset($_POST['_newSplitWorkOrder'])){
 
-    $sql = "CALL _newWorkOrder(:newSkiID, :newEntID, NOW() ,:newPriority, :newInfo, :startName, :endName)";
+    $sql = "CALL _newSplitWorkOrder(:newSkiID, :newEntID, NOW() ,:newPriority, :newType, :newInfo, :newSplit, :startName, :endName)";
 
     $stmt = $pdo->prepare($sql);
     $stmt->bindParam(":newSkiID", $_POST['SkiID'], PDO::PARAM_INT);
     $stmt->bindParam(":newEntID", $_POST['EntID'], PDO::PARAM_INT);
     $stmt->bindParam(":newPriority", $_POST['Prioritering'], PDO::PARAM_STR);
+    $stmt->bindParam(":newType", $_POST['type'], PDO::PARAM_STR);
     $stmt->bindParam(":newInfo", $_POST['Info'], PDO::PARAM_STR);
+    $stmt->bindParam(":newSplit", $_POST['split'], PDO::PARAM_INT);
     $stmt->bindParam(":startName", $_POST['Start'], PDO::PARAM_INT);
     $stmt->bindParam(":endName", $_POST['Slut'], PDO::PARAM_INT);
     $stmt->execute();
@@ -68,7 +72,6 @@ include'connect.php';
 	    
 ?>
 </div>
-
 
 
 <div>
@@ -100,6 +103,7 @@ include'connect.php';
 		        echo "<th>sentDate</th>"; 
 		        echo "<th>startDate</th>"; 
 		        echo "<th>priority</th>"; 
+		        echo "<th>type</th>"; 
 		        echo "<th>info(ski)</th>"; 
 		        echo "<th>comment(ent)</th>"; 
 		        echo "</tr>";
@@ -113,6 +117,7 @@ include'connect.php';
 		        echo "<td>".$row['sentDate']."</td>";
 		        echo "<td>".$row['endDate']."</td>";
 		        echo "<td>".$row['priority']."</td>";
+		        echo "<td>".$row['type']."</td>";
 		        echo "<td>".$row['info']."</td>";
 		        echo "<td>".$row['EntComment']."</td>";
 		        echo "</tr>";  

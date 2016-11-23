@@ -57,7 +57,8 @@ include'connect.php';
 			        echo '<option value="'.$row['name'].'">';
 				    echo $row['realName'];      
 				    echo '</option>';
-			  	    }    
+			  	    }    						
+					
 			    ?>
 	    </select>
 
@@ -73,6 +74,7 @@ include'connect.php';
 	    </select>
 
 		<button type="submit" name="CreateComment">SEND COMMENT</button>
+		
 	</form>
 
 
@@ -80,9 +82,13 @@ include'connect.php';
 	# skapa ett errormedelande vid fel input (inget alias, kommentar över 1024 tecken, inget start/slut)
 
 	if(isset($_POST['CreateComment'])){
-
+	/*deleteC skulle vart bättre att göra i mysql som ett event men då man måste ha super behörighet för detta gjordes det i php 
+	med koden: DELETE FROM Commenta WHERE date < NOW() - INTERVAL 48 HOUR; i mysql. nackdelen med detta är att kommentarerna endast tas bort 
+	när någon skriver en ny. Om man gjort ett mysql event kunde man ställt in så att detta tas bort i ett bestämmt intervall*/
+	$deleteC = "DELETE FROM Commenta WHERE date < NOW() - INTERVAL 48 HOUR;";
     $sql = "CALL _NewComment(:newComment, :newAlias, :newGrade, now(), :startName, :endName);";
     $stmt = $pdo->prepare($sql);
+    $stmt = $pdo->query($deleteC);
 
     $stmt->bindParam(":newComment", $_POST['comment'], PDO::PARAM_STR);
     $stmt->bindParam(":newAlias", $_POST['alias'], PDO::PARAM_STR);
@@ -111,7 +117,7 @@ include'connect.php';
 		        //echo "<a href='test.php?entID=".urlencode($row['entID'])."'>".$row['entID'];
 		        echo "<tr>";
 		        echo "<td>".$row['commentID']."</td>";
-		        echo "<td>".$row['commenta']."</td>";
+		        echo "<td>".$row['comment']."</td>";
 		        echo "<td>".$row['alias']."</td>";
 		        echo "<td>".$row['grade']."</td>";
 		        echo "<td>".$row['date']."</td>";

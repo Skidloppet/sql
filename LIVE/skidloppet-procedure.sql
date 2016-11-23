@@ -14,6 +14,7 @@ PROCEDURER FÖR SKIDLOPPET AB -Innehållsförteckning
 12. Procedure för nya cannon arbetsordrar
 13. procedur för att ta bort arbetsorder
 14. skapa färdig CANNONorder (logg)
+15. Ta bort gammla kund kommentarer
 Kvar att göra:
 
 procedur & php för avklarade workorder
@@ -21,20 +22,13 @@ procedur & php för avklarade snökanon-workorder
 
 
 - implementera SMS för akut arbetsorder (10._newWorkOrder & NyArbetsOrder.php).
--  redigera 7. _NewReport så den fungerar för kund
-- ändra .11 _finnishedWorkOrder så man även kan automatiskt flytta/ändra sttus på snkökanoner (om det var arbetsordern)
-- ny procedur för att acceptera skut order (ändra ansvar till den entID som accepterar)
-- procedurer för notiser till ENT & SKI
+- bilder för Report(daligt underhåll samt alternativt kundkommentar, ent, ski bilder?)
+- ny procedur för att acceptera akut order (ändra ansvar till den entID som accepterar)
 - procedur för att ta bort arbetsorder(val för borttagning eller loggning(genomförd))
 - procedur för automatiskt borttagning av kommentarer 48h
 - procedur för att beställa snö (ex. flytta kanon & ha den igång x timmar?)
 - procedur för att sätta en tävlingsarbetsorder (arbetsorder som berör allt?!) LÅG PRIO
-
-ändra procedure N:M så den räknar ner vid baklänges åkning
-
 */
-
-
 
 -- 1. Procedure för att skapa en Entrepenör
 -- IF satsen kollar om Ski har tagit email adressen redan
@@ -181,11 +175,19 @@ WHILE nameCounter<=endName DO
 COMMIT ;
 END //
 DELIMITER ;
+<<<<<<< HEAD:skidloppet-procedure.sql
 
 -- call _newReport (1, now(), '2016-10-12', '3', '2', '1', '1', 23.1, 'lade till kommentar bild snart?', 1, 6);
 -- call _newReport (1, now(), '2016-10-12', '2', '4', '4', '4', 23.1, 5,5);
 
 select * from ReportSubPlace;
+=======
+
+call _newReport (3, now(), '2016-11-12', '5', '5', '5', '5', 23.1, 'lade till kommentar bild snart?', 1, 6);
+-- call _newReport (3, now(), '2016-10-13', '2', '4', '4', '4', 23.1, 5,5);
+
+-- select * from ReportSubPlace;
+>>>>>>> bea9dcdc4cafabf8a91f936b248338f88f0bed02:LIVE/skidloppet-procedure.sql
 
 
 -- 8. Procedure för nya kommentarer
@@ -216,7 +218,7 @@ set endName = switch;
 set startName = switch2;
 end if;
 
-INSERT INTO Commenta (comment, grade, alias, date) values (newComment, newGrade, newAlias, newDate);
+INSERT INTO Commenta (Kommentar, grade, alias, date) values (newComment, newGrade, newAlias, newDate);
 
 set LastInsert = last_insert_id();
 
@@ -232,14 +234,19 @@ COMMIT ;
 END //
 DELIMITER ;
 
-
--- call _NewComment ('en kommentar på några spår','kalle','2',now(),'3','1');
+call _NewComment ('fet kommentar på spåren 2-5','kalle','2',now(),'2','5');
+call _NewComment ('ny kommentar med fett','balle','2',now(),'6','1');
+call _NewComment ('en kommentar på några spår','tralle','2',now(),'1','6');
+call _NewComment ('korar','kalle','2',now(),'2','5');
+call _NewComment ('sånt kul','balle','2',now(),'6','1');
+call _NewComment ('hejdär','tralle','2',now(),'1','6');
 -- select * from CommentSubPlace;
 -- select * from Commenta;
 
 
+
 -- 9. Procedure för nya felanmälan
-/*
+
 DROP PROCEDURE IF EXISTS _NewError;
 
 DELIMITER //
@@ -247,7 +254,7 @@ CREATE PROCEDURE _NewError (
 newErrorDesc varchar(1024),
 newEntID smallint,
 newSentDate timestamp,
-newGrade enum('low','medium','high','akut'),
+-- newGrade enum('low','medium','high','akut'),
 newType enum('lights','tracks','dirt','trees','other'),
 startName tinyint,
 endName tinyint
@@ -268,7 +275,7 @@ set endName = switch;
 set startName = switch2;
 end if;
 
-INSERT INTO Error (entID, sentDate , grade, errorDesc , type) values (newEntID, newSentDate, newGrade, newErrorDesc, newType);
+INSERT INTO Error (entID, sentDate , errorDesc , type) values (newEntID, newSentDate, newErrorDesc, newType);
 
 SET LastInsert = last_insert_id();
 SET nameCounter = startName;
@@ -284,66 +291,17 @@ COMMIT ;
 END //
 DELIMITER ;
 
-call _NewError ('mörkt överallt','1',now(),'low','lights','1','3');
-call _NewError ('träd över spåret','2',now(),'low','trees','3','1');
+call _NewError ('mörkt överallt','1',now(),'lights','1','3');
+call _NewError ('träd över spåret','2',now(),'trees','3','1');
 -- select * from ErrorSubPlace;
-*/
-
--- 9. Procedure för nya felanmälan
-DROP PROCEDURE IF EXISTS _NewError;
-
-DELIMITER //
-CREATE PROCEDURE _NewError (
-newErrorDesc varchar(1024),
-newEntID smallint,
-newSentDate timestamp,
-newGrade enum('low','medium','high','akut'),
-newType enum('lights','tracks','dirt','trees','other'),
-startName tinyint,
-endName tinyint
-)
-BEGIN
-
-DECLARE LastInsert int;
-DECLARE nameCounter tinyint;
-START TRANSACTION;
-
-INSERT INTO Error (entID, sentDate , grade, errorDesc , type) values (newEntID, newSentDate, newGrade, newErrorDesc, newType);
-
-SET LastInsert = last_insert_id();
-
-IF startName<=endName THEN
-	SET nameCounter = startName;
-	FirstWhile: WHILE nameCounter<=endName DO
-		insert into ErrorSubPlace(name, errorID) values (nameCounter, LastInsert);
-		set nameCounter = nameCounter + 1;
-	END WHILE FirstWhile;
-	-- else IF;
-ELSEIF endName<=startName THEN
-	SET nameCounter=startName;
-    SecondWhile: WHILE nameCounter>=endName DO
-	insert into ErrorSubPlace(name, errorID) values (nameCounter, LastInsert);
-	set nameCounter = nameCounter - 1;
-    END WHILE SecondWhile;
-	END IF;
-    
-COMMIT ;
-END //
-DELIMITER ;
-
-call _NewError ('V2 träd över spåret','1',now(),'low','lights','1','3');
-call _NewError ('V2 problem i början men bättre i slutet','2',now(),'low','trees','3','1');
--- select * from ErrorSubPlace;
-
-
 
 
 
 -- 10. Lägg till ny arbetsorder
 
-DROP PROCEDURE IF EXISTS _newWorkOrder;
+DROP PROCEDURE IF EXISTS _newSplitWorkOrder;
 DELIMITER //
-CREATE PROCEDURE _newWorkOrder ( -- skiID, entID, sentDate, startDate, priority, info, startName, endName
+CREATE PROCEDURE _newSplitWorkOrder ( -- skiID, entID, sentDate, startDate, priority, info, startName, endName
 -- newSkiID och newEntID skall vara user() sedan.
 newSkiID smallint,
 newEntID smallint,
@@ -351,7 +309,9 @@ newEntID smallint,
 newSentDate timestamp,
 -- newStartDate timestamp,
 newPriority enum('high','medium','low','akut'),
+newType enum('lights','tracks','dirt','trees','other'),
 newInfo varchar(1024),
+newSplit bool,
 startName tinyint,
 endName tinyint
 )
@@ -360,7 +320,6 @@ DECLARE LastInsert int;
 DECLARE nameCounter tinyint;
 DECLARE switch tinyint;
 DECLARE switch2 tinyint;
-
 
 START TRANSACTION;
 
@@ -372,30 +331,49 @@ set endName = switch;
 set startName = switch2;
 end if;
 
-INSERT INTO WorkOrder (skiID, entID, sentDate, priority, info, EntComment)
-values (newSkiID, newEntID, now(), newPriority, newInfo, "not finnished/accepted(emergency) yet");
--- tilldelar LastInsert reportID's auto_increment värde för kopplingen i N:M tabellen
-SET LastInsert = last_insert_id();
-
+-- sätter nameCounter som den första sträckan 
 SET nameCounter = startName;
+-- kollar om arbetsordern skall uppdelas för de som har ansvarsområde för del-sträckorna
+if newSplit = 1 then
 
+-- while loop eftersom det blir flera arbetsordrar.. (delar upp arbetsordern på delsträckornas ansvarsområde)
+	WHILE nameCounter<=endName DO
+-- eid är entrepenörens id från delsträckan som = nameCounter
+        -- skapar en arbetsorder för varje delsträcka
+		INSERT INTO WorkOrder (skiID, entID, sentDate, priority,type, info, EntComment)
+		values (newSkiID, newEntID, now(), newPriority,newType, newInfo, "BAJS finnished/accepted(emergency) yet");
+        		SET LastInsert = last_insert_id();
+
+        		update WorkOrder
+			set entID = (select entID from SubPlace where name = nameCounter) 
+            where WorkOrder.orderID = LastInsert;
+-- tilldelar LastInsert reportID's auto_increment värde för kopplingen i N:M tabellen
+		insert into SubPlaceWorkOrder(name, orderID) values (nameCounter, LastInsert);
+		set nameCounter = nameCounter + 1;
+		END WHILE;
+	else
+    
+-- skapar bara en arbetsorder för alla delsträckor. (INGEN SPLIT!)
+		INSERT INTO WorkOrder (skiID, entID, sentDate, priority, type, info, EntComment)
+		values (newSkiID, newEntID, now(), newPriority,newType, newInfo, "not finnished/accepted(emergency) yet");
+-- tilldelar LastInsert reportID's auto_increment värde för kopplingen i N:M tabellen
+		SET LastInsert = last_insert_id();
 --     for ($i=0;$i<$numRecs;$i++) {       <-- alternativ lösning (ev. bättre & snyggare)
-WHILE nameCounter<=endName DO
-
-	insert into SubPlaceWorkOrder(name, orderID) values (nameCounter, LastInsert);
-	set nameCounter = nameCounter + 1;
-
-	END WHILE;
+		WHILE nameCounter<=endName DO
+			insert into SubPlaceWorkOrder(name, orderID) values (nameCounter, LastInsert);
+			set nameCounter = nameCounter + 1;
+			END WHILE;
+		end if;
 COMMIT ;
 END //
 DELIMITER ;
+/*
+call _newSplitWorkOrder ('1','1',now(),'high','tracks','spåra spåren','1','1','6');
+call _newSplitWorkOrder ('1','1',now(),'high','trees','träda träden','0','1','6');
+select * from SubPlaceWorkOrder;
+select * from WorkOrder;
+*/
 
--- skiID, entID, sentDate, startDate, priority, info, startName, endName
--- CALL _newWorkOrder (1, 2, now(), 'low', 'KOTTAR ÖVERALLT RÄDDA MIG', 1, 3);
--- select * from WorkOrdersAndPlaces;
--- Select * From WorkOrder;
--- SELECT * FROM SubPlace where name<"21" ORDER BY name;
--- SELECT * FROM Comment;
 
 
 -- 11. skapa färdig arbetsorder (logg)
@@ -428,9 +406,7 @@ begin
 END //
 DELIMITER ;
 -- call _finnishedWorkOrder('2','3',now(),'text');
-
 -- select * from WorkOrder;
-
 -- select * from FinnishedWorkOrder;
 
 
@@ -506,6 +482,59 @@ END //
 DELIMITER ;
 -- call _finnishedCannonOrder('2','1',now(),'texttesttets');
 
--- select * from FinnishedCannonSubPlace;
 
--- select * from CannonSubPlace;
+
+
+
+    -- 15. Byt ent ansvarig för arbetsorder.
+    
+DROP PROCEDURE IF EXISTS _newResponsability;
+DELIMITER //
+CREATE PROCEDURE _newResponsability (
+_entID smallint,
+_orderID int)
+begin
+
+	update WorkOrder
+    set
+    entID = _entID
+    where
+    orderID = _orderID;
+
+   COMMIT ;
+END //
+DELIMITER ;
+
+call _newResponsability ('3','1');
+select * from WorkOrder;
+-- call _finnishedCannonOrder('2','1',now(),'texttesttets');
+
+
+
+
+
+
+
+
+
+
+
+
+
+-- 15 tar alla gammla kommentarer äldre än 48 h
+/*
+ALTERNATIV LÖSNING! (stulet från Christoffer S)
+
+DELIMITER //
+CREATE PROCEDURE _removeComment()
+begin
+delete *
+from Commenta
+where date < DATE_SUB(CURDATE(), interval 48 hour);
+DELIMITER ;
+
+/*
+DELETE FROM Commenta 
+WHERE
+    date < NOW() - INTERVAL 48 HOUR;
+-- select * from Commenta;

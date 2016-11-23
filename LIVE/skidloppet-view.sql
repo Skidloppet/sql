@@ -1,8 +1,8 @@
 /*
 -- Vyer till Skidloppet AB
 1. Vy för alla användare
-!	2. Vy för allt dagligt arbete & delsträckor
-!	3. Vy för arbetsorder och delsträckor
+	2. Vy för allt dagligt arbete & delsträckor
+	3. Vy för arbetsorder och delsträckor
 4. Vy för snökannoner
 5. Vy för akuta arbetsordrar
 6. Vy för kundkommentar
@@ -16,8 +16,6 @@
 KVAR ATT GÖRA!
 
 Vy för där alla arbetsordar och snökanonsordrar som är tilldelade en visas skiID 
-
-
 Vy för inskickade felanälningar (Error från kund & ent)ink. procedure för borttagning
 Vy för inkommande arbetsordrar
 */
@@ -28,14 +26,15 @@ Vy för inkommande arbetsordrar
 DROP VIEW IF EXISTS AllUsers;
 CREATE VIEW AllUsers AS
     SELECT 
-        skiID as id, email, password
+        skiID as id, email, password, type
     FROM
         Ski 
     UNION SELECT 
-        entID as id, email, password
+        entID as id, email, password, number as type
     FROM
         Ent;
 -- select * from AllUsers;
+-- select * from AllUsers WHERE password='pass' and email='stefan';
 
 
 -- 2. Vy för allt dagligt arbete & delsträckor
@@ -196,3 +195,62 @@ CREATE VIEW lastWorkOrderEnt AS
 	SELECT max(FinnishedWorkOrder.OrderID),max(Report.workDate) 
     FROM FinnishedWorkOrder,Report;
 -- select * from lastWorkOrderEnt
+
+
+
+-- 13. Vy för senaste kommentaren på en delsträcka
+-- denna vyn hämtar den senaste commentID för en del-sträcka
+DROP VIEW IF EXISTS overviewComment;
+create view overviewComment as
+SELECT CommentSubPlace.name as rspName, CommentSubPlace.commentID as cmtID
+from CommentSubPlace;
+-- denna vyn hämtar rating från senaste rapporten på en viss del-sträcka.
+-- select * from overviewComment;
+
+
+-- 14. Vy för kommentar på del-sträcka (överblicks-kartan)
+-- denna vyn hämtar detaljerad information om del-sträckan (KUNDVY)
+DROP VIEW IF EXISTS KundComment;
+
+create view KundComment as
+select rspName, cmtID, kommentar, alias, grade, date, realname
+from overviewComment, Commenta, SubPlace
+where commentID = cmtID and rspName = SubPlace.name
+order by cmtID desc;
+-- select * from KundComment;
+
+
+
+DROP VIEW IF EXISTS snittBetyg;
+create view snittBetyg as
+select 
+avg(underlay)*20 as under, 
+avg(edges)*20 as edge, 
+avg(grip)*20 as grip, 
+avg(rating)*20 as rat 
+from Report;
+select * from snittBetyg;
+
+
+DROP VIEW IF EXISTS snitt;
+create view snitt as
+select 
+CAST(AVG(underlay) AS DECIMAL(2,1)) as u, 
+CAST(AVG(edges) AS DECIMAL(2,1)) as e, 
+CAST(AVG(grip) AS DECIMAL(2,1)) as g, 
+CAST(AVG(rating) AS DECIMAL(2,1)) as r
+from Report;
+select * from snitt;
+SELECT * FROM snittBetyg, snitt;
+
+
+
+
+DROP VIEW IF EXISTS entWork;
+create view entWork as
+select lastName, firstName, max(workDate) as date , startDate
+from Ent, Report 
+where Ent.entID = Report.entID
+group by Ent.entID;
+
+select * from entWork;

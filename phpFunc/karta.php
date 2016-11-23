@@ -66,7 +66,7 @@ http://www.scientificpsychic.com/etc/css-mouseover.html
 -->
 
 <div>
-	<a href="kundDetaljer.php">kundDetaljer.php</a>
+	<a href="Kund.php">Kund.php</a>
 </div>
 
 		<div>
@@ -100,7 +100,7 @@ http://www.scientificpsychic.com/etc/css-mouseover.html
 			// span skiten är för hover...
 			echo "<span class='dropt'>";
 			// skapar en länk och skickar till kundDetaljer, samt skriver ut betyget.
-			echo "<a href='kundDetaljer.php?DS=".$SubPlaceNameArray[0]."'>delsträcka # ".$SubPlaceNameArray[0]."</a> med rating: ".$RatingArray[0]."</br>";
+			echo "<a href='Kund.php?DS=".$SubPlaceNameArray[0]."'>delsträcka # ".$SubPlaceNameArray[0]."</a> med rating: ".$RatingArray[0]."</br>";
 			echo "<span>";
 			echo "<b>Name: </b>".$popRealname[0]."</br>";
 			echo "<b>M.Ö.H: </b>".$popHeight[0]."</br>";
@@ -112,11 +112,11 @@ http://www.scientificpsychic.com/etc/css-mouseover.html
 			echo "<b>Stavfäste: </b>".$popGrip[0]."</br>";
 			echo "</span></span>";
 			
-			echo "<a href='kundDetaljer.php?DS=".$SubPlaceNameArray[1]."'>delsträcka # ".$SubPlaceNameArray[1]."</a> med rating: ".$RatingArray[1]."</br>";
-			echo "<a href='kundDetaljer.php?DS=".$SubPlaceNameArray[2]."'>delsträcka # ".$SubPlaceNameArray[2]."</a> med rating: ".$RatingArray[2]."</br>";
-			echo "<a href='kundDetaljer.php?DS=".$SubPlaceNameArray[3]."'>delsträcka # ".$SubPlaceNameArray[3]."</a> med rating: ".$RatingArray[3]."</br>";
-			echo "<a href='kundDetaljer.php?DS=".$SubPlaceNameArray[4]."'>delsträcka # ".$SubPlaceNameArray[4]."</a> med rating: ".$RatingArray[4]."</br>";
-			echo "<a href='kundDetaljer.php?DS=".$SubPlaceNameArray[5]."'>delsträcka # ".$SubPlaceNameArray[5]."</a> med rating: ".$RatingArray[5]."</br>";
+			echo "<a href='Kund.php?DS=".$SubPlaceNameArray[1]."'>delsträcka # ".$SubPlaceNameArray[1]."</a> med rating: ".$RatingArray[1]."</br>";
+			echo "<a href='Kund.php?DS=".$SubPlaceNameArray[2]."'>delsträcka # ".$SubPlaceNameArray[2]."</a> med rating: ".$RatingArray[2]."</br>";
+			echo "<a href='Kund.php?DS=".$SubPlaceNameArray[3]."'>delsträcka # ".$SubPlaceNameArray[3]."</a> med rating: ".$RatingArray[3]."</br>";
+			echo "<a href='Kund.php?DS=".$SubPlaceNameArray[4]."'>delsträcka # ".$SubPlaceNameArray[4]."</a> med rating: ".$RatingArray[4]."</br>";
+			echo "<a href='Kund.php?DS=".$SubPlaceNameArray[5]."'>delsträcka # ".$SubPlaceNameArray[5]."</a> med rating: ".$RatingArray[5]."</br>";
 			?>	
 		</div>
 	</body>
