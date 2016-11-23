@@ -60,7 +60,7 @@ Göra om så att start / slut är listbox med realname?
 -->
 
 <?php
-include'backend_connect.php';
+include'connect.php';
 #include './backend_connect.php';
 ?>
 

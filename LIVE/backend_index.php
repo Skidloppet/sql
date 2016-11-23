@@ -24,7 +24,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
       <span class="w3-right">
         <form action="logout.php">
           <button class="w3-btn w3-margin-20 w3-hover-text-grey">
-            Logga ut: <?php echo $_SESSION[email]; 
+            Logga ut: <?php echo $_SESSION['email']; 
           }
           ?>
         </button>

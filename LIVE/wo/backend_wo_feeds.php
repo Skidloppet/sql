@@ -1,6 +1,6 @@
 <h5>Översikt</h5>
          <?php
-         SESSION_START();
+     #    SESSION_START();
 
 		include './connect.php';	
 

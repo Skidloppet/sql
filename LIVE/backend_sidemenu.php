@@ -43,6 +43,7 @@ include 'connect.php';
     ?>
     <a href="backend_index.php" class="<?php if(basename($_SERVER['SCRIPT_NAME']) == 'backend_index.php') {echo 'w3-padding w3-blue'; }else { echo 'w3-padding'; }?>"><i class="fa fa-dashboard fa-fw"></i>  Översikt</a>
     <a href="backend_wo.php" class="<?php if(basename($_SERVER['SCRIPT_NAME']) == 'backend_wo.php'){echo 'w3-padding w3-blue'; }else { echo 'w3-padding'; } ?>"><i class="fa fa-eye fa-fw"></i>  Arbetsordrar</a>
+    <a href="backend_ErrorReport.php" class="<?php if(basename($_SERVER['SCRIPT_NAME']) == 'backend_ErrorReport.php'){echo 'w3-padding w3-blue'; }else { echo 'w3-padding'; } ?>"><i class="fa fa-comment fa-fw"></i>  Felanmälan</a>
     <a href="backend_stra.php" class="<?php if(basename($_SERVER['SCRIPT_NAME']) == 'backend_stra.php'){echo 'w3-padding w3-blue'; }else { echo 'w3-padding'; } ?>"><i class="fa fa-share-alt fa-fw"></i>  Sträckor</a>
     <a href="backend_ark.php" class="<?php if(basename($_SERVER['SCRIPT_NAME']) == 'backend_ark.php'){echo 'w3-padding w3-blue'; }else { echo 'w3-padding'; } ?>"><i class="fa fa-history fa-fw"></i>  Arkiv</a>
     <?php
@@ -50,7 +51,6 @@ include 'connect.php';
   } 
   if (isset($_SESSION['email'])&&($_SESSION['type'] == 'arenachef')) {
     ?>
-    <a href="backend_fel.php" class="<?php if(basename($_SERVER['SCRIPT_NAME']) == 'backend_fel.php'){echo 'w3-padding w3-blue'; }else { echo 'w3-padding'; } ?>"><i class="fa fa-comment fa-fw"></i>  Felanmälan</a>
     <a href="backend_kom.php" class="<?php if(basename($_SERVER['SCRIPT_NAME']) == 'backend_kom.php'){echo 'w3-padding w3-blue'; }else { echo 'w3-padding'; } ?>"><i class="fa fa-users fa-fw"></i>  Kundkommentarer</a>
     <a href="backend_ins.php" class="<?php if(basename($_SERVER['SCRIPT_NAME']) == 'backend_ins.php'){echo 'w3-padding w3-blue'; }else { echo 'w3-padding'; } ?>"><i class="fa fa-cog fa-fw"></i>  Inställningar</a>
     <a href="backend_anv.php" class="<?php if(basename($_SERVER['SCRIPT_NAME']) == 'backend_anv.php'){echo 'w3-padding w3-blue'; }else { echo 'w3-padding'; } ?>"><i class="fa fa-user fa-fw"></i>  Användaradministration</a><br><br>
@@ -58,7 +58,6 @@ include 'connect.php';
   }
   elseif (isset($_SESSION['email'])&&($_SESSION['type'] == 'other')) {
     ?>
-    <a href="backend_fel.php" class="<?php if(basename($_SERVER['SCRIPT_NAME']) == 'backend_fel.php'){echo 'w3-padding w3-blue'; }else { echo 'w3-padding'; } ?>"><i class="fa fa-comment fa-fw"></i>  Felanmälan</a>
     <a href="backend_kom.php" class="<?php if(basename($_SERVER['SCRIPT_NAME']) == 'backend_kom.php'){echo 'w3-padding w3-blue'; }else { echo 'w3-padding'; } ?>"><i class="fa fa-users fa-fw"></i>  Kundkommentarer</a>
     <?php 
   }
