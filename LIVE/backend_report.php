@@ -3,7 +3,6 @@
  SESSION_START();
   ?>
 <html>
-<meta charset="ISO-8859-1">
 <title>Skidloppet AB - Monitor</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="backend_style1.css">
@@ -65,13 +64,10 @@ include'connect.php';
 
 <div class="w3-container">
   <h3>Ny Rapport</h3>
-  <h3>Add a new report</h3>
   <form action='<?php $_PHP_SELF ?>' method='POST'>
-    <!-- <input type="text" name="EntID" placeholder="EntID.."></p> -->
-    <!-- <input type="text" name="StartDate" placeholder="startDate.."></p>-->
     <input type="text" name="WorkDate" placeholder="yyyy-mm-dd"></p>
     <input type="text" name="Depth" placeholder="Djup.."></p>
-    <!--<input type="text" name="Rating" placeholder="Helhetsbetyg.."></p> -->   
+
     <p>Helhetsbetyg:</p>
     <select name="Rating">
       <?php
@@ -83,7 +79,6 @@ include'connect.php';
       ?>
     </select>
 
-    <!--<input type="text" name="Underlay" placeholder="Underlag.."></p>-->    
     <p>Underlag:</p>
     <select name="Underlay">
       <?php
@@ -94,8 +89,7 @@ include'connect.php';
        }
       ?>
     </select>
-
-    <!--<input type="text" name="Edges" placeholder="Spårkanter.."></p>-->    
+  
     <p>Spårkanter:</p>
     <select name="Edges">
       <?php
@@ -107,7 +101,6 @@ include'connect.php';
       ?>
     </select>
 
-    <!--<input type="text" name="Grip" placeholder="Stavfäste.."></p> -->
     <p>Stavfäste:</p>
     <select name="Grip">
       <?php
@@ -120,7 +113,7 @@ include'connect.php';
     </select>
 
     <p>Start</p>
-    <select name='StartDate'>    
+    <select name='Start'>    
       <?php 
       foreach ($pdo->query('SELECT * FROM SubPlace') as $row) {
         echo '<option value="'.$row['name'].'">';
@@ -129,7 +122,7 @@ include'connect.php';
       }
       ?></select>
       <p>Slut</p>
-    <select name='endName'>    
+    <select name='Slut'>    
       <?php 
       foreach ($pdo->query('SELECT * FROM SubPlace') as $row) {
         echo '<option value="'.$row['name'].'">';
@@ -138,10 +131,10 @@ include'connect.php';
       }
       ?></select><br><br>
 
-    <textarea rows="5" cols="70" name="desc" placeholder="Kommentar..."></textarea>
+    <textarea rows="5" cols="70" name="comment" placeholder="Kommentar..."></textarea>
 
 
-    <p><button type="submit" name="_newReport" id="_newReport">NEW Report</button></p></form>
+    <p><button type="submit" name="_newReport">Ny rapport</button></p></form>
 
   <?php
 
@@ -159,17 +152,17 @@ include'connect.php';
     $stmt->bindParam(":newGrip", $_POST['Grip'], PDO::PARAM_INT);
     $stmt->bindParam(":newDepth", $_POST['Depth'], PDO::PARAM_INT);
     $stmt->bindParam(":newComment", $_POST['comment'], PDO::PARAM_STR);
-    $stmt->bindParam(":startName", $_POST['startName'], PDO::PARAM_INT);
-    $stmt->bindParam(":endName", $_POST['endName'], PDO::PARAM_INT);
+    $stmt->bindParam(":startName", $_POST['Start'], PDO::PARAM_INT);
+    $stmt->bindParam(":endName", $_POST['Slut'], PDO::PARAM_INT);
     $stmt->execute();
 }
       
 ?>
 </div>
 
-<div>
+<div class="w3-container">
     <h3>Utskrift av rapporter</h3>
-    <table>
+    <table border="1">
       <?php   
         echo "<tr>";
           echo "<th>reportID</th>"; 
@@ -185,7 +178,7 @@ include'connect.php';
           echo "<th>sträcka</th>";  
           echo "</tr>";
 
-        foreach($pdo->query( 'SELECT * FROM Report, ReportSubPlace ORDER BY "reportID" asc;' ) as $row){
+        foreach($pdo->query( 'SELECT * FROM Reporting;' ) as $row){
           //echo "<tr><td>";
           //echo "<a href='test.php?entID=".urlencode($row['entID'])."'>".$row['entID'];
           echo "<tr>";
