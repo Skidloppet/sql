@@ -1,4 +1,10 @@
 <!DOCTYPE html>
+<?php
+include'connect.php';
+SESSION_START();
+
+?>
+<!DOCTYPE html>
 <html>
 <title>Skidloppet AB - Monitor</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -12,10 +18,9 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 <body class="w3-light-grey">
 
 <!-- Top container -->
-<div class="w3-container w3-top w3-black w3-large w3-padding" style="z-index:4">
-  <button class="w3-btn w3-hide-large w3-padding-0 w3-hover-text-grey" onclick="w3_open();"><i class="fa fa-bars"></i>  Meny</button>
-  <span class="w3-right">Skidloppet AB</span>
-</div>
+   <?php
+      include 'backend_navbar.php';
+      ?>
 
 <!-- Sidenav/menu -->
 <?php

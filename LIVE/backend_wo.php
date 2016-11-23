@@ -2,7 +2,6 @@
 <?php
 include'connect.php';
 SESSION_START();
-
 ?>
 
 <html>
