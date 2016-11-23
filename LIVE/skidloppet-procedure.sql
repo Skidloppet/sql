@@ -176,13 +176,6 @@ WHILE nameCounter<=endName DO
 COMMIT ;
 END //
 DELIMITER ;
-<<<<<<< HEAD:skidloppet-procedure.sql
-
--- call _newReport (1, now(), '2016-10-12', '3', '2', '1', '1', 23.1, 'lade till kommentar bild snart?', 1, 6);
--- call _newReport (1, now(), '2016-10-12', '2', '4', '4', '4', 23.1, 5,5);
-
-select * from ReportSubPlace;
-=======
 
 -- call _newReport (3, now(), '2016-11-12', '5', '5', '5', '5', 23.1, 'lade till kommentar bild snart?', 1, 6);
 -- call _newReport (3, now(), '2016-10-13', '2', '4', '4', '4', 23.1, 5,5);
@@ -190,7 +183,6 @@ call _newReport (3, now(), '2016-10-13', '3', '4', '4', '4', 23.1, 'beep',1,21);
 call _newReport (3, now(), '2016-11-12', '5', '5', '5', '5', 23.1, 'lade till kommentar bild snart?', 1, 6);
 
 -- select * from ReportSubPlace;
->>>>>>> bea9dcdc4cafabf8a91f936b248338f88f0bed02:LIVE/skidloppet-procedure.sql
 
 
 -- 8. Procedure för nya kommentarer
