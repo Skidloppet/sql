@@ -53,7 +53,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
             //echo "<tr><td>";
             //echo "<a href='test.php?entID=".urlencode($row['entID'])."'>".$row['entID'];
             echo "<tr>";
-            echo "<td>".$row['entID']."</td>";
+            echo "<td>".$row['skiID']."</td>";
             echo "<td>".$row['firstName']."</td>";
             echo "<td>".$row['lastName']."</td>";
             echo "<td>".$row['email']."</td>";
