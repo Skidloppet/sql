@@ -11,6 +11,9 @@
 <!--<link rel="stylesheet" href="style3.css">-->
 <style>
 html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
+
+.HoverButton:hover { background: Red; }
+.HoverButton2:hover { background: Green; }
 </style>
 <body class="w3-light-grey">
 
@@ -193,12 +196,88 @@ include'connect.php';
           echo "<td>".$row['depth']."</td>";
           echo "<td>".$row['comment']."</td>";
           echo "<td>".$row['name']."</td>";
+          ?>
+          <td class="Report-delete">
+            <form action='<?php $_PHP_SELF ?>' method='POST'>
+              <input type="hidden" name="deleteReport" value="<?php echo $row['reportID']; ?>">
+              <input class="HoverButton" type="submit" name="delReport" value="Delete">
+            </form>
+          </td>
+
+          <td class="Report-Store">
+            <form action='backend_report.php?reportID="<?php echo $Report['reportID']; ?>"' method='POST'>
+              <input type="hidden" name="storeReport" value="<?php $row['reportID']; ?>">
+              <input class="HoverButton2" type="submit" name="storeReport" value="Store">
+            </form>
+          </td>
+        <?php
           echo "</tr>";  
           }
       ?>
     </table>
 </div>
-
+<?php
+  if(isset($_POST['delReport'])){
+  $deletedReport = $_POST['deleteReport'];
+  $sql = "DELETE FROM Report WHERE reportID = $deletedReport" ;
+  $sql = "DELETE FROM ReportSubPlace WHERE reportID = $deletedReport" ;
+  $stmt = $pdo->prepare($sql);
+  $stmt->execute();
+    }
+?>
+<?php
+if(isset($_POST['storeReport'])){
+  $querystring='INSERT INTO StoredReports (reportID, entID, startDate, workDate, rating, underlay, edges, grip, depth, comment, name) VALUES (:reportID, :entID, :startDate, :workDate, :rating, :underlay, :edges, :grip, :depth, :comment, :name);';
+    $stmt = $pdo->prepare($querystring);
+    $stmt->bindParam(":reportID", $row['reportID'], PDO::PARAM_INT);
+    $stmt->bindParam(":entID", $row['entID'], PDO::PARAM_INT);
+    $stmt->bindParam(":startDate", $row['startDate'], PDO::PARAM_STR);
+    $stmt->bindParam(":workDate", $row['workDate'], PDO::PARAM_STR);
+    $stmt->bindParam(":rating", $row['rating'], PDO::PARAM_INT);
+    $stmt->bindParam(":underlay", $row['underlay'], PDO::PARAM_INT);
+    $stmt->bindParam(":edges", $row['edges'], PDO::PARAM_INT);
+    $stmt->bindParam(":grip", $row['grip'], PDO::PARAM_INT);
+    $stmt->bindParam(":depth", $row['depth'], PDO::PARAM_INT);
+    $stmt->bindParam(":comment", $row['comment'], PDO::PARAM_STR);
+    $stmt->bindParam(":name", $row['name'], PDO::PARAM_INT);
+    $stmt->execute();
+    }
+?>
+<div class="w3-container">
+    <h3>Utskrift av rapporter</h3>
+    <table border="1">
+      <?php   
+        echo "<tr>";
+          echo "<th>reportID</th>"; 
+          echo "<th>newEntID</th>"; 
+          echo "<th>newStartDate</th>"; 
+          echo "<th>newWorkDate</th>"; 
+          echo "<th>newRating</th>"; 
+          echo "<th>newUnderlay</th>"; 
+          echo "<th>newEdges</th>"; 
+          echo "<th>newGrip</th>"; 
+          echo "<th>newDepth</th>";
+          echo "<th>kommentar</th>";
+          echo "<th>sträcka</th>";  
+          echo "</tr>";
+        foreach($pdo->query( 'SELECT * FROM StoredReports;' ) as $row){
+          //echo "<tr><td>";
+          //echo "<a href='test.php?entID=".urlencode($row['entID'])."'>".$row['entID'];
+          echo "<tr>";
+          echo "<td>".$row['reportID']."</td>";
+          echo "<td>".$row['entID']."</td>";
+          echo "<td>".$row['startDate']."</td>";
+          echo "<td>".$row['workDate']."</td>";
+          echo "<td>".$row['rating']."</td>";
+          echo "<td>".$row['underlay']."</td>";
+          echo "<td>".$row['edges']."</td>";
+          echo "<td>".$row['grip']."</td>";
+          echo "<td>".$row['depth']."</td>";
+          echo "<td>".$row['comment']."</td>";
+          echo "<td>".$row['name']."</td>";
+}
+?>
+</table>
 <br><br>
  <!-- 
 <div class="w3-container w3-dark-grey w3-padding-32">

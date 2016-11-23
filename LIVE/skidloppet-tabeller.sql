@@ -240,6 +240,23 @@ foreign key (name) references SubPlace(name),
 foreign key (entID) references Ent(entID)
 )engine=innodb;
 
+create table StoredReports(
+reportID int not null unique,
+entID smallint not null,
+startDate timestamp,
+workDate datetime,
+rating enum('1','2','3','4','5'),
+underlay enum('1','2','3','4','5'),
+edges enum('1','2','3','4','5'),
+grip enum('1','2','3','4','5'),
+depth DECIMAL(4,1),
+comment varchar(1024),
+name smallint,
+primary key (reportID),
+foreign key (entID) references Ent(entID),
+foreign key (name) references ReportSubPlace(name)
+)engine=innodb;
+
 insert into Ski (skiID, password, firstName, lastName, email, number, type, regDate) values
 ('1','pass','Tomas','Stormhagen','tomas','1234567891','arenachef','2016-11-01'),
 ('2','pass','Göran','Smith','g_smith@gmail.com','1234567892','other','2016-11-01'),
