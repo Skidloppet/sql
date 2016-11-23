@@ -1,9 +1,8 @@
 <!DOCTYPE html>
-<!--
-Kommentarer:
-stängde 2 div taggar som var öppna
-
--->
+<?php
+include'connect.php';
+SESSION_START();
+?>
 
 <html>
 <title>Skidloppet AB - Monitor</title>
@@ -95,6 +94,36 @@ include'connect.php';
 
     ?>
   </div>
+
+
+
+
+<div class="w3-container">
+    <h3>finnish workorder</h3>
+    <form action='backend_wo.php' method='POST'>
+      <input type="text" name="orderID" placeholder="orderID..">
+      <input type="text" name="entID" placeholder="entID..">
+      <input type="text" name="EntComment" placeholder="kommentar..">
+      <button type="submit" name="finnished">submit</button>
+    </form>
+
+    <?php
+
+    if(isset($_POST['finnished'])){
+
+        $sql = "CALL _finnishedWorkOrder(:finnishedOrderID , :finnishedEntID , now() , :finnishedComment);";
+
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindParam(":finnishedOrderID", $_POST['orderID'], PDO::PARAM_INT);
+        $stmt->bindParam(":finnishedEntID", $_POST['entID'], PDO::PARAM_INT);
+        $stmt->bindParam(":finnishedComment", $_POST['EntComment'], PDO::PARAM_STR);
+        $stmt->execute();
+      
+      }
+        
+    ?>
+  </div>
+
 
 
   <div class="w3-container">
