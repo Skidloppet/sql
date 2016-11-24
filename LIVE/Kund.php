@@ -42,7 +42,8 @@ button {
   margin: 8px 0;
   border: none;
   cursor: pointer;
-  width: 100%;
+  width: 45%;
+    border: 2px solid #ffffff; /* white */
 }
 
 /* Extra styles for the cancel button */
@@ -171,7 +172,7 @@ tr:nth-child(even) {
       <li class="w3-hide-small"><a href="#Status" class="w3-padding-large">Status</a></li>
       <li class="w3-hide-small"><a href="#Kommentar1" class="w3-padding-large">Kundernas kommentar</a></li>  
       <li class="w3-hide-small"><a href="#Kommentar2" class="w3-padding-large">Kommentera sträckan</a></li>
-      <li class="w3-hide-small"><a href="#Kontakt" class="w3-padding-large">Kontakta oss</a></li>
+
 
       <!-- kollar om man INTE är inloggad -->
       <?php
@@ -214,15 +215,16 @@ tr:nth-child(even) {
             <label><b>Password</b></label>
             <input type="password" placeholder="Lösenord" name="pass" required>
 
-            <button type="submit">Logga in</button>
+            <font color="black"><button type="submit">Logga in</button></font>
             <input type="checkbox" checked="checked"> <font color="black">Kom ihåg mig </font>
           </div>
         </div>
 
         <div class="container" style="background-color:#f1f1f1">
+
           <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
-          <span class="psw">Glömt <a href="#">password?</a></span>
-        </div>
+
+		</div>
       </form>
     </div>
   </ul>
@@ -280,22 +282,22 @@ tr:nth-child(even) {
   <table border='1'><th>Kommentar</th><th>Alias</th><th>Betyg</th><th>Datum</th></table>  
 -->
 
-<div class="w3-container w3-content w3-padding-64" style="max-width:800px" id="Kontakt">
+<div class="w3-container w3-content w3-padding-64" style="max-width:800px" id="Kommentar1">
   <h3>skriver bara ut den som en enkel tabell för test</h3>
   <h4>  <a href="?DS=1">sträcka ett (ingen karta)</a>
   </h4>
   <table>
     <tr>
-      <th>name</th>
-      <th>startDate</th>
-      <th>rating</th>
-      <th>underlay</th>
-      <th>edges</th>
-      <th>grip</th>
-      <th>depth</th>
-      <th>length</th>
-      <th>height</th>
-      <th>realname</th>
+      <th>Namn</th>
+      <th>Start datum</th>
+      <th>Betyg</th>
+      <th>Underlag</th>
+      <th>Kanter</th>
+      <th>Fäste</th>
+      <th>Djup (cm)</th>
+      <th>Längd (km)</th>
+      <th>m.ö.h</th>
+      <th>Sträckans namn</th>
     </tr>
     <?php
 
@@ -307,10 +309,14 @@ tr:nth-child(even) {
       $stmt->execute();
 
       foreach($stmt as $key => $row){
+		  	$stars = "";
+			for($i=0;$i<$row["rating"];$i++){
+			$stars .= "★";
+			}
         echo '<tr>';
         echo "<td>".$row['rspName']."</td>";
         echo "<td>".$row['startDate']."</td>";
-        echo "<td>".$row['rating']."</td>";
+		echo "<td>".$stars."</td>";
         echo "<td>".$row['underlay']."</td>";
         echo "<td>".$row['edges']."</td>";
         echo "<td>".$row['grip']."</td>";
@@ -326,7 +332,7 @@ tr:nth-child(even) {
   </div>
 
 
-  <div class="w3-container w3-content w3-padding-64" style="max-width:800px" id="Kontakt">
+  <div class="w3-container w3-content w3-padding-64" style="max-width:800px" id="Kommentar2">
     <h3>kundkommentarer</h3>
   </h4>
   <table>
@@ -367,7 +373,7 @@ tr:nth-child(even) {
   </div>
 
 
-  <div class="w3-container w3-content w3-padding-64" style="max-width:800px" id="Kontakt">
+  <div class="w3-container w3-content w3-padding-64" style="max-width:800px">
     <h3>Ny kundkommentar</h3>
     <form action ='Kund.php' method='POST'>
       <textarea rows="5" cols="70" name="comment" placeholder="freetext !comment"></textarea>
@@ -382,7 +388,7 @@ tr:nth-child(even) {
       <option value="5">5 - Perfekt</option>
     </select>
     <select size='1' name='startName'>
-      <option selected="selected"> Choose startingpoint </option>
+      <option selected="selected"> Välj startpunkt </option>
       <?php    
       foreach($pdo->query( 'SELECT * FROM SubPlace where name<"21" ORDER BY name;' ) as $row){
         echo '<option value="'.$row['name'].'">';
@@ -394,7 +400,7 @@ tr:nth-child(even) {
     </select>
 
     <select size='1' name='endName'>
-      <option selected="selected"> Choose endingpoint </option>
+      <option selected="selected"> Välj slutpunkt </option>
       <?php    
       foreach($pdo->query( 'SELECT * FROM SubPlace where name<"21" ORDER BY name;' ) as $row){
         echo '<option value="'.$row['name'].'">';
@@ -404,7 +410,7 @@ tr:nth-child(even) {
       ?>
     </select>
 
-    <button type="submit" name="CreateComment">SEND COMMENT</button>
+    <button type="submit" name="CreateComment">Skicka kommentar</button>
 
   </form>
 
@@ -432,55 +438,14 @@ tr:nth-child(even) {
 ?>
 </div>
 
-
-
-
-
-
-<!-- The Contact Section -->
-<div class="w3-container w3-content w3-padding-64" style="max-width:800px" id="Kontakt">
-  <h2 class="w3-wide w3-center">Kontakt oss</h2>
-  <p class="w3-opacity w3-center"><i>Skidloppet AB</i></p>
-  <div class="w3-row w3-padding-32">
-    <div class="w3-col m6 w3-large w3-margin-bottom">
-      <i class="fa fa-map-marker" style="width:30px"></i> Ute på landet, Sv<br>
-      <i class="fa fa-phone" style="width:30px"></i> Phone:(+46)31 71 71 71<br>
-      <i class="fa fa-envelope" style="width:30px"> </i> E-mail: Exempel@mail.com<br>
-    </div>
-    <div class="w3-col m6">
-      <div class="w3-row-padding" style="margin:0 -16px 8px -16px">
-        <div class="w3-half">
-          <input class="w3-input w3-border" type="text" placeholder="Namn">
-        </div>
-        <div class="w3-half">
-          <input class="w3-input w3-border" type="text" placeholder="E-mail">
-        </div>
-      </div>
-      <input class="w3-input w3-border" type="text" placeholder="Kommentar">
-      <button class="w3-btn w3-section w3-right">Skicka</button>
-    </div>
-  </div>
 </div>
 
-<!-- End Page Content -->
-
-
-
-
-<!--
-if($_POST['submit'])
-{
-$animal=$_POST['animal'];
-}
--->
-
-</div>
-
-</div>
 
 <!-- Footer -->
 <footer class="w3-container w3-padding-64 w3-center w3-opacity w3-light-grey w3-xlarge">
-
+<div value="center">
+Skidloppet
+</div>
 </footer>
 
 <script>

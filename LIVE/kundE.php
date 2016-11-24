@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 SESSION_START();
 include'connect.php';
 # funkar ej
@@ -168,78 +168,14 @@ tr:nth-child(even) {
       <li class="w3-hide-medium w3-hide-large w3-opennav w3-right">
         <a class="w3-padding-large" href="javascript:void(0)" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
       </li>
-      <li><a href="#" class="w3-hover-none w3-hover-text-grey w3-padding-large">Hem</a></li>
+      <li><a href="#" class="w3-hover-none w3-hover-text-grey w3-padding-large">Home</a></li>
       <li class="w3-hide-small"><a href="#Status" class="w3-padding-large">Status</a></li>
-      <li class="w3-hide-small"><a href="#Kommentar1" class="w3-padding-large">Kundernas kommentar</a></li>  
-      <li class="w3-hide-small"><a href="#Kommentar2" class="w3-padding-large">Kommentera sträckan</a></li>
-      <li class="w3-hide-small"><a href="#Kontakt" class="w3-padding-large">Kontakta oss</a></li>
-
-      <!-- kollar om man INTE är inloggad -->
-      <?php
-      if (!isset($_SESSION['email'])) {
-        ?>
-
-
-
-        <li style="float: right">
-          <button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Logga in</button>
-        </li>
-
-        <?php
-      }
-      elseif (isset($_SESSION['email'])){
-        ?>
-        <li style="float: right">
-          <form action="logout.php" >
-            <button style="width:auto;">Logga ut: <?php echo $_SESSION[email];?></button>
-          </form>
-        </li>
-        <?php
-      }
-      ?>
-
-      <div id="id01" class="modal">
-
-        <form class="modal-content animate" action="skidlogin.php" method="POST">
-          <div class="imgcontainer">
-            <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
-            <img src="bilder/Logotype.jpg" alt="Avatar" class="avatar">
-          </div>
-
-          <div class="container">
-           <div class="login3">
-
-            <label><b>Email</b></label>
-            <input type="text" placeholder="Emailadress" name="email" required>
-
-            <label><b>Password</b></label>
-            <input type="password" placeholder="Lösenord" name="pass" required>
-
-            <font color="black"><button type="submit">Logga in</button></font>
-            <input type="checkbox" checked="checked"> <font color="black">Kom ihåg mig </font>
-          </div>
-        </div>
-
-        <div class="container" style="background-color:#f1f1f1">
-
-          <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
-
-		</div>
-      </form>
-    </div>
-  </ul>
-
-
-
-
-</div>
-<!-- Navbar on small screens -->
-<div id="navDemo" class="w3-hide w3-hide-large w3-hide-medium w3-top" style="margin-top:46px">
-  <ul class="w3-navbar w3-left-align w3-black">
-    <li><a class="w3-padding-large" href="#Maps">Google Maps</a></li>
-    <li><a class="w3-padding-large" href="#">Status</a></li>
+      <li class="w3-hide-small"><a href="#Kommentar1" class="w3-padding-large">Customer comments</a></li>  
+      <li class="w3-hide-small"><a href="#Kommentar2" class="w3-padding-large">Customer stretch</a></li>
+      <li class="w3-hide-small"><a href="#Kontakt" class="w3-padding-large">Contact us</a></li>
   </ul>
 </div>
+
 
 <!-- Page content -->
 <div class="w3-content" style="max-width:2000px;margin-top:46px">
@@ -282,9 +218,9 @@ tr:nth-child(even) {
   <table border='1'><th>Kommentar</th><th>Alias</th><th>Betyg</th><th>Datum</th></table>  
 -->
 
-<div class="w3-container w3-content w3-padding-64" style="max-width:800px" id="Kommentar1">
+<div class="w3-container w3-content w3-padding-64" style="max-width:800px" id="Kontakt">
   <h3>skriver bara ut den som en enkel tabell för test</h3>
-  <h4>  <a href="?DS=1">sträcka ett (ingen karta)</a>
+  <h4>  <a href="?DS=1">stretch One (No map)</a>
   </h4>
   <table>
     <tr>
@@ -332,14 +268,14 @@ tr:nth-child(even) {
   </div>
 
 
-  <div class="w3-container w3-content w3-padding-64" style="max-width:800px" id="Kommentar2">
-    <h3>kundkommentarer</h3>
+  <div class="w3-container w3-content w3-padding-64" style="max-width:800px" id="Kontakt">
+    <h3>Customer comments</h3>
   </h4>
   <table>
     <tr>
       <th>rspName</th>
       <th>cmtID</th>
-      <th>kommentar</th>
+      <th>Comment</th>
       <th>alias</th>
       <th>grade</th>
       <th>date</th>
@@ -374,18 +310,18 @@ tr:nth-child(even) {
 
 
   <div class="w3-container w3-content w3-padding-64" style="max-width:800px" id="Kontakt">
-    <h3>Ny kundkommentar</h3>
+    <h3>New customer comments</h3>
     <form action ='Kund.php' method='POST'>
       <textarea rows="5" cols="70" name="comment" placeholder="freetext !comment"></textarea>
     </br>
     <input type="text" name="alias" placeholder="Alias..">
     <select name='grade'>
-      <option selected="selected">Betygsätt spåren</option>
-      <option value="1">1 - Ej åkbart</option>
-      <option value="2">2 - Undermåliga spår</option>
-      <option value="3">3 - Okej</option>
-      <option value="4">4 - Bra spår</option>
-      <option value="5">5 - Perfekt</option>
+      <option selected="selected">Rate grooves</option>
+      <option value="1">1 - Not available</option>
+      <option value="2">2 - substandard</option>
+      <option value="3">3 - Okey</option>
+      <option value="4">4 - Good grooves</option>
+      <option value="5">5 - Perfect</option>
     </select>
     <select size='1' name='startName'>
       <option selected="selected"> Choose startingpoint </option>
