@@ -49,6 +49,9 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
           <?php
           //include './backend_feeds.php';
           ?>
+		  <br><br/>
+		  <br><br/>
+		  <br><br/>
         </div>
         <hr>
 
@@ -103,6 +106,120 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 ?>
 </table>
 </div>
+
+<div class="w3-container">
+<h3>NEW CANNON ORDER</h3>
+<table border="1">
+	<th>CannonID</th>
+	<th>CannonModel</th>
+	<th>Cannon current position</th>
+	<th>Cannon current status</th>
+	<th>Cannon effect</th>
+	<th>Select </th>
+	<tr>
+		<?php
+	    foreach($pdo->query( 'SELECT cannonID, model, status, effect, realName  FROM Cannon, SubPlace where SubPlace.name = Cannon.subPlaceName;') as $row){
+		    echo "<tr>";
+		    echo "<td>".$row['cannonID']."</td>";
+		    echo "<td>".$row['model']."</td>";
+		    echo "<td>".$row['realName']."</td>";
+		    echo "<td>".$row['status']."</td>";
+		    echo "<td>".$row['effect']."</td>";
+	    	echo '<form><th><input type="checkbox" name="selected" value="'.$row["cannonID"].'"></th>';
+	        echo "</tr>";
+	    }
+		?>
+	</tr>
+</table>
+
+	
+	
+		<p>Change status</p>
+    	<select id="selecten"> 
+  	        <option value="as">select status</option>
+  	        <option name="status" value="on">on</option>
+    	    <option name="status" value="off">off</option>
+        	<option name="status" value="unplugged">unplugged</option>
+            <option name="status" value="broken">broken</option>	   
+        	</select>
+		</div>
+	<div>
+   		<p>Change location</p>
+        <select class='select1'>
+        	<option id="select1"value="selected">select track</option>
+		    <?php  
+		 	   foreach($pdo->query( 'SELECT * FROM SubPlace where SubPlace.placeName = "Delstrackor" or SubPlace.placeName = "Garage";' ) as $row){
+		        echo '<option name="name" value="'.$row['name'].'">';
+			    echo $row['realName'];      
+			    echo '</option>'; 
+				} 
+			?> 
+        </select> 
+<br></br>
+			<p>info till ent</p>
+			<form action='backend_cannon.php' method='POST'>
+			<textarea rows="3" cols="70" name="info" placeholder="info..."></textarea>	
+		
+		</div>
+
+	<div>
+   		<p>Set responsibility (* default = split between owners of tracks)</p>
+        <select class='select1'>
+        	<option id="select1">default</option>
+		    <?php    
+		    foreach($pdo->query( 'SELECT * FROM Ent; ' ) as $row){
+		        echo '<option name="entID"value="'.$row['entID'].'">';
+			    echo $row['firstName']." ".$row['lastName'];      
+			    echo '</option>'; } ?> 
+        </select>     
+ 	<input type="submit" name="send">
+
+ <?php
+
+	if(isset($_POST['send'])){
+    $sql = "call _newCannonOrder (:cannonID,:name,:entID,:newStatus,:info);";
+		
+		echo $_POST['selected'];
+
+	    $stmt = $pdo->prepare($sql);
+	    $stmt->bindParam(":cannonID", $_POST['selected'], PDO::PARAM_INT);
+	    $stmt->bindParam(":name", $_POST['name'], PDO::PARAM_INT);
+	    $stmt->bindParam(":entID", $_POST['entID'], PDO::PARAM_INT);
+	    $stmt->bindParam(":newStatus", $_POST['status'], PDO::PARAM_STR);
+		$stmt->bindParam(":info", $_POST['info'], PDO::PARAM_STR);
+	    $stmt->execute();
+	}
+	    
+?>
+	</div>
+</div>
+
+<div class="w3-container">
+	<h3>Utskrift av CANNON ORDERS!(CannonSubPlace)</h3>
+    <table
+	 <table border="1">
+	    <?php  
+				echo "<tr>";
+		        echo "<th>cannonID</th>"; 
+		        echo "<th>name</th>";
+		        echo "<th>entID</th>";
+		        echo "<th>newStatus</th>";
+				echo "<th>info</th>";
+				echo "</tr>";
+
+		      foreach($pdo->query( 'select * from CannonSubPlace;' ) as $row){
+		        echo "<tr>";
+		        echo "<td>".$row['cannonID']."</td>";
+		        echo "<td>".$row['name']."</td>";
+		        echo "<td>".$row['entID']."</td>";
+		        echo "<td>".$row['newStatus']."</td>";
+				echo "<td>".$row['info']."</td>";
+		        echo "</tr>";  
+	      }
+	    ?>
+    </table>
+</div>
+
 
 <footer class="w3-container w3-padding-16 w3-light-grey">
   <!-- <h4>FOOTER</h4> -->
