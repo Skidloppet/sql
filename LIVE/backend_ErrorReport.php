@@ -68,8 +68,8 @@ include'connect.php';
 
 
 <div class="w3-container">
-  <h3>Ny felanmälan</h3>
-  <form action='<?php $_PHP_SELF ?>' method='POST'>
+  <h3>Ny felanmälan!</h3>
+  <form action='backend_ErrorReport.php' method='POST'>
     <textarea rows="5" cols="70" name="desc" placeholder="Beskriv problemet..."></textarea>
     </br>
     <!--<p>Ange graden av problemets påverkan</p>-->

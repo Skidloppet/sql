@@ -18,6 +18,7 @@ if(!$row = $result->fetch_assoc()) {
 	#$_SESSION['ids'] = array($row['type'], $row['email']);
 	$_SESSION['email'] = $row['email'];
 	$_SESSION['type'] = $row['type'];
+	$_SESSION['id'] = $row['id'];
 
 }
 

@@ -50,7 +50,6 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
         <div class="w3-container w3-section">
           <div class="w3-row-padding" style="margin:0 -16px">
             <div class="w3-threethird">
-              <h5>Karta</h5>
               <?php
               include 'backend_map.php';
               ?>
@@ -69,30 +68,111 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
               ?>
             </div>
             <hr>
-            <div class="w3-container">
-              <h5>Generella betyg hela arenan</h5>
-              <p>Underlag</p>
-              <div class="w3-progress-container w3-grey">
-                <div id="myBar" class="w3-progressbar w3-red" style="width:25%">
-                  <div class="w3-center w3-text-white">2</div>
-                </div>
-              </div>
 
-              <p>Spårkanter</p>
-              <div class="w3-progress-container w3-grey">
-                <div id="myBar" class="w3-progressbar w3-orange" style="width:50%">
-                  <div class="w3-center w3-text-white">3</div>
-                </div>
-              </div>
 
-              <p>Stavfäste</p>
-              <div class="w3-progress-container w3-grey">
-                <div id="myBar" class="w3-progressbar w3-green" style="width:75%">
-                  <div class="w3-center w3-text-white">4</div>
-                </div>
-              </div>
+
+                  <div class="w3-container">
+          <h5>Senaste kommentarerna</h5>
+          <div class="w3-row">
+            <div class="w3-col m2 text-center">
+              <img class="w3-circle" src="/w3images/avatar3.png" style="width:96px;height:96px">
             </div>
-            <hr>
+            <div class="w3-col m10 w3-container">
+              <h4>Kund <span class="w3-opacity w3-medium">Sep 29, 2014, 9:12 PM</span></h4>
+              <p>Keep up the GREAT work! I am cheering for you!! Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p><br>
+            </div>
+          </div>
+
+          <div class="w3-row">
+            <div class="w3-col m2 text-center">
+              <img class="w3-circle" src="/w3images/avatar1.png" style="width:96px;height:96px">
+            </div>
+            <div class="w3-col m10 w3-container">
+              <h4>Jonas <span class="w3-opacity w3-medium">Sep 28, 2014, 10:15 PM</span></h4>
+              <p>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p><br>
+            </div>
+          </div>
+        </div>
+        <br>
+        <div class="w3-container w3-dark-grey w3-padding-32">
+          <div class="w3-row">
+            <div class="w3-container w3-third">
+              <h5 class="w3-bottombar w3-border-green">Demographic</h5>
+              <p>Language</p>
+              <p>Country</p>
+              <p>City</p>
+            </div>
+            <div class="w3-container w3-third">
+              <h5 class="w3-bottombar w3-border-red">System</h5>
+              <p>Browser</p>
+              <p>OS</p>
+              <p>More</p>
+            </div>
+            <div class="w3-container w3-third">
+              <h5 class="w3-bottombar w3-border-orange">Target</h5>
+              <p>Users</p>
+              <p>Active</p>
+              <p>Geo</p>
+              <p>Interests</p>
+            </div>
+          </div>
+        </div>
+
+
+
+
+
+
+
+  <div class="w3-container">
+    <h5>Snittbetygen på hela arenan</h5>
+    <?php
+
+    foreach($pdo->query( 'SELECT * FROM snittBetyg, snitt;' ) as $row){
+
+      # kolla VIEW snittBetyg & snitt
+      # lade till B tagg för att göra snittet enklare att se (row r,u,e,g /5)
+
+      echo '<p>Rating</p>';
+      echo '<div class="w3-progress-container w3-grey">';
+
+      echo '<div id="myBar" class="w3-progressbar w3-blue" style="width:'.$row["rat"].'%">';
+      echo '<div class="w3-center w3-text-white"><b>'.$row["r"].'/5</b></div>';
+      echo 'echo   </div>';
+      echo ' </div>';
+      echo '   <p>Underlag</p>';
+      echo ' <div class="w3-progress-container w3-grey">';
+
+      echo '  <div id="myBar" class="w3-progressbar w3-red" style="width:'.$row["under"].'%">';
+      echo '   <div class="w3-center w3-text-white"><b>'.$row["u"].'/5</b></div>';
+      echo '   </div>';
+      echo ' </div>';
+
+      echo '  <p>Spårkanter</p>';
+      echo ' <div class="w3-progress-container w3-grey">';
+      echo '  <div id="myBar" class="w3-progressbar w3-orange" style="width:'.$row["edge"].'%">';
+      echo '    <div class="w3-center w3-text-white"><b>'.$row["e"].'/5</b></div>';
+      echo '   </div>';
+      echo ' </div>';
+
+      echo ' <p>Stavfäste</p>';
+      echo '<div class="w3-progress-container w3-grey">';
+      echo ' <div id="myBar" class="w3-progressbar w3-green" style="width:'.$row["grip"].'%">';
+      echo '    <div class="w3-center w3-text-white"><b>'.$row["g"].'/5</b></div>';
+      echo '  </div>';
+      echo ' </div>';
+
+    }
+    ?>
+  </div>
+  <hr>
+
+
+
+
+
+
+        
 
             <div class="w3-container">
               <h5>Countries</h5>
