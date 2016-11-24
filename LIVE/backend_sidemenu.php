@@ -16,7 +16,7 @@ include 'connect.php';
             Logga ut: <?php echo $_SESSION[email]; 
           }
           ?>
-        </button>
+        </button></form>
       </div>
 
 
