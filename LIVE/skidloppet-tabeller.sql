@@ -241,7 +241,8 @@ foreign key (entID) references Ent(entID)
 )engine=innodb;
 
 create table StoredReports(
-reportID int not null unique,
+storedReportID int not null auto_increment unique,
+reportID int not null,
 entID smallint not null,
 startDate timestamp,
 workDate datetime,
@@ -252,9 +253,7 @@ grip enum('1','2','3','4','5'),
 depth DECIMAL(4,1),
 comment varchar(1024),
 name smallint,
-primary key (reportID),
-foreign key (entID) references Ent(entID),
-foreign key (name) references ReportSubPlace(name)
+primary key (storedReportID)
 )engine=innodb;
 
 insert into Ski (skiID, password, firstName, lastName, email, number, type, regDate) values
@@ -264,8 +263,7 @@ insert into Ski (skiID, password, firstName, lastName, email, number, type, regD
 
 
 insert into Ent (entID, password, firstName, lastName, email, number, regDate) values 
-('1','pass','gucci','gucci','gucci','1234567891','2016-11-01'),
-('4','pass','Stefan','Fridström','stefan','1234567891','2016-11-01'),
+('1','pass','Stefan','Fridström','stefan','1234567891','2016-11-01'),
 ('2','pass','Adrian','Abrahamsson','asd@hotmail.com','1234567892','2016-11-01'),
 ('3','pass','Philip','Svensson','asd@gmail.com','1234567893','2016-11-01');
 
