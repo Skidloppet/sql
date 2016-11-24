@@ -13,10 +13,10 @@ include 'connect.php';
       <span class="w3-right">
         <form action="logout.php">
           <button class="w3-btn w3-margin-20 w3-hover-text-grey">
-            Logga ut: <?php echo $_SESSION[email]; 
+            Logga ut: <?php echo $_SESSION['email']; 
           }
           ?>
-        </button>
+        </button></form>
       </div>
 
 
@@ -63,6 +63,7 @@ include 'connect.php';
   else {
     ?>
     <a href="backend_index.php" class="<?php if(basename($_SERVER['SCRIPT_NAME']) == 'backend_index.php') {echo 'w3-padding w3-blue'; }else { echo 'w3-padding'; }?>"><i class="fa fa-dashboard fa-fw"></i>  Översikt</a>
+    <a href="backend_report.php" class="<?php if(basename($_SERVER['SCRIPT_NAME']) == 'backend_report.php'){echo 'w3-padding w3-blue'; }else { echo 'w3-padding'; } ?>"><i class="fa fa-history fa-fw"></i>  Rapportera</a>
     <a href="backend_wo.php" class="<?php if(basename($_SERVER['SCRIPT_NAME']) == 'backend_wo.php'){echo 'w3-padding w3-blue'; }else { echo 'w3-padding'; } ?>"><i class="fa fa-eye fa-fw"></i>  Arbetsordrar</a>
     <a href="backend_ErrorReport.php" class="<?php if(basename($_SERVER['SCRIPT_NAME']) == 'backend_ErrorReport.php'){echo 'w3-padding w3-blue'; }else { echo 'w3-padding'; } ?>"><i class="fa fa-comment fa-fw"></i>  Felanmälan</a>
     <a href="backend_stra.php" class="<?php if(basename($_SERVER['SCRIPT_NAME']) == 'backend_stra.php'){echo 'w3-padding w3-blue'; }else { echo 'w3-padding'; } ?>"><i class="fa fa-share-alt fa-fw"></i>  Sträckor</a>
