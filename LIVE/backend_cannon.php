@@ -107,7 +107,9 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 </table>
 </div>
 
-<div class="w3-container">
+<!-- ändra ordning så att abell med select ligger under det andra  -->
+
+<div class="w3-container w3-purple">
 <h3>NEW CANNON ORDER</h3>
 <table border="1">
 	<th>CannonID</th>
@@ -142,7 +144,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
         	<option name="status" value="unplugged">unplugged</option>
             <option name="status" value="broken">broken</option>	   
         	</select>
-		</div>
+		
 	<div>
    		<p>Change location</p>
         <select class='select1'>
@@ -194,7 +196,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 	</div>
 </div>
 
-<div class="w3-container">
+<div class="w3-container ">
 	<h3>Utskrift av CANNON ORDERS!(CannonSubPlace)</h3>
     <table
 	 <table border="1">
