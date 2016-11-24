@@ -276,6 +276,7 @@ if(isset($_POST['storeReport'])){
           echo "<td>".$row['comment']."</td>";
           echo "<td>".$row['name']."</td>";
 }
+header("Refresh:0;");
 ?>
 </table>
 <br><br>

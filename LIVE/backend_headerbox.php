@@ -3,7 +3,9 @@
         <div class="w3-container w3-blue w3-padding-16">
           <div class="w3-left"><i class="fa fa-eye w3-xxxlarge"></i></div>
           <div class="w3-right">
-            <?php $siffra = $fråga;
+            <?php 
+            $fråga = 0;
+            $siffra = $fråga;
             echo '<h3> 666'.$siffra.'</h3>';
             ?>
           </div>
@@ -21,6 +23,7 @@
             <?php 
             if (isset($_SESSION['email'])&&($_SESSION['type'] == 'arenachef')) {
 
+              $sqlfråga = 0;
               $siffra = $sqlfråga;
               echo '<h3 style="background-color:black; padding-left:13px; height:45px; width:45px; border-radius: 70%;">11'.$siffra.'</h3>';
             }

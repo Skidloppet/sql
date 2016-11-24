@@ -13,7 +13,7 @@ include 'connect.php';
       <span class="w3-right">
         <form action="logout.php">
           <button class="w3-btn w3-margin-20 w3-hover-text-grey">
-            Logga ut: <?php echo $_SESSION[email]; 
+            Logga ut: <?php echo $_SESSION['email']; 
           }
           ?>
         </button></form>
@@ -63,6 +63,7 @@ include 'connect.php';
   else {
     ?>
     <a href="backend_index.php" class="<?php if(basename($_SERVER['SCRIPT_NAME']) == 'backend_index.php') {echo 'w3-padding w3-blue'; }else { echo 'w3-padding'; }?>"><i class="fa fa-dashboard fa-fw"></i>  Översikt</a>
+    <a href="backend_report.php" class="<?php if(basename($_SERVER['SCRIPT_NAME']) == 'backend_report.php'){echo 'w3-padding w3-blue'; }else { echo 'w3-padding'; } ?>"><i class="fa fa-history fa-fw"></i>  Rapportera</a>
     <a href="backend_wo.php" class="<?php if(basename($_SERVER['SCRIPT_NAME']) == 'backend_wo.php'){echo 'w3-padding w3-blue'; }else { echo 'w3-padding'; } ?>"><i class="fa fa-eye fa-fw"></i>  Arbetsordrar</a>
     <a href="backend_ErrorReport.php" class="<?php if(basename($_SERVER['SCRIPT_NAME']) == 'backend_ErrorReport.php'){echo 'w3-padding w3-blue'; }else { echo 'w3-padding'; } ?>"><i class="fa fa-comment fa-fw"></i>  Felanmälan</a>
     <a href="backend_stra.php" class="<?php if(basename($_SERVER['SCRIPT_NAME']) == 'backend_stra.php'){echo 'w3-padding w3-blue'; }else { echo 'w3-padding'; } ?>"><i class="fa fa-share-alt fa-fw"></i>  Sträckor</a>
@@ -75,6 +76,7 @@ include 'connect.php';
     <a href="backend_kom.php" class="<?php if(basename($_SERVER['SCRIPT_NAME']) == 'backend_kom.php'){echo 'w3-padding w3-blue'; }else { echo 'w3-padding'; } ?>"><i class="fa fa-users fa-fw"></i>  Kundkommentarer</a>
     <a href="backend_ins.php" class="<?php if(basename($_SERVER['SCRIPT_NAME']) == 'backend_ins.php'){echo 'w3-padding w3-blue'; }else { echo 'w3-padding'; } ?>"><i class="fa fa-cog fa-fw"></i>  Inställningar</a>
     <a href="backend_anv.php" class="<?php if(basename($_SERVER['SCRIPT_NAME']) == 'backend_anv.php'){echo 'w3-padding w3-blue'; }else { echo 'w3-padding'; } ?>"><i class="fa fa-user fa-fw"></i>  Användaradministration</a><br><br>
+	<a href="backend_cannon.php" class="<?php if(basename($_SERVER['SCRIPT_NAME']) == 'backend_cannon.php'){echo 'w3-padding w3-blue'; }else { echo 'w3-padding'; } ?>"><i class="fa fa-asterisk"></i>  Snö kanoner</a>
     <?php
   }
   elseif (isset($_SESSION['email'])&&($_SESSION['type'] == 'other')) {
