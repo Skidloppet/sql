@@ -71,52 +71,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 
 
 
-                  <div class="w3-container">
-          <h5>Senaste kommentarerna</h5>
-          <div class="w3-row">
-            <div class="w3-col m2 text-center">
-              <img class="w3-circle" src="/w3images/avatar3.png" style="width:96px;height:96px">
-            </div>
-            <div class="w3-col m10 w3-container">
-              <h4>Kund <span class="w3-opacity w3-medium">Sep 29, 2014, 9:12 PM</span></h4>
-              <p>Keep up the GREAT work! I am cheering for you!! Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p><br>
-            </div>
-          </div>
 
-          <div class="w3-row">
-            <div class="w3-col m2 text-center">
-              <img class="w3-circle" src="/w3images/avatar1.png" style="width:96px;height:96px">
-            </div>
-            <div class="w3-col m10 w3-container">
-              <h4>Jonas <span class="w3-opacity w3-medium">Sep 28, 2014, 10:15 PM</span></h4>
-              <p>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p><br>
-            </div>
-          </div>
-        </div>
-        <br>
-        <div class="w3-container w3-dark-grey w3-padding-32">
-          <div class="w3-row">
-            <div class="w3-container w3-third">
-              <h5 class="w3-bottombar w3-border-green">Demographic</h5>
-              <p>Language</p>
-              <p>Country</p>
-              <p>City</p>
-            </div>
-            <div class="w3-container w3-third">
-              <h5 class="w3-bottombar w3-border-red">System</h5>
-              <p>Browser</p>
-              <p>OS</p>
-              <p>More</p>
-            </div>
-            <div class="w3-container w3-third">
-              <h5 class="w3-bottombar w3-border-orange">Target</h5>
-              <p>Users</p>
-              <p>Active</p>
-              <p>Geo</p>
-              <p>Interests</p>
-            </div>
-          </div>
-        </div>
 
 
 
