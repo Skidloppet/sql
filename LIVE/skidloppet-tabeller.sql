@@ -279,11 +279,11 @@ insert into WorkOrder (skiID, entID, sentDate, endDate, priority, info, EntComme
 ('1','2',now(),'','high','träd som ligger över spåren','text2'),
 ('1','3',now(),'','medium','grus vid lerdalen','text3'),
 ('1','2',now(),'','low','sten','text4');
-
+/*
 insert into FinnishedWorkOrder (OrderID, entID, sentDate, endDate, priority, info, EntComment) values
 ('1','1','2016-01-15','','akut','död snubbe på spåret','text1'),
 ('3','1','2016-01-17','','low','sten','text2');
-
+*/
 insert into Commenta (Kommentar,grade, alias, date) values 
 ('blabla','2','Stina','2017-12-31'),
 ('oj vilka spår','4','göran p','2016-12-24'),
