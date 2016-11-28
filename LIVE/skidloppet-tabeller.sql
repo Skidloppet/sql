@@ -70,7 +70,6 @@ foreign key (skiID) references Ski(skiID),
 foreign key (entID) references Ent(entID)
 )engine=innodb;
 
-
 -- tabell för arbetsorder
 create table FinnishedWorkOrder (
 orderID int not null unique,
@@ -274,11 +273,11 @@ insert into Place (name, info) values
 ('Garage','Garage för pistmaskiner');
 
 
-insert into WorkOrder (skiID, entID, sentDate, endDate, priority, info, EntComment) values 
-('1','1',now(),'','akut','ligger en död uteliggare på spåret', 'text1'),
-('1','2',now(),'','high','träd som ligger över spåren','text2'),
-('1','3',now(),'','medium','grus vid lerdalen','text3'),
-('1','2',now(),'','low','sten','text4');
+insert into WorkOrder (skiID, entID, sentDate, endDate, priority, info, EntComment,type) values 
+('1','1',now(),'','akut','ligger en död uteliggare på spåret', 'text1','dirt'),
+('1','2',now(),'','high','träd som ligger över spåren','text2','dirt'),
+('1','3',now(),'','medium','grus vid lerdalen','text3','dirt'),
+('1','2',now(),'','low','sten','text4','dirt'); 
 /*
 insert into FinnishedWorkOrder (OrderID, entID, sentDate, endDate, priority, info, EntComment) values
 ('1','1','2016-01-15','','akut','död snubbe på spåret','text1'),

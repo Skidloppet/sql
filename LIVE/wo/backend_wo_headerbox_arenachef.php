@@ -5,7 +5,7 @@ $i2 = 0;
       foreach($pdo->query( 'select count(*)as i from WorkOrder;') as $row){
         $i = $row['i'];
       }
-      foreach($pdo->query( 'select count(*)as i from FinnishedWorkOrder;' ) as $row){
+      foreach($pdo->query( 'select count(*)as i2 from FinnishedWorkOrder;' ) as $row){
         $i2 = $row['i2'];
       }
        ?>
@@ -109,7 +109,7 @@ $i2 = 0;
       ?></select>
       <input type="checkbox" name="split" value="1">dela upp på ansvarsområden<br>
 
-      <p><button type="submit" name="_newSplitWorkOrder" id="_newWorkOrder">NEW Report</button></p></form>
+      <p><button type="submit" name="_newSplitWorkOrder" id="_newWorkOrder">Skicka</button></p></form>
 
 
       <?php
@@ -141,36 +141,43 @@ $i2 = 0;
     <div class="w3-container">
       <span onclick="document.getElementById('id02').style.display='none'"
       class="w3-closebtn">&times;</span>
-<h5>Pågående arbetsordrar</h5>
-          <table class="w3-table w3-striped w3-white">
-            <tr>
-              <td><i class="fa fa-users w3-orange w3-text-white w3-padding-tiny"></i></td>
-              <td>OrderID</td>
-              <td>skiID</td>
-              <td>entID</td>
-              <td>SentDate</td>
-              <td>priority</td>
-            </tr>        
-            <?php     
+    <div class="w3-threethird">
+      <h5>Pågående arbetsordrar</h5>
+      <table class="w3-table w3-striped w3-white">
+        <tr>
+          <th><i class="fa fa-users w3-orange w3-text-white w3-padding-tiny"></i></th>
+          <th>Order ID</th>
+          <th>Arbetsorder-Typ</th>
+          <th>Prioritet</th>
+          <th>Ansvarig</th>
+          <th>Information</th>
+          <th>Datum skickad</th>
+          <th>Skapad av</th>
+        </tr>        
+        <?php     
 
-            foreach($pdo->query( 'SELECT * FROM WorkOrder;' ) as $row){
-              echo "<tr>";
-              echo "<td><i class='fa fa-eye w3-blue w3-padding-tiny'></i></td>";
-              echo "<td><a href='finnishedWorkOrder.php?orderID=".urlencode($row['orderID'])."'>".$row['orderID']."</td>";
-              echo "<td>".$row['skiID']."</td>";
-              echo "<td>".$row['entID']."</td>";
-              echo "<td>".$row['sentDate']."</td>";
-              echo "<td>".$row['priority']."</td>";
-              echo "</tr>";  
-            }
-            ?>   
-          </table>
+        foreach($pdo->query( 'SELECT * FROM wo order by orderID desc;' ) as $row){
+          echo "<tr><td><i class='fa fa-eye w3-blue w3-padding-tiny'></i></td>";
+          echo "<td>".$row['orderID']."</td>";
+          echo "<td>".$row['type']."</td>";
+          echo "<td>".$row['priority']."</td>";
+          echo "<td>".$row['entF']." ".$row['entL']."</td>";
+          echo "<td>".$row['info']."</td>";
+          echo "<td>".$row['sentDate']."</td>";
+          echo "<td>".$row['skiF']." ".$row['skiL']."</td>";
+          echo "</tr>";  
+        }
+        ?>   
+      </table>
+    </div>
+
         <h5>Entrepenörernas nästa planerade arbetspass</h5>
+        <h5>Proceduren måste ändras så den kollar på StoredReports</h5>
           <table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white">
             <tr>
-              <th>Name</th>
-              <th>latest shift</th>
-              <th>next planned</th>
+              <th>Namn</th>
+              <th>Senaste arbetspass</th>
+              <th>Nästa planerade pass</th>
             </tr>
             <?php
     # kolla procedur entWork...
@@ -186,7 +193,51 @@ $i2 = 0;
             ?>
           </table><br>
     </div>
+
+        <div class="w3-container w3-blue">
+          <h3>Ändra ansvar för en arbetsorder till ny entrepenör</h3>
+          <form action='<?php $_PHP_SELF ?>' method='POST'>
+              <select name="orderID">
+                <option >Arbetsorder ID</option>
+                <?php    
+                foreach($pdo->query( 'SELECT * FROM WorkOrder; ' ) as $row){
+                  echo '<option value="'.$row['orderID'].'">';
+                  echo $row['orderID'];      
+                  echo '</option>'; } ?> 
+                </select>
+            <select name="entID">
+              <option>Entrepenörer</option>
+              <?php    
+              foreach($pdo->query( 'SELECT * FROM Ent; ' ) as $row){
+                echo '<option value="'.$row['entID'].'">';
+                echo $row['firstName']." ".$row['lastName']." (".$row['entID'].")";      
+                echo '</option>'; } ?> 
+              </select> 
+     
+                <button type="submit" name="send">BYT</button></form>
+
+
+                <?php
+
+                if(isset($_POST['send'])){
+                  $sql = "call _newResponsability (:_entID,:_orderID)";
+
+                  $stmt = $pdo->prepare($sql);
+                  $stmt->bindParam(":_entID", $_POST['entID'], PDO::PARAM_INT);
+                  $stmt->bindParam(":_orderID", $_POST['orderID'], PDO::PARAM_INT);
+                  $stmt->execute();
+
+            # DEN UPPDATERAR INTE LISTAN OVAN (endast om man laddar om sidan..)
+                  header("refresh: 3;");
+                }    
+                ?>
+                <hr>
+              </div>
+
+
+
   </div>
+
 </div>
 
 <!-- The Modal -->
@@ -195,30 +246,35 @@ $i2 = 0;
     <div class="w3-container">
       <span onclick="document.getElementById('id03').style.display='none'"
       class="w3-closebtn">&times;</span>
-                <h4>avslutade arbetsordrar</h4>
-                <table class="w3-table w3-striped w3-white">
-                  <tr>
-                    <td><i class="fa fa-users w3-orange w3-text-white w3-padding-tiny"></i></td>
-                    <td>OrderID</td>
-                    <td>skiID</td>
-                    <td>entID</td>
-                    <td>SentDate</td>
-                    <td>priority</td>
-                  </tr>        
-                  <?php     
-            # limit på dagar eller antal
-                  foreach($pdo->query( 'SELECT * FROM FinnishedWorkOrder;' ) as $row){
-                    echo "<tr>";
-                    echo "<td><i class='fa fa-eye w3-blue w3-padding-tiny'></i></td>";
-                    echo "<td><a href='finnishedWorkOrder.php?orderID=".urlencode($row['orderID'])."'>".$row['orderID']."</td>";
-                    echo "<td>".$row['skiID']."</td>";
-                    echo "<td>".$row['entID']."</td>";
-                    echo "<td>".$row['sentDate']."</td>";
-                    echo "<td>".$row['priority']."</td>";
-                    echo "</tr>";  
-                  }
-                  ?>   
-                </table>
+    <div class="w3-threethird">
+      <h5>Pågående arbetsordrar</h5>
+      <table class="w3-table w3-striped w3-white">
+        <tr>
+          <th><i class="fa fa-users w3-orange w3-text-white w3-padding-tiny"></i></th>
+          <th>Order ID</th>
+          <th>Arbetsorder-Typ</th>
+          <th>Prioritet</th>
+          <th>Ansvarig</th>
+          <th>Information</th>
+          <th>Datum skickad</th>
+          <th>Skapad av</th>
+        </tr>        
+        <?php     
+
+        foreach($pdo->query( 'SELECT * FROM fwo order by orderID desc;' ) as $row){
+          echo "<tr><td><i class='fa fa-eye w3-blue w3-padding-tiny'></i></td>";
+          echo "<td>".$row['orderID']."</td>";
+          echo "<td>".$row['type']."</td>";
+          echo "<td>".$row['priority']."</td>";
+          echo "<td>".$row['entF']." ".$row['entL']."</td>";
+          echo "<td>".$row['info']."</td>";
+          echo "<td>".$row['sentDate']."</td>";
+          echo "<td>".$row['skiF']." ".$row['skiL']."</td>";
+          echo "</tr>";  
+        }
+        ?>   
+      </table>
+    </div>
     </div>
   </div>
 </div>

@@ -17,7 +17,7 @@ PROCEDURER FÖR SKIDLOPPET AB -Innehållsförteckning
 15. Ta bort gammla kund kommentarer
 16. för att ändra tel-nummer för en ent.
 Kvar att göra:
-
+ 
 procedur & php för avklarade workorder
 procedur & php för avklarade snökanon-workorder
 
