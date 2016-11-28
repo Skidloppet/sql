@@ -15,7 +15,8 @@ $i2 = 0;
 </header>
 
 <div class="w3-row-padding w3-margin-bottom">
-  <div class="w3-third" onclick="document.getElementById('id01').style.display='block'">
+  
+   <div class="w3-third" style="cursor:pointer" onclick="document.getElementById('id01').style.display='block'">
     <div class="w3-container w3-green w3-padding-16">
       <div class="w3-left"><i class="fa fa-plus w3-xxxlarge"></i></div>
       <div class="w3-right">
@@ -28,7 +29,7 @@ $i2 = 0;
 
 
 
-<div class="w3-third onclick="document.getElementById('id02').style.display='block'">
+<div class="w3-third" style="cursor:pointer" onclick="document.getElementById('id02').style.display='block'">
   <div class="w3-container w3-blue w3-padding-16">
     <div class="w3-left"><i class="fa fa-arrow-right w3-xxxlarge"></i></div>
     <div class="w3-right">
@@ -43,7 +44,7 @@ $i2 = 0;
 
 
 
-<div class="w3-third onclick="document.getElementById('id03').style.display='block'">
+<div class="w3-third" style="cursor:pointer" onclick="document.getElementById('id03').style.display='block'">
   <div class="w3-container w3-red w3-padding-16">
     <div class="w3-left"><i class="fa fa-flag alt w3-xxxlarge"></i></div>
     <div class="w3-right">
@@ -53,7 +54,6 @@ $i2 = 0;
     <h4>Avslutade arbetsordrar</h4>
   </div>
 </div>
-
 
 
 </div>
@@ -165,6 +165,26 @@ $i2 = 0;
             }
             ?>   
           </table>
+        <h5>Entrepenörernas nästa planerade arbetspass</h5>
+          <table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white">
+            <tr>
+              <th>Name</th>
+              <th>latest shift</th>
+              <th>next planned</th>
+            </tr>
+            <?php
+    # kolla procedur entWork...
+            foreach($pdo->query( 'SELECT * FROM entWork;' ) as $row){
+
+              echo ' <tr>';
+              echo ' <td>'.$row["firstName"].' '.$row["lastName"].'</td>';
+              echo ' <td>'.$row["startDate"].'</td>';
+              echo ' <td>'.$row["date"].'</td>';
+              echo ' </tr>';
+            }
+
+            ?>
+          </table><br>
     </div>
   </div>
 </div>
