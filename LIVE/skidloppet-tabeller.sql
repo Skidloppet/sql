@@ -120,10 +120,11 @@ foreign key (entID) references Ent(entID)
 create table Cannon (
 cannonID smallint not null auto_increment unique,
 subPlaceName smallint null,
-model char (4) not null,
+model char (4) not null, 
 -- model visar om det är stationär eller ej
 state enum('on','off','unplugged','broken') null,
-effect smallint,
+effect DECIMAL(3,2), -- producerar ca: 1.3 m3/minut ()(fasta), flyttbara producerar ca: 0.5 m3 /mint
+class varchar(32) not null, 
 -- effect och status tillsammans med N:M tabellens timestamp skall visa antal m2 snö tillverkat.
 primary key (cannonID)
 -- foreign key (subPlaceName) references SubPlace(name)ON DELETE CASCADE ON UPDATE CASCADE
@@ -317,10 +318,38 @@ insert into SubPlace (name, placeName, realName, entID, length, height, fakesnow
 
 
 
-insert into Cannon (subPlaceName, model, state, effect) values
-('1','STA1','off','9'),
-('2','MOV1','off','5'),
-('3','MOV2','off','6');
+insert into Cannon (subPlaceName, model, state, effect,class) values
+('1','fast','off','1.30','SMI Super PoleCat'), 
+('11','fast','off','1.30','SMI Super PoleCat'),
+('12','fast','off','1.30','SMI Super PoleCat'),
+('16','fast','off','1.30','SMI Super PoleCat'),
+('18','fast','off','1.30','SMI Super PoleCat'),
+('3','fast','off','1.30','SMI Super PoleCat'),
+('4','fast','off','1.30','SMI Super PoleCat'),
+('7','fast','off','1.30','SMI Super PoleCat'),
+('10','fast','off','1.30','SMI Super PoleCat'),
+('21','sta','off','1.30','SMI Super PoleCat'),
+('9','flyttbar','off','1.45','Top Gun 7'),
+('6','mov','off','1.45','Top Gun 7'),
+('4','flyttbar','off','1.45','Top Gun 7'),
+('3','flyttbar','off','1.45','Top Gun 7'),
+('5','flyttbar','off','1.45','Top Gun 7'),
+('20','flyttbar','off','1.45','Top Gun 7'),
+('19','flyttbar','off','1.45','Top Gun 7'),
+('14','flyttbar','off','1.45','Top Gun 7'),
+('10','flyttbar','off','1.45','Top Gun 7'),
+('9','flyttbar','off','1.45','Top Gun 7'),
+('8','flyttbar','off','1.45','Top Gun 7'),
+('12','flyttbar','off','1.45','Top Gun 7'),
+('15','flyttbar','off','1.45','Top Gun 7'),
+('17','flyttbar','off','1.45','Top Gun 7'),
+('19','flyttbar','off','1.45','Top Gun 7'),
+('21','flyttbar','off','1.45','Top Gun 7'),
+('1','flyttbar','off','1.45','Top Gun 7'),
+('2','flyttbar','off','1.45','Top Gun 7'),
+('4','flyttbar','off','1.45','Top Gun 7'),
+('13','flyttbar','off','1.45','Top Gun 7');
+select * from Cannon;
 
 
 insert into Report (entID, startDate, workDate, rating, underlay, edges, grip, depth) values
