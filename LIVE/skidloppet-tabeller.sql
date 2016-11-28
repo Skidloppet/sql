@@ -119,14 +119,14 @@ foreign key (entID) references Ent(entID)
 -- cannon är snökanon, model namn avgör om den är stationär
 create table Cannon (
 cannonID smallint not null auto_increment unique,
-subPlaceName smallint,
+subPlaceName smallint null,
 model char (4) not null,
 -- model visar om det är stationär eller ej
-status enum('on','off','unplugged','broken'),
+state enum('on','off','unplugged','broken') null,
 effect smallint,
 -- effect och status tillsammans med N:M tabellens timestamp skall visa antal m2 snö tillverkat.
-primary key (cannonID),
-foreign key (subPlaceName) references SubPlace(name)
+primary key (cannonID)
+-- foreign key (subPlaceName) references SubPlace(name)ON DELETE CASCADE ON UPDATE CASCADE
 )engine=innodb;
 
 
@@ -218,8 +218,8 @@ newStatus enum('on','off','unplugged','broken'),
 info varchar(1024),
 comment varchar(1024),
 primary key (orderID),
-foreign key (cannonID) references Cannon(cannonID),
-foreign key (name) references SubPlace(name),
+foreign key (cannonID) references Cannon(cannonID)on delete cascade,
+foreign key (name) references SubPlace(name)on delete cascade,
 foreign key (entID) references Ent(entID)
 )engine=innodb;
 
@@ -317,7 +317,7 @@ insert into SubPlace (name, placeName, realName, entID, length, height, fakesnow
 
 
 
-insert into Cannon (subPlaceName, model, status, effect) values
+insert into Cannon (subPlaceName, model, state, effect) values
 ('1','STA1','off','9'),
 ('2','MOV1','off','5'),
 ('3','MOV2','off','6');

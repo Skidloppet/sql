@@ -83,7 +83,6 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 	?>
 </div>
 
-<div class="w3-container">
   <h3>Utskrift av snökanoner</h3>
     <table border="1">
       <?php  
@@ -106,6 +105,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 ?>
 </table>
 </div>
+
 
 <!-- ändra ordning så att abell med select ligger under det andra  -->
 
@@ -182,6 +182,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
     $sql = "call _newCannonOrder (:cannonID,:name,:entID,:newStatus,:info);";
 		
 		echo $_POST['selected'];
+		echo $_POST['name'];
 
 	    $stmt = $pdo->prepare($sql);
 	    $stmt->bindParam(":cannonID", $_POST['selected'], PDO::PARAM_INT);
@@ -197,7 +198,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 </div>
 
 <div class="w3-container ">
-	<h3>Utskrift av CANNON ORDERS!(CannonSubPlace)</h3>
+	<h3>Utskrift av CANNONdfsdfsd ORDERS!(CannonSubPlace)</h3>
     <table
 	 <table border="1">
 	    <?php  

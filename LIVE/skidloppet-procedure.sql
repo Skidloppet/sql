@@ -101,9 +101,9 @@ DELIMITER ;
 -- 5. Procedur för att skapa en ny snökanon
 DROP PROCEDURE IF EXISTS NewCannon; 
  DELIMITER //
-CREATE PROCEDURE NewCannon(subPlaceName varchar(32), model char(4), status enum('on','off','unplugged','broken'),effect smallint)
+CREATE PROCEDURE NewCannon(subPlaceName varchar(32), model char(4), state enum('on','off','unplugged','broken'),effect smallint)
 BEGIN
-insert into Cannon (subPlaceName, model, status, effect) values (subPlaceName, model, status, effect);
+insert into Cannon (subPlaceName, model, state, effect) values (subPlaceName, model, state, effect);
 END; //
 DELIMITER ;
 -- call NewCannon('11','MO11','off','12');
@@ -111,20 +111,24 @@ DELIMITER ;
 
 
 -- fungerar ej
--- 6. Procedur för att flytta snökanoner
+-- 6. Procedur för att ändra snökanoner
 DROP PROCEDURE IF EXISTS AlterCannon; 
  DELIMITER //
-CREATE PROCEDURE AlterCannon (CannonID smallint,subPlaceName varchar(32), status enum('on','off','unplugged','broken'))
+CREATE PROCEDURE AlterCannon (cannonID smallint,subPlaceName smallint, state enum('on','off','unplugged','broken'))
 BEGIN
+-- insert into Cannon(cannonID,subPlaceName, status) values (cannonID, subPlaceName, status);
+
 update Cannon
-set Cannon.subPlaceName = subPlaceName and Cannon.status = status
-where Cannon.CannonID = CannonID;
+set Cannon.subPlaceName = subPlaceName 
+where Cannon.cannonID = cannonID;
+update Cannon
+set Cannon.state = state 
+where Cannon.cannonID = cannonID;
 END; //
 DELIMITER ;
-
--- Call AlterCannon ('1','11','on');
+Call AlterCannon ('1','2','off');
 -- select * from Cannon;
-
+-- select * from SubPlace;
 -- 7. Procedure för nya daglig rapportering
 DROP PROCEDURE IF EXISTS _newReport;
 
@@ -550,11 +554,11 @@ END //
 DELIMITER ;
 
  call _akut ('1','asd@hotmail.com');
-select * from WorkOrder;
+-- select * from WorkOrder;
 -- select * from Ent;
 -- call _finnishedCannonOrder('2','1',now(),'texttesttets');
-select * from WorkOrder where priority="akut" and entID != '1';
-SELECT * FROM WorkOrder where priority="akut";
+-- select * from WorkOrder where priority="akut" and entID != '1';
+-- SELECT * FROM WorkOrder where priority="akut";
 
 
 -- 15 tar alla gammla kommentarer äldre än 48 h

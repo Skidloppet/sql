@@ -171,7 +171,7 @@ where reportID = rspID and rspName = SubPlace.name;
 DROP VIEW IF EXISTS overview4;
 
 create view overview4 as
-select realName, fakesnow, cannonID, model, status, effect
+select realName, fakesnow, cannonID, model, state, effect
 from overview, SubPlace, Cannon
 where Cannon.subPlaceName = SubPlace.name and rspName = SubPlace.name;
 
@@ -262,7 +262,7 @@ sentDate, priority, WorkOrder.type, info, orderID
 
 from Ent, WorkOrder, Ski 
 where Ent.entID = WorkOrder.entID and Ski.skiID = WorkOrder.skiID;
-select * from wo;
+-- select * from wo;
 
 
 DROP VIEW IF EXISTS cv;
@@ -271,4 +271,4 @@ create view cv as
 select CannonID, name, CannonSubPlace.entID as id, startStamp, endStamp, newStatus, info, comment, firstName, lastName
 from CannonSubPlace, Ent
 where Ent.entID = CannonSubPlace.entID;
-select * from cv;
+-- select * from cv;
