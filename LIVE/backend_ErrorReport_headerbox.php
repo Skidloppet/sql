@@ -145,7 +145,7 @@ $LiveErrors = 0;
     $stmt->execute();
 }    
 ?>
-</div>
+
 
 
 
