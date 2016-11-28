@@ -21,7 +21,7 @@
 		foreach($pdo->query( 'SELECT * FROM WorkOrder;' ) as $row){
       echo "<tr>";
 	  echo "<td><i class='fa fa-eye w3-blue w3-padding-tiny'></i></td>";
-	  echo "<td><a href='finnishedWorkOrder.php?orderID=".urlencode($row['orderID'])."'>".$row['orderID']."</td>";
+	  echo "<td><a href='finnishedWorkOrder.php?orderID=".urlencode($row['orderID'])."'>".$row['orderID']."</a></td>";
 	  echo "<td>".$row['skiID']."</td>";
 	  echo "<td>".$row['entID']."</td>";
 	  echo "<td>".$row['sentDate']."</td>";
