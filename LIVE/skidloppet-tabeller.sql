@@ -126,8 +126,8 @@ state enum('on','off','unplugged','broken') null,
 effect DECIMAL(3,2), -- producerar ca: 1.3 m3/minut ()(fasta), flyttbara producerar ca: 0.5 m3 /mint
 class varchar(32) not null, 
 -- effect och status tillsammans med N:M tabellens timestamp skall visa antal m2 snö tillverkat.
-primary key (cannonID)
--- foreign key (subPlaceName) references SubPlace(name)ON DELETE CASCADE ON UPDATE CASCADE
+primary key (cannonID),
+foreign key (subPlaceName) references SubPlace(name)ON DELETE CASCADE ON UPDATE CASCADE
 )engine=innodb;
 
 
@@ -280,11 +280,11 @@ insert into WorkOrder (skiID, entID, sentDate, endDate, priority, info, EntComme
 ('1','2',now(),'','high','träd som ligger över spåren','text2'),
 ('1','3',now(),'','medium','grus vid lerdalen','text3'),
 ('1','2',now(),'','low','sten','text4');
-
+/*
 insert into FinnishedWorkOrder (OrderID, entID, sentDate, endDate, priority, info, EntComment) values
 ('1','1','2016-01-15','','akut','död snubbe på spåret','text1'),
 ('3','1','2016-01-17','','low','sten','text2');
-
+*/
 insert into Commenta (Kommentar,grade, alias, date) values 
 ('blabla','2','Stina','2017-12-31'),
 ('oj vilka spår','4','göran p','2016-12-24'),
