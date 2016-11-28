@@ -35,7 +35,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 
 
     <!-- utskrift SKI -->
-<div class="w3-container w3-right w3-purple w3-large w3-padding" style="z-index:4">  <h3>Utskrift av Skidloppet-anställde</h3>
+<div class="w3-container w3-section w3-green" style="z-index:4">  <h3>Utskrift av Skidloppet-anställde</h3>
     <table>
       <?php   
           echo "<tr>";
@@ -67,7 +67,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
       </table>
 </div>
     <!-- utskrift ent -->
-<div class="w3-container w3-right w3-pink w3-large" style="z-index:4">  <h3>Utskrift av feta entreprenörer</h3>
+<div class="w3-container w3-section w3-brown">  <h3>Utskrift av feta entreprenörer</h3>
     <table>
       <?php   
           echo "<tr>";
@@ -105,7 +105,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
     <?php
     include'connect.php';
     ?>
-    <div class="w3-green">
+    <div class="w3-container w3-section w3-cyan">
       <h3>Sätt ny roll för en Skidloppet användare</h3>
       <h4>fel när det inte finns någon av en viss typ(då försvinner alternativet)</h4>
       <form action='<?php $_PHP_SELF ?>' method='POST'>
@@ -153,7 +153,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 
 
 
-       <div class ="w3-cyan w3-container-small w3-border-radius">
+       <div class ="w3-container w3-section w3-red">
       <h3>Sätt nytt tel-nummer för en entreprenör användare</h3>
       <form action='<?php $_PHP_SELF ?>' method='POST'>
         <select size='1' name='entID'>
@@ -189,7 +189,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 
 
       <!-- ny ent användare -->
-      <div>
+      <div class="w3-container w3-section w3-blue">
         <h3>Create new Ent</h3>
         <form action='<?php $_PHP_SELF ?>' method='POST'>
           <input type="text" name="firstName" placeholder="firstname.."></p>
@@ -231,7 +231,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 
 
         <!-- ny ski användare -->
-        <div>
+        <div class="w3-container w3-section w3-orange">
           <h3>Create new Ski</h3>
           <form action='<?php $_PHP_SELF ?>' method='POST'>
             <input type="text" name="firstName" placeholder="firstname..">
@@ -269,7 +269,6 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
           <h4>FOOTER</h4>
           <p>Powered by <a href="http://www.his.se" target="_blank">SLITAB</a></p>
         </footer>
-
         <!-- End page content -->
       </div>
 

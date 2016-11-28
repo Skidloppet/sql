@@ -253,3 +253,22 @@ where Ent.entID = Report.entID
 group by Ent.entID;
 
 -- select * from entWork;
+
+DROP VIEW IF EXISTS wo;
+create view wo as
+select Ent.lastName as entL, Ent.firstName entF,Ent.entID,
+ Ski.lastName as skiL, Ski.firstName as skiF, 
+sentDate, priority, WorkOrder.type, info, orderID
+
+from Ent, WorkOrder, Ski 
+where Ent.entID = WorkOrder.entID and Ski.skiID = WorkOrder.skiID;
+select * from wo;
+
+
+DROP VIEW IF EXISTS cv;
+
+create view cv as 
+select CannonID, name, CannonSubPlace.entID as id, startStamp, endStamp, newStatus, info, comment, firstName, lastName
+from CannonSubPlace, Ent
+where Ent.entID = CannonSubPlace.entID;
+select * from cv;
