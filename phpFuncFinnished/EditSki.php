@@ -61,7 +61,7 @@ include'connect.php';
 	</select>
 <input type="submit" value="Send" name="send">
 <input type="reset">
-
+</form>
 	<?php 
 	    if(isset($_POST['send'])){
 	        $querystring='Call EditSki (:editSkiID, :newType);';

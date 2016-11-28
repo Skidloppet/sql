@@ -4,37 +4,56 @@ include './connect.php';
 ?>	
 
 
+<?php
+      
+  if(isset($_GET['orderID'])){
+       $querystring='DELETE FROM WorkOrder WHERE orderID = :orderID';
+       #$querystring = 'DELETE FROM SubPlaceWorkOrder WHERE orderID = :orderID';
+       $stmt = $pdo->prepare($querystring);
+       $stmt->bindParam(':orderID', $_GET['orderID']);
+       $stmt->execute();
+       echo "Arbetsorder borttagen";
+
+    }
+    ?>
 
 <div class="w3-container w3-orange w3-section">
   <h2>Översikt</h2>
-
   <div class="w3-row-padding" style="margin:0 -16px">
     <div class="w3-threethird">
       <h5>Pågående arbetsordrar</h5>
       <table class="w3-table w3-striped w3-white">
         <tr>
-          <td><i class="fa fa-users w3-orange w3-text-white w3-padding-tiny"></i></td>
-          <td>OrderID</td>
-          <td>skiID</td>
-          <td>entID</td>
-          <td>SentDate</td>
-          <td>priority</td>
+          <th><i class="fa fa-users w3-orange w3-text-white w3-padding-tiny"></i></th>
+          <th>Order ID</th>
+          <th>Arbetsorder-Typ</th>
+          <th>Prioritet</th>
+          <th>Ansvarig</th>
+          <th>Information</th>
+          <th>Datum skickad</th>
+          <th>Skapad av</th>
+          <th>Ta bort</th>
         </tr>        
         <?php     
 
-        foreach($pdo->query( 'SELECT * FROM WorkOrder;' ) as $row){
-          echo "<tr>";
-          echo "<td><i class='fa fa-eye w3-blue w3-padding-tiny'></i></td>";
-          echo "<td><a href='finnishedWorkOrder.php?orderID=".urlencode($row['orderID'])."'>".$row['orderID']."</td>";
-          echo "<td>".$row['skiID']."</td>";
-          echo "<td>".$row['entID']."</td>";
-          echo "<td>".$row['sentDate']."</td>";
+        foreach($pdo->query( 'SELECT * FROM wo;' ) as $row){
+          echo "<tr><td><i class='fa fa-eye w3-blue w3-padding-tiny'></i></td>";
+          echo "<td>".$row['orderID']."</td>";
+          echo "<td>".$row['type']."</td>";
           echo "<td>".$row['priority']."</td>";
+          echo "<td>".$row['entF']." ".$row['entL']."</td>";
+          echo "<td>".$row['info']."</td>";
+          echo "<td>".$row['sentDate']."</td>";
+          echo "<td>".$row['skiF']." ".$row['skiL']."</td>";
+          echo "<td><a href='backend_wo.php?orderID=".$row['orderID']."'>Ta bort</a></td>";
           echo "</tr>";  
         }
         ?>   
       </table>
     </div>
+
+
+
   </div>
 
   <div class="w3-container w3-section">
@@ -44,58 +63,73 @@ include './connect.php';
       <table class="w3-table w3-striped w3-white">
         <tr>
           <td><i class="fa fa-users w3-orange w3-text-white w3-padding-tiny"></i></td>
-          <td>OrderID</td>
-          <td>skiID</td>
-          <td>entID</td>
-          <td>SentDate</td>
-          <td>priority</td>
-        </tr>        
-        <?php     
+          <th>Order ID</th>
+          <th>Arbetsorder-Typ</th>
+          <th>Prioritet</th>
+          <th>Information</th>
+          <th>Datum skickad</th>
+          <th>Skapad av</th>
+          <th>Ange entrepenör</th>
+        </tr> 
 
-        foreach($pdo->query( 'SELECT * FROM WorkOrder where priority="akut" and entID="1";' ) as $row){
-          echo "<tr>";
-          echo "<td><i class='fa fa-eye w3-blue w3-padding-tiny'></i></td>";
-          echo "<td><a href='backend_wo.php?akutOrderID=".urlencode($row['orderID'])."'>".$row['orderID']."</td>";
-          echo "<td>".$row['skiID']."</td>";
-          echo "<td>".$row['entID']."</td>";
-          echo "<td>".$row['sentDate']."</td>";
-          echo "<td>".$row['priority']."</td>";
-          echo "</tr>";  
+
+
+        <form action='<?php $_PHP_SELF ?>' method='POST'>       
+          <?php     
+        # hämtar alla aktiva arbetsordrar(WorkOrder) som tillhör det autoangivna akutID (#1)
+        # hemsidan visar entrepenörens förnamn och enfternamn genom kopplingen mellan
+          foreach($pdo->query( 'SELECT * FROM wo where priority="akut" and entID="1";' ) as $row){
+            echo "<tr>";
+            echo "<td><i class='fa fa-eye w3-blue w3-padding-tiny'></i></td>";
+            echo "<td name='orderID'>".$row['orderID']."</td>";
+            echo "<td>".$row['type']."</td>";
+            echo "<td>".$row['priority']."</td>";
+            echo "<td>".$row['entF']." ".$row['entL']."</td>";
+            echo "<td>".$row['info']."</td>";
+            echo "<td>".$row['sentDate']."</td>";
+            echo "<td>"
+            ?>
+
+            <select name='entID'>    
+              <?php 
+              # i varje rad av svar den skriver ut så skapas en lista med alla Ent förnamn&efternamn
+              # sätter value till entrepenöresns ID 
+              foreach ($pdo->query('SELECT * FROM Ent') as $row) {
+                echo '<option value="'.$row['entID'].'">';
+                echo $row['firstName']." ".$row['lastName'];
+                echo "</option>";
+              }
+              ?>
+            </select><p><button type="submit" name="newEnt">Sätt entrepenör ansvar</button></p>
+          </form>
+
+          <?php
+          echo "</td></tr>";  
         }
         ?>   
       </table>
     </div>
-  </div>
+
+<!-- frågan om att byta entrepenör ansvarig för arbetsorder till DB
+
+
+
+fungerar ej.
+
+-->
+<?php
+if(isset($_POST['newEnt'])){
+  $sql = "call _newResponsability (:_entID,:_orderID)";
+  $stmt = $pdo->prepare($sql);
+  $stmt->bindParam(":_entID", $_POST['entID'], PDO::PARAM_INT);
+  $stmt->bindParam(":_orderID", $_POST['orderID'], PDO::PARAM_INT);
+  $stmt->execute();
+}    
+?>
+</div>
 </div>
 
 
-
-<div class="w3-threethird">
-  <h4>mottagna akuta arbetsordrar(entID!= 1)</h4>
-  <table class="w3-table w3-striped w3-white">
-    <tr>
-      <td><i class="fa fa-users w3-orange w3-text-white w3-padding-tiny"></i></td>
-      <td>OrderID</td>
-      <td>skiID</td>
-      <td>entID</td>
-      <td>SentDate</td>
-      <td>priority</td>
-    </tr>        
-    <?php     
-
-    foreach($pdo->query( 'SELECT * FROM WorkOrder where priority="akut" and entID!="1";' ) as $row){
-      echo "<tr>";
-      echo "<td><i class='fa fa-eye w3-blue w3-padding-tiny'></i></td>";
-      echo "<td><a href='finnishedWorkOrder.php?orderID=".urlencode($row['orderID'])."'>".$row['orderID']."</td>";
-      echo "<td>".$row['skiID']."</td>";
-      echo "<td>".$row['entID']."</td>";
-      echo "<td>".$row['sentDate']."</td>";
-      echo "<td>".$row['priority']."</td>";
-      echo "</tr>";  
-    }
-    ?>   
-  </table>
-</div>
 </br></br></br></br></br>
 
 </div>
@@ -104,12 +138,6 @@ include './connect.php';
 
 
 
-<!--
-Ny arbetsorder!
-förbättringsmöjligheter:
-alt. skapa json som tar bort input 'entID' om man kör split
-skapa dropdown alternativ för prio & type? (går att fixa en php funktion man kan skapa för att hantera alla ENUM dropdown (återanvändningsbar kod för FLERA enum inputs))
--->
 <div id ="11" class="w3-container w3-green" >
 </br>
 <h3>Skapa ny arbetsorder</h3>

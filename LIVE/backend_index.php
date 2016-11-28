@@ -16,20 +16,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 <body class="w3-light-grey">
 
   <!-- Top container -->
-  <div class="w3-container w3-top w3-black w3-large w3-padding" style="z-index:4">
-    <button class="w3-btn w3-hide-large w3-padding-0 w3-hover-text-grey" onclick="w3_open();"><i class="fa fa-bars"></i>  Meny</button>
-    <span class="w3-right">Skidloppet AB</span>
-    <?php
-    if (isset($_SESSION['email'])){
-      ?>
-      <span class="w3-right">
-        <form action="logout.php">
-          <button class="w3-btn w3-margin-20 w3-hover-text-grey">
-            Logga ut: <?php echo $_SESSION['email']; 
-          }
-          ?>
-        </button>
-      </div>
+ 
 
       <!-- Sidenav/menu -->
       <?php
@@ -54,7 +41,6 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
               <?php
               include 'backend_map.php';
               ?>
-              <!-- <img src="images/karta_kund.svg" style="width:900px" "height:20%" alt="karta"> -->
             </div>
 
             <div class="w3-threethird">
@@ -68,7 +54,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
               include 'backend_feeds.php';
               ?>
             </div>
-            <hr>
+          <hr>
 
 
 
@@ -266,4 +252,3 @@ function w3_close() {
 
 </body>
 </html>
->>>>>>> bec140d468924d922c6484b1eae5cf090c1528fa
