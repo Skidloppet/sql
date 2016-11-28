@@ -125,8 +125,8 @@ model char (4) not null,
 state enum('on','off','unplugged','broken') null,
 effect smallint,
 -- effect och status tillsammans med N:M tabellens timestamp skall visa antal m2 snö tillverkat.
-primary key (cannonID)
--- foreign key (subPlaceName) references SubPlace(name)ON DELETE CASCADE ON UPDATE CASCADE
+primary key (cannonID),
+foreign key (subPlaceName) references SubPlace(name)ON DELETE CASCADE ON UPDATE CASCADE
 )engine=innodb;
 
 
