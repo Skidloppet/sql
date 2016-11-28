@@ -3,7 +3,6 @@
 include './connect.php';	
 ?>	
 
-
 <?php
       
   if(isset($_GET['orderID'])){
@@ -16,6 +15,7 @@ include './connect.php';
 
     }
     ?>
+
 
 <div class="w3-container w3-orange w3-section">
   <h2>Översikt</h2>
