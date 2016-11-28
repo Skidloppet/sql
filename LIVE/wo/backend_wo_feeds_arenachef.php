@@ -4,17 +4,26 @@ include './connect.php';
 ?>	
 
 <?php
-      
-  if(isset($_GET['orderID'])){
-       $querystring='DELETE FROM WorkOrder WHERE orderID = :orderID';
-       #$querystring = 'DELETE FROM SubPlaceWorkOrder WHERE orderID = :orderID';
-       $stmt = $pdo->prepare($querystring);
-       $stmt->bindParam(':orderID', $_GET['orderID']);
-       $stmt->execute();
-       echo "Arbetsorder borttagen";
 
-    }
-    ?>
+if(isset($_GET['orderID'])){
+ $querystring='DELETE FROM WorkOrder WHERE orderID = :orderID';
+ $stmt = $pdo->prepare($querystring);
+ $stmt->bindParam(':orderID', $_GET['orderID']);
+ $stmt->execute();
+ echo "Arbetsorder borttagen";
+}
+?>
+<?php
+
+
+if(isset($_GET['orderID2'])){
+ $querystring='CALL _finnishedWorkOrder(:orderID,"1",NOW(),"logged by: '.$_SESSION['email'].'")';
+ $stmt = $pdo->prepare($querystring);
+ $stmt->bindParam(':orderID', $_GET['orderID2']);
+ $stmt->execute();
+ echo "Arbetsorder arkiverad".$_GET['orderID2'].$_SESSION['email'];
+}
+?>
 
 
 <div class="w3-container w3-orange w3-section">
@@ -33,10 +42,11 @@ include './connect.php';
           <th>Datum skickad</th>
           <th>Skapad av</th>
           <th>Ta bort</th>
+          <th>Arkivera</th>
         </tr>        
         <?php     
 
-        foreach($pdo->query( 'SELECT * FROM wo;' ) as $row){
+        foreach($pdo->query( 'SELECT * FROM wo order by orderID desc;' ) as $row){
           echo "<tr><td><i class='fa fa-eye w3-blue w3-padding-tiny'></i></td>";
           echo "<td>".$row['orderID']."</td>";
           echo "<td>".$row['type']."</td>";
@@ -46,12 +56,12 @@ include './connect.php';
           echo "<td>".$row['sentDate']."</td>";
           echo "<td>".$row['skiF']." ".$row['skiL']."</td>";
           echo "<td><a href='backend_wo.php?orderID=".$row['orderID']."'>Ta bort</a></td>";
+          echo "<td><a href='backend_wo.php?orderID2=".$row['orderID']."'>logga</a></td>";
           echo "</tr>";  
         }
         ?>   
       </table>
     </div>
-
 
 
   </div>
@@ -78,7 +88,7 @@ include './connect.php';
           <?php     
         # hämtar alla aktiva arbetsordrar(WorkOrder) som tillhör det autoangivna akutID (#1)
         # hemsidan visar entrepenörens förnamn och enfternamn genom kopplingen mellan
-          foreach($pdo->query( 'SELECT * FROM wo where priority="akut" and entID="1";' ) as $row){
+          foreach($pdo->query( 'SELECT * FROM wo where priority="akut" and entID="1" order by orderID desc;' ) as $row){
             echo "<tr>";
             echo "<td><i class='fa fa-eye w3-blue w3-padding-tiny'></i></td>";
             echo "<td name='orderID'>".$row['orderID']."</td>";
