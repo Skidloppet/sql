@@ -61,7 +61,7 @@ entID smallint null,
 sentDate datetime,
 -- ändrade från timestamp till datetime pga att det blev fel datum i finnishedworkorder när man flyttade över
 endDate timestamp,
-priority enum('high','medium','low','akut'),
+priority enum('low','medium','high','akut'),
 type enum('lights','tracks','dirt','trees','other') null,
 info varchar(1024),
 EntComment varchar(1024),
@@ -79,7 +79,7 @@ entID smallint not null,
 -- not null här pga den som genomförde arbetet
 sentDate datetime,
 endDate timestamp,
-priority enum('high','medium','low','akut'),
+priority enum('low','medium','high','akut'),
 type enum('lights','tracks','dirt','trees','other') null,
 info varchar(1024),
 EntComment varchar(1024),
@@ -332,6 +332,7 @@ insert into CannonSubPlace (CannonID, name, entID, startStamp, endStamp, newStat
 ('1','1','2',now(),now(),'off','text från ski','not finnished'),
 ('2','1','1',now(),now(),'off','text från ski1','not finnished'),
 ('3','1','3',now(),now(),'on','text från ski2','not finnished');
+
 
 /*
 insert into Error (entID, sentDate, grade, errorDesc, type) values 
