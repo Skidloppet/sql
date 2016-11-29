@@ -10,6 +10,7 @@ $email = $_POST['email'];
 $sql = "select * from AllUsers WHERE password='$pass' and email='$email'";
 $result = $conn->query($sql);
 
+
 if(!$row = $result->fetch_assoc()) {
 	ECHO "wrong email or password";
 
@@ -22,4 +23,4 @@ if(!$row = $result->fetch_assoc()) {
 
 }
 
-header("Location: backend_index.php");
+header("Location: backend.php");
