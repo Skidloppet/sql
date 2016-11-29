@@ -261,7 +261,6 @@ insert into Ski (password, firstName, lastName, email, number, type, regDate) va
 ('pass','Eva','Smith','Eva.Smith@skidloppet.se','1234567892','other','2016-11-01'),
 ('pass','Rune','Svensson','Rune.Svensson@skidloppet.se','1234567893','other','2016-11-01');
 
-
 insert into Ent (password, firstName, lastName, email, number, regDate) values 
 ('pass','Sture','Ekman','Sture','00562432','2016-11-01'),
 ('andersson','Bröderna','Andersson','Bröderna.Andersson@skidloppet.se','00562736','2016-11-01'),
@@ -292,7 +291,7 @@ insert into Place (name, info) values
 
 
 insert into WorkOrder (skiID, entID, sentDate, endDate, priority, info, EntComment) values 
-('1','1',now(),'','akut','ligger en död uteliggare på spåret', 'text1'),
+('1','1',now(),'','akut','Kottar på spåret', 'text1'),
 ('1','2',now(),'','high','träd som ligger över spåren','text2'),
 ('1','3',now(),'','medium','grus vid lerdalen','text3'),
 ('1','2',now(),'','low','sten','text4');
