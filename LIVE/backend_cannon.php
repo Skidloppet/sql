@@ -56,14 +56,23 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
         <hr>
 
 <div>
+<<<<<<< HEAD
+	<h3>L√§gg till sn√∂kanon</h3>
+=======
 	<h3>L‰gg till snˆkanon</h3>
+>>>>>>> 2aa82fbffe6af74197df0cb43cdb1baf1f8e31c9
 	<form action='<?php $_PHP_SELF ?>' method="post">
-		<select size='1' name='status'>
-			<option value="on"> On</option>
-			<option value="off" selected="selected"> Off</option>
-			<option value="broken" > Broken</option>
-			<option value="unplugged"> Unplugged</option>
-			</select><br></br>
+			<select size='1' name='state'>
+			<option selected="selected"> status </option>
+			<?php
+			$sql = 'SHOW COLUMNS FROM Cannon WHERE field="state"';
+			$row = $pdo->query($sql)->fetch(PDO::FETCH_ASSOC);
+			foreach(explode("','",substr($row['Type'],6,-2)) as $option) {
+			  print("<option>$option</option>");
+			}
+				
+		?>
+	</select>
 		<input type="text" name="subPlaceName" placeholder="plats.."></p>
 		<input type="text" name="model" placeholder="modell.."></p>
 		<input type="text" name="effect" placeholder="effekt.."></p>
@@ -83,7 +92,11 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 	?>
 </div>
 
+<<<<<<< HEAD
+  <h3>Utskrift av sn√∂kanoner</h3>
+=======
   <h3>Utskrift av snˆkanoner</h3>
+>>>>>>> 2aa82fbffe6af74197df0cb43cdb1baf1f8e31c9
     <table border="1">
       <?php  
         echo "<tr>";
@@ -107,7 +120,86 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 </div>
 
 
+<<<<<<< HEAD
+<<div class="w3-container w3-pink">
+<h3>√Ñndra sn√∂kanon</h3>
+<form action='<?php $_PHP_SELF ?>' method='POST'>
+	    <select size='1' name='cannonID'>
+    	<option selected="selected"> v√§lj kanon </option>
+		    <?php    
+		    foreach($pdo->query( 'SELECT * FROM Cannon ORDER BY cannonID;' ) as $row){
+		        echo '<option value="'.$row['cannonID'].'">';
+			    echo $row['cannonID'];      
+			    echo '</option>';
+		  	    }    
+		    ?>
+	    </select>
+    <select size='1' name='subPlaceName'>
+	<option selected="selected"> plats </option>
+    			    <?php    
+		    foreach($pdo->query( 'SELECT * FROM SubPlace ;' ) as $row){
+		        echo '<option value="'.$row['subPlaceName'].'">';
+			    echo $row['realName'];      
+			    echo '</option>';
+		  	    }    
+		    ?>
+	</select>
+	
+	<select size='1' name='state'>
+	<option selected="selected"> status </option>
+    <?php
+			$sql = 'SHOW COLUMNS FROM Cannon WHERE field="state"';
+			$row = $pdo->query($sql)->fetch(PDO::FETCH_ASSOC);
+			foreach(explode("','",substr($row['Type'],6,-2)) as $option) {
+			  print("<option>$option</option>");
+			}
+				
+		?>
+	</select>
+<input type="submit" value="Send" name="send">
+<input type="reset">
+</form>
+
+	<?php 
+	    if(isset($_POST['send'])){
+	        $querystring='Call AlterCannon (:cannonID, :subPlaceName, :state);';
+	        $stmt = $pdo->prepare($querystring);
+	        $stmt->bindParam(':cannonID', $_POST['cannonID']);
+	        $stmt->bindParam(':subPlaceName', $_POST['subPlaceName']);
+			$stmt->bindParam(':state', $_POST['state']);
+	        $stmt->execute();
+
+	    }
+	?>
+	
+	  <h3>√Ñndring sn√∂kanoner</h3>
+    <table border="1">
+      <?php  
+        echo "<tr>";
+        echo "<th style='background-color:grey;'>Plats:</th>"; 
+        echo "<th style='background-color:grey;'>modell:</th>";
+        echo "<th style='background-color:grey;'>state:</th>";
+		echo "<th style='background-color:grey;'>cannonID:</th>";
+
+        echo "</tr>";
+
+
+    foreach($pdo->query( 'SELECT * FROM Cannon;' ) as $row){
+      echo "<tr>";
+      echo "<td>".$row['subPlaceName']."</td>";
+      echo "<td>".$row['model']."</td>";
+      echo "<td>".$row['state']."</td>";
+	  echo "<td>".$row['cannonID']."</td>";
+
+      echo "</tr>"; 
+    }
+?>
+</table>
+</div>
+
+=======
 <!-- ‰ndra ordning sÂ att abell med select ligger under det andra  -->
+>>>>>>> 2aa82fbffe6af74197df0cb43cdb1baf1f8e31c9
 
 <div class="w3-container w3-purple">
 <h3>NEW CANNON ORDER</h3>
@@ -120,7 +212,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 	<th>Select </th>
 	<tr>
 		<?php
-	    foreach($pdo->query( 'SELECT cannonID, model, status, effect, realName  FROM Cannon, SubPlace where SubPlace.name = Cannon.subPlaceName;') as $row){
+	    foreach($pdo->query( 'SELECT cannonID, model, state, effect, realName  FROM Cannon, SubPlace where SubPlace.name = Cannon.subPlaceName;') as $row){
 		    echo "<tr>";
 		    echo "<td>".$row['cannonID']."</td>";
 		    echo "<td>".$row['model']."</td>";
