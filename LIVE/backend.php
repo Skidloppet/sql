@@ -6,8 +6,7 @@ SESSION_START();
 <html>
 <head>
 <title>Skidloppet AB - Monitor</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta charset="UTF-8">
+<meta name="viewport" charset="UTF-8" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="backend_style1.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
 <link rel="stylesheet" href="font-awesome-4.6.3/css/font-awesome.min.css">
