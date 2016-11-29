@@ -233,12 +233,12 @@ COMMIT ;
 END //
 DELIMITER ;
 
-call _NewComment ('fet kommentar på spåren 2-5','kalle','2',now(),'2','5');
-call _NewComment ('ny kommentar med fett','balle','2',now(),'6','1');
-call _NewComment ('en kommentar på några spår','tralle','2',now(),'1','6');
-call _NewComment ('korar','kalle','2',now(),'2','5');
-call _NewComment ('sånt kul','balle','2',now(),'6','1');
-call _NewComment ('hejdär','tralle','2',now(),'1','6');
+call _NewComment ('Härlig Upplevelse','Connor McGregor','2',now(),'2','5');
+call _NewComment ('Hej','Lars','2',now(),'6','1');
+call _NewComment ('en kommentar på några spår','Klas','2',now(),'1','6');
+call _NewComment ('korar','Kalle','2',now(),'2','5');
+call _NewComment ('sånt kul','Olof','2',now(),'6','1');
+call _NewComment ('hejdär','Jon Jones','2',now(),'1','6');
 -- select * from CommentSubPlace;
 -- select * from Commenta;
 
@@ -480,9 +480,6 @@ begin
 END //
 DELIMITER ;
 -- call _finnishedCannonOrder('2','1',now(),'texttesttets');
-
-
-
 
 
     -- 15. Byt ent ansvarig för arbetsorder.

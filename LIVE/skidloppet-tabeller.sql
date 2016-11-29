@@ -258,17 +258,32 @@ primary key (storedReportID)
 )engine=innodb;
 
 insert into Ski (password, firstName, lastName, email, number, type, regDate) values
-('pass','Tomas','Stormhagen','tomas','1234567891','arenachef','2016-11-01'),
-('pass','Eva','Smith','g_smith@gmail.com','1234567892','other','2016-11-01'),
-('pass','Rune','Svensson','OveSwag@hotmail.com','1234567893','other','2016-11-01');
+('pass','Tomas','Stormhagen','Tomas.Stormhagen@skidloppet.se','1234567891','arenachef','2016-11-01'),
+('pass','Eva','Smith','Eva.Smith@skidloppet.se','1234567892','other','2016-11-01'),
+('pass','Rune','Svensson','Rune.Svensson@skidloppet.se','1234567893','other','2016-11-01');
 
 
 insert into Ent (password, firstName, lastName, email, number, regDate) values 
-('pass','ingen','','ent','1234567291','2016-11-01'),
-('pass','Stefan','Fridström','stefan','1234567391','2016-11-01'),
-('pass','Adrian','Abrahamsson','asd@hotmail.com','3234567892','2016-11-01'),
-('pass','Philip','Svensson','asd@gmail.com','1234367893','2016-11-01');
+('sture','Sture','Ekman','Sture.Ekman@skidloppet.se','00562432','2016-11-01'),
+('andersson','Bröderna','Andersson','Bröderna.Andersson@skidloppet.se','00562736','2016-11-01'),
+('persson','Siv-Jan','Persson','SoJ.Persson@skidloppet.se','00561122','2016-11-01'),
+('jonas','Jonas','Hed','Jonas.Hed@skidloppet.se','0054231','2016-11-01'),
+('oswald','Oswald','Ek','Oswald.Ek@skidloppet.se','0054411','2016-11-01'),
+('rune','Rune','Kvarn','Rune.Kvarn@skidloppet.se','0051122','2016-11-01'),
+('iris','Iris','Sax','Iris.Sax@skidloppet.se','00545454','2016-11-01'),
+('vidar','Vidar','Ytter','Vidar.Ytter@skidloppet.se','00551232','2016-11-01'),
+('urban','Urban','Garv','Urban.Garv@skidloppet.se','00571313','2016-11-01');
 
+
+/* Sture Ekman, delsträckor 1, 2
+Bröderna Andersson delsträckor 3, 4
+Siv och Jan Persson delsträckor 5, 6, 7
+Jonas Hed delsträckor 8, 9, 10
+Oswald Ek delsträckor 11, 12
+Rune Kvarn delsträckor 13, 14, 15
+Iris Sax delsträckor 16, 17
+Vidar Ytter delsträckor 18, 19
+Urban Garv delsträckor 20, 21 */
 
 insert into Place (name, info) values 
 ('Vattendrag','Vattendrag som är tillängliga för snötillverkning'),
@@ -287,12 +302,15 @@ insert into FinnishedWorkOrder (OrderID, entID, sentDate, endDate, priority, inf
 ('3','1','2016-01-17','','low','sten','text2');
 */
 insert into Commenta (Kommentar,grade, alias, date) values 
-('blabla','2','Stina','2017-12-31'),
-('oj vilka spår','4','göran p','2016-12-24'),
-('jävla kottar och grus i spåren','1','gunde svan','2017-01-01');
+('Arenan bjöd på en mycket bra upplevelse med bra spår','5','Alexander Gustafsson','2016-11-11'),
+('Delsträckorna 2:1 och 2:2 i Norrhyttan var väldigt dåligt spårad','1','Khabib Nurmanogedov','2016-01-24'),
+('Bra spårade sträckor i Hedemora','4','Jon Jones','2017-03-01'),
+('Trevlig upplevelse och bra spårning','5','Nate Diaz','2017-02-01'),
+('Det ligger mycket skräp på delsträckan 3.1 i Bondhyttan','2','Connor McGregor','2017-01-01');
 
 -- select avg(grade) from Comment;
 -- select grade from Comment;
+select * from Ent;
 insert into SubPlace (name, placeName, realName, entID, length, height, fakesnow) values 
 ('1','Delstrackor','Hedemora 1:1','1','12','21','23'),
 ('2','Delstrackor','Hedemora 1:2','1','17','476','11'),
