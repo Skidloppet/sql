@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 
 <?php
-include'connect.php';
-#include './backend_connect.php';
+include'../connect.php';
 ?>
 <div class="w3-container">
     <h3>Utskrift av rapporter</h3>

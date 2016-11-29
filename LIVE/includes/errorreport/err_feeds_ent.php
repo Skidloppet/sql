@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <?php
-include'connect.php';
-#include './backend_connect.php';
+include'../connect.php';
 ?>
 
 
