@@ -114,11 +114,14 @@ foreach($pdo->query( 'select count(*)as i2 from FinnishedWorkOrder;' ) as $row){
 
           <select name='Slut' >    
             <?php 
-            echo '<option selected="selected" value"a"> Välj t.o.m delsträcka ';
+            echo '<option selected="selected" value"0"> Välj t.o.m delsträcka ';
             foreach ($pdo->query('SELECT * FROM SubPlace') as $row) {
               echo '<option value="'.$row['name'].'">';
               echo $row['realName'];
               echo "</option>";
+
+
+
             }
             ?></select>
             <input type="checkbox" name="split" value="1"> Dela upp på ansvarsområden<br>
@@ -138,12 +141,10 @@ foreach($pdo->query( 'select count(*)as i2 from FinnishedWorkOrder;' ) as $row){
               }
 
               #hantera när ingen slutstation är vald
-              
-           if ($_POST['Slut'] = "a"){
+
+           if ($_POST['Slut'] = "0"){
                 $_POST['Slut'] = $_POST['Start']; 
               }
-
-
 
               $stmt = $pdo->prepare($sql);
               $stmt->bindParam(":newSkiID", $id, PDO::PARAM_INT);
@@ -153,11 +154,8 @@ foreach($pdo->query( 'select count(*)as i2 from FinnishedWorkOrder;' ) as $row){
               $stmt->bindParam(":newInfo", $_POST['Info'], PDO::PARAM_STR);
               $stmt->bindParam(":newSplit", $_POST['split'], PDO::PARAM_INT);
               $stmt->bindParam(":startName", $_POST['Start'], PDO::PARAM_INT);
-
-
               $stmt->bindParam(":endName", $_POST['Slut'], PDO::PARAM_INT);
               $stmt->execute();
-
             }
             ?>
           </div>
@@ -170,7 +168,6 @@ foreach($pdo->query( 'select count(*)as i2 from FinnishedWorkOrder;' ) as $row){
           <div class="w3-container">
             <span onclick="document.getElementById('id02').style.display='none'"
             class="w3-closebtn">&times;</span>
-
 
 
             <h5>Entrepenörernas nästa planerade arbetspass</h5>
