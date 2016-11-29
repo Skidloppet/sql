@@ -103,9 +103,9 @@ include'connect.php';
 ?>
 </div>
 
-<div class="w3-container">
+<div id="12" class="w3-container w3-blue">
     <h3>Utskrift av rapporter</h3>
-    <table border="1">
+    <table class="w3-table w3-striped w3-white">
       <?php   
         echo "<tr>";
           echo "<th>reportID</th>"; 

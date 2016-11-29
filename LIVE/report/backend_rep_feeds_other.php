@@ -4,9 +4,9 @@
 include'connect.php';
 #include './backend_connect.php';
 ?>
-<div class="w3-container">
+<div id="12" class="w3-container w3-blue">
     <h3>Utskrift av rapporter</h3>
-    <table border="1">
+    <table class="w3-table w3-striped w3-white">
       <?php   
         echo "<tr>";
           echo "<th>reportID</th>"; 
@@ -39,9 +39,9 @@ include'connect.php';
           echo "<td>".$row['name']."</td>";
           ?>
 
-<div class="w3-container">
+<div id="13" class="w3-container w3-green">
     <h3>Utskrift av sparade rapporter</h3>
-    <table border="1">
+    <table class="w3-table w3-striped w3-white">
       <?php   
         echo "<tr>";
           echo "<th>reportID</th>"; 
