@@ -17,7 +17,7 @@ PROCEDURER FÖR SKIDLOPPET AB -Innehållsförteckning
 15. Ta bort gammla kund kommentarer
 16. för att ändra tel-nummer för en ent.
 Kvar att göra:
- 
+
 procedur & php för avklarade workorder
 procedur & php för avklarade snökanon-workorder
 
@@ -101,7 +101,7 @@ DELIMITER ;
 -- 5. Procedur för att skapa en ny snökanon
 DROP PROCEDURE IF EXISTS NewCannon; 
  DELIMITER //
-CREATE PROCEDURE NewCannon(subPlaceName varchar(32), model char(3), state enum('on','off','unplugged','broken'),effect smallint)
+CREATE PROCEDURE NewCannon(subPlaceName varchar(32), model char(4), state enum('on','off','unplugged','broken'),effect smallint)
 BEGIN
 insert into Cannon (subPlaceName, model, state, effect) values (subPlaceName, model, state, effect);
 END; //
