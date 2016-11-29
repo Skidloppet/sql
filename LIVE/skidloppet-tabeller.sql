@@ -8,6 +8,7 @@ userID int(11) not null,
 time varchar (30) not null
 )engine=innodb;
 
+
 create table img (
 img_id int 	not null auto_increment,
 name varchar (50),
@@ -70,7 +71,6 @@ foreign key (skiID) references Ski(skiID),
 foreign key (entID) references Ent(entID)
 )engine=innodb;
 
-
 -- tabell för arbetsorder
 create table FinnishedWorkOrder (
 orderID int not null unique,
@@ -120,13 +120,14 @@ foreign key (entID) references Ent(entID)
 create table Cannon (
 cannonID smallint not null auto_increment unique,
 subPlaceName smallint null,
-model char (4) not null,
+model char (3) not null, 
 -- model visar om det är stationär eller ej
 state enum('on','off','unplugged','broken') null,
-effect smallint,
+effect DECIMAL(4,3), -- producerar ca: 1.226 m3/minut ()(fasta), flyttbara producerar ca: 0.5 m3 /mint
+class varchar(32) not null, 
 -- effect och status tillsammans med N:M tabellens timestamp skall visa antal m2 snö tillverkat.
-primary key (cannonID)
--- foreign key (subPlaceName) references SubPlace(name)ON DELETE CASCADE ON UPDATE CASCADE
+primary key (cannonID),
+foreign key (subPlaceName) references SubPlace(name)ON DELETE CASCADE ON UPDATE CASCADE
 )engine=innodb;
 
 
@@ -257,13 +258,13 @@ primary key (storedReportID)
 )engine=innodb;
 
 insert into Ski (password, firstName, lastName, email, number, type, regDate) values
-('pass','Tomas','Stormhagen','Tomas','1234567891','arenachef','2016-11-01'),
+('pass','Tomas','Stormhagen','Tomas.Stormhagen@skidloppet.se','1234567891','arenachef','2016-11-01'),
 ('pass','Eva','Smith','Eva.Smith@skidloppet.se','1234567892','other','2016-11-01'),
 ('pass','Rune','Svensson','Rune.Svensson@skidloppet.se','1234567893','other','2016-11-01');
 
 
 insert into Ent (password, firstName, lastName, email, number, regDate) values 
-('pass','Sture','Ekman','Sture','00562432','2016-11-01'),
+('sture','Sture','Ekman','Sture.Ekman@skidloppet.se','00562432','2016-11-01'),
 ('andersson','Bröderna','Andersson','Bröderna.Andersson@skidloppet.se','00562736','2016-11-01'),
 ('persson','Siv-Jan','Persson','SoJ.Persson@skidloppet.se','00561122','2016-11-01'),
 ('jonas','Jonas','Hed','Jonas.Hed@skidloppet.se','0054231','2016-11-01'),
@@ -284,18 +285,17 @@ Iris Sax delsträckor 16, 17
 Vidar Ytter delsträckor 18, 19
 Urban Garv delsträckor 20, 21 */
 
-
 insert into Place (name, info) values 
 ('Vattendrag','Vattendrag som är tillängliga för snötillverkning'),
 ('Delstrackor','Delsträckor som kan användas under vinterhalvåret'),
 ('Garage','Garage för pistmaskiner');
 
 
-insert into WorkOrder (skiID, entID, sentDate, endDate, priority, info, EntComment) values 
-('1','1',now(),'','akut','ligger en död uteliggare på spåret', 'text1'),
-('1','2',now(),'','high','träd som ligger över spåren','text2'),
-('1','3',now(),'','medium','grus vid lerdalen','text3'),
-('1','2',now(),'','low','sten','text4');
+insert into WorkOrder (skiID, entID, sentDate, endDate, priority, info, EntComment,type) values 
+('1','1',now(),'','akut','ligger en död kanin på spåret', 'text1','dirt'),
+('1','2',now(),'','high','träd som ligger över spåren','text2','dirt'),
+('1','3',now(),'','medium','grus vid lerdalen','text3','dirt'),
+('1','2',now(),'','low','sten','text4','dirt'); 
 /*
 insert into FinnishedWorkOrder (OrderID, entID, sentDate, endDate, priority, info, EntComment) values
 ('1','1','2016-01-15','','akut','död snubbe på spåret','text1'),
@@ -336,11 +336,38 @@ insert into SubPlace (name, placeName, realName, entID, length, height, fakesnow
 ('55','Garage','HUVUDGARAGET','1','6','264','1');
 
 
-
-insert into Cannon (subPlaceName, model, state, effect) values
-('1','STA1','off','9'),
-('2','MOV1','off','5'),
-('3','MOV2','off','6');
+-- select * from Cannon;
+insert into Cannon (subPlaceName, model, state, effect,class) values
+('1','STA','off','1.226','SMI Super PoleCat'), 
+('11','STA','off','1.226','SMI Super PoleCat'),
+('12','STA','off','1.226','SMI Super PoleCat'),
+('16','STA','off','1.226','SMI Super PoleCat'),
+('18','STA','off','1.226','SMI Super PoleCat'),
+('3','STA','off','1.226','SMI Super PoleCat'),
+('4','STA','off','1.226','SMI Super PoleCat'),
+('7','STA','off','1.226','SMI Super PoleCat'),
+('10','STA','off','1.226','SMI Super PoleCat'),
+('21','STA','off','1.226','SMI Super PoleCat'),
+('9','MOV','off','0.5','Top Gun 7'),
+('6','MOV','off','0.5','Top Gun 7'),
+('4','MOV','off','0.5','Top Gun 7'),
+('3','MOV','off','0.5','Top Gun 7'),
+('5','MOV','off','0.5','Top Gun 7'),
+('20','MOV','off','0.5','Top Gun 7'),
+('19','MOV','off','0.5','Top Gun 7'),
+('14','MOV','off','0.5','Top Gun 7'),
+('10','MOV','off','0.5','Top Gun 7'),
+('9','MOV','off','0.5','Top Gun 7'),
+('8','MOV','off','0.5','Top Gun 7'),
+('12','MOV','off','0.5','Top Gun 7'),
+('15','MOV','off','0.5','Top Gun 7'),
+('17','MOV','off','0.5','Top Gun 7'),
+('19','MOV','off','0.5','Top Gun 7'),
+('21','MOV','off','0.5','Top Gun 7'),
+('1','MOV','off','0.5','Top Gun 7'),
+('2','MOV','off','0.5','Top Gun 7'),
+('4','MOV','off','0.5','Top Gun 7'),
+('13','MOV','off','0.5','Top Gun 7');
 
 
 insert into Report (entID, startDate, workDate, rating, underlay, edges, grip, depth) values
