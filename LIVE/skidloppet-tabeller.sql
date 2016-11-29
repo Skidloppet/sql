@@ -256,27 +256,14 @@ name smallint,
 primary key (storedReportID)
 )engine=innodb;
 
-<<<<<<< HEAD
-insert into Ski (skiID, password, firstName, lastName, email, number, type, regDate) values
-('1','pass','Tomas','Stormhagen','tomas','1234567891','arenachef','2016-11-01'),
-('2','pass','Göran','Smith','g_smith@gmail.com','1234567892','other','2016-11-01'),
-('3','pass','Ove','Svensson','OveSwag@hotmail.com','1234567893','other','2016-11-01');
-
-
-insert into Ent (entID, password, firstName, lastName, email, number, regDate) values 
-('1','pass','Stefan','Fridström','stefan','1234567891','2016-11-01'),
-('2','pass','Adrian','Abrahamsson','asd@hotmail.com','1234567892','2016-11-01'),
-('3','pass','Philip','Svensson','asd@gmail.com','1234567893','2016-11-01');
-
-=======
 insert into Ski (password, firstName, lastName, email, number, type, regDate) values
-('pass','Tomas','Stormhagen','Tomas.Stormhagen@skidloppet.se','1234567891','arenachef','2016-11-01'),
+('pass','Tomas','Stormhagen','Tomas','1234567891','arenachef','2016-11-01'),
 ('pass','Eva','Smith','Eva.Smith@skidloppet.se','1234567892','other','2016-11-01'),
 ('pass','Rune','Svensson','Rune.Svensson@skidloppet.se','1234567893','other','2016-11-01');
 
 
 insert into Ent (password, firstName, lastName, email, number, regDate) values 
-('sture','Sture','Ekman','Sture.Ekman@skidloppet.se','00562432','2016-11-01'),
+('pass','Sture','Ekman','Sture','00562432','2016-11-01'),
 ('andersson','Bröderna','Andersson','Bröderna.Andersson@skidloppet.se','00562736','2016-11-01'),
 ('persson','Siv-Jan','Persson','SoJ.Persson@skidloppet.se','00561122','2016-11-01'),
 ('jonas','Jonas','Hed','Jonas.Hed@skidloppet.se','0054231','2016-11-01'),
@@ -296,7 +283,7 @@ Rune Kvarn delsträckor 13, 14, 15
 Iris Sax delsträckor 16, 17
 Vidar Ytter delsträckor 18, 19
 Urban Garv delsträckor 20, 21 */
->>>>>>> f3d96846769f5c833220af23584740a616a59a52
+
 
 insert into Place (name, info) values 
 ('Vattendrag','Vattendrag som är tillängliga för snötillverkning'),
