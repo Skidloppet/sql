@@ -5,7 +5,7 @@
     
     
       <div class="w3-quarter">
-       <a href="backend_wo.php">
+       <a href="backend.php">
         <div class="w3-container w3-blue w3-padding-16">
           <div class="w3-left"><i class="fa fa-eye w3-xxxlarge"></i></div>
           <div class="w3-right">
@@ -23,7 +23,7 @@
     
 
       <div class="w3-quarter">
-       <a href="backend_ErrorReport.php">
+       <a href="backend.php">
         <div class="w3-container w3-red w3-padding-16">
           <div class="w3-left"><i class="fa fa-comment w3-xxxlarge"></i></div>
           <div class="w3-right">
@@ -43,7 +43,7 @@
       </div>
     
     <div class="w3-quarter">
-     <a href="backend_stra.php">
+     <a href="backend.php">
       <div class="w3-container w3-teal w3-padding-16">
         <div class="w3-left"><i class="fa fa-share-alt w3-xxxlarge"></i></div>
         <div class="w3-right">
@@ -57,7 +57,7 @@
 
 
     <div class="w3-quarter">
-     <a href="backend_kom.php">
+     <a href="backend.php">
       <div class="w3-container w3-orange w3-text-white w3-padding-16">
         <div class="w3-left"><i class="fa fa-users w3-xxxlarge"></i></div>
         <div class="w3-right">

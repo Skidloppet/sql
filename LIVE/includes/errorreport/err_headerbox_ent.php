@@ -6,9 +6,7 @@ $i = 0;
       }
        ?>
 
-<header class="w3-container" style="padding-top:22px">
-  <h4><b><i class="fa fa-dashboard"></i> Min kontrollpanel</b></h4>
-</header>
+
 
 <a href="./backend_ErrorReport.php#11">
 <div class="w3-row-padding w3-margin-bottom">
