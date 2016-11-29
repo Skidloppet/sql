@@ -264,6 +264,16 @@ from Ent, WorkOrder, Ski
 where Ent.entID = WorkOrder.entID and Ski.skiID = WorkOrder.skiID;
 -- select * from wo;
 
+DROP VIEW IF EXISTS fwo;
+create view fwo as
+select Ent.lastName as entL, Ent.firstName entF,Ent.entID,
+ Ski.lastName as skiL, Ski.firstName as skiF, 
+sentDate, priority, FinnishedWorkOrder.type, info, orderID
+
+from Ent, FinnishedWorkOrder, Ski 
+where Ent.entID = FinnishedWorkOrder.entID and Ski.skiID = FinnishedWorkOrder.skiID;
+-- select * from fwo;
+
 
 DROP VIEW IF EXISTS cv;
 
