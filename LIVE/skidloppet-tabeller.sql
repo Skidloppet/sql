@@ -8,6 +8,7 @@ userID int(11) not null,
 time varchar (30) not null
 )engine=innodb;
 
+
 create table img (
 img_id int 	not null auto_increment,
 name varchar (50),
@@ -256,16 +257,17 @@ name smallint,
 primary key (storedReportID)
 )engine=innodb;
 
-insert into Ski (skiID, password, firstName, lastName, email, number, type, regDate) values
-('1','pass','Tomas','Stormhagen','tomas','1234567891','arenachef','2016-11-01'),
-('2','pass','Göran','Smith','g_smith@gmail.com','1234567892','other','2016-11-01'),
-('3','pass','Ove','Svensson','OveSwag@hotmail.com','1234567893','other','2016-11-01');
+insert into Ski (password, firstName, lastName, email, number, type, regDate) values
+('pass','Tomas','Stormhagen','tomas','1234567891','arenachef','2016-11-01'),
+('pass','Eva','Smith','g_smith@gmail.com','1234567892','other','2016-11-01'),
+('pass','Rune','Svensson','OveSwag@hotmail.com','1234567893','other','2016-11-01');
 
 
-insert into Ent (entID, password, firstName, lastName, email, number, regDate) values 
-('1','pass','Stefan','Fridström','stefan','1234567891','2016-11-01'),
-('2','pass','Adrian','Abrahamsson','asd@hotmail.com','1234567892','2016-11-01'),
-('3','pass','Philip','Svensson','asd@gmail.com','1234567893','2016-11-01');
+insert into Ent (password, firstName, lastName, email, number, regDate) values 
+('pass','ingen','','ent','1234567291','2016-11-01'),
+('pass','Stefan','Fridström','stefan','1234567391','2016-11-01'),
+('pass','Adrian','Abrahamsson','asd@hotmail.com','3234567892','2016-11-01'),
+('pass','Philip','Svensson','asd@gmail.com','1234367893','2016-11-01');
 
 
 insert into Place (name, info) values 
@@ -275,7 +277,7 @@ insert into Place (name, info) values
 
 
 insert into WorkOrder (skiID, entID, sentDate, endDate, priority, info, EntComment,type) values 
-('1','1',now(),'','akut','ligger en död uteliggare på spåret', 'text1','dirt'),
+('1','1',now(),'','akut','ligger en död kanin på spåret', 'text1','dirt'),
 ('1','2',now(),'','high','träd som ligger över spåren','text2','dirt'),
 ('1','3',now(),'','medium','grus vid lerdalen','text3','dirt'),
 ('1','2',now(),'','low','sten','text4','dirt'); 
@@ -348,7 +350,6 @@ insert into Cannon (subPlaceName, model, state, effect,class) values
 ('2','MOV','off','0.5','Top Gun 7'),
 ('4','MOV','off','0.5','Top Gun 7'),
 ('13','MOV','off','0.5','Top Gun 7');
-select * from Cannon;
 
 
 insert into Report (entID, startDate, workDate, rating, underlay, edges, grip, depth) values
