@@ -114,7 +114,7 @@ foreach($pdo->query( 'select count(*)as i2 from FinnishedWorkOrder;' ) as $row){
 
           <select name='Slut' >    
             <?php 
-            echo '<option selected="selected" value"0"> Välj t.o.m delsträcka ';
+            echo '<option selected="selected" value"a"> Välj t.o.m delsträcka ';
             foreach ($pdo->query('SELECT * FROM SubPlace') as $row) {
               echo '<option value="'.$row['name'].'">';
               echo $row['realName'];
@@ -139,9 +139,9 @@ foreach($pdo->query( 'select count(*)as i2 from FinnishedWorkOrder;' ) as $row){
 
               #hantera när ingen slutstation är vald
               
-            #if ($_POST['Slut'] = "0"){
-             #   $_POST['Start'] = $_POST['Slut']; 
-              #}
+           if ($_POST['Slut'] = "a"){
+                $_POST['Slut'] = $_POST['Start']; 
+              }
 
 
 

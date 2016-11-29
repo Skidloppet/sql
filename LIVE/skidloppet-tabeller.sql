@@ -8,7 +8,6 @@ userID int(11) not null,
 time varchar (30) not null
 )engine=innodb;
 
-
 create table img (
 img_id int 	not null auto_increment,
 name varchar (50),
@@ -71,6 +70,7 @@ foreign key (skiID) references Ski(skiID),
 foreign key (entID) references Ent(entID)
 )engine=innodb;
 
+
 -- tabell för arbetsorder
 create table FinnishedWorkOrder (
 orderID int not null unique,
@@ -120,14 +120,13 @@ foreign key (entID) references Ent(entID)
 create table Cannon (
 cannonID smallint not null auto_increment unique,
 subPlaceName smallint null,
-model char (3) not null, 
+model char (4) not null,
 -- model visar om det är stationär eller ej
 state enum('on','off','unplugged','broken') null,
-effect DECIMAL(4,3), -- producerar ca: 1.226 m3/minut ()(fasta), flyttbara producerar ca: 0.5 m3 /mint
-class varchar(32) not null, 
+effect smallint,
 -- effect och status tillsammans med N:M tabellens timestamp skall visa antal m2 snö tillverkat.
-primary key (cannonID),
-foreign key (subPlaceName) references SubPlace(name)ON DELETE CASCADE ON UPDATE CASCADE
+primary key (cannonID)
+-- foreign key (subPlaceName) references SubPlace(name)ON DELETE CASCADE ON UPDATE CASCADE
 )engine=innodb;
 
 
@@ -257,18 +256,47 @@ name smallint,
 primary key (storedReportID)
 )engine=innodb;
 
+<<<<<<< HEAD
+insert into Ski (skiID, password, firstName, lastName, email, number, type, regDate) values
+('1','pass','Tomas','Stormhagen','tomas','1234567891','arenachef','2016-11-01'),
+('2','pass','Göran','Smith','g_smith@gmail.com','1234567892','other','2016-11-01'),
+('3','pass','Ove','Svensson','OveSwag@hotmail.com','1234567893','other','2016-11-01');
+
+
+insert into Ent (entID, password, firstName, lastName, email, number, regDate) values 
+('1','pass','Stefan','Fridström','stefan','1234567891','2016-11-01'),
+('2','pass','Adrian','Abrahamsson','asd@hotmail.com','1234567892','2016-11-01'),
+('3','pass','Philip','Svensson','asd@gmail.com','1234567893','2016-11-01');
+
+=======
 insert into Ski (password, firstName, lastName, email, number, type, regDate) values
-('pass','Tomas','Stormhagen','tomas','1234567891','arenachef','2016-11-01'),
-('pass','Eva','Smith','g_smith@gmail.com','1234567892','other','2016-11-01'),
-('pass','Rune','Svensson','OveSwag@hotmail.com','1234567893','other','2016-11-01');
+('pass','Tomas','Stormhagen','Tomas.Stormhagen@skidloppet.se','1234567891','arenachef','2016-11-01'),
+('pass','Eva','Smith','Eva.Smith@skidloppet.se','1234567892','other','2016-11-01'),
+('pass','Rune','Svensson','Rune.Svensson@skidloppet.se','1234567893','other','2016-11-01');
 
 
 insert into Ent (password, firstName, lastName, email, number, regDate) values 
-('pass','ingen','','ent','1234567291','2016-11-01'),
-('pass','Stefan','Fridström','stefan','1234567391','2016-11-01'),
-('pass','Adrian','Abrahamsson','asd@hotmail.com','3234567892','2016-11-01'),
-('pass','Philip','Svensson','asd@gmail.com','1234367893','2016-11-01');
+('sture','Sture','Ekman','Sture.Ekman@skidloppet.se','00562432','2016-11-01'),
+('andersson','Bröderna','Andersson','Bröderna.Andersson@skidloppet.se','00562736','2016-11-01'),
+('persson','Siv-Jan','Persson','SoJ.Persson@skidloppet.se','00561122','2016-11-01'),
+('jonas','Jonas','Hed','Jonas.Hed@skidloppet.se','0054231','2016-11-01'),
+('oswald','Oswald','Ek','Oswald.Ek@skidloppet.se','0054411','2016-11-01'),
+('rune','Rune','Kvarn','Rune.Kvarn@skidloppet.se','0051122','2016-11-01'),
+('iris','Iris','Sax','Iris.Sax@skidloppet.se','00545454','2016-11-01'),
+('vidar','Vidar','Ytter','Vidar.Ytter@skidloppet.se','00551232','2016-11-01'),
+('urban','Urban','Garv','Urban.Garv@skidloppet.se','00571313','2016-11-01');
 
+
+/* Sture Ekman, delsträckor 1, 2
+Bröderna Andersson delsträckor 3, 4
+Siv och Jan Persson delsträckor 5, 6, 7
+Jonas Hed delsträckor 8, 9, 10
+Oswald Ek delsträckor 11, 12
+Rune Kvarn delsträckor 13, 14, 15
+Iris Sax delsträckor 16, 17
+Vidar Ytter delsträckor 18, 19
+Urban Garv delsträckor 20, 21 */
+>>>>>>> f3d96846769f5c833220af23584740a616a59a52
 
 insert into Place (name, info) values 
 ('Vattendrag','Vattendrag som är tillängliga för snötillverkning'),
@@ -276,23 +304,26 @@ insert into Place (name, info) values
 ('Garage','Garage för pistmaskiner');
 
 
-insert into WorkOrder (skiID, entID, sentDate, endDate, priority, info, EntComment,type) values 
-('1','1',now(),'','akut','ligger en död kanin på spåret', 'text1','dirt'),
-('1','2',now(),'','high','träd som ligger över spåren','text2','dirt'),
-('1','3',now(),'','medium','grus vid lerdalen','text3','dirt'),
-('1','2',now(),'','low','sten','text4','dirt'); 
+insert into WorkOrder (skiID, entID, sentDate, endDate, priority, info, EntComment) values 
+('1','1',now(),'','akut','ligger en död uteliggare på spåret', 'text1'),
+('1','2',now(),'','high','träd som ligger över spåren','text2'),
+('1','3',now(),'','medium','grus vid lerdalen','text3'),
+('1','2',now(),'','low','sten','text4');
 /*
 insert into FinnishedWorkOrder (OrderID, entID, sentDate, endDate, priority, info, EntComment) values
 ('1','1','2016-01-15','','akut','död snubbe på spåret','text1'),
 ('3','1','2016-01-17','','low','sten','text2');
 */
 insert into Commenta (Kommentar,grade, alias, date) values 
-('blabla','2','Stina','2017-12-31'),
-('oj vilka spår','4','göran p','2016-12-24'),
-('jävla kottar och grus i spåren','1','gunde svan','2017-01-01');
+('Arenan bjöd på en mycket bra upplevelse med bra spår','5','Alexander Gustafsson','2016-11-11'),
+('Delsträckorna 2:1 och 2:2 i Norrhyttan var väldigt dåligt spårad','1','Khabib Nurmanogedov','2016-01-24'),
+('Bra spårade sträckor i Hedemora','4','Jon Jones','2017-03-01'),
+('Trevlig upplevelse och bra spårning','5','Nate Diaz','2017-02-01'),
+('Det ligger mycket skräp på delsträckan 3.1 i Bondhyttan','2','Connor McGregor','2017-01-01');
 
 -- select avg(grade) from Comment;
 -- select grade from Comment;
+select * from Ent;
 insert into SubPlace (name, placeName, realName, entID, length, height, fakesnow) values 
 ('1','Delstrackor','Hedemora 1:1','1','12','21','23'),
 ('2','Delstrackor','Hedemora 1:2','1','17','476','11'),
@@ -318,38 +349,11 @@ insert into SubPlace (name, placeName, realName, entID, length, height, fakesnow
 ('55','Garage','HUVUDGARAGET','1','6','264','1');
 
 
--- select * from Cannon;
-insert into Cannon (subPlaceName, model, state, effect,class) values
-('1','STA','off','1.226','SMI Super PoleCat'), 
-('11','STA','off','1.226','SMI Super PoleCat'),
-('12','STA','off','1.226','SMI Super PoleCat'),
-('16','STA','off','1.226','SMI Super PoleCat'),
-('18','STA','off','1.226','SMI Super PoleCat'),
-('3','STA','off','1.226','SMI Super PoleCat'),
-('4','STA','off','1.226','SMI Super PoleCat'),
-('7','STA','off','1.226','SMI Super PoleCat'),
-('10','STA','off','1.226','SMI Super PoleCat'),
-('21','STA','off','1.226','SMI Super PoleCat'),
-('9','MOV','off','0.5','Top Gun 7'),
-('6','MOV','off','0.5','Top Gun 7'),
-('4','MOV','off','0.5','Top Gun 7'),
-('3','MOV','off','0.5','Top Gun 7'),
-('5','MOV','off','0.5','Top Gun 7'),
-('20','MOV','off','0.5','Top Gun 7'),
-('19','MOV','off','0.5','Top Gun 7'),
-('14','MOV','off','0.5','Top Gun 7'),
-('10','MOV','off','0.5','Top Gun 7'),
-('9','MOV','off','0.5','Top Gun 7'),
-('8','MOV','off','0.5','Top Gun 7'),
-('12','MOV','off','0.5','Top Gun 7'),
-('15','MOV','off','0.5','Top Gun 7'),
-('17','MOV','off','0.5','Top Gun 7'),
-('19','MOV','off','0.5','Top Gun 7'),
-('21','MOV','off','0.5','Top Gun 7'),
-('1','MOV','off','0.5','Top Gun 7'),
-('2','MOV','off','0.5','Top Gun 7'),
-('4','MOV','off','0.5','Top Gun 7'),
-('13','MOV','off','0.5','Top Gun 7');
+
+insert into Cannon (subPlaceName, model, state, effect) values
+('1','STA1','off','9'),
+('2','MOV1','off','5'),
+('3','MOV2','off','6');
 
 
 insert into Report (entID, startDate, workDate, rating, underlay, edges, grip, depth) values

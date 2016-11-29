@@ -17,7 +17,7 @@ PROCEDURER FÖR SKIDLOPPET AB -Innehållsförteckning
 15. Ta bort gammla kund kommentarer
 16. för att ändra tel-nummer för en ent.
 Kvar att göra:
- 
+
 procedur & php för avklarade workorder
 procedur & php för avklarade snökanon-workorder
 
@@ -101,7 +101,7 @@ DELIMITER ;
 -- 5. Procedur för att skapa en ny snökanon
 DROP PROCEDURE IF EXISTS NewCannon; 
  DELIMITER //
-CREATE PROCEDURE NewCannon(subPlaceName varchar(32), model char(3), state enum('on','off','unplugged','broken'),effect smallint)
+CREATE PROCEDURE NewCannon(subPlaceName varchar(32), model char(4), state enum('on','off','unplugged','broken'),effect smallint)
 BEGIN
 insert into Cannon (subPlaceName, model, state, effect) values (subPlaceName, model, state, effect);
 END; //
@@ -233,12 +233,12 @@ COMMIT ;
 END //
 DELIMITER ;
 
-call _NewComment ('fet kommentar på spåren 2-5','kalle','2',now(),'2','5');
-call _NewComment ('ny kommentar med fett','balle','2',now(),'6','1');
-call _NewComment ('en kommentar på några spår','tralle','2',now(),'1','6');
-call _NewComment ('korar','kalle','2',now(),'2','5');
-call _NewComment ('sånt kul','balle','2',now(),'6','1');
-call _NewComment ('hejdär','tralle','2',now(),'1','6');
+call _NewComment ('Härlig Upplevelse','Connor McGregor','2',now(),'2','5');
+call _NewComment ('Hej','Lars','2',now(),'6','1');
+call _NewComment ('en kommentar på några spår','Klas','2',now(),'1','6');
+call _NewComment ('korar','Kalle','2',now(),'2','5');
+call _NewComment ('sånt kul','Olof','2',now(),'6','1');
+call _NewComment ('hejdär','Jon Jones','2',now(),'1','6');
 -- select * from CommentSubPlace;
 -- select * from Commenta;
 
@@ -480,9 +480,6 @@ begin
 END //
 DELIMITER ;
 -- call _finnishedCannonOrder('2','1',now(),'texttesttets');
-
-
-
 
 
     -- 15. Byt ent ansvarig för arbetsorder.
