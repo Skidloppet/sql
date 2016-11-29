@@ -1,25 +1,12 @@
 <!DOCTYPE html>
-<!--
-Kommentarer:
-stängde 2 div taggar som var öppna
-
--->
-
-<!--
-Ny felanmälan.
-Kan vara värt att visa namn istället för ID på entreprenör?
-Ändra name till realname (sträcka)
-Fortsätta använda border på tabell? annars ser det ut som om all text står i en mening.
-Göra om så att start / slut är listbox med realname?
--->
-
 <?php
 include'connect.php';
 #include './backend_connect.php';
 ?>
 
 
-<div class="w3-container">
+<div id="11" class="w3-container w3-red">
+    <h3>Utskrift av registrerade felanmälningar</h3>
   <h3>Ny felanmälan!</h3>
   <form action='backend_ErrorReport.php' method='POST'>
     <textarea rows="5" cols="70" name="desc" placeholder="Beskriv problemet..."></textarea>
@@ -108,33 +95,58 @@ include'connect.php';
 </div>
 
 
-<div class="w3-container">
-  <h3>Utskrift av registrerade felanmälningar</h3>
-    <table border="1">
+<div id="12" class="w3-container w3-blue">
+    <h3>Utskrift av registrerade felanmälningar</h3>
+    <table class="w3-table w3-striped w3-white">
       <?php  
             echo "<tr>";
-            echo "<th style='background-color:white;'>Errorid:</th>"; 
+            #echo "<th style='background-color:white;'>Sträcka:</th>";
+            echo "<th style='background-color:white;'>Sträcka:</th>"; 
+            #echo "<th style='background-color:white;'>entID:</th>";
             echo "<th style='background-color:white;'>Entreprenör:</th>";
             echo "<th style='background-color:white;'>Skickad:</th>";
             echo "<th style='background-color:white;'>Beskrivning:</th>";
             echo "<th style='background-color:white;'>Typ:</th>";
-            echo "<th style='background-color:white;'>Sträcka:</th>";
+            echo "<th style='background-color:white;'>Errorid:</th>";
             echo "</tr>";
 
-          foreach($pdo->query( 'SELECT * FROM Error, ErrorSubPlace WHERE Error.errorID = ErrorSubPlace.errorID;' ) as $row){
+          foreach($pdo->query( 'SELECT * 
+            FROM Error, ErrorSubPlace, Ent, SubPlace
+            WHERE Error.errorID = ErrorSubPlace.errorID AND Ent.entID = Error.entID and SubPlace.name = ErrorSubPlace.name;
+            ' ) as $row){
             echo "<tr>";
-            echo "<td>".$row['errorID']."</td>";
-            echo "<td>".$row['entID']."</td>";
+            #echo "<td>".$row['name']."</td>";
+            echo "<td>".$row['realName']."</td>";
+            #echo "<td>".$row['entID']."</td>";
+            echo "<td>".$row['firstName']." ".$row['lastName']."</td>";
             echo "<td>".$row['sentDate']."</td>";
             echo "<td>".$row['errorDesc']."</td>";
             echo "<td>".$row['type']."</td>";
-            echo "<td>".$row['name']."</td>";
-
+            echo "<td>".$row['errorID']."</td>";
+            ?>
+            <td class="Error-delete">
+            <form action='<?php $_PHP_SELF ?>' method='POST'>
+              <input type="hidden" name="deleteError" value="<?php echo $row['errorID']; ?>">
+              <input class="HoverButton" type="submit" name="delError" value="Delete">
+            </form>
+          </td>
+          <?php
             echo "</tr>";  
         }
       ?>
     </table>
+    <br><br>
 </div>
+
+<?php
+  if(isset($_POST['delError'])){
+  $deletedError = $_POST['deleteError'];
+  $sql = "DELETE FROM Error WHERE ErrorID = $deletedError" ;
+  $sql = "DELETE FROM ErrorSubPlace WHERE errorId = $deletedError" ;
+  $stmt = $pdo->prepare($sql);
+  $stmt->execute();
+    }
+?>
 
 <br><br>
  <!-- 

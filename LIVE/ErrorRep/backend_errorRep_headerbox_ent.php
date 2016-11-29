@@ -10,7 +10,7 @@ $i = 0;
   <h4><b><i class="fa fa-dashboard"></i> Min kontrollpanel</b></h4>
 </header>
 
-<a href="./backend_report.php#11">
+<a href="./backend_ErrorReport.php#11">
 <div class="w3-row-padding w3-margin-bottom">
   <div class="w3-third">
     <div class="w3-container w3-red w3-padding-16">
@@ -25,7 +25,7 @@ $i = 0;
 </a>
 
 
-<a href="./backend_report.php#12">
+<a href="./backend_ErrorReport.php#12">
 <div class="w3-third">
   <div class="w3-container w3-blue w3-padding-16">
     <div class="w3-left"><i class="fa fa-arrow-right w3-xxxlarge"></i></div>

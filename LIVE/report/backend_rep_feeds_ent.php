@@ -5,7 +5,7 @@ include'connect.php';
 #include './backend_connect.php';
 ?>
 
-<div class="w3-container">
+<div id="11" class="w3-container w3-red">
   <h3>Ny Rapport</h3>
   <form action='<?php $_PHP_SELF ?>' method='POST'>
     <input type="text" name="WorkDate" placeholder="yyyy-mm-dd"></p>
@@ -108,38 +108,47 @@ include'connect.php';
     <table class="w3-table w3-striped w3-white">
       <?php   
         echo "<tr>";
+          echo "<th>sträcka</th>"; 
+          echo "<th>realName</th>"; 
           echo "<th>reportID</th>"; 
-          echo "<th>newEntID</th>"; 
+          //echo "<th>newEntID</th>"; 
+          echo "<th>EntName</th>"; 
           echo "<th>newStartDate</th>"; 
-          echo "<th>newWorkDate</th>"; 
+          #echo "<th>newWorkDate</th>"; 
           echo "<th>newRating</th>"; 
           echo "<th>newUnderlay</th>"; 
           echo "<th>newEdges</th>"; 
           echo "<th>newGrip</th>"; 
           echo "<th>newDepth</th>";
-          echo "<th>kommentar</th>";
-          echo "<th>sträcka</th>";  
+          echo "<th>kommentar</th>";  
           echo "</tr>";
-
-        foreach($pdo->query( 'SELECT * FROM Reporting;' ) as $row){
+            foreach ($pdo->query('
+              SELECT Reporting.name, Reporting.entID, Reporting.startDate, Reporting.workDate, Reporting.rating, Reporting.underlay, Reporting.edges, Reporting.grip, Reporting.depth, Reporting.comment, SubPlace.realName, Ent.firstName, Ent.lastName, Reporting.reportID
+              from overview, Reporting, SubPlace, Ent
+              WHERE Reporting.name = rspName AND Reporting.reportID = rspID AND Ent.entID = Reporting.entID AND SubPlace.name = Reporting.name
+              GROUP BY Reporting.name;
+              ')as $row) {
           //echo "<tr><td>";
           //echo "<a href='test.php?entID=".urlencode($row['entID'])."'>".$row['entID'];
           echo "<tr>";
+          echo "<td>".$row['name']."</td>";
+          echo "<td>".$row['realName']."</td>";
           echo "<td>".$row['reportID']."</td>";
-          echo "<td>".$row['entID']."</td>";
+          //echo "<td>".$row['entID']."</td>";
+          echo "<td>".$row['firstName']." ".$row['lastName']."</td>";
           echo "<td>".$row['startDate']."</td>";
-          echo "<td>".$row['workDate']."</td>";
+          #echo "<td>".$row['workDate']."</td>";
           echo "<td>".$row['rating']."</td>";
           echo "<td>".$row['underlay']."</td>";
           echo "<td>".$row['edges']."</td>";
           echo "<td>".$row['grip']."</td>";
           echo "<td>".$row['depth']."</td>";
           echo "<td>".$row['comment']."</td>";
-          echo "<td>".$row['name']."</td>";
           echo "</tr>";  
           }
       ?>
     </table>
+    <br><br>
 </div>
  <!-- 
 <div class="w3-container w3-dark-grey w3-padding-32">
