@@ -56,14 +56,19 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
         <hr>
 
 <div>
-	<h3>L�gg till sn�kanon</h3>
+	<h3>Lägg till snökanon</h3>
 	<form action='<?php $_PHP_SELF ?>' method="post">
-		<select size='1' name='status'>
-			<option value="on"> On</option>
-			<option value="off" selected="selected"> Off</option>
-			<option value="broken" > Broken</option>
-			<option value="unplugged"> Unplugged</option>
-			</select><br></br>
+			<select size='1' name='state'>
+			<option selected="selected"> status </option>
+			<?php
+			$sql = 'SHOW COLUMNS FROM Cannon WHERE field="state"';
+			$row = $pdo->query($sql)->fetch(PDO::FETCH_ASSOC);
+			foreach(explode("','",substr($row['Type'],6,-2)) as $option) {
+			  print("<option>$option</option>");
+			}
+				
+		?>
+	</select>
 		<input type="text" name="subPlaceName" placeholder="plats.."></p>
 		<input type="text" name="model" placeholder="modell.."></p>
 		<input type="text" name="effect" placeholder="effekt.."></p>
@@ -83,7 +88,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 	?>
 </div>
 
-  <h3>Utskrift av sn�kanoner</h3>
+  <h3>Utskrift av snökanoner</h3>
     <table border="1">
       <?php  
         echo "<tr>";
@@ -108,10 +113,10 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 
 
 <<div class="w3-container w3-pink">
-<h3>�ndra sn� kanon</h3>
+<h3>Ändra snökanon</h3>
 <form action='<?php $_PHP_SELF ?>' method='POST'>
 	    <select size='1' name='cannonID'>
-    	<option selected="selected"> v�lj kanon </option>
+    	<option selected="selected"> välj kanon </option>
 		    <?php    
 		    foreach($pdo->query( 'SELECT * FROM Cannon ORDER BY cannonID;' ) as $row){
 		        echo '<option value="'.$row['cannonID'].'">';
@@ -124,7 +129,6 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 	<option selected="selected"> plats </option>
     			    <?php    
 		    foreach($pdo->query( 'SELECT * FROM SubPlace ;' ) as $row){
-		    	# GROUP BY G�R S� DET EJ BLIR DUBLETTER
 		        echo '<option value="'.$row['subPlaceName'].'">';
 			    echo $row['realName'];      
 			    echo '</option>';
@@ -144,7 +148,8 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 		?>
 	</select>
 <input type="submit" value="Send" name="send">
-<input type="reset"></form>
+<input type="reset">
+</form>
 
 	<?php 
 	    if(isset($_POST['send'])){
@@ -158,13 +163,13 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 	    }
 	?>
 	
-	  <h3>�ndring sn�kanoner</h3>
+	  <h3>Ändring snökanoner</h3>
     <table border="1">
       <?php  
         echo "<tr>";
         echo "<th style='background-color:grey;'>Plats:</th>"; 
         echo "<th style='background-color:grey;'>modell:</th>";
-        echo "<th style='background-color:grey;'>status:</th>";
+        echo "<th style='background-color:grey;'>state:</th>";
 		echo "<th style='background-color:grey;'>cannonID:</th>";
 
         echo "</tr>";
@@ -196,7 +201,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 	<th>Select </th>
 	<tr>
 		<?php
-	    foreach($pdo->query( 'SELECT cannonID, model, status, effect, realName  FROM Cannon, SubPlace where SubPlace.name = Cannon.subPlaceName;') as $row){
+	    foreach($pdo->query( 'SELECT cannonID, model, state, effect, realName  FROM Cannon, SubPlace where SubPlace.name = Cannon.subPlaceName;') as $row){
 		    echo "<tr>";
 		    echo "<td>".$row['cannonID']."</td>";
 		    echo "<td>".$row['model']."</td>";
