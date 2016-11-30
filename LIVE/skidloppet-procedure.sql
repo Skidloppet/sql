@@ -559,22 +559,25 @@ DELIMITER ;
 
 
 -- 15 tar alla gammla kommentarer äldre än 48 h
-/*
-ALTERNATIV LÖSNING! (stulet från Christoffer S)
 
+DROP PROCEDURE IF EXISTS _removeComment();
 DELIMITER //
 CREATE PROCEDURE _removeComment()
 begin
-delete *
+delete
 from Commenta
 where date < DATE_SUB(CURDATE(), interval 48 hour);
+END //
 DELIMITER ;
+
+call _removeComment();
 
 /*
 DELETE FROM Commenta 
 WHERE
     date < NOW() - INTERVAL 48 HOUR;
--- select * from Commenta;
+    */
+select * from Commenta;
 
 
 

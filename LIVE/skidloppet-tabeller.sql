@@ -261,7 +261,7 @@ insert into Ski (password, firstName, lastName, email, number, type, regDate) va
 ('pass','Tomas','Karlsson','Tomas.Karlsson@skidloppet.se','1234567891','arenachef','2016-11-01'),
 ('pass','Peo','Swahn','Peo.Swahn@skidloppet.se','1234567892','other','2016-11-01'),
 ('pass','Agne','Bowall','Agne.Bowall@skidloppet.se','1234562293','other','2016-11-01'),
-('pass','Anna','Holm','Agne.Bowall@skidloppet.se','1234522293','other','2016-11-01'),
+('pass','Anna','Holm','Anna.Holm@skidloppet.se','1234522293','other','2016-11-01'),
 ('pass','Rune','Lund','Rune.Lund@skidloppet.se','04040404','arenachef','2016-11-01');
 
 insert into Ent (password, firstName, lastName, email, number, regDate) values 
