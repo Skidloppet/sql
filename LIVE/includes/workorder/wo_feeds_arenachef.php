@@ -61,7 +61,7 @@ if (0 < $akut){
         # hemsidan visar entrepenörens förnamn och enfternamn genom kopplingen mellan
           foreach($pdo->query( 'SELECT * FROM wo where priority="akut" and entID="1" order by orderID desc;' ) as $row){
 
-             echo"      <form action='backend_wo.php' method='POST'>       ";
+             echo"      <form action='backend.php' method='POST'>       ";
 
             echo "<tr>";
             echo "<td><i class='fa fa-eye w3-blue w3-padding-tiny'></i></td>";
@@ -151,17 +151,7 @@ if(isset($_POST['newEnt'])){
         ?>   
       </table>
     </div>
-
-
   </div>
-
-
-
-
 </div>
-
-
-
-
 </div>
 </div>
