@@ -258,9 +258,11 @@ primary key (storedReportID)
 )engine=innodb;
 
 insert into Ski (password, firstName, lastName, email, number, type, regDate) values
-('pass','Tomas','Stormhagen','Tomas.Stormhagen@skidloppet.se','1234567891','arenachef','2016-11-01'),
-('pass','Eva','Smith','Eva.Smith@skidloppet.se','1234567892','other','2016-11-01'),
-('pass','Rune','Svensson','Rune.Svensson@skidloppet.se','1234567893','other','2016-11-01');
+('pass','Tomas','Karlsson','Tomas.Karlsson@skidloppet.se','1234567891','arenachef','2016-11-01'),
+('pass','Peo','Swahn','Peo.Swahn@skidloppet.se','1234567892','other','2016-11-01'),
+('pass','Agne','Bowall','Agne.Bowall@skidloppet.se','1234562293','other','2016-11-01'),
+('pass','Anna','Holm','Agne.Bowall@skidloppet.se','1234522293','other','2016-11-01'),
+('pass','Rune','Lund','Rune.Lund@skidloppet.se','04040404','arenachef','2016-11-01');
 
 insert into Ent (password, firstName, lastName, email, number, regDate) values 
 ('sture','Sture','Ekman','Sture.Ekman@skidloppet.se','00562432','2016-11-01'),
@@ -271,7 +273,7 @@ insert into Ent (password, firstName, lastName, email, number, regDate) values
 ('rune','Rune','Kvarn','Rune.Kvarn@skidloppet.se','0051122','2016-11-01'),
 ('iris','Iris','Sax','Iris.Sax@skidloppet.se','00545454','2016-11-01'),
 ('vidar','Vidar','Ytter','Vidar.Ytter@skidloppet.se','00551232','2016-11-01'),
-('urban','Urban','Garv','Urban.Garv@skidloppet.se','00571313','2016-11-01');
+('urban','Urban','Garv','Urban.Garv@skidloppet.se','0057131323','2016-11-01');
 
 
 /* Sture Ekman, delsträckor 1, 2
@@ -290,19 +292,12 @@ insert into Place (name, info) values
 ('Garage','Garage för pistmaskiner');
 
 
-<<<<<<< HEAD
-insert into WorkOrder (skiID, entID, sentDate, endDate, priority, info, EntComment) values 
-('1','1',now(),'','akut','Kottar på spåret', 'text1'),
-('1','2',now(),'','high','träd som ligger över spåren','text2'),
-('1','3',now(),'','medium','grus vid lerdalen','text3'),
-('1','2',now(),'','low','sten','text4');
-=======
+
 insert into WorkOrder (skiID, entID, sentDate, endDate, priority, info, EntComment,type) values 
 ('1','1',now(),'','akut','ligger en död kanin på spåret', 'text1','dirt'),
 ('1','2',now(),'','high','träd som ligger över spåren','text2','dirt'),
 ('1','3',now(),'','medium','grus vid lerdalen','text3','dirt'),
 ('1','2',now(),'','low','sten','text4','dirt'); 
->>>>>>> 6f804b45926cc1bb462182290fcd03e625360b2b
 /*
 insert into FinnishedWorkOrder (OrderID, entID, sentDate, endDate, priority, info, EntComment) values
 ('1','1','2016-01-15','','akut','död snubbe på spåret','text1'),
