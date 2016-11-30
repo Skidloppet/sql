@@ -79,6 +79,17 @@ function w3_close() {
   overlayBg.style.display = "none";
 }
 
+function MakeRequest(id) {
+    $.ajax({
+        url : 'includes/'+id+'.php',
+        type: 'GET',
+		
+        success: function(data){
+            $('.includes').html(data);
+        }
+    });
+}
+
 //Meny AJAX
 $('nav a').click(function() {
   $.ajax({
