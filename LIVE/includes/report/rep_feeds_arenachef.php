@@ -6,23 +6,23 @@ include'../connect.php';
 
 
 <div id="12" class="w3-container w3-blue">
-    <h3>Utskrift av rapporter</h3>
+    <h3>Utskrift av rapporter per sträcka:</h3>
     <table class="w3-table w3-striped w3-white">
       <?php   
         echo "<tr>";
-          echo "<th>sträcka</th>"; 
-          echo "<th>realName</th>"; 
-          echo "<th>reportID</th>"; 
+          echo "<th>sträcka:</th>"; 
+          #echo "<th>realName</th>"; 
           //echo "<th>newEntID</th>"; 
-          echo "<th>EntName</th>"; 
-          echo "<th>newStartDate</th>"; 
-          echo "<th>newWorkDate</th>"; 
-          echo "<th>newRating</th>"; 
-          echo "<th>newUnderlay</th>"; 
-          echo "<th>newEdges</th>"; 
-          echo "<th>newGrip</th>"; 
-          echo "<th>newDepth</th>";
-          echo "<th>kommentar</th>"; 
+          echo "<th>Entreprenör:</th>"; 
+          echo "<th>Rapporterad:</th>"; 
+          echo "<th>Nästa arbetspass:</th>"; 
+          echo "<th>Betyg:</th>"; 
+          echo "<th>Underlag:</th>"; 
+          echo "<th>Spårkanter:</th>"; 
+          echo "<th>Stavfäste:</th>"; 
+          echo "<th>Snödjup:</th>";
+          echo "<th>Kommentar:</th>"; 
+          echo "<th>report ID:</th>"; 
           echo "</tr>";
 
             foreach ($pdo->query('
@@ -33,9 +33,8 @@ include'../connect.php';
               ')as $row) {
                 
           echo "<tr>";
-          echo "<td>".$row['name']."</td>";
+          #echo "<td>".$row['name']."</td>";
           echo "<td>".$row['realName']."</td>";
-          echo "<td>".$row['reportID']."</td>";
           //echo "<td>".$row['entID']."</td>";
           echo "<td>".$row['firstName']." ".$row['lastName']."</td>";
           echo "<td>".$row['startDate']."</td>";
@@ -46,6 +45,7 @@ include'../connect.php';
           echo "<td>".$row['grip']."</td>";
           echo "<td>".$row['depth']."</td>";
           echo "<td>".$row['comment']."</td>";
+          echo "<td>".$row['reportID']."</td>";
           ?>
           <td class="Report-delete">
             <form action='<?php $_PHP_SELF ?>' method='POST'>
@@ -53,15 +53,16 @@ include'../connect.php';
               <input class="HoverButton" type="submit" name="delReport" value="Delete">
             </form>
           </td>
-
+<!--
           <td class="Report-Store">
-            <form action='backend_report.php?reportID="<?php echo $Report['reportID']; ?>"' method='POST'>
-              <input type="hidden" name="storeReport" value="<?php $row['reportID']; ?>">
-              <input class="HoverButton2" type="submit" name="storeReport" value="Store">
+            <form action='backend_report.php?reportID="<?php# echo $Report['reportID']; ?>"' <!--<!--method='POST'>
+              <input type="hidden" name="storeReport" value="<?php# $row['reportID']; ?>">
+              <!--<input class="HoverButton2" type="submit" name="storeReport" value="Store">
             </form>
           </td>
+-->
         <?php
-          echo "</tr>";  
+          #echo "</tr>";  
           }
       ?>
     </table><br><br>
@@ -76,6 +77,7 @@ include'../connect.php';
     }
 ?>
 <?php
+/*
 if(isset($_POST['storeReport'])){
   $querystring='INSERT INTO StoredReports (reportID, entID, startDate, workDate, rating, underlay, edges, grip, depth, comment, name) VALUES (:reportID, :entID, :startDate, :workDate, :rating, :underlay, :edges, :grip, :depth, :comment, :name);';
     $stmt = $pdo->prepare($querystring);
@@ -92,11 +94,13 @@ if(isset($_POST['storeReport'])){
     $stmt->bindParam(":name", $row['name'], PDO::PARAM_INT);
     $stmt->execute();
     }
+
 ?>
 <div id="13" class="w3-container w3-green">
     <h3>Utskrift av sparade rapporter</h3>
     <table class="w3-table w3-striped w3-white">
       <?php   
+      /*
         echo "<tr>";
           echo "<th>reportID</th>"; 
           echo "<th>newEntID</th>"; 
@@ -126,10 +130,11 @@ if(isset($_POST['storeReport'])){
           echo "<td>".$row['comment']."</td>";
           echo "<td>".$row['name']."</td>";
 }
+*/
 ?>
-</table>
+<!--</table>
 <br><br>
-
+-->
 
 <!-- End page content -->
 </div>

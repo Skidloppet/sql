@@ -7,14 +7,13 @@ $i = 0;
        ?>
 
 <header class="w3-container" style="padding-top:22px">
-  <h4><b><i class="fa fa-dashboard"></i> Min kontrollpanel</b></h4>
   <style>
 .HoverButton:hover { background: Red; }
 .HoverButton2:hover { background: Green; }
   </style>
 </header>
 
-<a href="./backend_ErrorReport.php#11">
+<a href="#11">
 <div class="w3-row-padding w3-margin-bottom">
   <div class="w3-third">
     <div class="w3-container w3-red w3-padding-16">
@@ -29,7 +28,7 @@ $i = 0;
 </a>
 
 
-<a href="./backend_ErrorReport.php#12">
+<a href="#12">
 <div class="w3-third">
   <div class="w3-container w3-blue w3-padding-16">
     <div class="w3-left"><i class="fa fa-arrow-right w3-xxxlarge"></i></div>

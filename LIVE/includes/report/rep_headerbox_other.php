@@ -11,7 +11,6 @@ $i2 = 0;
        ?>
 
 <header class="w3-container" style="padding-top:22px">
-  <h4><b><i class="fa fa-dashboard"></i> Min kontrollpanel</b></h4>
   <style>
 .HoverButton:hover { background: Red; }
 .HoverButton2:hover { background: Green; }
@@ -32,19 +31,19 @@ $i2 = 0;
 </a>
 
 
-
+<!--
 <a href="#13">
 <div class="w3-third">
   <div class="w3-container w3-teal w3-padding-16">
     <div class="w3-left"><i class="fa fa-flag alt w3-xxxlarge"></i></div>
     <div class="w3-right">
-      <h3><?php print_r($i2); ?></h3>
+      <h3><?php #print_r($i2); ?></h3>
     </div>
     <div class="w3-clear"></div>
     <h4>Sparade rapporter</h4>
   </div>
 </div>
 </a>
-
+-->
 
 </div>

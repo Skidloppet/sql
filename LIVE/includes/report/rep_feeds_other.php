@@ -53,11 +53,12 @@ include'../connect.php';
       ?>
     </table><br><br>
 </div>
-
+<!--
 <div id="13" class="w3-container w3-green">
     <h3>Utskrift av sparade rapporter</h3>
     <table class="w3-table w3-striped w3-white">
       <?php   
+      /*
         echo "<tr>";
           echo "<th>reportID</th>"; 
           echo "<th>newEntID</th>"; 
@@ -87,10 +88,11 @@ include'../connect.php';
           echo "<td>".$row['comment']."</td>";
           echo "<td>".$row['name']."</td>";
 }
+*/
 ?>
 </table>
 <br><br>
-
+-->
 
 <!-- End page content -->
 </div>
