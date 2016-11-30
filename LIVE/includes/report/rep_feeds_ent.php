@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 
 <?php
-include'connect.php';
-#include './backend_connect.php';
+include'../connect.php';
 ?>
 
 <div id="11" class="w3-container w3-red">

@@ -1,7 +1,7 @@
 <h2>Översikt</h2>
 
 <?php
-include './connect.php';	
+include '../connect.php';	
 ?>	
 <div class="w3-container w3-section">
   <div class="w3-row-padding" style="margin:0 -16px">

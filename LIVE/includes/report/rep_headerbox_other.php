@@ -10,9 +10,7 @@ $i2 = 0;
       }
        ?>
 
-<header class="w3-container" style="padding-top:22px">
-  <h4><b><i class="fa fa-dashboard"></i> Min kontrollpanel</b></h4>
-</header>
+
 
 <a href="./backend_report.php#12">
 <div class="w3-third">
