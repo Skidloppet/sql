@@ -242,8 +242,7 @@ foreign key (entID) references Ent(entID)
 )engine=innodb;
 
 create table StoredReports(
-storedReportID int not null auto_increment unique,
-reportID int not null,
+reportID int not null unique,
 entID smallint not null,
 startDate timestamp,
 workDate datetime,
@@ -254,7 +253,7 @@ grip enum('1','2','3','4','5'),
 depth DECIMAL(4,1),
 comment varchar(1024),
 name smallint,
-primary key (storedReportID)
+primary key (reportID)
 )engine=innodb;
 
 insert into Ski (password, firstName, lastName, email, number, type, regDate) values
@@ -312,7 +311,6 @@ insert into Commenta (Kommentar,grade, alias, date) values
 
 -- select avg(grade) from Comment;
 -- select grade from Comment;
-select * from Ent;
 insert into SubPlace (name, placeName, realName, entID, length, height, fakesnow) values 
 ('1','Delstrackor','Hedemora 1:1','1','12','21','23'),
 ('2','Delstrackor','Hedemora 1:2','1','17','476','11'),
@@ -377,6 +375,15 @@ insert into Report (entID, startDate, workDate, rating, underlay, edges, grip, d
 ('1','2011-11-11','2011-10-11','3','3','2','4','65'),
 ('1','2011-11-11','2011-12-11','2','2','4','3','43');
 
+insert into StoredReports (reportID, entID, startDate, workDate, rating, underlay, edges, grip, depth, comment) values
+('31','3','2011-11-12','2011-09-11','1','2','3','4','54','asd'),
+('52','2','2011-11-11','2011-10-11','3','3','2','4','65','asd2'),
+('33','3','2011-11-12','2011-09-11','1','2','3','4','54','asd'),
+('54','2','2011-11-11','2011-10-11','3','3','2','4','65','asd2'),
+('35','3','2011-11-12','2011-09-11','1','2','3','4','54','asd'),
+('56','2','2011-11-11','2011-10-11','3','3','2','4','65','asd2'),
+('7','5','2011-11-13','2011-12-11','2','2','4','3','43','asd3');
+
 insert into CannonSubPlace (CannonID, name, entID, startStamp, endStamp, newStatus, info, comment) values
 ('1','1','2',now(),now(),'off','text från ski','not finnished'),
 ('2','1','1',now(),now(),'off','text från ski1','not finnished'),
@@ -414,3 +421,4 @@ insert into CommentSubPlace (CommentID, name) values
 ('3','2'),
 ('3','3');
 */
+

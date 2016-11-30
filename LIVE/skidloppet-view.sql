@@ -282,3 +282,12 @@ select CannonID, name, CannonSubPlace.entID as id, startStamp, endStamp, newStat
 from CannonSubPlace, Ent
 where Ent.entID = CannonSubPlace.entID;
 -- select * from cv;
+
+
+DROP VIEW IF EXISTS storedR;
+create view storedR as
+SELECT StoredReports.reportID, StoredReports.entID as entID, startDate, workDate, rating, underlay, edges, grip, depth, comment, Ent.firstName, Ent.entID as entID_, Ent.lastName
+
+FROM StoredReports,Ent where StoredReports.entID=Ent.entID order by reportID desc limit 5;
+select * from storedR;
+
