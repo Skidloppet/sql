@@ -79,7 +79,7 @@ BEGIN
 END;
 // 
 DELIMITER ;
--- call CreateSki ('pass','Stefan','Holm','StaffeOG@hotmail.com','0732728934','other');
+-- call CreateSki ('pass','Rune','Lund','Rune.Lund@skidloppet.se','1111111','arenachef');
 -- call EditSki ('4','arenachef');
 -- select * from Ski;
 
