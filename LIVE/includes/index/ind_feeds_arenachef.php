@@ -27,19 +27,15 @@ if(isset($_GET['orderID2'])){
 
 
 
-<div class="w3-container w3-orange" style="border-color:lightblue; border-style: solid; border-width: 5px 5px 0px 5px;">
-  <div class="w3-container w3-section">
-    <div class="w3-row-padding" style="margin:0 -16px">1
-
-      <?php
-      $akut = 0;
-      foreach($pdo->query( 'SELECT count(*) as nmr FROM wo where priority="akut" and entID="1";' ) as $row){
-        $akut = $row['nmr'];
-        if (0 < $akut){
-
-          ?>
-
-
+<?php
+$akut = 0;
+foreach($pdo->query( 'SELECT count(*) as nmr FROM wo where priority="akut" and entID="1";' ) as $row){
+  $akut = $row['nmr'];
+  if (0 < $akut){
+    ?>
+    <div class="w3-container w3-orange" style="border-color:lightblue; border-style: solid; border-width: 5px 5px 0px 5px;">
+      <div class="w3-container w3-section">
+        <div class="w3-row-padding" style="margin:0 -16px">
           <div class="w3-threethird">
             <h1 style="color:red;">Akuta arbetsordrar</h1>
             <table class="w3-table w3-striped w3-white">
@@ -91,33 +87,37 @@ if(isset($_GET['orderID2'])){
             <?php
             echo "</td></tr>";  
           }
+
           ?>   
         </form>
       </table>
     </div>
-</div>
-</div>
-</div>
-
-    <div  class="w3-threethird" style="border-color:lightblue; border-style: solid; border-width: 5px;">
-      <?php
-      include './map.php';
-      ?>
-    </div>
-
-
-
-
-
-
   </div>
 </div>
+</div>
 
-
-<?php 
+<?php
 }
 }
 ?>
+
+
+<div  class="w3-threethird" style="border-color:lightblue; border-style: solid; border-width: 5px;">
+  <?php
+  include './map.php';
+  ?>
+</div>
+
+
+
+
+
+
+</div>
+</div>
+
+
+
 <!-- 
 frågan om att byta entrepenör ansvarig för arbetsorder till DB, fungerar ej.(i tabellen)
 -->
