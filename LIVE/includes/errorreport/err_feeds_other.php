@@ -2,7 +2,8 @@
 <?php
 include'../connect.php';
 ?>
-<br><br>
+
+
 <div id="12" class="w3-container w3-blue">
     <h3>Utskrift av registrerade felanmälningar</h3>
     <table class="w3-table w3-striped w3-white">
@@ -31,66 +32,11 @@ include'../connect.php';
             echo "<td>".$row['errorDesc']."</td>";
             echo "<td>".$row['type']."</td>";
             echo "<td>".$row['errorID']."</td>";
-            ?>
-            <td class="Error-delete">
-            <form action='<?php $_PHP_SELF ?>' method='POST'>
-              <input type="hidden" name="deleteError" value="<?php echo $row['errorID']; ?>">
-              <input class="HoverButton" type="submit" name="delError" value="Delete">
-            </form>
-          </td>
-          <?php
             echo "</tr>";  
         }
       ?>
     </table>
     <br><br>
-</div>
-
-<?php
-  if(isset($_POST['delError'])){
-  $deletedError = $_POST['deleteError'];
-  $sql = "DELETE FROM Error WHERE ErrorID = $deletedError" ;
-  $sql = "DELETE FROM ErrorSubPlace WHERE errorId = $deletedError" ;
-  $stmt = $pdo->prepare($sql);
-  $stmt->execute();
-    }
-?>
-
-<br><br>
- <!-- 
-<div class="w3-container w3-dark-grey w3-padding-32">
-  <div class="w3-row">
-    <div class="w3-container w3-third">
-      <h5 class="w3-bottombar w3-border-green">Demographic</h5>
-      <p>Language</p>
-      <p>Country</p>
-      <p>City</p>
-    </div>
-    <div class="w3-container w3-third">
-      <h5 class="w3-bottombar w3-border-red">System</h5>
-      <p>Browser</p>
-      <p>OS</p>
-      <p>More</p>
-    </div>
-    <div class="w3-container w3-third">
-      <h5 class="w3-bottombar w3-border-orange">Target</h5>
-      <p>Users</p>
-      <p>Active</p>
-      <p>Geo</p>
-      <p>Interests</p>
-    </div>
-  </div>
-</div>
--->
-<!-- Footer -->
-<footer class="w3-container w3-padding-16 w3-light-grey">
-  <!-- <h4>FOOTER</h4> -->
-  <p>Powered by <a href="http://www.his.se" target="_blank">SLITAB</a></p>
-</footer>
-
-<!-- End page content -->
-</div>
-</div>
 </div>
 
 <script>

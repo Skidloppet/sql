@@ -10,16 +10,7 @@ include'../connect.php';
   <form action='backend_ErrorReport.php' method='POST'>
     <textarea rows="5" cols="70" name="desc" placeholder="Beskriv problemet..."></textarea>
     </br>
-    <!--<p>Ange graden av problemets påverkan</p>-->
 
-    <!--<select name='grade'>
-      <option selected="selected"> Sätt nivå</option>
-      <option value="low">Lågt - Påverkar knappt</option>
-      <option value="medium">Medium - Påverkar en del</option>
-      <option value="high">Hög - Påverkar mycket</option>
-      <option value="akut">Akut - Grovt problem</option>
-    </select>
-    <br><br> -->
     <p>Ange problemets typ:</p>
     <select name='type'>
       <option selected="selected"> Sätt typ</option>
@@ -30,15 +21,6 @@ include'../connect.php';
       <option value="other">Annat</option>
     </select>
     <br>
-
-
-    <!--<input type="text" name="type" placeholder="type.."></p>-->
-
-
-    <!-- Ändra till session! (Entreprenör) -->
-    <!--<p>Ange ansvarig entreprenörs id, ex: 1:</p>
-    <input type="text" name="entID" placeholder="entID.."></p>
-    -->
 
     <!-- Listbox till att välja startsträcka-->
     <p>Vart startade problemet?:</p>
@@ -52,10 +34,6 @@ include'../connect.php';
     ?>
     </select><br>
 
-
-    <!--<input type="text" name="Start" placeholder="Start.."></p>-->
-
-
     <!-- Listbox till att välja slutsträcka-->
     <p>Vart slutar problemets inverkan?:</p>
         <select name='Slut'>    
@@ -68,15 +46,10 @@ include'../connect.php';
     ?>
     </select><br><br>
 
-    <!--<input type="text" name="Slut" placeholder="Slut.."></p>-->
-
-
     <p><button type="submit" name="Error">Ny felanmälan</button></p></form>
 
 
   <?php
-#  $em = $_SESSION['email'];
-
   if(isset($_POST['Error'])){
 
     $sql = "CALL _NewError(:newErrorDesc, :newEntID, NOW() , :newType, :startName, :endName);";
@@ -106,7 +79,7 @@ include'../connect.php';
             echo "<th style='background-color:white;'>Skickad:</th>";
             echo "<th style='background-color:white;'>Beskrivning:</th>";
             echo "<th style='background-color:white;'>Typ:</th>";
-            echo "<th style='background-color:white;'>Errorid:</th>";
+            echo "<th style='background-color:white;'>Error ID:</th>";
             echo "</tr>";
 
           foreach($pdo->query( 'SELECT * 
@@ -148,37 +121,6 @@ include'../connect.php';
 ?>
 
 <br><br>
- <!-- 
-<div class="w3-container w3-dark-grey w3-padding-32">
-  <div class="w3-row">
-    <div class="w3-container w3-third">
-      <h5 class="w3-bottombar w3-border-green">Demographic</h5>
-      <p>Language</p>
-      <p>Country</p>
-      <p>City</p>
-    </div>
-    <div class="w3-container w3-third">
-      <h5 class="w3-bottombar w3-border-red">System</h5>
-      <p>Browser</p>
-      <p>OS</p>
-      <p>More</p>
-    </div>
-    <div class="w3-container w3-third">
-      <h5 class="w3-bottombar w3-border-orange">Target</h5>
-      <p>Users</p>
-      <p>Active</p>
-      <p>Geo</p>
-      <p>Interests</p>
-    </div>
-  </div>
-</div>
--->
-<!-- Footer -->
-<footer class="w3-container w3-padding-16 w3-light-grey">
-  <!-- <h4>FOOTER</h4> -->
-  <p>Powered by <a href="http://www.his.se" target="_blank">SLITAB</a></p>
-</footer>
-
 <!-- End page content -->
 </div>
 </div>
