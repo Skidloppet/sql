@@ -3,6 +3,11 @@ include 'connect.php';
 SESSION_START();
 ?>
 <!DOCTYPE html>
+<?php
+    $sql = "CALL _removeComment()";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute();
+?>
 <html>
 <head>
 <title>Skidloppet AB - Monitor</title>
