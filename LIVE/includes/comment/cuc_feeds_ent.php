@@ -30,11 +30,11 @@ if(isset($_GET['commentID'])){
           <tr>
           <th><i class="fa fa-users w3-orange w3-text-white w3-padding-tiny"></i></th>
           <th>Alias</th>
-		  <th>P√•verkade str√§ckor</th>
+		  <th>PÂverkade str‰ckor</th>
           <th>Betyg</th>
 		  <th>Kommentar</th>
 		  <th>Datum</th>
-          <th>Ta bort</th>
+		  <th></th>
         </tr>        
         <?php     
 
@@ -50,7 +50,7 @@ if(isset($_GET['commentID'])){
           echo "<td>".$row['grade']." / 5 </td>";
           echo "<td>".$row['kommentar']."</td>";
           echo "<td>".$row['date']."</td>";
-          echo "<td><a href='backend.php?commentID=".$row['commentID']."'>Ta bort</a></td>";
+          echo "<td><a href='backend.php?commentID=".$row['commentID']."'>Radera</a></td>";
           echo "</tr>";  
         }
         ?>   
