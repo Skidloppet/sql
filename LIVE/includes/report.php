@@ -1,4 +1,9 @@
-
+<!DOCTYPE html>
+<?php
+include'../connect.php';
+SESSION_START();
+$id = $_SESSION['id'];
+?>
     <?php
     if (!isset($_SESSION['email'])) {
       ?>
@@ -44,11 +49,6 @@
         ?>
       </div>
       <hr>
-
-  
-
-    
-
 <?php
 /*
  SESSION_START();
@@ -330,3 +330,4 @@ if(isset($_POST['storeReport'])){
 ?>
 </table>
 </div>
+*/

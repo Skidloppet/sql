@@ -25,31 +25,13 @@ include'../connect.php';
           echo "<th>kommentar</th>"; 
           echo "</tr>";
 
-          /*foreach($pdo->query( 'SELECT count(*), name, reportID, entID, startDate, workDate, rating, underlay, edges, grip, depth, comment FROM Reporting GROUP BY name HAVING startDate;' ) as $row){
-          */
-          	/*
-          	foreach($pdo->query( 'SELECT Reporting.name, Reporting.reportID, Reporting.entID, Reporting.startDate, Reporting.workDate, Reporting.rating, Reporting.underlay, Reporting.edges, Reporting.grip, Reporting.depth, Reporting.comment, SubPlace.realName, Ent.firstName, Ent.lastName, count(*)
-          		FROM Reporting, Ent, SubPlace
-          		GROUP BY name
-          		HAVING COUNT(*) > 1;' ) 
-          		as $row){
-          			*/
             foreach ($pdo->query('
                 SELECT Reporting.name, Reporting.entID, Reporting.startDate, Reporting.workDate, Reporting.rating, Reporting.underlay, Reporting.edges, Reporting.grip, Reporting.depth, Reporting.comment, SubPlace.realName, Ent.firstName, Ent.lastName, Reporting.reportID
-				from overview, Reporting, SubPlace, Ent
-				WHERE Reporting.name = rspName AND Reporting.reportID = rspID AND Ent.entID = Reporting.entID AND SubPlace.name = Reporting.name
-				GROUP BY Reporting.name;
+				        from overview, Reporting, SubPlace, Ent
+				        WHERE Reporting.name = rspName AND Reporting.reportID = rspID AND Ent.entID = Reporting.entID AND SubPlace.name = Reporting.name
+				        GROUP BY Reporting.name;
               ')as $row) {
                 
-                /*
-          foreach($pdo->query( 'SELECT Reporting.name, Reporting.reportID, Reporting.entID, Reporting.startDate, Reporting.workDate, Reporting.rating, Reporting.underlay, Reporting.edges, Reporting.grip, Reporting.depth, Reporting.comment, SubPlace.realName, Ent.firstName, Ent.lastName
-			FROM Reporting as a, Ent, SubPlace
-			WHERE NOT EXISTS(SELECT *
-                 FROM Reporting as b
-                 WHERE b.reportID = a.reportID AND b.startDate > a.startDate)' ) as $row){
-          */
-          //echo "<tr><td>";
-          //echo "<a href='test.php?entID=".urlencode($row['entID'])."'>".$row['entID'];
           echo "<tr>";
           echo "<td>".$row['name']."</td>";
           echo "<td>".$row['realName']."</td>";
@@ -147,31 +129,7 @@ if(isset($_POST['storeReport'])){
 ?>
 </table>
 <br><br>
- <!-- 
-<div class="w3-container w3-dark-grey w3-padding-32">
-  <div class="w3-row">
-    <div class="w3-container w3-third">
-      <h5 class="w3-bottombar w3-border-green">Demographic</h5>
-      <p>Language</p>
-      <p>Country</p>
-      <p>City</p>
-    </div>
-    <div class="w3-container w3-third">
-      <h5 class="w3-bottombar w3-border-red">System</h5>
-      <p>Browser</p>
-      <p>OS</p>
-      <p>More</p>
-    </div>
-    <div class="w3-container w3-third">
-      <h5 class="w3-bottombar w3-border-orange">Target</h5>
-      <p>Users</p>
-      <p>Active</p>
-      <p>Geo</p>
-      <p>Interests</p>
-    </div>
-  </div>
-</div>
--->
+
 
 <!-- End page content -->
 </div>
