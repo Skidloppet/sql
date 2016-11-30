@@ -35,7 +35,7 @@ foreach($pdo->query( 'SELECT count(*) as nmr FROM wo where priority="akut" and e
       <div class="w3-container w3-section">
         <div class="w3-row-padding" style="margin:0 -16px">
           <div class="w3-threethird">
-            <h1 style="color:red;">Akuta arbetsordrar</h1>
+            <h1><b>Akuta arbetsordrar</b></h1>
             <table class="w3-table w3-striped w3-white">
               <tr>
                 <td><i class="fa fa-users w3-orange w3-text-white w3-padding-tiny"></i></td>
@@ -45,7 +45,6 @@ foreach($pdo->query( 'SELECT count(*) as nmr FROM wo where priority="akut" and e
                 <th>Information</th>
                 <th>Datum skickad</th>
                 <th>Skapad av</th>
-                <th>Ange entrepenör</th>
               </tr> 
 
               <?php     
@@ -54,7 +53,6 @@ foreach($pdo->query( 'SELECT count(*) as nmr FROM wo where priority="akut" and e
               foreach($pdo->query( 'SELECT * FROM wo where priority="akut" and entID="1" order by orderID desc;' ) as $row){
 
                echo"      <form action='backend.php' method='POST'>       ";
-
                echo "<tr>";
                echo "<td><i class='fa fa-eye w3-blue w3-padding-tiny'></i></td>";
                echo "<td name='orderID'>".$row['orderID']."</td>";
@@ -63,25 +61,7 @@ foreach($pdo->query( 'SELECT count(*) as nmr FROM wo where priority="akut" and e
                echo "<td>".$row['info']."</td>";
                echo "<td>".$row['sentDate']."</td>";
                echo "<td>".$row['entF']." ".$row['entL']." ( ".$row['entID']." )</td>";
-               echo "<td>".$row['info']."</td>";
-               echo "<td>".$row['sentDate']."</td>";
-               echo "<td>"
-               ?>
-
-               <select name='entID'>    
-                <?php 
-              # i varje rad av svar den skriver ut så skapas en lista med alla Ent förnamn&efternamn
-              # sätter value till entrepenöresns ID 
-                foreach ($pdo->query('SELECT * FROM Ent') as $row) {
-                  echo '<option value="'.$row['entID'].'">';
-                  echo $row['firstName']." ".$row['lastName'];
-                  echo "</option>";
-                }
-                ?>
-              </select><p><button type="submit" name="newEnt">Sätt entrepenör ansvar</button></p>
-            </form>
-            <?php
-            echo "</td></tr>";  
+               echo "</tr>";  
           }
 
           ?>   

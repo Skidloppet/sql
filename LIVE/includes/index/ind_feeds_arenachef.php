@@ -126,6 +126,7 @@ if(isset($_POST['newEnt'])){
       <tr>
         <th><i class="fa fa-users w3-orange w3-text-white w3-padding-tiny"></i></th>
         <th>Order ID</th>
+        <th>Område(n)</th>
         <th>Arbetsorder-Typ</th>
         <th>Prioritet</th>
         <th>Ansvarig</th>
@@ -138,8 +139,14 @@ if(isset($_POST['newEnt'])){
       <?php     
 
       foreach($pdo->query( 'SELECT * FROM wo order by orderID desc;' ) as $row){
+        $luck = $row ['orderID'];
         echo "<tr><td><i class='fa fa-eye w3-blue w3-padding-tiny'></i></td>";
         echo "<td>".$row['orderID']."</td>";
+        echo "<td>";
+        foreach($pdo->query( 'select realName from SubPlace, SubPlaceWorkOrder where SubPlace.name = SubPlaceWorkOrder.name and SubPlaceWorkOrder.orderID = '.$luck.';' ) as $brow){;
+          echo $brow['realName']."</br>";
+        };
+        echo "</td>";
         echo "<td>".$row['type']."</td>";
         echo "<td>".$row['priority']."</td>";
         echo "<td>".$row['entF']." ".$row['entL']."</td>";
@@ -164,6 +171,7 @@ if(isset($_POST['newEnt'])){
       <tr>
         <th><i class="fa fa-users w3-orange w3-text-white w3-padding-tiny"></i></th>
         <th>Report-ID</th>
+        <th>Spårade delsträckor</th>
         <th>Entrepenör</th>
         <th>Avklarad</th>
         <th>Nästa planerade pass</th>
@@ -173,14 +181,18 @@ if(isset($_POST['newEnt'])){
         <th>Stavfäste</th>
         <th>Snödjup</th>
         <th>Kommentar</th>
-        <th>Spårade delsträckor</th>
       </tr>        
       <?php     
 
       foreach($pdo->query( 'select * from storedR;' ) as $row){
+        $luck = $row ['reportID'];
         echo "<tr><td><i class='fa fa-eye w3-blue w3-padding-tiny'></i></td>";
         echo "<td>".$row['reportID']."</td>";
-        echo "<td>".$row['firstName']." ".$row['lastName']." ( ".$row['entID']." )</td>";
+        echo "<td>";
+        foreach($pdo->query( 'select realName from SubPlace, ReportSubPlace where SubPlace.name = ReportSubPlace.name and ReportSubPlace.reportID = '.$luck.';' ) as $brow){;
+          echo $brow['realName']."</br>";
+        };
+        echo "</td>";        echo "<td>".$row['firstName']." ".$row['lastName']." ( ".$row['entID']." )</td>";
         echo "<td>".$row['startDate']."</td>";
         echo "<td>".$row['workDate']."</td>";
         echo "<td>".$row['rating']."</td>";
@@ -189,11 +201,10 @@ if(isset($_POST['newEnt'])){
         echo "<td>".$row['grip']."</td>";
         echo "<td>".$row['depth']."</td>";
         echo "<td>".$row['comment']."</td>";
-        echo "<td>tom..foreach alla N:M</td>";
         echo "</tr>";  
       }
       ?>   
-       </table>
+    </table>
   </div>
 
 </div>

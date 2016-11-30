@@ -39,13 +39,12 @@ include 'index/ind_headerbox.php';
           }
           elseif (isset($_SESSION['email'])&&($_SESSION['type'] == 'other')) {
 
-            include 'workorder/wo_headerbox_other.php';
             ?>
             <div class="w3-container w3-section">
               <div class="w3-row-padding" style="margin:0 -16px">
                 <div class="w3-threethird">
                   <?php
-                  include 'workorder/wo_feeds_other.php';
+                  include 'index/ind_feeds_other.php';
                 }
                 elseif (isset($_SESSION['email'])&&($_SESSION['type'] > '1')) {
 
