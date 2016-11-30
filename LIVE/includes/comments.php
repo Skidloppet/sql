@@ -34,6 +34,7 @@ if(isset($_GET['commentID'])){
           <th>Betyg</th>
 		  <th>Kommentar</th>
 		  <th>Datum</th>
+		  <th></th>
         </tr>        
         <?php     
 
