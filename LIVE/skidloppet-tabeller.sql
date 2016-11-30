@@ -157,7 +157,7 @@ create table Error (
 errorID int not null auto_increment,
 entID smallint null,
 -- null entID för alla felanmälanden som skapas av motionärer
-sentDate timestamp,
+sentDate DATETIME,
 -- grade enum('low','medium','high','akut'),
 errorDesc varchar(1024),
 type enum('lights','tracks','dirt','trees','other') not null,
@@ -264,7 +264,8 @@ insert into Ski (password, firstName, lastName, email, number, type, regDate) va
 ('pass','Rune','Lund','Rune.Lund@skidloppet.se','04040404','arenachef','2016-11-01');
 
 insert into Ent (password, firstName, lastName, email, number, regDate) values 
-('sture','Sture','Ekman','Sture.Ekman@skidloppet.se','00562432','2016-11-01'),
+('pass','ej angivet','','ent','02562432','2016-11-012'),
+('pass','Sture','Ekman','Sture.Ekman@skidloppet.se','00562432','2016-11-01'),
 ('andersson','Bröderna','Andersson','Bröderna.Andersson@skidloppet.se','00562736','2016-11-01'),
 ('persson','Siv-Jan','Persson','SoJ.Persson@skidloppet.se','00561122','2016-11-01'),
 ('jonas','Jonas','Hed','Jonas.Hed@skidloppet.se','0054231','2016-11-01'),
@@ -274,16 +275,6 @@ insert into Ent (password, firstName, lastName, email, number, regDate) values
 ('vidar','Vidar','Ytter','Vidar.Ytter@skidloppet.se','00551232','2016-11-01'),
 ('urban','Urban','Garv','Urban.Garv@skidloppet.se','0057131323','2016-11-01');
 
-
-/* Sture Ekman, delsträckor 1, 2
-Bröderna Andersson delsträckor 3, 4
-Siv och Jan Persson delsträckor 5, 6, 7
-Jonas Hed delsträckor 8, 9, 10
-Oswald Ek delsträckor 11, 12
-Rune Kvarn delsträckor 13, 14, 15
-Iris Sax delsträckor 16, 17
-Vidar Ytter delsträckor 18, 19
-Urban Garv delsträckor 20, 21 */
 
 insert into Place (name, info) values 
 ('Vattendrag','Vattendrag som är tillängliga för snötillverkning'),
@@ -390,11 +381,9 @@ insert into CannonSubPlace (CannonID, name, entID, startStamp, endStamp, newStat
 ('3','1','3',now(),now(),'on','text från ski2','not finnished');
 
 
-/*
-insert into Error (entID, sentDate, grade, errorDesc, type) values 
-('1',now(),'high','fallna träd','trees'),
-('1',now(),'akut','grus','dirt'),
-('1',now(),'high','fallna träd','trees');
+/* 
+insert into Error (entID, sentDate, errorDesc, type) values 
+('1',NOW(),'fallna träd','trees');
 */
 
 /*
@@ -421,4 +410,5 @@ insert into CommentSubPlace (CommentID, name) values
 ('3','2'),
 ('3','3');
 */
+
 

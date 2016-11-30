@@ -4,28 +4,6 @@ include '../connect.php';
 ?>	
 
 <?php
-
-if(isset($_GET['orderID'])){
- $querystring='DELETE FROM WorkOrder WHERE orderID = :orderID';
- $stmt = $pdo->prepare($querystring);
- $stmt->bindParam(':orderID', $_GET['orderID'], PDO::PARAM_INT);
- $stmt->execute();
- echo "Arbetsorder borttagen";
-}
-?>
-
-<?php
-
-if(isset($_GET['orderID2'])){
- $querystring='CALL _finnishedWorkOrder(:orderID,"1",NOW(),"logged by: '.$_SESSION['email'].'")';
- $stmt = $pdo->prepare($querystring);
- $stmt->bindParam(':orderID', $_GET['orderID2']);
- $stmt->execute();
- echo "Arbetsorder arkiverad";
-}
-?>
-
-<?php
 $akut = 0;
 foreach($pdo->query( 'SELECT count(*) as nmr FROM wo where priority="akut" and entID="1";' ) as $row){
   $akut = $row['nmr'];
@@ -62,17 +40,16 @@ foreach($pdo->query( 'SELECT count(*) as nmr FROM wo where priority="akut" and e
                echo "<td>".$row['sentDate']."</td>";
                echo "<td>".$row['entF']." ".$row['entL']." ( ".$row['entID']." )</td>";
                echo "</tr>";  
-          }
+             }
 
-          ?>   
-        </form>
-      </table>
-    </div>
-  </div>
-</div>
-</div>
-
-<?php
+             ?>   
+           </form>
+         </table>
+       </div>
+     </div>
+   </div>
+ </div>
+ <?php
 }
 }
 ?>
@@ -112,8 +89,6 @@ if(isset($_POST['newEnt'])){
         <th>Information</th>
         <th>Datum skickad</th>
         <th>Skapad av</th>
-        <th>Ta bort</th>
-        <th>Arkivera</th>
       </tr>        
       <?php     
 
@@ -126,8 +101,6 @@ if(isset($_POST['newEnt'])){
         echo "<td>".$row['info']."</td>";
         echo "<td>".$row['sentDate']."</td>";
         echo "<td>".$row['skiF']." ".$row['skiL']."</td>";
-        echo "<td><a href='backend_wo.php?orderID=".$row['orderID']."'>Ta bort</a></td>";
-        echo "<td><a href='backend_wo.php?orderID2=".$row['orderID']."'>logga</a></td>";
         echo "</tr>";  
       }
       ?>   
@@ -173,7 +146,7 @@ if(isset($_POST['newEnt'])){
         echo "</tr>";  
       }
       ?>   
-       </table>
+    </table>
   </div>
 
 </div>

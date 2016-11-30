@@ -63,8 +63,6 @@ foreach($pdo->query( 'SELECT count(*) as nmr FROM wo where priority="akut" and e
                echo "<td>".$row['info']."</td>";
                echo "<td>".$row['sentDate']."</td>";
                echo "<td>".$row['entF']." ".$row['entL']." ( ".$row['entID']." )</td>";
-               echo "<td>".$row['info']."</td>";
-               echo "<td>".$row['sentDate']."</td>";
                echo "<td>"
                ?>
 
@@ -78,12 +76,11 @@ foreach($pdo->query( 'SELECT count(*) as nmr FROM wo where priority="akut" and e
                   echo "</option>";
                 }
                 ?>
-              </select><p><button type="submit" name="newEnt">Sätt entrepenör ansvar</button></p>
+              </select><p><button type="submit" name="newEnt">Fastställ <i class='fa fa-check'></i> </button></p>
             </form>
             <?php
             echo "</td></tr>";  
           }
-
           ?>   
         </form>
       </table>
@@ -153,8 +150,8 @@ if(isset($_POST['newEnt'])){
         echo "<td>".$row['info']."</td>";
         echo "<td>".$row['sentDate']."</td>";
         echo "<td>".$row['skiF']." ".$row['skiL']."</td>";
-        echo "<td><a href='backend_wo.php?orderID=".$row['orderID']."'>Ta bort</a></td>";
-        echo "<td><a href='backend_wo.php?orderID2=".$row['orderID']."'>logga</a></td>";
+        echo "<td><button><i class='fa fa-ban'></i><a href='backend_wo.php?orderID=".$row['orderID']."'> Ta bort</a></button></td>";
+        echo "<td><button><i class='fa fa-check'></i><a href='backend_wo.php?orderID2=".$row['orderID']."'> Logga</a></button></td>";
         echo "</tr>";  
       }
       ?>   

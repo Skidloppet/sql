@@ -12,11 +12,9 @@
 10. Vy för status på del-sträcka (SKI-VY)
 11. Vy för snökanoner och konstsnöstatus på del-sträcka
 12. Vy för avklarade arbetsordrar
-KVAR ATT GÖRA!
-
-Vy för där alla arbetsordar och snökanonsordrar som är tilldelade en visas skiID 
-Vy för inskickade felanälningar (Error från kund & ent)ink. procedure för borttagning
-Vy för inkommande arbetsordrar
+.?
+.?
+.?
 */
  
 
@@ -257,7 +255,7 @@ group by Ent.entID;
 DROP VIEW IF EXISTS wo;
 create view wo as
 select Ent.lastName as entL, Ent.firstName entF,Ent.entID,
- Ski.lastName as skiL, Ski.firstName as skiF, 
+ Ski.lastName as skiL, Ski.firstName as skiF, Ent.email as email,
 sentDate, priority, WorkOrder.type, info, orderID
 
 from Ent, WorkOrder, Ski 
@@ -286,8 +284,28 @@ where Ent.entID = CannonSubPlace.entID;
 
 DROP VIEW IF EXISTS storedR;
 create view storedR as
-SELECT StoredReports.reportID, StoredReports.entID as entID, startDate, workDate, rating, underlay, edges, grip, depth, comment, Ent.firstName, Ent.entID as entID_, Ent.lastName
+SELECT StoredReports.reportID, StoredReports.entID as entID, startDate, workDate, rating, underlay, edges, grip, depth, comment, Ent.firstName, Ent.entID as entID_, Ent.lastName, email
 
 FROM StoredReports,Ent where StoredReports.entID=Ent.entID order by reportID desc limit 5;
-select * from storedR;
+-- select * from storedR;
+
+DROP VIEW IF EXISTS er;
+create view er as
+SELECT *
+FROM Error where sentDate > DATE_SUB(CURDATE(), INTERVAL 1 DAY);
+-- select * from er;
+
+
+DROP VIEW IF EXISTS erSP;
+create view erSP as
+SELECT name from Error, ErrorSubPlace where Error.errorID = ErrorSubPlace.errorID;
+-- select * from erSP;
+
+
+DROP VIEW IF EXISTS co;
+create view co as
+SELECT *
+FROM Commenta where date > DATE_SUB(CURDATE(), INTERVAL 1 DAY);
+-- select * from co;
+
 
