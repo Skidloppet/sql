@@ -41,7 +41,7 @@ $em = $_SESSION['em'];
 
       include 'workorder/wo_headerbox_ent.php';
       ?>
-      <div class="w3-container w3-section">
+      <div class="w3-container w3-section w3-blue">
         <div class="w3-row-padding" style="margin:0 -16px">
           <div class="w3-threethird">
             <?php
@@ -50,25 +50,6 @@ $em = $_SESSION['em'];
           else{
             echo "if this message is showing your logged in as a hacker or smt";
           }
-          
-
-
-
-
-
-
-
-
-
-
-          if(isset($_GET['akutOrderID'])){
-          $querystring='call _akut (:_orderID, :_EM);';
-          $stmt = $pdo->prepare($querystring);
-          $stmt->bindParam(':_orderID', $_GET['akutOrderID']);
-          $stmt->bindParam(':_EM', $em);
-          $stmt->execute();
-          echo "akut order uppdaterad";
-        }
 
         ?>
       </div>

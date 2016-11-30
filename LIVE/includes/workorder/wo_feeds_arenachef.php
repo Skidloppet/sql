@@ -26,7 +26,7 @@ if(isset($_GET['orderID2'])){
 ?>
 
 
-<div class="w3-container w3-orange w3-section">
+<div class="w3-container w3-orange">
     <div class="w3-container w3-section">
     <div class="w3-row-padding" style="margin:0 -16px">
 
@@ -54,7 +54,7 @@ if (0 < $akut){
           <th>Ange entrepenör</th>
         </tr> 
 
-
+        
 
           <?php     
         # hämtar alla aktiva arbetsordrar(WorkOrder) som tillhör det autoangivna akutID (#1)
