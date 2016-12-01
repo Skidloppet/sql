@@ -202,7 +202,7 @@ CommentID int not null,
 name smallint not null,
 -- Kanske lägga till datum för att ta bort gamla kommentarer?
 primary key (commentID, name),
-foreign key (commentID) references Commenta(commentID),
+foreign key (commentID) references Commenta(commentID)ON DELETE CASCADE,
 foreign key (name) references SubPlace(name)
 )engine=innodb;
 
