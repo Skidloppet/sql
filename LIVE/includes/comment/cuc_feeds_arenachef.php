@@ -46,14 +46,33 @@ if(isset($_GET['commentID'])){
           echo "<td>".$row['grade']." / 5 </td>";
           echo "<td>".$row['kommentar']."</td>";
           echo "<td>".$row['date']."</td>";
-          echo "<td><a href='backend.php?commentID=".$row['commentID']."'>Radera</a></td>";
           echo "</tr>";  
-        }
+        
         ?>  
+		   <td class="comment-delete">
+           <form action="<?php echo $_SERVER["SCRIPT_NAME"] ?>" method='POST'>
+           <input type="hidden" name="deleteComment" value="<?php echo $row['commentID']; ?>">
+           <input class="HoverButton" type="submit" name="delComment" value="Delete" id="tja">
+           </form>
+           </td>
+
+		   
+		<?php
+        echo "</tr>";  
+        }
+        ?>
 		
       </table>
     </div>
+    <?php
+  if(isset($_POST['delComment'])){
+  $deletedComment = $_POST['deleteComment'];
+  $sql = "DELETE FROM Commenta WHERE commentID = $deletedComment" ;
+  $stmt = $pdo->prepare($sql);
+  $stmt->execute();
+    }
+  ?>
+  </div>
+  </div>
+  </div>
 
-  </div>
-  </div>
-  </div>

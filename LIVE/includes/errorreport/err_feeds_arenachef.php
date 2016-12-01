@@ -36,7 +36,7 @@ include'../connect.php';
             <td class="Error-delete">
             <form action='<?php $_PHP_SELF ?>' method='POST'>
               <input type="hidden" name="deleteError" value="<?php echo $row['errorID']; ?>">
-              <input class="HoverButton" type="submit" name="delError" value="Delete">
+              <input class="HoverButton" type="submit" name="delComment" value="Delete">
             </form>
           </td>
           <?php
