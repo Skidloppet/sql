@@ -48,12 +48,12 @@ include'connect.php';
 	<th>Select </th>
 	<tr>
 		<?php
-	    foreach($pdo->query( 'SELECT cannonID, model, status, effect, realName  FROM Cannon, SubPlace where SubPlace.name = Cannon.subPlaceName;') as $row){
+	    foreach($pdo->query( 'SELECT cannonID, model, state, effect, realName  FROM Cannon, SubPlace where SubPlace.name = Cannon.subPlaceName;') as $row){
 		    echo "<tr>";
 		    echo "<td>".$row['cannonID']."</td>";
 		    echo "<td>".$row['model']."</td>";
 		    echo "<td>".$row['realName']."</td>";
-		    echo "<td>".$row['status']."</td>";
+		    echo "<td>".$row['state']."</td>";
 		    echo "<td>".$row['effect']."</td>";
 	    	echo '<form><th><input type="checkbox" name="selected" value="'.$row["cannonID"].'"></th>';
 	        echo "</tr>";
@@ -109,7 +109,7 @@ include'connect.php';
 	    $stmt->bindParam(":cannonID", $_POST['selected'], PDO::PARAM_INT);
 	    $stmt->bindParam(":name", $_POST['name'], PDO::PARAM_INT);
 	    $stmt->bindParam(":entID", $_POST['entID'], PDO::PARAM_INT);
-	    $stmt->bindParam(":newStatus", $_POST['status'], PDO::PARAM_STR);
+	    $stmt->bindParam(":newStatus", $_POST['state'], PDO::PARAM_STR);
 	    $stmt->execute();
 	}
 	    
