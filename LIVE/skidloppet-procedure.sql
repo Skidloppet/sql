@@ -368,7 +368,7 @@ END //
 DELIMITER ;
 /*
 call _newSplitWorkOrder ('1','1',now(),'high','tracks','spåra spåren','1','1','6');
-call _newSplitWorkOrder ('1','1',now(),'high','trees','träda träden','0','1','6');
+call _newSplitWorkOrder ('1','1',now(),'akut','trees','träda träden','0','1','6');
 select * from SubPlaceWorkOrder;
 select * from WorkOrder;
 */
@@ -559,22 +559,19 @@ DELIMITER ;
 
 
 -- 15 tar alla gammla kommentarer äldre än 48 h
-/*
-ALTERNATIV LÖSNING! (stulet från Christoffer S)
 
+DROP PROCEDURE IF EXISTS _removeComment;
 DELIMITER //
 CREATE PROCEDURE _removeComment()
 begin
-delete *
+delete
 from Commenta
 where date < DATE_SUB(CURDATE(), interval 48 hour);
+END //
 DELIMITER ;
 
-/*
-DELETE FROM Commenta 
-WHERE
-    date < NOW() - INTERVAL 48 HOUR;
--- select * from Commenta;
+call _removeComment();
+
 
 
 

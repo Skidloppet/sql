@@ -3,6 +3,11 @@ include 'connect.php';
 SESSION_START();
 ?>
 <!DOCTYPE html>
+<?php
+    $sql = "CALL _removeComment()";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute();
+?>
 <html>
 <head>
 <title>Skidloppet AB - Monitor</title>
@@ -31,7 +36,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 
       <!-- Header -->
 	  <header class="w3-container" style="padding-top:22px">
-      <h5><b><i class="fa fa-dashboard"></i> My Dashboard</b></h5>
+     
       </header>
 	  
 	 
@@ -72,6 +77,17 @@ function w3_open() {
 function w3_close() {
   mySidenav.style.display = "none";
   overlayBg.style.display = "none";
+}
+
+function MakeRequest(id) {
+    $.ajax({
+        url : 'includes/'+id+'.php',
+        type: 'GET',
+		
+        success: function(data){
+            $('.includes').html(data);
+        }
+    });
 }
 
 //Meny AJAX
