@@ -62,7 +62,7 @@ foreach($pdo->query( 'select count(*)as i2 from FinnishedWorkOrder;' ) as $row){
       <span onclick="document.getElementById('id01').style.display='none'"
       class="w3-closebtn">&times;</span>
       <h3>Skapa ny arbetsorder</h3>
-      <form action='<?php $_PHP_SELF ?>' method='POST'>
+      <form action='<?php echo $_SERVER['SCRIPT_NAME']; ?>' method='POST'>
         <p>Prioritet  *</p>
         <select name="Prioritering">
           <?php
@@ -139,7 +139,7 @@ foreach($pdo->query( 'select count(*)as i2 from FinnishedWorkOrder;' ) as $row){
 
               #hantera när ingen slutstation är vald
 # dubbla = kanske?
-           if ($_POST['Slut'] = "0"){
+              if ($_POST['Slut'] = "0"){
                 $_POST['Slut'] = $_POST['Start']; 
               }
 
@@ -192,7 +192,7 @@ foreach($pdo->query( 'select count(*)as i2 from FinnishedWorkOrder;' ) as $row){
 
           <div class="w3-container w3-blue">
             <h3>Ändra ansvar för en arbetsorder till ny entrepenör</h3>
-            <form action="<?php echo $_SERVER["SCRIPT_NAME"] ?>" method='POST'>
+            <form action='<?php echo $_SERVER['SCRIPT_NAME']; ?>' method='POST'>
               <select name="orderID">
                 <option >Arbetsorder ID</option>
                 <?php    
@@ -225,7 +225,7 @@ foreach($pdo->query( 'select count(*)as i2 from FinnishedWorkOrder;' ) as $row){
             # DEN UPPDATERAR INTE LISTAN OVAN (endast om man laddar om sidan..)
                     header("refresh: 3;");
                   }    
-                
+                  
                   ?>
                   <hr>
                 </div>
@@ -260,12 +260,7 @@ foreach($pdo->query( 'select count(*)as i2 from FinnishedWorkOrder;' ) as $row){
                     ?>   
                   </table>
                 </div>
-
-
-
-
               </div>
-
             </div>
 
             <!-- The Modal -->

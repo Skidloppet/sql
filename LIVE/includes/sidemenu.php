@@ -20,7 +20,7 @@ include 'connect.php';
   </div>
 <!-- Sidenav/menu -->
 <nav class="w3-sidenav w3-collapse w3-white w3-animate-left" style="z-index:3;width:300px;" id="mySidenav"><br>
-  <div class="w3-container w3-row">
+  <a><div class="w3-container w3-row">
     <div class="w3-col s4">
       <img src="/w3images/avatar2.png" class="w3-circle w3-margin-right" style="width:46px">
     </div>
@@ -38,7 +38,7 @@ include 'connect.php';
       <br>
       <a href="logout.php" class="w3-hover-none w3-hover-text-red w3-show-inline-block"><i class="fa fa-unlock"></i> Logga ut</a>
     </div>
-  </div>
+  </div></a>
   <hr>
 
   <div class="w3-container">
@@ -55,12 +55,12 @@ include 'connect.php';
   }
   else {
     ?>
-    <a href="#" data-content="index" class="<?php if(basename($_SERVER['SCRIPT_NAME']) == 'backend_index.php') {echo 'w3-padding w3-blue'; }else { echo 'w3-padding'; }?>"><i class="fa fa-dashboard fa-fw"></i>  Översikt</a>
-    <a href="#" data-content="report" class="<?php if(basename($_SERVER['SCRIPT_NAME']) == 'backend_report.php'){echo 'w3-padding w3-blue'; }else { echo 'w3-padding'; } ?>"><i class="fa fa-history fa-fw"></i>  Rapportera</a>
+    <a href="#" data-content="index" class="<?php if(basename($_SERVER['SCRIPT_NAME']) == 'index.php') {echo 'w3-padding w3-blue'; }else { echo 'w3-padding'; }?>"><i class="fa fa-dashboard fa-fw"></i>  Översikt</a>
+    <a href="#" data-content="report" class="<?php if(basename($_SERVER['SCRIPT_NAME']) == 'report.php'){echo 'w3-padding w3-blue'; }else { echo 'w3-padding'; } ?>"><i class="fa fa-history fa-fw"></i>  Rapportera</a>
     <a href="#" data-content="workorder" class="<?php if(basename($_SERVER['SCRIPT_NAME']) == 'workorder.php'){echo 'w3-padding w3-blue'; }else { echo 'w3-padding'; } ?>"><i class="fa fa-eye fa-fw"></i>  Arbetsordrar</a>
-    <a href="#" data-content="errorreport" class="<?php if(basename($_SERVER['SCRIPT_NAME']) == 'backend_ErrorReport.php'){echo 'w3-padding w3-blue'; }else { echo 'w3-padding'; } ?>"><i class="fa fa-comment fa-fw"></i>  Felanmälan</a>
-    <a href="#" data-content="comments" class="<?php if(basename($_SERVER['SCRIPT_NAME']) == 'backend_kom.php'){echo 'w3-padding w3-blue'; }else { echo 'w3-padding'; } ?>"><i class="fa fa-users fa-fw"></i>  Kundkommentarer</a>
-    <a href="#" data-content="archive" class="<?php if(basename($_SERVER['SCRIPT_NAME']) == 'backend_ark.php'){echo 'w3-padding w3-blue'; }else { echo 'w3-padding'; } ?>"><i class="fa fa-history fa-fw"></i>  Arkiv</a>
+    <a href="#" data-content="errorreport" class="<?php if(basename($_SERVER['SCRIPT_NAME']) == 'errorreport.php'){echo 'w3-padding w3-blue'; }else { echo 'w3-padding'; } ?>"><i class="fa fa-comment fa-fw"></i>  Felanmälan</a>
+    <a href="#" data-content="comments" class="<?php if(basename($_SERVER['SCRIPT_NAME']) == 'comments.php'){echo 'w3-padding w3-blue'; }else { echo 'w3-padding'; } ?>"><i class="fa fa-users fa-fw"></i>  Kundkommentarer</a>
+    <a href="#" data-content="archive" class="<?php if(basename($_SERVER['SCRIPT_NAME']) == 'archive.php'){echo 'w3-padding w3-blue'; }else { echo 'w3-padding'; } ?>"><i class="fa fa-history fa-fw"></i>  Arkiv</a>
     <a href=""><?php   echo basename($_SERVER['SCRIPT_NAME']); ?></a>
     <?php
 

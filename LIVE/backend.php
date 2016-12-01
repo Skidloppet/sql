@@ -1,8 +1,12 @@
 <?php
 include 'connect.php';
 SESSION_START();
+$id = $_SESSION['id'];
+$em = $_SESSION['email'];
 ?>
-<!DOCTYPE html>
+
+<body>
+
 <?php
     $sql = "CALL _removeComment()";
     $stmt = $pdo->prepare($sql);

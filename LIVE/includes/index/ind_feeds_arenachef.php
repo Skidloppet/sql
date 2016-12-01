@@ -5,8 +5,7 @@ include '../connect.php';
 
 <?php
 if(isset($_POST['bort'])){
- $orderID = $_POST['orderID'];
- $querystring='DELETE FROM WorkOrder WHERE orderID = :orderID';
+ $querystring='DELETE FROM delWO WHERE orderID = :orderID';
  $stmt = $pdo->prepare($querystring);
  $stmt->bindParam(':orderID', $_POST['orderID'], PDO::PARAM_INT);
  $stmt->execute();
@@ -15,7 +14,6 @@ if(isset($_POST['bort'])){
 ?>
 <?php
 if(isset($_POST['lagra'])){
- $orderID = $_POST['orderID'];
  $querystring='CALL _finnishedWorkOrder(:orderID,'.$id.',NOW(),"logged by: '.$em.'")';
  $stmt = $pdo->prepare($querystring);
  $stmt->bindParam(':orderID', $_POST['orderID'],PDO::PARAM_INT);
@@ -25,8 +23,6 @@ if(isset($_POST['lagra'])){
 ?>
 <?php
 if(isset($_POST['newEnt'])){
-  $entID = $_POST['entID'];
-  $orderID = $_POST['orderID'];
   $sql = "call _newResponsability (:_entID,:_orderID)";
   $stmt = $pdo->prepare($sql);
   $stmt->bindParam(":_entID", $_POST['entID'], PDO::PARAM_INT);

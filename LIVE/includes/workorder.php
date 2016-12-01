@@ -1,20 +1,19 @@
 <!DOCTYPE html>
 <html>
-
-
 <?php
 include'../connect.php';
 SESSION_START();
 $id = $_SESSION['id'];
 $em = $_SESSION['email'];
-
 $WOO = $_SERVER["SCRIPT_NAME"];
-
 ?>
 
-<body>
+
 
 <div class="w3-container w3-section">
+  <div class="w3-row-padding" style="margin:0 -16px">
+
+    <!-- inlogg om ej inloggad -->
 
   <?php
   if (!isset($_SESSION['email'])) {
