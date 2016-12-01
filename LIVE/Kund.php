@@ -3,6 +3,12 @@ SESSION_START();
 include'connect.php';
 # funkar ej
 # default_charset = "utf-8";
+
+
+    $sql = "CALL _removeComment()";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute();
+
 ?>
 
 
@@ -197,11 +203,29 @@ article {
     overflow: hidden;
 }
 
+<!-- skroll funktionen för kommentarer -->
+
+#table-wrapper {
+  position:relative;
+}
+#table-scroll {
+  height:400px;
+  overflow:auto;  
+  margin-top:20px;
+}
+
+#table-wrapper table thead th .text {
+  position:absolute;   
+  top:-20px;
+  z-index:2;
+  height:20px;
+  width:35%;
+  border:1px solid red;
+}
 
 </style>
 
 <body>
-
   <!-- Navbar -->
   <div class="w3-top">
     <ul class="w3-navbar w3-#009933 w3-card-2 w3-left-align">
@@ -218,6 +242,13 @@ article {
       <?php
       if (!isset($_SESSION['email'])) {
         ?>
+		
+		
+		
+<li style="float: right" >
+<a href="kundE.php" <i class="fa fa-globe w3-xxlarge" aria-hidden="true"></i></a>
+</li>
+<!-- <i class="fa fa-globe w3-xxxlarge" aria-hidden="true"></i> -->
 
 
 
@@ -301,11 +332,19 @@ article {
 
   
 <!-- kartan -->  
+<div class="w3-container w3-content w3-padding-64" style="max-width:950px" id="Status">
 <?php
-
-include 'includes/map.php';
-
+include'includes/mapFkund.php';
 ?>
+</div>
+
+
+
+
+
+
+
+
 
 <div class="w3-container w3-content w3-padding-64" style="max-width:950px" id="Kommentar1">
 <!--  <h3>skriver bara ut den som en enkel tabell för test <i class="fa fa-tasks" aria-hidden="true"></i></h3>
@@ -344,6 +383,7 @@ include 'includes/map.php';
 <article>
   <h1>Skidloppet</h1>
   <h3>Betygsförklaring</h3>
+
  <table>
     <tr>
       <th><i class="fa fa-map-marker" aria-hidden="true"></i>Sträckans namn</th>
@@ -356,6 +396,8 @@ include 'includes/map.php';
       <th><i class="fa fa-road" aria-hidden="true"></i>Längd (km)</th>
       <th><i class="fa fa-arrows-v" aria-hidden="true"></i>m.ö.h</th>
     </tr>
+</div>
+</div>
 </article>
 
 <footer>Vald delsträcka</footer>
@@ -397,7 +439,35 @@ include 'includes/map.php';
   
   
   <div class="w3-container w3-content w3-padding-64" style="max-width:950px" id="Kommentar2">
-  <table>
+  <div class="container">
+
+<header>
+   <h1>Kundkommentarer</h1>
+</header>
+<nav>
+  <ul>
+    <li>Komentarer om de olika sträckonra ute på banan. Kommentarena är skrivna av kunder. Kommentarer som är 48 timmar gamla är dem synliga.</li>
+  </ul>
+</nav>
+<article>
+  <h1>Skidloppet</h1>
+  <h3>Kundernas kommentar </h3>
+ <div id="table-wrapper">
+<div id="table-scroll"> 
+<table>
+    <tr>
+      <th><i class="fa fa-comments" aria-hidden="true"></i>kommentar</th>
+      <th><i class="fa fa-user" aria-hidden="true"></i>Namn</th>
+      <th><i class="fa fa-trophy" aria-hidden="true"></i>Betyg</th>
+      <th><i class="fa fa-calendar-o" aria-hidden="true"></i>Datum</th>
+      <th><i class="fa fa-id-badge" aria-hidden="true"></i>Sträckans namn</th>
+    </tr>
+	</div>
+	
+</article>
+<footer> Kommentarer </footer>
+</div>
+  <!--
   <h3>kundkommentarer<i class="fa fa-comment-o" aria-hidden="true"></i></h3>
     <tr>
       <th>rspName</th>
@@ -409,19 +479,18 @@ include 'includes/map.php';
       <th><i class="fa fa-id-badge" aria-hidden="true"></i>Sträckans namn</th>
 
     </tr>
+	-->
     <?php
 
     if(isset($_GET['DS'])){
 
-      $query='SELECT * FROM KundComment where rspName = :DS';
+      $query='SELECT * FROM KundComment where rspName = :DS LIMIT 30';
       $stmt = $pdo->prepare($query);
       $stmt->bindParam(':DS', $_GET['DS']);
       $stmt->execute();
 
       foreach($stmt as $key => $row){
         echo '<tr>';
-        echo "<td>".$row['rspName']."</td>";
-        echo "<td>".$row['cmtID']."</td>";
         echo "<td>".$row['kommentar']."</td>";
         echo "<td>".$row['alias']."</td>";
         echo "<td>".$row['grade']."</td>";
@@ -436,7 +505,10 @@ include 'includes/map.php';
   </div>
 
 
-  <div class="w3-container w3-content w3-padding-64" style="max-width:800px">
+  <div class="w3-container w3-content w3-padding-64" style="max-width:950px">
+  <header>
+ <h1>Kommentera sträcka</h1>
+</header>
     <h3>Ny kundkommentar</h3>
     <form action ='Kund.php' method='POST'>
       <textarea rows="5" cols="70" name="comment" placeholder="freetext !comment"></textarea>
@@ -500,15 +572,14 @@ include 'includes/map.php';
 }  
 ?>
 </div>
-
 </div>
 
 
 <!-- Footer -->
-<footer class="w3-container w3-padding-64 w3-center w3-opacity w3-light-grey w3-xlarge">
+<footer class="w3-container w3-padding-64 w3-center w3-opacity w3-light-grey w3-xlarge" style="max-width:100%">
 <div value="center">
 Skidloppet<br>
- <i class="fa fa-language" aria-hidden="true"></i><a href="kundE.php"> For english press here</a>
+For english press the globe on top right corner</a>
 </div>
 </footer>
 
