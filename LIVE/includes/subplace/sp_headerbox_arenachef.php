@@ -15,7 +15,7 @@ $i2 = 0;
   </style>
 </header>
 
-<a href="./backend_report.php#11">
+<a href="#11">
 <div class="w3-row-padding w3-margin-bottom">
   <div class="w3-third">
     <div class="w3-container w3-red w3-padding-16">
@@ -24,7 +24,7 @@ $i2 = 0;
         <h3>X</h3>
       </div>
       <div class="w3-clear"></div>
-      <h4>Skapa ny rapport</h4>
+      <h4>Alla delsträckor</h4>
     </div>
   </div>
 </a>

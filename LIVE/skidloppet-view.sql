@@ -308,4 +308,13 @@ SELECT *
 FROM Commenta where date > DATE_SUB(CURDATE(), INTERVAL 1 DAY);
 -- select * from co;
 
-
+DROP VIEW IF EXISTS SubPlaceViewer;
+CREATE VIEW SubPlaceViewer AS
+SELECT 
+SubPlace.name, SubPlace.placeName, SubPlace.realName, SubPlace.entID, SubPlace.length, 
+SubPlace.height, SubPlace.fakesnow, Ent.firstName, Ent.lastName
+FROM SubPlace, Ent
+WHERE SubPlace.entID = Ent.entID
+GROUP BY name
+;
+select * from SubPlaceViewer;
