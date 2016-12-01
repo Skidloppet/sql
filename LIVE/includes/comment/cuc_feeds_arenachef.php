@@ -1,10 +1,6 @@
 <!DOCTYPE html>
 <?php
 include'../connect.php';
-SESSION_START();
-$id = $_SESSION['id'];
-$em = $_SESSION['em'];
-
 ?>
 
  
@@ -19,7 +15,7 @@ if(isset($_GET['commentID'])){
 }
 ?>
 
-<div class="w3-container w3-orange w3-section">
+<div id="1" class="w3-container w3-orange w3-section">
     <div class="w3-container w3-section">
     <div class="w3-row-padding" style="margin:0 -16px"
   <div class="w3-row-padding" style="margin:0 -16px">
@@ -53,7 +49,8 @@ if(isset($_GET['commentID'])){
           echo "<td><a href='backend.php?commentID=".$row['commentID']."'>Radera</a></td>";
           echo "</tr>";  
         }
-        ?>   
+        ?>  
+		
       </table>
     </div>
 
