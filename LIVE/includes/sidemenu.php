@@ -45,6 +45,7 @@ include 'connect.php';
     <h5>Meny</h5>
   </div>
   <a href="#" class="w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>  Stäng meny</a>
+<?php   ?>
 
   <?php
   if (!isset($_SESSION['email'])) {
@@ -56,9 +57,10 @@ include 'connect.php';
     ?>
     <a href="#" data-content="index" class="<?php if(basename($_SERVER['SCRIPT_NAME']) == 'backend_index.php') {echo 'w3-padding w3-blue'; }else { echo 'w3-padding'; }?>"><i class="fa fa-dashboard fa-fw"></i>  Översikt</a>
     <a href="#" data-content="report" class="<?php if(basename($_SERVER['SCRIPT_NAME']) == 'backend_report.php'){echo 'w3-padding w3-blue'; }else { echo 'w3-padding'; } ?>"><i class="fa fa-history fa-fw"></i>  Rapportera</a>
-    <a href="#" data-content="workorder" class="<?php if(basename($_SERVER['SCRIPT_NAME']) == 'backend_wo.php'){echo 'w3-padding w3-blue'; }else { echo 'w3-padding'; } ?>"><i class="fa fa-eye fa-fw"></i>  Arbetsordrar</a>
+    <a href="#" data-content="workorder" class="<?php if(basename($_SERVER['SCRIPT_NAME']) == 'workorder.php'){echo 'w3-padding w3-blue'; }else { echo 'w3-padding'; } ?>"><i class="fa fa-eye fa-fw"></i>  Arbetsordrar</a>
     <a href="#" data-content="errorreport" class="<?php if(basename($_SERVER['SCRIPT_NAME']) == 'backend_ErrorReport.php'){echo 'w3-padding w3-blue'; }else { echo 'w3-padding'; } ?>"><i class="fa fa-comment fa-fw"></i>  Felanmälan</a>
     <a href="#" data-content="archive" class="<?php if(basename($_SERVER['SCRIPT_NAME']) == 'backend_ark.php'){echo 'w3-padding w3-blue'; }else { echo 'w3-padding'; } ?>"><i class="fa fa-history fa-fw"></i>  Arkiv</a>
+    <a href=""><?php   echo basename($_SERVER['SCRIPT_NAME']); ?></a>
     <?php
 
   } 

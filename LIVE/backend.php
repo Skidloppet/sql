@@ -43,9 +43,6 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 	  
 	 <div class="includes"></div>
 
-        
-		
-		
 	  <!-- Footer -->
       <footer class="w3-container w3-padding-16 w3-light-grey">
       <h4>FOOTER</h4>
@@ -54,8 +51,9 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 
       <!-- End page content -->
       </div>
+<script>
 
-      <script>
+
 // Get the Sidenav
 var mySidenav = document.getElementById("mySidenav");
 
