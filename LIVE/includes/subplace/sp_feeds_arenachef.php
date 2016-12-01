@@ -6,153 +6,170 @@ include'../connect.php';
 
 
 <div id="12" class="w3-container w3-blue">
-    <h3>Alla av rapporter</h3>
-    <table class="w3-table w3-striped w3-white">
-      <?php   
-        echo "<tr>";
-          echo "<th>reportID</th>"; 
-          echo "<th>newEntID</th>"; 
-          echo "<th>newStartDate</th>"; 
-          echo "<th>newWorkDate</th>"; 
-          echo "<th>newRating</th>"; 
-          echo "<th>newUnderlay</th>"; 
-          echo "<th>newEdges</th>"; 
-          echo "<th>newGrip</th>"; 
-          echo "<th>newDepth</th>";
-          echo "<th>kommentar</th>";
-          echo "<th>sträcka</th>";  
-          echo "</tr>";
+  <h3>Alla av rapporter</h3>
+  <table class="w3-table w3-striped w3-white">
+    <?php   
+    echo "<tr>";
+    echo "<th>name</th>"; 
+    echo "<th>placeName</th>"; 
+    echo "<th>realName</th>"; 
+    echo "<th>entID</th>"; 
+    echo "<th>Entreprenör</th>"; 
+    echo "<th>length</th>"; 
+    echo "<th>height</th>"; 
+    echo "<th>fakesnow</th>"; 
+    echo "</tr>";
 
-        foreach($pdo->query( 'SELECT * FROM Reporting;' ) as $row){
-          //echo "<tr><td>";
-          //echo "<a href='test.php?entID=".urlencode($row['entID'])."'>".$row['entID'];
-          echo "<tr>";
-          echo "<td>".$row['reportID']."</td>";
-          echo "<td>".$row['entID']."</td>";
-          echo "<td>".$row['startDate']."</td>";
-          echo "<td>".$row['workDate']."</td>";
-          echo "<td>".$row['rating']."</td>";
-          echo "<td>".$row['underlay']."</td>";
-          echo "<td>".$row['edges']."</td>";
-          echo "<td>".$row['grip']."</td>";
-          echo "<td>".$row['depth']."</td>";
-          echo "<td>".$row['comment']."</td>";
-          echo "<td>".$row['name']."</td>";
-          ?>
-          <td class="Report-delete">
+    foreach ($pdo->query('
+      SELECT *
+      from SubPlaceViewer;
+      ')as $row) {
+
+      echo "<tr>";
+    echo "<td>".$row['name']."</td>";
+    echo "<td>".$row['placeName']."</td>";
+    echo "<td>".$row['realName']."</td>";
+    echo "<td>".$row['entID']."</td>";
+    echo "<td>".$row['firstName']." ".$row['lastName']."</td>";
+    echo "<td>".$row['length']."</td>";
+    echo "<td>".$row['height']."</td>";
+    echo "<td>".$row['fakesnow']."</td>";
+    ?>
+    <?php /*
+    <td class="SubPlace-Update">
+      <form target="_blank" action='<?php $_PHP_SELF ?>' method='POST'>
+        <input type="hidden" name="UpdateSubPlaceEnt" value="<?php echo $row['name']; ?>">
+        <input class="HoverButton" type="submit" name="updateSubEnt" value="Update">
+      </form>
+    </td>
+    */
+    ?>
+    <?php
+    echo "</tr>";  
+  }
+  ?>
+
+<?php /*
+
+      Div bredvid varje rad, tanken är att radens "name" skall sparas när diven skickar t.ex. tomas till pop-up-fönstret. I pop-uppen skall tomas kunna välja vilken entreprenör som skall vara ansvarig för utvald delsträcka. Problemet är att diven inte vill plocka upp delsträckan i fråga!
+
+      Onclick längre ner hör till denna!
+
+    <td input UpdateEnt" value="<?php echo $row['name']; ?>> 
+      <div class="w3-third" style="cursor:pointer" onclick="document.getElementById('UpdateSubPlaceEnt').style.display='block'" >
+        <div class="w3-container w3-green w3-padding-6">
+          <div class="w3-right">
+          </div>
+          <div class="w3-clear"></div>
+          <h10>Uppdatera entreprenör</h10>
+        </div>
+      </div>
+    </td>
+    <?php
+    echo "</tr>";  
+  }
+  */
+  ?>
+</table>
+</div>
+
+
+<!--<div id="UpdateSubPlaceEnt" class="w3-modal">
+  <div class="w3-modal-content">
+    <div class="w3-container">
+      <span onclick="document.getElementById('UpdateSubPlaceEnt').style.display='none'"
+      class="w3-closebtn">&times;</span>
+      <div class="w3-threethird"> -->
+        <h5>Ändra ansvarig entreprenör för delsträcka: </h5>
+
+        <p>Ny entreprenör för delsträcka <?php echo print_r($TargetSubPlace) ?></p>
+        <select name='newEnt'>    
+          <?php 
+          foreach ($pdo->query('SELECT * FROM SubPlaceViewer') as $row) {
+            echo '<option value="'.$row['entID'].'">';
+            echo $row['firstName']; echo " "; echo $row['lastName'];
+            echo "</option>";
+          }
+          ?></select>
+          <?php
+/* <td class="Report-delete">
             <form action='<?php $_PHP_SELF ?>' method='POST'>
               <input type="hidden" name="deleteReport" value="<?php echo $row['reportID']; ?>">
               <input class="HoverButton" type="submit" name="delReport" value="Delete">
             </form>
-          </td>
+          </td> */
 
-          <td class="Report-Store">
-            <form action='backend_report.php?reportID="<?php echo $Report['reportID']; ?>"' method='POST'>
-              <input type="hidden" name="storeReport" value="<?php $row['reportID']; ?>">
-              <input class="HoverButton2" type="submit" name="storeReport" value="Store">
-            </form>
-          </td>
-        <?php
-          echo "</tr>";  
+          if(isset($_POST['updateSubEnt'])){
+            $querystring='UPDATE SubPlaceViewer SET
+            entID = :newEnt
+            WHERE
+            name = :name';
+            $stmt = $pdo->prepare($querystring);
+            $stmt->bindParam(":newEnt", $_POST['newEnt'], PDO::PARAM_INT);
+            $stmt->bindParam(":name", $TargetSubPlace, PDO::PARAM_INT);
+            $stmt->execute();
           }
-      ?>
-    </table><br><br>
-</div>
-<?php
-  if(isset($_POST['delReport'])){
-  $deletedReport = $_POST['deleteReport'];
-  $sql = "DELETE FROM Report WHERE reportID = $deletedReport" ;
-  $sql = "DELETE FROM ReportSubPlace WHERE reportID = $deletedReport" ;
-  $stmt = $pdo->prepare($sql);
-  $stmt->execute();
-    }
-?>
-<?php
-if(isset($_POST['storeReport'])){
-  $querystring='INSERT INTO StoredReports (reportID, entID, startDate, workDate, rating, underlay, edges, grip, depth, comment, name) VALUES (:reportID, :entID, :startDate, :workDate, :rating, :underlay, :edges, :grip, :depth, :comment, :name);';
-    $stmt = $pdo->prepare($querystring);
-    $stmt->bindParam(":reportID", $row['reportID'], PDO::PARAM_INT);
-    $stmt->bindParam(":entID", $row['entID'], PDO::PARAM_INT);
-    $stmt->bindParam(":startDate", $row['startDate'], PDO::PARAM_STR);
-    $stmt->bindParam(":workDate", $row['workDate'], PDO::PARAM_STR);
-    $stmt->bindParam(":rating", $row['rating'], PDO::PARAM_INT);
-    $stmt->bindParam(":underlay", $row['underlay'], PDO::PARAM_INT);
-    $stmt->bindParam(":edges", $row['edges'], PDO::PARAM_INT);
-    $stmt->bindParam(":grip", $row['grip'], PDO::PARAM_INT);
-    $stmt->bindParam(":depth", $row['depth'], PDO::PARAM_INT);
-    $stmt->bindParam(":comment", $row['comment'], PDO::PARAM_STR);
-    $stmt->bindParam(":name", $row['name'], PDO::PARAM_INT);
-    $stmt->execute();
-    }
-?>
-<div id="13" class="w3-container w3-green">
-    <h3>Utskrift av sparade rapporter</h3>
-    <table class="w3-table w3-striped w3-white">
-      <?php   
-        echo "<tr>";
-          echo "<th>reportID</th>"; 
-          echo "<th>newEntID</th>"; 
-          echo "<th>newStartDate</th>"; 
-          echo "<th>newWorkDate</th>"; 
-          echo "<th>newRating</th>"; 
-          echo "<th>newUnderlay</th>"; 
-          echo "<th>newEdges</th>"; 
-          echo "<th>newGrip</th>"; 
-          echo "<th>newDepth</th>";
-          echo "<th>kommentar</th>";
-          echo "<th>sträcka</th>";  
-          echo "</tr>";
-        foreach($pdo->query( 'SELECT * FROM StoredReports;' ) as $row){
-          //echo "<tr><td>";
-          //echo "<a href='test.php?entID=".urlencode($row['entID'])."'>".$row['entID'];
-          echo "<tr>";
-          echo "<td>".$row['reportID']."</td>";
-          echo "<td>".$row['entID']."</td>";
-          echo "<td>".$row['startDate']."</td>";
-          echo "<td>".$row['workDate']."</td>";
-          echo "<td>".$row['rating']."</td>";
-          echo "<td>".$row['underlay']."</td>";
-          echo "<td>".$row['edges']."</td>";
-          echo "<td>".$row['grip']."</td>";
-          echo "<td>".$row['depth']."</td>";
-          echo "<td>".$row['comment']."</td>";
-          echo "<td>".$row['name']."</td>";
-}
-?>
-</table>
-<br><br>
- <!-- 
-<div class="w3-container w3-dark-grey w3-padding-32">
-  <div class="w3-row">
-    <div class="w3-container w3-third">
-      <h5 class="w3-bottombar w3-border-green">Demographic</h5>
-      <p>Language</p>
-      <p>Country</p>
-      <p>City</p>
+        ?>  
+      </div>
     </div>
-    <div class="w3-container w3-third">
-      <h5 class="w3-bottombar w3-border-red">System</h5>
-      <p>Browser</p>
-      <p>OS</p>
-      <p>More</p>
-    </div>
-    <div class="w3-container w3-third">
-      <h5 class="w3-bottombar w3-border-orange">Target</h5>
-      <p>Users</p>
-      <p>Active</p>
-      <p>Geo</p>
-      <p>Interests</p>
-    </div>
-  </div>
-</div>
--->
+  </div></div>
 
-<!-- End page content -->
-</div>
-</div>
-</div>
+<?php /* ?>
+  <div id="11" class="w3-container w3-red">
+    <h3>Ny Rapport</h3>
+    <form action="<?php echo $_SERVER["SCRIPT_NAME"] ?>" method='POST' id="_newReport">
 
-<script>
+      <p>Delsträcka</p>
+      <select name='place'>    
+        <?php 
+        foreach ($pdo->query('SELECT * FROM SubPlaceViewer') as $row) {
+          echo '<option value="'.$row['name'].'">';
+          echo $row['realName'];
+          echo "</option>";
+        }
+        ?></select>
+
+        <p>Ny entreprenör</p>
+        <select name='newEnt'>    
+          <?php 
+          foreach ($pdo->query('SELECT * FROM SubPlaceViewer') as $row) {
+            echo '<option value="'.$row['entID'].'">';
+            echo $row['firstName']; echo " "; echo $row['lastName'];
+            echo "</option>";
+          }
+          ?></select>
+          <br><br>
+
+          <textarea rows="5" cols="70" name="comment" placeholder="Kommentar..."></textarea>
+
+
+          <p><button type="submit" name="_newReport">Ny rapport</button></p></form>
+          <?php
+          if(isset($_POST['storeReport'])){
+            $querystring='UPDATE SubPlaceViewer SET(entID) VALUES (:reportID, :entID, :startDate, :workDate, :rating, :underlay, :edges, :grip, :depth, :comment, :name);';
+            $stmt = $pdo->prepare($querystring);
+            $stmt->bindParam(":reportID", $row['reportID'], PDO::PARAM_INT);
+            $stmt->bindParam(":entID", $row['entID'], PDO::PARAM_INT);
+            $stmt->bindParam(":startDate", $row['startDate'], PDO::PARAM_STR);
+            $stmt->bindParam(":workDate", $row['workDate'], PDO::PARAM_STR);
+            $stmt->bindParam(":rating", $row['rating'], PDO::PARAM_INT);
+            $stmt->bindParam(":underlay", $row['underlay'], PDO::PARAM_INT);
+            $stmt->bindParam(":edges", $row['edges'], PDO::PARAM_INT);
+            $stmt->bindParam(":grip", $row['grip'], PDO::PARAM_INT);
+            $stmt->bindParam(":depth", $row['depth'], PDO::PARAM_INT);
+            $stmt->bindParam(":comment", $row['comment'], PDO::PARAM_STR);
+            $stmt->bindParam(":name", $row['name'], PDO::PARAM_INT);
+            $stmt->execute();
+          }
+          */
+          ?>
+
+          <!-- End page content -->
+        </div>
+      </div>
+    </div>
+
+    <script>
 // Get the Sidenav
 var mySidenav = document.getElementById("mySidenav");
 

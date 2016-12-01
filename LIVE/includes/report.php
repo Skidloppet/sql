@@ -4,6 +4,12 @@ include'../connect.php';
 SESSION_START();
 $id = $_SESSION['id'];
 ?>
+
+  
+      <div id="report101" class="w3-container w3-section">
+
+
+
     <?php
     if (!isset($_SESSION['email'])) {
       ?>
@@ -16,7 +22,6 @@ $id = $_SESSION['id'];
 
       include 'report/rep_headerbox_arenachef.php';
       ?>
-      <div class="w3-container w3-section">
         <div class="w3-row-padding" style="margin:0 -16px">
           <div class="w3-threethird">
             <?php
@@ -26,7 +31,6 @@ $id = $_SESSION['id'];
 
       include 'report/rep_headerbox_other.php';
       ?>
-      <div class="w3-container w3-section">
         <div class="w3-row-padding" style="margin:0 -16px">
           <div class="w3-threethird">
             <?php
@@ -36,7 +40,6 @@ $id = $_SESSION['id'];
 
       include 'report/rep_headerbox_ent.php';
       ?>
-      <div class="w3-container w3-section">
         <div class="w3-row-padding" style="margin:0 -16px">
           <div class="w3-threethird">
             <?php

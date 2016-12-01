@@ -23,6 +23,7 @@ include'../connect.php';
           echo "<th>Snödjup:</th>";
           echo "<th>Kommentar:</th>"; 
           echo "<th>report ID:</th>"; 
+          echo "<th>heheheh ID:</th>"; 
           echo "</tr>";
 
             foreach ($pdo->query('
@@ -49,7 +50,7 @@ include'../connect.php';
           ?>
           <td class="Report-delete">
             <form action='<?php $_PHP_SELF ?>' method='POST'>
-              <input type="hidden" name="deleteReport" value="<?php echo $row['rspID']; ?>">
+              <input type="hidden" name="deleteReport" value="<?php echo $row['reportID']; ?>">
               <input class="HoverButton" type="submit" name="delReport" value="Delete">
             </form>
           </td>
@@ -141,7 +142,7 @@ if(isset($_POST['storeReport'])){
 
 <div id="11" class="w3-container w3-red">
   <h3>Ny Rapport</h3>
-  <form action='<?php $_PHP_SELF ?>' method='POST'>
+  <form action="<?php echo $_SERVER["SCRIPT_NAME"] ?>" method='POST' id="_newReport">
     <input type="text" name="WorkDate" placeholder="yyyy-mm-dd"></p>
     <input type="text" name="Depth" placeholder="Djup.."></p>
 
@@ -239,7 +240,83 @@ if(isset($_POST['storeReport'])){
 </div>
 </div>
 
-<script>
+
+
+
+<script type="text/javascript">
+/*
+$(document).ready(function() {  
+$('#_newReport').submit(function(e){
+  
+    e.preventDefault(); // Prevent Default Submission
+  
+    $.ajax({
+ url: 'rep_feeds_arenachef.php',
+ type: 'POST',
+ data: $(this).serialize(), // it will serialize the form data
+        dataType: 'html'
+    })
+    .done(function(data){
+     $('#11').fadeOut('slow', function(){
+          $('#11').fadeIn('slow').html(data);
+        });
+    })
+    .fail(function(){
+ alert('Ajax Submit Failed ...'); 
+    });
+});
+
+
+/*
+$('#_newReport').submit(function(){
+
+      // gather the form data
+      var data=$(this).serialize();
+      // post data
+      $.post('rep_feeds_arenachef.php', data , function(returnData){
+                  // insert returned html 
+                  $('#12').html( returnData)
+
+                  post('Funkar?');
+      })
+
+      return false; // stops browser from doing default submit process
+      post('Funkar inte');
+});
+
+$("_newReport").submit(function(e) {
+    e.preventDefault();
+    $.ajax({
+    type: "POST",
+    url: "./rep_feeds_arenachef.php",
+    data: dataString,
+    success: function(){
+        $("#12").load("rep_feeds_arenachef.php"); 
+    }
+    });
+return false;
+});
+     /* $(function () {
+
+        $('#_newReport').on('submit', function (e) {
+
+          e.preventDefault();
+
+          $.ajax({
+            type: 'post',
+            url: 'rep_feeds_arenachef.php',
+            data: $('#_newReport').serialize(),
+            success: function () {
+              alert('form was submitted');
+            }
+          });
+
+        });
+
+      });
+      */
+      </script>
+      <script>
 // Get the Sidenav
 var mySidenav = document.getElementById("mySidenav");
 
