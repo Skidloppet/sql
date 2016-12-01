@@ -1,26 +1,7 @@
 /*
-PROCEDURER FÖR SKIDLOPPET AB -Innehållsförteckning
-1. procedur CreateEnt
-2. procedur CreateSki
-3. procedur för att göra en SKI till arenachef/other
-4. procedur för kontroll av inlogg
-5. procedur för ny snökanon
-6. procedur för att flytta/status snökanon
-7. procedure för Rapportering
-8. procedure för nya kommentarer
-9. procedur för nya felanmälan
-10. procedur för att lägg till ny arbetsorder
-11. procedur för avklarad arbetsorder
-12. Procedure för nya cannon arbetsordrar
-13. procedur för att ta bort arbetsorder
-14. skapa färdig CANNONorder (logg)
-15. Ta bort gammla kund kommentarer
-16. för att ändra tel-nummer för en ent.
-Kvar att göra:
  
 procedur & php för avklarade workorder
 procedur & php för avklarade snökanon-workorder
-
 
 - implementera SMS för akut arbetsorder (10._newWorkOrder & NyArbetsOrder.php).
 - bilder för Report(daligt underhåll samt alternativt kundkommentar, ent, ski bilder?)
@@ -34,6 +15,7 @@ procedur & php för avklarade snökanon-workorder
 -- 1. Procedure för att skapa en Entrepenör
 -- IF satsen kollar om Ski har tagit email adressen redan
 DROP PROCEDURE IF EXISTS CreateEnt;
+
 DELIMITER //
 CREATE PROCEDURE CreateEnt(pass varchar(32), firstName varchar(32), lastName varchar(32), email varchar (64), number int(10))
 BEGIN

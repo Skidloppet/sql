@@ -1,5 +1,5 @@
 drop database SlitABSkidloppet;
-create database SlitABSkidloppet;
+create database SlitABSkidloppet CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 use SlitABSkidloppet;
 
 -- Tabell för inloggningsförsök (anti brute-force)
@@ -157,7 +157,7 @@ create table Error (
 errorID int not null auto_increment,
 entID smallint null,
 -- null entID för alla felanmälanden som skapas av motionärer
-sentDate DATETIME,
+sentDate timestamp,
 -- grade enum('low','medium','high','akut'),
 errorDesc varchar(1024),
 type enum('lights','tracks','dirt','trees','other') not null,
@@ -242,7 +242,8 @@ foreign key (entID) references Ent(entID)
 )engine=innodb;
 
 create table StoredReports(
-reportID int not null unique,
+storedReportID int not null auto_increment unique,
+reportID int not null,
 entID smallint not null,
 startDate timestamp,
 workDate datetime,
@@ -253,7 +254,7 @@ grip enum('1','2','3','4','5'),
 depth DECIMAL(4,1),
 comment varchar(1024),
 name smallint,
-primary key (reportID)
+primary key (storedReportID)
 )engine=innodb;
 
 insert into Ski (password, firstName, lastName, email, number, type, regDate) values
@@ -264,8 +265,7 @@ insert into Ski (password, firstName, lastName, email, number, type, regDate) va
 ('pass','Rune','Lund','Rune.Lund@skidloppet.se','04040404','arenachef','2016-11-01');
 
 insert into Ent (password, firstName, lastName, email, number, regDate) values 
-('pass','ej angivet','','ent','02562432','2016-11-012'),
-('pass','Sture','Ekman','Sture.Ekman@skidloppet.se','00562432','2016-11-01'),
+('sture','Sture','Ekman','Sture.Ekman@skidloppet.se','00562432','2016-11-01'),
 ('andersson','Bröderna','Andersson','Bröderna.Andersson@skidloppet.se','00562736','2016-11-01'),
 ('persson','Siv-Jan','Persson','SoJ.Persson@skidloppet.se','00561122','2016-11-01'),
 ('jonas','Jonas','Hed','Jonas.Hed@skidloppet.se','0054231','2016-11-01'),
@@ -275,6 +275,16 @@ insert into Ent (password, firstName, lastName, email, number, regDate) values
 ('vidar','Vidar','Ytter','Vidar.Ytter@skidloppet.se','00551232','2016-11-01'),
 ('urban','Urban','Garv','Urban.Garv@skidloppet.se','0057131323','2016-11-01');
 
+
+/* Sture Ekman, delsträckor 1, 2
+Bröderna Andersson delsträckor 3, 4
+Siv och Jan Persson delsträckor 5, 6, 7
+Jonas Hed delsträckor 8, 9, 10
+Oswald Ek delsträckor 11, 12
+Rune Kvarn delsträckor 13, 14, 15
+Iris Sax delsträckor 16, 17
+Vidar Ytter delsträckor 18, 19
+Urban Garv delsträckor 20, 21 */
 
 insert into Place (name, info) values 
 ('Vattendrag','Vattendrag som är tillängliga för snötillverkning'),
@@ -302,6 +312,7 @@ insert into Commenta (Kommentar,grade, alias, date) values
 
 -- select avg(grade) from Comment;
 -- select grade from Comment;
+select * from Ent;
 insert into SubPlace (name, placeName, realName, entID, length, height, fakesnow) values 
 ('1','Delstrackor','Hedemora 1:1','1','12','21','23'),
 ('2','Delstrackor','Hedemora 1:2','1','17','476','11'),
@@ -366,24 +377,17 @@ insert into Report (entID, startDate, workDate, rating, underlay, edges, grip, d
 ('1','2011-11-11','2011-10-11','3','3','2','4','65'),
 ('1','2011-11-11','2011-12-11','2','2','4','3','43');
 
-insert into StoredReports (reportID, entID, startDate, workDate, rating, underlay, edges, grip, depth, comment) values
-('31','3','2011-11-12','2011-09-11','1','2','3','4','54','asd'),
-('52','2','2011-11-11','2011-10-11','3','3','2','4','65','asd2'),
-('33','3','2011-11-12','2011-09-11','1','2','3','4','54','asd'),
-('54','2','2011-11-11','2011-10-11','3','3','2','4','65','asd2'),
-('35','3','2011-11-12','2011-09-11','1','2','3','4','54','asd'),
-('56','2','2011-11-11','2011-10-11','3','3','2','4','65','asd2'),
-('7','5','2011-11-13','2011-12-11','2','2','4','3','43','asd3');
-
 insert into CannonSubPlace (CannonID, name, entID, startStamp, endStamp, newStatus, info, comment) values
 ('1','1','2',now(),now(),'off','text från ski','not finnished'),
 ('2','1','1',now(),now(),'off','text från ski1','not finnished'),
 ('3','1','3',now(),now(),'on','text från ski2','not finnished');
 
 
-/* 
-insert into Error (entID, sentDate, errorDesc, type) values 
-('1',NOW(),'fallna träd','trees');
+/*
+insert into Error (entID, sentDate, grade, errorDesc, type) values 
+('1',now(),'high','fallna träd','trees'),
+('1',now(),'akut','grus','dirt'),
+('1',now(),'high','fallna träd','trees');
 */
 
 /*
@@ -410,5 +414,3 @@ insert into CommentSubPlace (CommentID, name) values
 ('3','2'),
 ('3','3');
 */
-
-
