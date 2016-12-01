@@ -1,10 +1,6 @@
 <!DOCTYPE html>
 <?php
 include'../connect.php';
-SESSION_START();
-$id = $_SESSION['id'];
-$em = $_SESSION['em'];
-
 ?>
 
  

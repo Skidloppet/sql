@@ -20,7 +20,6 @@ include '../connect.php';
       <tr>
 
 <!--
-
 CREATE PROCEDURE _newCannonOrder (
 cannonID smallint,
 name smallint,

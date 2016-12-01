@@ -30,7 +30,7 @@ foreach($pdo->query( 'select count(*)as i2 from FinnishedWorkOrder;' ) as $row){
   <div class="w3-container w3-blue w3-padding-16">
     <div class="w3-left"><i class="fa fa-arrow-right w3-xxxlarge"></i></div>
     <div class="w3-right">
-      <h3><?php print_r($i); ?></h3>
+      <h3><?php print_r($i);?></h3>
     </div>
     <div class="w3-clear"></div>
     <h4>Pågående arbetsordrar</h4>
@@ -138,7 +138,7 @@ foreach($pdo->query( 'select count(*)as i2 from FinnishedWorkOrder;' ) as $row){
               }
 
               #hantera när ingen slutstation är vald
-
+# dubbla = kanske?
            if ($_POST['Slut'] = "0"){
                 $_POST['Slut'] = $_POST['Start']; 
               }
@@ -192,7 +192,7 @@ foreach($pdo->query( 'select count(*)as i2 from FinnishedWorkOrder;' ) as $row){
 
           <div class="w3-container w3-blue">
             <h3>Ändra ansvar för en arbetsorder till ny entrepenör</h3>
-            <form action='<?php $_PHP_SELF ?>' method='POST'>
+            <form action="<?php echo $_SERVER["SCRIPT_NAME"] ?>" method='POST'>
               <select name="orderID">
                 <option >Arbetsorder ID</option>
                 <?php    
@@ -214,7 +214,6 @@ foreach($pdo->query( 'select count(*)as i2 from FinnishedWorkOrder;' ) as $row){
 
 
                   <?php
-
                   if(isset($_POST['send'])){
                     $sql = "call _newResponsability (:_entID,:_orderID)";
 
@@ -226,6 +225,7 @@ foreach($pdo->query( 'select count(*)as i2 from FinnishedWorkOrder;' ) as $row){
             # DEN UPPDATERAR INTE LISTAN OVAN (endast om man laddar om sidan..)
                     header("refresh: 3;");
                   }    
+                
                   ?>
                   <hr>
                 </div>

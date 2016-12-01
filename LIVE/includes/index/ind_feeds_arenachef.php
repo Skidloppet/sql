@@ -4,25 +4,35 @@ include '../connect.php';
 ?>	
 
 <?php
-
-if(isset($_GET['orderID'])){
+if(isset($_POST['bort'])){
+ $orderID = $_POST['orderID'];
  $querystring='DELETE FROM WorkOrder WHERE orderID = :orderID';
  $stmt = $pdo->prepare($querystring);
- $stmt->bindParam(':orderID', $_GET['orderID'], PDO::PARAM_INT);
+ $stmt->bindParam(':orderID', $_POST['orderID'], PDO::PARAM_INT);
  $stmt->execute();
  echo "Arbetsorder borttagen";
 }
 ?>
-
 <?php
-
-if(isset($_GET['orderID2'])){
- $querystring='CALL _finnishedWorkOrder(:orderID,"1",NOW(),"logged by: '.$_SESSION['email'].'")';
+if(isset($_POST['lagra'])){
+ $orderID = $_POST['orderID'];
+ $querystring='CALL _finnishedWorkOrder(:orderID,'.$id.',NOW(),"logged by: '.$em.'")';
  $stmt = $pdo->prepare($querystring);
- $stmt->bindParam(':orderID', $_GET['orderID2']);
+ $stmt->bindParam(':orderID', $_POST['orderID'],PDO::PARAM_INT);
  $stmt->execute();
  echo "Arbetsorder arkiverad";
 }
+?>
+<?php
+if(isset($_POST['newEnt'])){
+  $entID = $_POST['entID'];
+  $orderID = $_POST['orderID'];
+  $sql = "call _newResponsability (:_entID,:_orderID)";
+  $stmt = $pdo->prepare($sql);
+  $stmt->bindParam(":_entID", $_POST['entID'], PDO::PARAM_INT);
+  $stmt->bindParam(":_orderID", $_POST['orderID'], PDO::PARAM_INT);
+  $stmt->execute();
+}    
 ?>
 
 <?php
@@ -51,45 +61,44 @@ foreach($pdo->query( 'SELECT count(*) as nmr FROM wo where priority="akut" and e
               <?php     
         # hämtar alla aktiva arbetsordrar(WorkOrder) som tillhör det autoangivna akutID (#1)
         # hemsidan visar entrepenörens förnamn och enfternamn genom kopplingen mellan
+
               foreach($pdo->query( 'SELECT * FROM wo where priority="akut" and entID="1" order by orderID desc;' ) as $row){
-
-               echo"      <form action='backend.php' method='POST'>       ";
-
-               echo "<tr>";
-               echo "<td><i class='fa fa-eye w3-blue w3-padding-tiny'></i></td>";
-               echo "<td name='orderID'>".$row['orderID']."</td>";
+               echo "<tr><td><i class='fa fa-eye w3-blue w3-padding-tiny'></i></td>";
+               echo "<td>".$row['orderID']."</td>";
                echo "<td>".$row['type']."</td>";
                echo "<td>".$row['priority']."</td>";
                echo "<td>".$row['info']."</td>";
                echo "<td>".$row['sentDate']."</td>";
                echo "<td>".$row['entF']." ".$row['entL']." ( ".$row['entID']." )</td>";
-               echo "<td>"
                ?>
-
-               <select name='entID'>    
-                <?php 
+               <td>
+                <form action='<?php echo $_SERVER['SCRIPT_NAME']; ?>' method='POST'>
+                  <input type="hidden" name="orderID" value="<?php echo $row['orderID']; ?>">
+                  <select name='entID'>    
+                    <?php 
               # i varje rad av svar den skriver ut så skapas en lista med alla Ent förnamn&efternamn
               # sätter value till entrepenöresns ID 
-                foreach ($pdo->query('SELECT * FROM Ent') as $row) {
-                  echo '<option value="'.$row['entID'].'">';
-                  echo $row['firstName']." ".$row['lastName'];
-                  echo "</option>";
-                }
-                ?>
-              </select><p><button type="submit" name="newEnt">Fastställ <i class='fa fa-check'></i> </button></p>
-            </form>
-            <?php
-            echo "</td></tr>";  
-          }
-          ?>   
-        </form>
-      </table>
+                    foreach ($pdo->query('SELECT * FROM Ent') as $row) {
+                      echo '<option value="'.$row['entID'].'">';
+                      echo $row['firstName']." ".$row['lastName'];
+                      echo "</option>";
+                    }
+                    ?>
+                  </select>
+                  <input class="HoverButton" type="submit" name="newEnt">
+                </form>
+              </td>
+              <?php
+              echo "</td></tr>";  
+            }
+            ?>   
+          </table>
+        </div>
+      </div>
     </div>
   </div>
-</div>
-</div>
 
-<?php
+  <?php
 }
 }
 ?>
@@ -103,16 +112,6 @@ foreach($pdo->query( 'SELECT count(*) as nmr FROM wo where priority="akut" and e
 </div>
 </div>
 </div>
-
-<?php
-if(isset($_POST['newEnt'])){
-  $sql = "call _newResponsability (:_entID,:_orderID)";
-  $stmt = $pdo->prepare($sql);
-  $stmt->bindParam(":_entID", $_POST['entID'], PDO::PARAM_INT);
-  $stmt->bindParam(":_orderID", $_POST['orderID'], PDO::PARAM_INT);
-  $stmt->execute();
-}    
-?>
 </div>
 </div>
 
@@ -150,14 +149,25 @@ if(isset($_POST['newEnt'])){
         echo "<td>".$row['info']."</td>";
         echo "<td>".$row['sentDate']."</td>";
         echo "<td>".$row['skiF']." ".$row['skiL']."</td>";
-        echo "<td><button><i class='fa fa-ban'></i><a href='backend_wo.php?orderID=".$row['orderID']."'> Ta bort</a></button></td>";
-        echo "<td><button><i class='fa fa-check'></i><a href='backend_wo.php?orderID2=".$row['orderID']."'> Logga</a></button></td>";
-        echo "</tr>";  
+        echo "<td>";
+        ?>
+        <form action='<?php echo $_SERVER['SCRIPT_NAME']; ?>' method='POST'>
+          <input type="hidden" name="orderID" value="<?php echo $row['orderID']; ?>">
+          <button class="fa fa-ban HoverButton" type="submit" name="bort"> Radera</button>
+        </form>  
+      </td>
+      <td>
+        <form action='<?php echo $_SERVER['SCRIPT_NAME']; ?>' method='POST'>
+          <input type="hidden" name="orderID" value="<?php echo $row['orderID']; ?>">
+          <button class="fa fa-check HoverButton" type="submit" name="lagra"> Klarmarkera</button>
+        </form>
+        </td>
+      </tr>
+        <?php
       }
       ?>   
     </table>
   </div>
-
 </div>
 
 
