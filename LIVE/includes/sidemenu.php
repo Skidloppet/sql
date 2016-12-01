@@ -59,6 +59,7 @@ include 'connect.php';
     <a href="#" data-content="report" class="<?php if(basename($_SERVER['SCRIPT_NAME']) == 'backend_report.php'){echo 'w3-padding w3-blue'; }else { echo 'w3-padding'; } ?>"><i class="fa fa-history fa-fw"></i>  Rapportera</a>
     <a href="#" data-content="workorder" class="<?php if(basename($_SERVER['SCRIPT_NAME']) == 'workorder.php'){echo 'w3-padding w3-blue'; }else { echo 'w3-padding'; } ?>"><i class="fa fa-eye fa-fw"></i>  Arbetsordrar</a>
     <a href="#" data-content="errorreport" class="<?php if(basename($_SERVER['SCRIPT_NAME']) == 'backend_ErrorReport.php'){echo 'w3-padding w3-blue'; }else { echo 'w3-padding'; } ?>"><i class="fa fa-comment fa-fw"></i>  Felanmälan</a>
+    <a href="#" data-content="comments" class="<?php if(basename($_SERVER['SCRIPT_NAME']) == 'backend_kom.php'){echo 'w3-padding w3-blue'; }else { echo 'w3-padding'; } ?>"><i class="fa fa-users fa-fw"></i>  Kundkommentarer</a>
     <a href="#" data-content="archive" class="<?php if(basename($_SERVER['SCRIPT_NAME']) == 'backend_ark.php'){echo 'w3-padding w3-blue'; }else { echo 'w3-padding'; } ?>"><i class="fa fa-history fa-fw"></i>  Arkiv</a>
     <a href=""><?php   echo basename($_SERVER['SCRIPT_NAME']); ?></a>
     <?php
@@ -66,7 +67,6 @@ include 'connect.php';
   } 
   if (isset($_SESSION['email'])&&($_SESSION['type'] == 'arenachef')) {
     ?>
-    <a href="#" data-content="comments" class="<?php if(basename($_SERVER['SCRIPT_NAME']) == 'backend_kom.php'){echo 'w3-padding w3-blue'; }else { echo 'w3-padding'; } ?>"><i class="fa fa-users fa-fw"></i>  Kundkommentarer</a>
     <a href="#" data-content="settings" class="<?php if(basename($_SERVER['SCRIPT_NAME']) == 'backend_ins.php'){echo 'w3-padding w3-blue'; }else { echo 'w3-padding'; } ?>"><i class="fa fa-cog fa-fw"></i>  Inställningar</a>
     <a href="#" data-content="users" class="<?php if(basename($_SERVER['SCRIPT_NAME']) == 'backend_anv.php'){echo 'w3-padding w3-blue'; }else { echo 'w3-padding'; } ?>"><i class="fa fa-user fa-fw"></i>  Användaradministration</a>
 	    <a href="#" data-content="subplace" class="<?php if(basename($_SERVER['SCRIPT_NAME']) == 'backend_stra.php'){echo 'w3-padding w3-blue'; }else { echo 'w3-padding'; } ?>"><i class="fa fa-share-alt fa-fw"></i>  Sträckor</a>
@@ -75,7 +75,6 @@ include 'connect.php';
   }
   elseif (isset($_SESSION['email'])&&($_SESSION['type'] == 'other')) {
     ?>
-    <a href="#" data-content="comments" class="<?php if(basename($_SERVER['SCRIPT_NAME']) == 'backend_kom.php'){echo 'w3-padding w3-blue'; }else { echo 'w3-padding'; } ?>"><i class="fa fa-users fa-fw"></i>  Kundkommentarer</a>
     <?php 
   }
   ?>

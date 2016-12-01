@@ -15,12 +15,13 @@ include'connect.php';
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
 
-
-
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+<link src="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+<link href="https://fortawesome.github.io/Font-Awesome/assets/font-awesome/css/font-awesome.css" rel="stylesheet">
 <style>
 body {font-family: "Lato", sans-serif}
 .mySlides {display: none}
-
 
 
 /* Full-width input fields */
@@ -36,7 +37,7 @@ body {font-family: "Lato", sans-serif}
 
 /* Set a style for all buttons */
 button {
-  background-color: #000000;
+  background-color: #009933;
   color: white;
   padding: 3px 35px;
   margin: 8px 0;
@@ -50,7 +51,7 @@ button {
 .cancelbtn {
   width: auto;
   padding: 10px 18px;
-  background-color: #000000;
+  background-color: #009933;
 }
 
 /* Center the image and position the close button */
@@ -72,6 +73,7 @@ img.avatar {
 span.psw {
   float: right;
   padding-top: 16px;
+      box-shadow: 10px 10px 5px #888888;
 }
 
 /* The Modal (background) */
@@ -85,7 +87,7 @@ span.psw {
   height: 100%; /* Full height */
   overflow: auto; /* Enable scroll if needed */
   background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  background-color: rgba(0,0,0,0.4); /* black w/ opacity */
   padding-top: 60px;
 }
 
@@ -157,6 +159,44 @@ tr:nth-child(even) {
   background-color: #dddddd;
 }
 
+<!-- div container för delsträckonra i en finare form samt tabell -->
+
+div.container {
+    width: 100%;
+    border: 1px solid gray;
+}
+
+header, footer {
+    padding: 1em;
+    color: white;
+    background-color: #009933;
+    clear: left;
+    text-align: center;
+}
+
+nav {
+    float: left;
+    max-width: 160px;
+    margin: 0;
+    padding: 1em;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+   
+nav ul a {
+    text-decoration: none;
+}
+
+article {
+    margin-left: 170px;
+    border-left: 1px solid gray;
+    padding: 1em;
+    overflow: hidden;
+}
+
 
 </style>
 
@@ -164,7 +204,7 @@ tr:nth-child(even) {
 
   <!-- Navbar -->
   <div class="w3-top">
-    <ul class="w3-navbar w3-black w3-card-2 w3-left-align">
+    <ul class="w3-navbar w3-#009933 w3-card-2 w3-left-align">
       <li class="w3-hide-medium w3-hide-large w3-opennav w3-right">
         <a class="w3-padding-large" href="javascript:void(0)" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
       </li>
@@ -203,24 +243,24 @@ tr:nth-child(even) {
         <form class="modal-content animate" action="skidlogin.php" method="POST">
           <div class="imgcontainer">
             <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
-            <img src="bilder/Logotype.jpg" alt="Avatar" class="avatar">
+            <img src="Logotype.jpg" alt="Avatar" class="avatar">
           </div>
 
           <div class="container">
            <div class="login3">
 
-            <label><b>Email</b></label>
-            <input type="text" placeholder="Emailadress" name="email" required>
+            <label><b><b>Email</b></b></label>
+            <input type="text" placeholder="Exempel@hotmail.com" name="email" required>
 
-            <label><b>Password</b></label>
-            <input type="password" placeholder="Lösenord" name="pass" required>
+            <label><b><b>Password</b></b></label>
+            <input type="password" placeholder="******" name="pass" required>
 
-            <font color="black"><button type="submit">Logga in</button></font>
-            <input type="checkbox" checked="checked"> <font color="black">Kom ihåg mig </font>
+            <font color="#009933"><button type="submit">Logga in</button></font>
+            <input type="checkbox" checked="checked"> <font color="#009933">Kom ihåg mig </font>
           </div>
         </div>
 
-        <div class="container" style="background-color:#f1f1f1">
+        <div class="container" style="background-color:#grey">
 
           <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
 
@@ -232,13 +272,6 @@ tr:nth-child(even) {
 
 
 
-</div>
-<!-- Navbar on small screens -->
-<div id="navDemo" class="w3-hide w3-hide-large w3-hide-medium w3-top" style="margin-top:46px">
-  <ul class="w3-navbar w3-left-align w3-black">
-    <li><a class="w3-padding-large" href="#Maps">Google Maps</a></li>
-    <li><a class="w3-padding-large" href="#">Status</a></li>
-  </ul>
 </div>
 
 <!-- Page content -->
@@ -266,40 +299,71 @@ tr:nth-child(even) {
     </div>
   </div>
 
-<!-- div för kartan -->
+  
+<!-- kartan -->  
+<?php
 
-<!-- Detaljer för del-sträckan 
-<h1>Detaljer för del-sträckan</h1>
-<table border='1'><th>Rating</th><th>Underlay</th><th>Edges</th><th>Grip</th><th>Depth ( Cm )</th><tr><td>1</td><td>2</td><td>3</td><td>4</td><td>54.0</td></tr><tr><td>3</td><td>3</td><td>2</td><td>4</td><td>65.0</td></tr><tr><td>2</td><td>2</td><td>4</td><td>3</td><td>43.0</td></tr></table>
-  <div class="w3-container w3-content w3-padding-64" style="max-width:800px" id="Kommentar1">
-  <form action="Kund.php" method="POST">
-	<table>
-    <h2 class="w3-wide w3-center">Kundernas kommentarer</h2>
-	 <p class="w3-opacity w3-center"><i>Kommentera sträckorna du åkt på</i></p>
-	</table>
-  </form>
-  </div>
-  <table border='1'><th>Kommentar</th><th>Alias</th><th>Betyg</th><th>Datum</th></table>  
--->
+include 'includes/map.php';
 
-<div class="w3-container w3-content w3-padding-64" style="max-width:800px" id="Kommentar1">
-  <h3>skriver bara ut den som en enkel tabell för test</h3>
-  <h4>  <a href="?DS=1">sträcka ett (ingen karta)</a>
-  </h4>
-  <table>
+?>
+
+<div class="w3-container w3-content w3-padding-64" style="max-width:950px" id="Kommentar1">
+<!--  <h3>skriver bara ut den som en enkel tabell för test <i class="fa fa-tasks" aria-hidden="true"></i></h3>
+  <h4>  <a href="?DS=1">sträcka ett (ingen karta)</a></h4>
+ <table>
     <tr>
-      <th>Namn</th>
-      <th>Start datum</th>
-      <th>Betyg</th>
+      <th><i class="fa fa-user" aria-hidden="true"></i>Namn</th>
+      <th><i class="fa fa-calendar" aria-hidden="true"></i>Start datum</th>
+      <th><i class="fa fa-trophy" aria-hidden="true"></i>Betyg</th>
       <th>Underlag</th>
       <th>Kanter</th>
       <th>Fäste</th>
-      <th>Djup (cm)</th>
-      <th>Längd (km)</th>
-      <th>m.ö.h</th>
-      <th>Sträckans namn</th>
+      <th><i class="fa fa-snowflake-o" aria-hidden="true"></i>Djup(cm)</th>
+      <th><i class="fa fa-road" aria-hidden="true"></i>Längd (km)</th>
+      <th><i class="fa fa-map-marker" aria-hidden="true"></i>Sträckans namn</th>
+      <th><i class="fa fa-arrows-v" aria-hidden="true"></i>m.ö.h</th>
     </tr>
-    <?php
+-->
+ 
+<!-- container för delsträckorna -->
+ <div class="container">
+
+<header>
+   <h1>Delsträckornas status</h1>
+</header>
+  
+<nav>
+  <ul>
+	<li> <h2> Välj delsträcka </h2></li>
+    <li><a href="?DS=1">Hedemora 1:1</a></h4></li>
+    <li><a href="#">Hedemora 1:2</a></li>
+    <li><a href="#">Hedemora 1:3</a></li>
+  </ul>
+</nav>
+
+<article>
+  <h1>Skidloppet</h1>
+  <h3>Betygsförklaring</h3>
+ <table>
+    <tr>
+      <th><i class="fa fa-map-marker" aria-hidden="true"></i>Sträckans namn</th>
+      <th><i class="fa fa-calendar" aria-hidden="true"></i>Start datum</th>
+      <th><i class="fa fa-trophy" aria-hidden="true"></i>Betyg</th>
+      <th>Underlag</th>
+      <th>Kanter</th>
+      <th>Fäste</th>
+      <th><i class="fa fa-snowflake-o" aria-hidden="true"></i>Djup(cm)</th>
+      <th><i class="fa fa-road" aria-hidden="true"></i>Längd (km)</th>
+      <th><i class="fa fa-arrows-v" aria-hidden="true"></i>m.ö.h</th>
+    </tr>
+</article>
+
+<footer>Vald delsträcka</footer>
+
+</div>
+ 
+
+ <?php
 
     if(isset($_GET['DS'])){
 
@@ -314,7 +378,7 @@ tr:nth-child(even) {
 			$stars .= "★";
 			}
         echo '<tr>';
-        echo "<td>".$row['rspName']."</td>";
+        echo "<td>".$row['realname']."</td>";
         echo "<td>".$row['startDate']."</td>";
 		echo "<td>".$stars."</td>";
         echo "<td>".$row['underlay']."</td>";
@@ -323,7 +387,6 @@ tr:nth-child(even) {
         echo "<td>".$row['depth']."</td>";
         echo "<td>".$row['length']."</td>";
         echo "<td>".$row['height']."</td>";
-        echo "<td>".$row['realname']."</td>";
         echo "</tr>"; 
       }
     }
@@ -331,19 +394,19 @@ tr:nth-child(even) {
     ?>
   </div>
 
-
-  <div class="w3-container w3-content w3-padding-64" style="max-width:800px" id="Kommentar2">
-    <h3>kundkommentarer</h3>
-  </h4>
+  
+  
+  <div class="w3-container w3-content w3-padding-64" style="max-width:950px" id="Kommentar2">
   <table>
+  <h3>kundkommentarer<i class="fa fa-comment-o" aria-hidden="true"></i></h3>
     <tr>
       <th>rspName</th>
-      <th>cmtID</th>
-      <th>kommentar</th>
-      <th>alias</th>
-      <th>grade</th>
-      <th>date</th>
-      <th>realname</th>
+      <th>CmtID</th>
+      <th><i class="fa fa-comments" aria-hidden="true"></i>kommentar</th>
+      <th><i class="fa fa-user" aria-hidden="true"></i>Namn</th>
+      <th><i class="fa fa-trophy" aria-hidden="true"></i>Betyg</th>
+      <th><i class="fa fa-calendar-o" aria-hidden="true"></i>Datum</th>
+      <th><i class="fa fa-id-badge" aria-hidden="true"></i>Sträckans namn</th>
 
     </tr>
     <?php
@@ -444,7 +507,8 @@ tr:nth-child(even) {
 <!-- Footer -->
 <footer class="w3-container w3-padding-64 w3-center w3-opacity w3-light-grey w3-xlarge">
 <div value="center">
-Skidloppet
+Skidloppet<br>
+ <i class="fa fa-language" aria-hidden="true"></i><a href="kundE.php"> For english press here</a>
 </div>
 </footer>
 
