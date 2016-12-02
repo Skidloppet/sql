@@ -81,6 +81,7 @@ function w3_close() {
   overlayBg.style.display = "none";
 }
 
+// För att ladda include diven med sida.
 function MakeRequest(id) {
     $.ajax({
         url : 'includes/'+id+'.php',
@@ -88,6 +89,20 @@ function MakeRequest(id) {
 		
         success: function(data){
             $('.includes').html(data);
+        }
+    });
+}
+
+// Skicka formulärdata
+function SendForm(page, go, form) {
+	
+    $.ajax({
+        url : 'includes/'+page+'.php', // där formulär inmatning hanteras.
+        type: 'POST',
+		data: $("#"+form).serialize(), // serializes formulärets element.
+		
+        success: function(data){
+            MakeRequest(go);  // den div som ska laddas efter körning.
         }
     });
 }
