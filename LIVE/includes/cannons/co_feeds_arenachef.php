@@ -41,7 +41,7 @@ newStatus enum('on','off','unplugged','broken'))
           echo '<th><input type="checkbox" name="'.$selected[].'" value="'.$row["cannonID"].'"></th>';
           echo "</tr>";
 
-          <input type="submit" value="Save" name="btn_save"> 
+          echo '<input type="submit" value="Save" name="btn_save">'; 
 
 
         }

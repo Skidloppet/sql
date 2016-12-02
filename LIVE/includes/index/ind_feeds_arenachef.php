@@ -41,8 +41,8 @@ foreach($pdo->query( 'SELECT count(*) as nmr FROM wo where priority="akut" and e
       <div class="w3-container w3-section">
         <div class="w3-row-padding" style="margin:0 -16px">
           <div class="w3-threethird">
-            <h1 style="color:red;">Akuta arbetsordrar</h1>
-            <table class="w3-table w3-striped w3-white">
+            <h1>Akuta arbetsordrar</h1>
+            <table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white">
               <tr>
                 <td><i class="fa fa-users w3-orange w3-text-white w3-padding-tiny"></i></td>
                 <th>Order ID</th>
@@ -114,7 +114,7 @@ foreach($pdo->query( 'SELECT count(*) as nmr FROM wo where priority="akut" and e
 <div class="w3-row-padding" style="border-color:lightblue; border-style: solid; border-width: 5px;">
   <div class="w3-threethird">
     <h5>Pågående arbetsordrar</h5>
-    <table class="w3-table w3-striped w3-white">
+            <table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white">
       <tr>
         <th><i class="fa fa-users w3-orange w3-text-white w3-padding-tiny"></i></th>
         <th>Order ID</th>
@@ -131,13 +131,12 @@ foreach($pdo->query( 'SELECT count(*) as nmr FROM wo where priority="akut" and e
       <?php     
 
       foreach($pdo->query( 'SELECT * FROM wo order by orderID desc;' ) as $row){
-        $luck = $row ['orderID'];
         echo "<tr><td><i class='fa fa-eye w3-blue w3-padding-tiny'></i></td>";
         echo "<td>".$row['orderID']."</td>";
         echo "<td>";
-        foreach($pdo->query( 'select realName from SubPlace, SubPlaceWorkOrder where SubPlace.name = SubPlaceWorkOrder.name and SubPlaceWorkOrder.orderID = '.$luck.';' ) as $brow){;
+        foreach($pdo->query( 'select realName from SubPlace, SubPlaceWorkOrder where SubPlace.name = SubPlaceWorkOrder.name and SubPlaceWorkOrder.orderID = '.$row ['orderID'].';' ) as $brow){;
           echo $brow['realName']."</br>";
-        };
+              }
         echo "</td>";
         echo "<td>".$row['type']."</td>";
         echo "<td>".$row['priority']."</td>";
@@ -170,7 +169,7 @@ foreach($pdo->query( 'SELECT count(*) as nmr FROM wo where priority="akut" and e
 <div class="w3-row-padding" style="border-color:lightblue; border-style: solid; border-width: 5px; margin-top:15px;">
   <div class="w3-threethird">
     <h5>Senaste avklarade rapporterna (max 5)</h5>
-    <table class="w3-table w3-striped w3-white">
+            <table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white">
       <tr>
         <th><i class="fa fa-users w3-orange w3-text-white w3-padding-tiny"></i></th>
         <th>Report-ID</th>

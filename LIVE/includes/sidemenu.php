@@ -61,7 +61,6 @@ include 'connect.php';
     <a href="#" data-content="errorreport" class="<?php if(basename($_SERVER['SCRIPT_NAME']) == 'errorreport.php'){echo 'w3-padding w3-blue'; }else { echo 'w3-padding'; } ?>"><i class="fa fa-comment fa-fw"></i>  Felanmälan</a>
     <a href="#" data-content="comments" class="<?php if(basename($_SERVER['SCRIPT_NAME']) == 'comments.php'){echo 'w3-padding w3-blue'; }else { echo 'w3-padding'; } ?>"><i class="fa fa-users fa-fw"></i>  Kundkommentarer</a>
     <a href="#" data-content="archive" class="<?php if(basename($_SERVER['SCRIPT_NAME']) == 'archive.php'){echo 'w3-padding w3-blue'; }else { echo 'w3-padding'; } ?>"><i class="fa fa-history fa-fw"></i>  Arkiv</a>
-    <a href=""><?php   echo basename($_SERVER['SCRIPT_NAME']); ?></a>
     <?php
 
   } 
