@@ -83,12 +83,14 @@ DELIMITER ;
 -- 5. Procedur för att skapa en ny snökanon
 DROP PROCEDURE IF EXISTS NewCannon; 
  DELIMITER //
-CREATE PROCEDURE NewCannon(subPlaceName varchar(32), model char(3), state enum('På','Av','Urkopplad','Trasig', 'Annat'), effect smallint)
+CREATE PROCEDURE NewCannon(subPlaceName varchar(32), model char(3), state enum('På','Av','Urkopplad','Trasig', 'Annat'), effect DECIMAL(4,3), klass varchar(32))
+
 BEGIN
-insert into Cannon (subPlaceName, model, state, effect) values (subPlaceName, model, state, effect);
+insert into Cannon (subPlaceName, model, state, effect, klass) values (subPlaceName, model, state, effect, klass);
 END; //
 DELIMITER ;
--- call NewCannon('11','MO11','off','12');
+--
+-- call NewCannon('Hedemora 1:1','MO1','På','1,2','asd');
 -- select * from Cannon;
 
 
@@ -556,6 +558,7 @@ END //
 DELIMITER ;
 
 call _removeComment();
+
 
 
 

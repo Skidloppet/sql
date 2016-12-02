@@ -87,7 +87,7 @@ foreach($pdo->query( 'select count(*)as i2 from FinnishedWorkOrder;' ) as $row){
               echo "</option>";
             }
             ?></select></br>
-<p>Modellnamn</p>
+            <p>Modellnamn</p>
             <input type="text" name="model" placeholder="modell.."></p>
             <p>Effekt m&#179/min (ex: <b>1.123</b>)</p>
             <input type="text" name="effect" placeholder="effekt.."></p>

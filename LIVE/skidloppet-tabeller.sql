@@ -119,16 +119,14 @@ foreign key (entID) references Ent(entID)
 -- cannon är snökanon, model namn avgör om den är stationär
 create table Cannon (
 cannonID smallint not null auto_increment unique,
-subPlaceName smallint null,
-
+subPlaceName varchar(32) null,
 model char (3) not null, 
 -- model visar om det är stationär eller ej
 state enum('På','Av','Urkopplad','Trasig', 'Annat') null,
 effect DECIMAL(4,3), -- producerar ca: 1.226 m3/minut ()(fasta), flyttbara producerar ca: 0.5 m3 /mint
 klass varchar(32) not null, 
 -- effect och status tillsammans med N:M tabellens timestamp skall visa antal m2 snö tillverkat.
-primary key (cannonID),
-foreign key (subPlaceName) references SubPlace(name)ON DELETE CASCADE ON UPDATE CASCADE
+primary key (cannonID)
 )engine=innodb;
 
 
@@ -233,7 +231,7 @@ entID smallint,
 startStamp datetime,
 endStamp datetime,
 priority enum('low','medium','high','akut'),
-newStatus enum('on','off','unplugged','broken'),
+newStatus enum('on','Urkopplad','unplugged','broken'),
 info varchar(1024),
 comment varchar(1024),
 primary key (orderID),
@@ -251,7 +249,7 @@ name smallint,
 entID smallint,
 startStamp timestamp,
 endStamp timestamp,
-newStatus enum('on','off','unplugged','broken'),
+newStatus enum('on','Urkopplad','unplugged','broken'),
 info varchar(1024),
 comment varchar(1024),
 primary key (orderID),
@@ -359,36 +357,36 @@ insert into SubPlace (name, placeName, realName, entID, length, height, fakesnow
 
 -- select * from Cannon;
 insert into Cannon (subPlaceName, model, state, effect,klass) values
-('1','STA','off','1.226','SMI Super PoleCat'), 
-('11','STA','off','1.226','SMI Super PoleCat'),
-('12','STA','off','1.226','SMI Super PoleCat'),
-('16','STA','off','1.226','SMI Super PoleCat'),
-('18','STA','off','1.226','SMI Super PoleCat'),
-('3','STA','off','1.226','SMI Super PoleCat'),
-('4','STA','off','1.226','SMI Super PoleCat'),
-('7','STA','off','1.226','SMI Super PoleCat'),
-('10','STA','off','1.226','SMI Super PoleCat'),
-('21','STA','off','1.226','SMI Super PoleCat'),
-('9','MOV','off','0.5','Top Gun 7'),
-('6','MOV','off','0.5','Top Gun 7'),
-('4','MOV','off','0.5','Top Gun 7'),
-('3','MOV','off','0.5','Top Gun 7'),
-('5','MOV','off','0.5','Top Gun 7'),
-('20','MOV','off','0.5','Top Gun 7'),
-('19','MOV','off','0.5','Top Gun 7'),
-('14','MOV','off','0.5','Top Gun 7'),
-('10','MOV','off','0.5','Top Gun 7'),
-('9','MOV','off','0.5','Top Gun 7'),
-('8','MOV','off','0.5','Top Gun 7'),
-('12','MOV','off','0.5','Top Gun 7'),
-('15','MOV','off','0.5','Top Gun 7'),
-('17','MOV','off','0.5','Top Gun 7'),
-('19','MOV','off','0.5','Top Gun 7'),
-('21','MOV','off','0.5','Top Gun 7'),
-('1','MOV','off','0.5','Top Gun 7'),
-('2','MOV','off','0.5','Top Gun 7'),
-('4','MOV','off','0.5','Top Gun 7'),
-('13','MOV','off','0.5','Top Gun 7');
+('HUVUDGARAGET','STA','Av','1.226','SMI Super PoleCat'), 
+('HUVUDGARAGET','STA','Av','1.226','SMI Super PoleCat'),
+('HUVUDGARAGET','STA','Av','1.226','SMI Super PoleCat'),
+('HUVUDGARAGET','STA','Av','1.226','SMI Super PoleCat'),
+('HUVUDGARAGET','STA','Av','1.226','SMI Super PoleCat'),
+('HUVUDGARAGET','STA','Av','1.226','SMI Super PoleCat'),
+('HUVUDGARAGET','STA','Av','1.226','SMI Super PoleCat'),
+('HUVUDGARAGET','STA','Av','1.226','SMI Super PoleCat'),
+('HUVUDGARAGET','STA','Av','1.226','SMI Super PoleCat'),
+('HUVUDGARAGET','STA','Av','1.226','SMI Super PoleCat'),
+('HUVUDGARAGET','MOV','Av','0.5','Top Gun 7'),
+('HUVUDGARAGET','MOV','Av','0.5','Top Gun 7'),
+('HUVUDGARAGET','MOV','Av','0.5','Top Gun 7'),
+('HUVUDGARAGET','MOV','Urkopplad','0.5','Top Gun 7'),
+('HUVUDGARAGET','MOV','Urkopplad','0.5','Top Gun 7'),
+('HUVUDGARAGET','MOV','Urkopplad','0.5','Top Gun 7'),
+('HUVUDGARAGET','MOV','Urkopplad','0.5','Top Gun 7'),
+('HUVUDGARAGET','MOV','Urkopplad','0.5','Top Gun 7'),
+('HUVUDGARAGET','MOV','Urkopplad','0.5','Top Gun 7'),
+('HUVUDGARAGET','MOV','Urkopplad','0.5','Top Gun 7'),
+('HUVUDGARAGET','MOV','Urkopplad','0.5','Top Gun 7'),
+('HUVUDGARAGET','MOV','Urkopplad','0.5','Top Gun 7'),
+('HUVUDGARAGET','MOV','Urkopplad','0.5','Top Gun 7'),
+('HUVUDGARAGET','MOV','Urkopplad','0.5','Top Gun 7'),
+('HUVUDGARAGET','MOV','Urkopplad','0.5','Top Gun 7'),
+('HUVUDGARAGET','MOV','Urkopplad','0.5','Top Gun 7'),
+('HUVUDGARAGET','MOV','Urkopplad','0.5','Top Gun 7'),
+('HUVUDGARAGET','MOV','Urkopplad','0.5','Top Gun 7'),
+('HUVUDGARAGET','MOV','Urkopplad','0.5','Top Gun 7'),
+('HUVUDGARAGET','MOV','Urkopplad','0.5','Top Gun 7');
 
 
 insert into Report (entID, startDate, workDate, rating, underlay, edges, grip, depth) values
@@ -397,8 +395,8 @@ insert into Report (entID, startDate, workDate, rating, underlay, edges, grip, d
 ('1','2011-11-11','2011-12-11','2','2','4','3','43');
 
 insert into CannonSubPlace (CannonID, name, entID, startStamp, endStamp, newStatus, info, comment) values
-('1','1','2',now(),now(),'off','text från ski','not finnished'),
-('2','1','1',now(),now(),'off','text från ski1','not finnished'),
+('1','1','2',now(),now(),'Urkopplad','text från ski','not finnished'),
+('2','1','1',now(),now(),'Urkopplad','text från ski1','not finnished'),
 ('3','1','3',now(),now(),'on','text från ski2','not finnished');
 
 
@@ -433,4 +431,5 @@ insert into CommentSubPlace (CommentID, name) values
 ('3','2'),
 ('3','3');
 */
+
 

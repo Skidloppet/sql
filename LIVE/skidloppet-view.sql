@@ -331,18 +331,30 @@ CREATE VIEW can AS
                 -- Group/order by realname, model, newStatus, startStamp
 -- select * from can;
 
+-- vy för snökanoner
+DROP VIEW IF EXISTS ca;
+CREATE VIEW ca AS
+	SELECT * FROM Cannon;
+				-- where CannonSubPlace.cannonID = Cannon.cannonID;
+                -- Group/order by realname, model, newStatus, startStamp
+-- select * from ca;
+
 
 -- vy för snökanoner
 DROP VIEW IF EXISTS canT;
 CREATE VIEW canT AS
 	SELECT 
-		CannonSubPlace.cannonID as CcannonID, name,CannonSubPlace.skiID as skiID,CannonSubPlace.entID as entID, startStamp, endStamp, priority, newStatus, info,
+		CannonSubPlace.cannonID as CcannonID, CannonSubPlace.name,CannonSubPlace.skiID as skiID,CannonSubPlace.entID as entID, startStamp, endStamp, priority, newStatus, info,
 		Cannon.cannonID as SCannonID, subPlaceName, model, state, effect, klass,
         Ski.firstName as skif, Ski.lastName as skil,
-        Ent.firstName as entf, Ent.lastName as entl
-			from Cannon, CannonSubPlace, Ent, Ski;
-            
-				-- where CannonSubPlace.cannonID = Cannon.cannonID;
+        Ent.firstName as entf, Ent.lastName as entl,
+        realName, fakesnow
+			from Cannon, CannonSubPlace, Ent, Ski, SubPlace
+				where CannonSubPlace.cannonID = Cannon.cannonID 
+                and SubPlace.Name = CannonSubPlace.name
+                and CannonSubPlace.entID = Ent.entID
+                and CannonSubPlace.skiID = Ski.skiID;
                 -- Group/order by realname, model, newStatus, startStamp
 -- select * from canT;
+
 
