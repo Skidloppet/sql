@@ -3,82 +3,78 @@
 include '../connect.php';	
 ?>	
 
-<h2>Snökanoner</h2>
-
-<div class="w3-container">
-  <div class="w3-row-padding">
-    <div class="w3-twothird w3-right">
-
-     <h5>Utskrift av snökanoner</h5>
-     <table class="w3-table w3-striped w3-white">
-      <th>CannonID</th>
-      <th>CannonModel</th>
-      <th>Cannon current position</th>
-      <th>Cannon current status</th>
-      <th>Cannon effect</th>
-      <th>Select </th>
+<div class="w3-row-padding" style="border-color:lightblue; border-style: solid; border-width: 5px;">
+  <div class="w3-threethird">
+    <h5></h5>
+    <table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white">
       <tr>
+        <th><i class="fa fa-users w3-orange w3-text-white w3-padding-tiny"></i>id</th>
+        <th>Namn (id)</th>
+        <th>Nuvarande plats (Konstsnö m3)</th>
+        <th>Status</th>
+        <th>Effekt</th>
+        <th>Senast ändrad</th>
+      </tr>        
+      <?php     
 
-<!--
-CREATE PROCEDURE _newCannonOrder (
-cannonID smallint,
-name smallint,
-entID smallint,
-info varchar (1024),
-newStatus enum('on','off','unplugged','broken'))
+      foreach($pdo->query( 'SELECT * FROM canT order by cannonID desc;' ) as $row){
+        echo "<tr><td><i class='fa fa-eye w3-blue w3-padding-tiny'></i></td>";
+        echo "<td>".$row['klass']." ( ".$row['cannonID']." ) </td>";
+/*        echo "<td>";
+        foreach($pdo->query( 'select realName from SubPlace, SubPlaceWorkOrder where SubPlace.name = SubPlaceWorkOrder.name and SubPlaceWorkOrder.orderID = '.$row ['orderID'].';' ) as $brow){;
+          echo $brow['realName']"</br>";
+              }
+              echo "</td>"; */
+              echo "<td>".$row['firstName']." ".$row['lastName']." ( ".$row['entID']." )</td>";
+              echo "<td>".$row['realName']." ( ".$row['fakesnow']."m&#179</td>";
+              echo "<td>".$row['priority']."</td>";
+              echo "<td>".$row['entF']." ".$row['entL']."</td>";
+              echo "<td>".$row['info']."</td>";
+              echo "<td>".$row['sentDate']."</td>";
+              echo "<td>".$row['skiF']." ".$row['skiL']."</td>";
+              echo "<td>";
 
--->
-<form name="fruitcheckbox" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
-        <?php
-        foreach($pdo->query( 'SELECT cannonID, model, state, effect, realName  FROM Cannon, SubPlace where SubPlace.name = Cannon.subPlaceName;') as $row){
-          echo "<tr>";
-          echo "<td>".$row['cannonID']."</td>";
-          echo "<td>".$row['model']."</td>";
-          echo "<td>".$row['realName']."</td>";
-          echo "<td>".$row['state']."</td>";
-          echo "<td>".$row['effect']."</td>";
-          echo '';
-          echo '<th><input type="checkbox" name="'.$selected[].'" value="'.$row["cannonID"].'"></th>';
-          echo "</tr>";
-
-          echo '<input type="submit" value="Save" name="btn_save">'; 
+              CannonSubPlace.cannonID as CcannonID, name,skiID,entID, startStamp, endStamp, priority, newStatus, info,
+              Cannon.cannonID as SCannonID, subPlaceName, model, state, effect, klass
+              from Cannon, CannonSubPlace;
 
 
+              ?>
+              <form action='<?php echo $_SERVER['SCRIPT_NAME']; ?>' method='POST'>
+                <input type="hidden" name="orderID" value="<?php echo $row['orderID']; ?>">
+                <button class="fa fa-ban HoverButton" type="submit" name="bort"> Radera</button>
+              </form>  
+            </td>
+            <td>
+              <form action='<?php echo $_SERVER['SCRIPT_NAME']; ?>' method='POST'>
+                <input type="hidden" name="orderID" value="<?php echo $row['orderID']; ?>">
+                <button class="fa fa-check HoverButton" type="submit" name="lagra"> Klarmarkera</button>
+              </form>
+            </td>
+          </tr>
+          <?php
         }
-        ?>
-      </tr>
-    </table>
+        ?>   
+      </table>
+    </div>
   </div>
 
-  <div class="w3-third w3-left">
-     <h5>asd</h5>
-    <select id="selecten"> 
-      <option value="as">select status</option>
-      <option name="status" value="on">on</option>
-      <option name="status" value="off">off</option>
-      <option name="status" value="unplugged">unplugged</option>
-      <option name="status" value="broken">broken</option>     
-    </select>
-  </div>
-</div>
-</div>
 
 
-
-<?php
-   if(isset($_POST['btn_save'])) 
+  <?php
+  if(isset($_POST['btn_save'])) 
    {   $fruitArray = array('orange', 'apple', 'grapefruit', 'banana', 'watermelon'); 
-       If(isset($_POST['fruit'])) 
+ If(isset($_POST['fruit'])) 
        {   $values = array(); // store the selection 
-           foreach($_POST['fruit'] as $selection )
+         foreach($_POST['fruit'] as $selection )
            {   if(in_array($selection, $fruitArray)) 
-               { $values[ $selection ] = 1; } 
-               else 
+             { $values[ $selection ] = 1; } 
+             else 
                { $values[ $selection ] = 0; } 
            }
-        }
-    }
-?>
+         }
+       }
+       ?>
 
 <!-- 
 

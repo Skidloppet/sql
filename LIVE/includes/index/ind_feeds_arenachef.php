@@ -111,10 +111,58 @@ foreach($pdo->query( 'SELECT count(*) as nmr FROM wo where priority="akut" and e
 </div>
 </div>
 
+
+<div class="w3-row-padding" style="border-color:lightblue; border-style: solid; border-width: 5px;">
+  <div class="w3-threethird">
+   <h5>Snittbetygen på hela arenan</h5>
+   <?php
+
+   foreach($pdo->query( 'SELECT * FROM snittBetyg, snitt;' ) as $row){
+
+      # kolla VIEW snittBetyg & snitt
+      # lade till B tagg för att göra snittet enklare att se (row r,u,e,g /5)
+
+    echo '<p>Helhetsbetyg</p>';
+    echo '<div class="w3-progress-container w3-grey">';
+
+    echo '<div id="myBar" class="w3-progressbar w3-blue" style="width:'.$row["rat"].'%">';
+    echo '<div class="w3-center w3-text-white"><b>'.$row["r"].'/5</b></div>';
+    echo 'echo   </div>';
+    echo ' </div>';
+    echo '   <p>Underlag</p>';
+    echo ' <div class="w3-progress-container w3-grey">';
+
+    echo '  <div id="myBar" class="w3-progressbar w3-red" style="width:'.$row["under"].'%">';
+    echo '   <div class="w3-center w3-text-white"><b>'.$row["u"].'/5</b></div>';
+    echo '   </div>';
+    echo ' </div>';
+
+    echo '  <p>Spårkanter</p>';
+    echo ' <div class="w3-progress-container w3-grey">';
+    echo '  <div id="myBar" class="w3-progressbar w3-orange" style="width:'.$row["edge"].'%">';
+    echo '    <div class="w3-center w3-text-white"><b>'.$row["e"].'/5</b></div>';
+    echo '   </div>';
+    echo ' </div>';
+
+    echo ' <p>Stavfäste</p>';
+    echo '<div class="w3-progress-container w3-grey">';
+    echo ' <div id="myBar" class="w3-progressbar w3-green" style="width:'.$row["grip"].'%">';
+    echo '    <div class="w3-center w3-text-white"><b>'.$row["g"].'/5</b></div>';
+    echo '  </div>';
+    echo ' </div></br>';
+
+  }
+  ?>
+</div>
+</div>
+</br>
+
+
+
 <div class="w3-row-padding" style="border-color:lightblue; border-style: solid; border-width: 5px;">
   <div class="w3-threethird">
     <h5>Pågående arbetsordrar</h5>
-            <table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white">
+    <table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white">
       <tr>
         <th><i class="fa fa-users w3-orange w3-text-white w3-padding-tiny"></i></th>
         <th>Order ID</th>
@@ -136,7 +184,7 @@ foreach($pdo->query( 'SELECT count(*) as nmr FROM wo where priority="akut" and e
         echo "<td>";
         foreach($pdo->query( 'select realName from SubPlace, SubPlaceWorkOrder where SubPlace.name = SubPlaceWorkOrder.name and SubPlaceWorkOrder.orderID = '.$row ['orderID'].';' ) as $brow){;
           echo $brow['realName']."</br>";
-              }
+        }
         echo "</td>";
         echo "<td>".$row['type']."</td>";
         echo "<td>".$row['priority']."</td>";
@@ -156,20 +204,20 @@ foreach($pdo->query( 'SELECT count(*) as nmr FROM wo where priority="akut" and e
           <input type="hidden" name="orderID" value="<?php echo $row['orderID']; ?>">
           <button class="fa fa-check HoverButton" type="submit" name="lagra"> Klarmarkera</button>
         </form>
-        </td>
-      </tr>
-        <?php
-      }
-      ?>   
-    </table>
-  </div>
+      </td>
+    </tr>
+    <?php
+  }
+  ?>   
+</table>
+</div>
 </div>
 
 
 <div class="w3-row-padding" style="border-color:lightblue; border-style: solid; border-width: 5px; margin-top:15px;">
   <div class="w3-threethird">
     <h5>Senaste avklarade rapporterna (max 5)</h5>
-            <table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white">
+    <table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white">
       <tr>
         <th><i class="fa fa-users w3-orange w3-text-white w3-padding-tiny"></i></th>
         <th>Report-ID</th>
