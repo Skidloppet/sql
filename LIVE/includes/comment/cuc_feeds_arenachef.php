@@ -17,7 +17,7 @@ if(isset($_GET['commentID'])){
 
 <div class="w3-row-padding" style="border-color:lightblue; border-style: solid; border-width: 5px;">
   <div class="w3-threethird">
-      <h5>Kund Kommentarer!</h5>
+      <h3>Kund Kommentarer</h3>
       <table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white">
         <tr>
           <tr>
@@ -27,7 +27,8 @@ if(isset($_GET['commentID'])){
           <th>Betyg</th>
 		  <th>Kommentar</th>
 		  <th>Datum</th>
-        </tr>        
+		  <th></th>
+                
         <?php     
 
         foreach($pdo->query( 'SELECT * FROM Commenta order by commentID desc;' ) as $row){
@@ -42,19 +43,19 @@ if(isset($_GET['commentID'])){
           echo "<td>".$row['grade']." / 5 </td>";
           echo "<td>".$row['kommentar']."</td>";
           echo "<td>".$row['date']."</td>";
-          echo "</tr>";  
+ 
         
         ?>  
 		   <td class="comment-delete">
-           <form action="<?php echo $_SERVER["SCRIPT_NAME"] ?>" method='POST'>
-           <input type="hidden" name="deleteComment" value="<?php echo $row['commentID']; ?>">
-           <input class="HoverButton" type="submit" name="delComment" value="Delete" id="tja">
+           <form id="cucdel">
+		   <input type="hidden" name="commentID" value="<?php echo $row['commentID']; ?>">
+           <button type="button" onclick="SendForm('comments', 'comments', 'cucdele');">radera</button>
            </form>
-           </td>
 
+           </td>
+		</tr>
 		   
 		<?php
-        echo "</tr>";  
         }
         ?>
 		
@@ -62,12 +63,13 @@ if(isset($_GET['commentID'])){
     </div>
 </div>
 
+
     <?php
-  if(isset($_POST['delComment'])){
-  $deletedComment = $_POST['deleteComment'];
-  $sql = "DELETE FROM Commenta WHERE commentID = $deletedComment" ;
+  if(isset($_POST['commentID'])){
+  $sql = "DELETE FROM Commenta WHERE commentID = :commentID";
   $stmt = $pdo->prepare($sql);
+  $stmt->bindParam(':commentID', $_POST['commentID'], PDO::PARAM_INT);
   $stmt->execute();
     }
   ?>
-
+  
