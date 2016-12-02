@@ -83,7 +83,7 @@ DELIMITER ;
 -- 5. Procedur för att skapa en ny snökanon
 DROP PROCEDURE IF EXISTS NewCannon; 
  DELIMITER //
-CREATE PROCEDURE NewCannon(subPlaceName varchar(32), model char(3), state enum('on','off','unplugged','broken'),effect smallint)
+CREATE PROCEDURE NewCannon(subPlaceName varchar(32), model char(3), state enum('På','Av','Urkopplad','Trasig', 'Annat'), effect smallint)
 BEGIN
 insert into Cannon (subPlaceName, model, state, effect) values (subPlaceName, model, state, effect);
 END; //
@@ -398,17 +398,20 @@ DELIMITER //
 CREATE PROCEDURE _newCannonOrder (
 cannonID smallint,
 name smallint,
+skiID smallint,
 entID smallint,
-info varchar (1024),
-newStatus enum('on','off','unplugged','broken'))
+startStamp datetime,
+priority enum('low','medium','high','akut'),
+newStatus enum('on','off','unplugged','broken'),
+info varchar (1024))
 BEGIN
 
-INSERT INTO CannonSubPlace (cannonID, name, entID, newStatus, info, comment) values (cannonID, name, entID, newStatus, info,"not finnished/accepted(emergency) yet");
+INSERT INTO CannonSubPlace (cannonID, name, skiID,entID, startStamp, priority,newStatus, info) values (cannonID, name, skiID,entID, startStamp, priority,newStatus, info);
 
 COMMIT ;
 END //
 DELIMITER ;
--- call _newCannonOrder ('1','2','1','tecxt example','on');
+call _newCannonOrder ('1','2','1','1',NOW(),'low','on','fdgfhfgdsfad');
 
 -- select * from CannonSubPlace;
 
@@ -553,6 +556,7 @@ END //
 DELIMITER ;
 
 call _removeComment();
+
 
 
 

@@ -16,18 +16,17 @@
 .?
 .?
 */
- 
 
 -- 1. Vy för alla användare
 -- Vy för att skapa en entreprenör
 DROP VIEW IF EXISTS AllUsers;
 CREATE VIEW AllUsers AS
     SELECT 
-        skiID as id, email, password, type, firstName, lastName
+        skiID as id, email, password, type, firstName, lastName, number, regDate
     FROM
         Ski 
     UNION SELECT 
-        entID as id, email, password, number as type, firstName, lastName
+        entID as id, email, password, number as type, firstName, lastName, number, regDate
     FROM
         Ent;
 -- select * from AllUsers;
@@ -308,6 +307,7 @@ SELECT *
 FROM Commenta where date > DATE_SUB(CURDATE(), INTERVAL 1 DAY);
 -- select * from co;
 
+-- 
 DROP VIEW IF EXISTS SubPlaceViewer;
 CREATE VIEW SubPlaceViewer AS
 SELECT 
@@ -317,4 +317,32 @@ FROM SubPlace, Ent
 WHERE SubPlace.entID = Ent.entID
 GROUP BY name
 ;
-select * from SubPlaceViewer;
+-- select * from SubPlaceViewer;
+
+
+-- vy för snökanoner
+DROP VIEW IF EXISTS can;
+CREATE VIEW can AS
+	SELECT 
+		CannonSubPlace.cannonID as CcannonID, name,skiID,entID, startStamp, endStamp, priority, newStatus, info,
+		Cannon.cannonID as SCannonID, subPlaceName, model, state, effect, klass
+			from Cannon, CannonSubPlace;
+				-- where CannonSubPlace.cannonID = Cannon.cannonID;
+                -- Group/order by realname, model, newStatus, startStamp
+-- select * from can;
+
+
+-- vy för snökanoner
+DROP VIEW IF EXISTS canT;
+CREATE VIEW canT AS
+	SELECT 
+		CannonSubPlace.cannonID as CcannonID, name,CannonSubPlace.skiID as skiID,CannonSubPlace.entID as entID, startStamp, endStamp, priority, newStatus, info,
+		Cannon.cannonID as SCannonID, subPlaceName, model, state, effect, klass,
+        Ski.firstName as skif, Ski.lastName as skil,
+        Ent.firstName as entf, Ent.lastName as entl
+			from Cannon, CannonSubPlace, Ent, Ski;
+            
+				-- where CannonSubPlace.cannonID = Cannon.cannonID;
+                -- Group/order by realname, model, newStatus, startStamp
+-- select * from canT;
+

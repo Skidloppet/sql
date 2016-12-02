@@ -1,12 +1,16 @@
-
-    <!-- Header -->
-    <?php
-    include 'backend_headerbox.php';
-    ?>
+<!DOCTYPE html>
+<html>
+<?php
+include'../connect.php';
+SESSION_START();
+$id = $_SESSION['id'];
+$em = $_SESSION['email'];
+$WOO = $_SERVER["SCRIPT_NAME"];
+?>
 
 
     <!-- utskrift SKI -->
-<div class="w3-container w3-section w3-green" style="z-index:4">  <h3>Utskrift av Skidloppet-anstÃ¤llde</h3>
+<div class="w3-container w3-section w3-green" style="z-index:4">  <h3>Utskrift av Skidloppet-anställda</h3>
     <table>
       <?php   
           echo "<tr>";
@@ -38,7 +42,7 @@
       </table>
 </div>
     <!-- utskrift ent -->
-<div class="w3-container w3-section w3-brown">  <h3>Utskrift av feta entreprenÃ¶rer</h3>
+<div class="w3-container w3-section w3-brown">  <h3>Utskrift av feta entreprenörer</h3>
     <table>
       <?php   
           echo "<tr>";

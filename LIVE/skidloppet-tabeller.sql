@@ -120,11 +120,12 @@ foreign key (entID) references Ent(entID)
 create table Cannon (
 cannonID smallint not null auto_increment unique,
 subPlaceName smallint null,
+
 model char (3) not null, 
 -- model visar om det är stationär eller ej
-state enum('on','off','unplugged','broken') null,
+state enum('På','Av','Urkopplad','Trasig', 'Annat') null,
 effect DECIMAL(4,3), -- producerar ca: 1.226 m3/minut ()(fasta), flyttbara producerar ca: 0.5 m3 /mint
-class varchar(32) not null, 
+klass varchar(32) not null, 
 -- effect och status tillsammans med N:M tabellens timestamp skall visa antal m2 snö tillverkat.
 primary key (cannonID),
 foreign key (subPlaceName) references SubPlace(name)ON DELETE CASCADE ON UPDATE CASCADE
@@ -178,7 +179,7 @@ foreign key (name) references SubPlace(name)
 )engine=innodb;
 -- SHOW engine innodb STATUS;
 
-
+-- N:M arbetsorder - delsträckor
 create table SubPlaceWorkOrder(
 name smallint not null,
 orderID int not null,
@@ -208,19 +209,37 @@ foreign key (name) references SubPlace(name)
 
 -- N:M tabell för N:M förhållande mellan cannon och sträckor så en arbetsorder kan flytta en eller flera snökanoner.
 -- TRANSAKTION
+/*
+orderID int not null auto_increment unique,
+skiID smallint not null,
+entID smallint null,
+-- (entID) Kan inte tilldelas till en specifik entreprenör vid akut prio.
+sentDate datetime,
+-- ändrade från timestamp till datetime pga att det blev fel datum i finnishedworkorder när man flyttade över
+endDate timestamp,
+priority enum('low','medium','high','akut'),
+type enum('lights','tracks','dirt','trees','other') null,
+info varchar(1024),
+EntComment varchar(1024),
+
+
+*/
 create table CannonSubPlace (
 orderID int not null auto_increment unique,
 cannonID smallint,
 name smallint,
+skiID smallint,
 entID smallint,
-startStamp timestamp,
-endStamp timestamp,
+startStamp datetime,
+endStamp datetime,
+priority enum('low','medium','high','akut'),
 newStatus enum('on','off','unplugged','broken'),
 info varchar(1024),
 comment varchar(1024),
 primary key (orderID),
 foreign key (cannonID) references Cannon(cannonID)on delete cascade,
 foreign key (name) references SubPlace(name)on delete cascade,
+foreign key (skiID) references Ski(SkiID),
 foreign key (entID) references Ent(entID)
 )engine=innodb;
 
@@ -312,7 +331,7 @@ insert into Commenta (Kommentar,grade, alias, date) values
 
 -- select avg(grade) from Comment;
 -- select grade from Comment;
-select * from Ent;
+-- select * from Ent;
 insert into SubPlace (name, placeName, realName, entID, length, height, fakesnow) values 
 ('1','Delstrackor','Hedemora 1:1','1','12','21','23'),
 ('2','Delstrackor','Hedemora 1:2','1','17','476','11'),
@@ -339,7 +358,7 @@ insert into SubPlace (name, placeName, realName, entID, length, height, fakesnow
 
 
 -- select * from Cannon;
-insert into Cannon (subPlaceName, model, state, effect,class) values
+insert into Cannon (subPlaceName, model, state, effect,klass) values
 ('1','STA','off','1.226','SMI Super PoleCat'), 
 ('11','STA','off','1.226','SMI Super PoleCat'),
 ('12','STA','off','1.226','SMI Super PoleCat'),
@@ -414,3 +433,4 @@ insert into CommentSubPlace (CommentID, name) values
 ('3','2'),
 ('3','3');
 */
+
