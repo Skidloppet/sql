@@ -5,7 +5,7 @@ include '../connect.php';
 
 <?php
 if(isset($_POST['bort'])){
- $querystring='DELETE FROM delWO WHERE orderID = :orderID';
+ $querystring='DELETE FROM WorkOrder WHERE orderID = :orderID';
  $stmt = $pdo->prepare($querystring);
  $stmt->bindParam(':orderID', $_POST['orderID'], PDO::PARAM_INT);
  $stmt->execute();
@@ -134,7 +134,7 @@ if(isset($_POST['newEnt'])){
         echo "<td>";
         foreach($pdo->query( 'select realName from SubPlace, SubPlaceWorkOrder where SubPlace.name = SubPlaceWorkOrder.name and SubPlaceWorkOrder.orderID = '.$row ['orderID'].';' ) as $brow){;
           echo $brow['realName']."</br>";
-              }
+        }
         echo "</td>";
         echo "<td>".$row['type']."</td>";
         echo "<td>".$row['priority']."</td>";
@@ -142,24 +142,24 @@ if(isset($_POST['newEnt'])){
         echo "<td>".$row['info']."</td>";
         echo "<td>".$row['sentDate']."</td>";
         echo "<td>".$row['skiF']." ".$row['skiL']."</td>";
-        echo "<td>";
         ?>
-        <form action='<?php echo $_SERVER['SCRIPT_NAME']; ?>' method='POST'>
-          <input type="hidden" name="orderID" value="<?php echo $row['orderID']; ?>">
-          <button class="fa fa-ban HoverButton" type="submit" name="bort"> Radera</button>
-        </form>  
-      </td>
-      <td>
-        <form action='<?php echo $_SERVER['SCRIPT_NAME']; ?>' method='POST'>
-          <input type="hidden" name="orderID" value="<?php echo $row['orderID']; ?>">
-          <button class="fa fa-check HoverButton" type="submit" name="lagra"> Klarmarkera</button>
-        </form>
-      </td>
-    </tr>
-    <?php
-  }
-  ?>   
-</table>
+        <td>
+          <form action='<?php echo $_SERVER['SCRIPT_NAME']; ?>' method='POST'>
+            <input type="hidden" name="orderID" value="<?php echo $row['orderID']; ?>">
+            <button class="fa fa-ban HoverButton" type="submit" name="bort"> Radera</button>
+          </form>  
+        </td>
+        <td>
+          <form action='<?php echo $_SERVER['SCRIPT_NAME']; ?>' method='POST'>
+            <input type="hidden" name="orderID" value="<?php echo $row['orderID']; ?>">
+            <button class="fa fa-check HoverButton" type="submit" name="lagra"> Klarmarkera</button>
+          </form>
+        </td>
+      </tr>
+      <?php
+    }
+    ?>   
+  </table>
 </div>
 </div>
 

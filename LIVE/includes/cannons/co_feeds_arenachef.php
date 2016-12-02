@@ -10,7 +10,7 @@ include '../connect.php';
       <tr>
         <th><i class="fa fa-users w3-orange w3-text-white w3-padding-tiny"></i></th>
         <th>Modell (id)</th>
-        <th>Nuvarande plats (Konstsnö m3)</th>
+        <th>Position</th>
         <th>Status</th>
         <th>Effekt</th>
       </tr>        
@@ -18,7 +18,7 @@ include '../connect.php';
 
       foreach($pdo->query( 'SELECT * FROM ca order by cannonID desc;' ) as $row){
         echo "<tr><td><i class='fa fa-eye w3-blue w3-padding-tiny'></i></td>";
-        echo "<td>".$row['klass']." ( ".$row['cannonID']." ) </td>";
+        echo "<td>".$row['klass']." (<b> ".$row['cannonID']."</b> ) </td>";
 /*        echo "<td>";
         foreach($pdo->query( 'select realName from SubPlace, SubPlaceWorkOrder where SubPlace.name = SubPlaceWorkOrder.name and SubPlaceWorkOrder.orderID = '.$row ['orderID'].';' ) as $brow){;
           echo $brow['realName']"</br>";
