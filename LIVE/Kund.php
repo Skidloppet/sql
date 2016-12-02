@@ -228,13 +228,14 @@ article {
 <body>
   <!-- Navbar -->
   <div class="w3-top">
-    <ul class="w3-navbar w3-#009933 w3-card-2 w3-left-align">
+    <ul class="w3-navbar w3-white w3-card-2 w3-left-align">
       <li class="w3-hide-medium w3-hide-large w3-opennav w3-right">
         <a class="w3-padding-large" href="javascript:void(0)" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
       </li>
       <li><a href="#" class="w3-hover-none w3-hover-text-grey w3-padding-large">Hem</a></li>
       <li class="w3-hide-small"><a href="#Status" class="w3-padding-large">Status</a></li>
-      <li class="w3-hide-small"><a href="#Kommentar1" class="w3-padding-large">Kundernas kommentar</a></li>  
+      <li class="w3-hide-small"><a href="#Kommentar1" class="w3-padding-large">Kundernas kommentar</a></li> 
+      <li class="w3-hide-small"><a href="#Snitt" class="w3-padding-large">Arenans status</a></li> 	  
       <li class="w3-hide-small"><a href="#Kommentar2" class="w3-padding-large">Kommentera sträckan</a></li>
 
 
@@ -300,9 +301,6 @@ article {
     </div>
   </ul>
 
-
-
-
 </div>
 
 <!-- Page content -->
@@ -334,36 +332,17 @@ article {
 <!-- kartan -->  
 <div class="w3-container w3-content w3-padding-64" style="max-width:950px" id="Status">
 <?php
-include'includes/mapFkund.php';
+include'includes/map.php';
 ?>
+
 </div>
 
 
 
 
 
-
-
-
-
 <div class="w3-container w3-content w3-padding-64" style="max-width:950px" id="Kommentar1">
-<!--  <h3>skriver bara ut den som en enkel tabell för test <i class="fa fa-tasks" aria-hidden="true"></i></h3>
-  <h4>  <a href="?DS=1">sträcka ett (ingen karta)</a></h4>
- <table>
-    <tr>
-      <th><i class="fa fa-user" aria-hidden="true"></i>Namn</th>
-      <th><i class="fa fa-calendar" aria-hidden="true"></i>Start datum</th>
-      <th><i class="fa fa-trophy" aria-hidden="true"></i>Betyg</th>
-      <th>Underlag</th>
-      <th>Kanter</th>
-      <th>Fäste</th>
-      <th><i class="fa fa-snowflake-o" aria-hidden="true"></i>Djup(cm)</th>
-      <th><i class="fa fa-road" aria-hidden="true"></i>Längd (km)</th>
-      <th><i class="fa fa-map-marker" aria-hidden="true"></i>Sträckans namn</th>
-      <th><i class="fa fa-arrows-v" aria-hidden="true"></i>m.ö.h</th>
-    </tr>
--->
- 
+
 <!-- container för delsträckorna -->
  <div class="container">
 
@@ -467,19 +446,8 @@ include'includes/mapFkund.php';
 </article>
 <footer> Kommentarer </footer>
 </div>
-  <!--
-  <h3>kundkommentarer<i class="fa fa-comment-o" aria-hidden="true"></i></h3>
-    <tr>
-      <th>rspName</th>
-      <th>CmtID</th>
-      <th><i class="fa fa-comments" aria-hidden="true"></i>kommentar</th>
-      <th><i class="fa fa-user" aria-hidden="true"></i>Namn</th>
-      <th><i class="fa fa-trophy" aria-hidden="true"></i>Betyg</th>
-      <th><i class="fa fa-calendar-o" aria-hidden="true"></i>Datum</th>
-      <th><i class="fa fa-id-badge" aria-hidden="true"></i>Sträckans namn</th>
 
-    </tr>
-	-->
+
     <?php
 
     if(isset($_GET['DS'])){
@@ -505,6 +473,62 @@ include'includes/mapFkund.php';
   </div>
 
 
+  
+    <div class="w3-container w3-content w3-padding-64" style="max-width:950px" id="Snitt">
+  
+  <div class="container">
+  <div class="w3-threethird">
+  
+  <header>
+   <h1>Snittbetyg på hela arenan</h1>
+  </header>
+   <?php
+
+   foreach($pdo->query( 'SELECT * FROM snittBetyg, snitt;' ) as $row){
+
+      # kolla VIEW snittBetyg & snitt
+      # lade till B tagg för att göra snittet enklare att se (row r,u,e,g /5)
+
+    echo '<p>Helhetsbetyg</p>';
+    echo '<div class="w3-progress-container w3-grey">';
+
+    echo '<div id="myBar" class="w3-progressbar w3-green" style="width:'.$row["rat"].'%">';
+    echo '<div class="w3-center w3-text-white"><b>'.$row["r"].'/5</b></div>';
+    echo 'echo   </div>';
+    echo ' </div>';
+    echo '   <p>Underlag</p>';
+    echo ' <div class="w3-progress-container w3-grey">';
+
+    echo '  <div id="myBar" class="w3-progressbar w3-blue" style="width:'.$row["under"].'%">';
+    echo '   <div class="w3-center w3-text-white"><b>'.$row["u"].'/5</b></div>';
+    echo '   </div>';
+    echo ' </div>';
+
+    echo '  <p>Spårkanter</p>';
+    echo ' <div class="w3-progress-container w3-grey">';
+    echo '  <div id="myBar" class="w3-progressbar w3-green" style="width:'.$row["edge"].'%">';
+    echo '    <div class="w3-center w3-text-white"><b>'.$row["e"].'/5</b></div>';
+    echo '   </div>';
+    echo ' </div>';
+
+    echo ' <p>Stavfäste</p>';
+    echo '<div class="w3-progress-container w3-grey">';
+    echo ' <div id="myBar" class="w3-progressbar w3-blue" style="width:'.$row["grip"].'%">';
+    echo '    <div class="w3-center w3-text-white"><b>'.$row["g"].'/5</b></div>';
+    echo '  </div>';
+    echo ' </div></br>';
+
+  }
+  ?>
+</div>
+</div>
+</br>
+  
+  </div>
+  
+  
+  
+  
   <div class="w3-container w3-content w3-padding-64" style="max-width:950px">
   <header>
  <h1>Kommentera sträcka</h1>

@@ -3,6 +3,12 @@ SESSION_START();
 include'connect.php';
 # funkar ej
 # default_charset = "utf-8";
+
+
+    $sql = "CALL _removeComment()";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute();
+
 ?>
 
 
@@ -15,12 +21,13 @@ include'connect.php';
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
 
-
-
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+<link src="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+<link href="https://fortawesome.github.io/Font-Awesome/assets/font-awesome/css/font-awesome.css" rel="stylesheet">
 <style>
 body {font-family: "Lato", sans-serif}
 .mySlides {display: none}
-
 
 
 /* Full-width input fields */
@@ -36,7 +43,7 @@ body {font-family: "Lato", sans-serif}
 
 /* Set a style for all buttons */
 button {
-  background-color: #000000;
+  background-color: #009933;
   color: white;
   padding: 3px 35px;
   margin: 8px 0;
@@ -50,7 +57,7 @@ button {
 .cancelbtn {
   width: auto;
   padding: 10px 18px;
-  background-color: #000000;
+  background-color: #009933;
 }
 
 /* Center the image and position the close button */
@@ -72,6 +79,7 @@ img.avatar {
 span.psw {
   float: right;
   padding-top: 16px;
+      box-shadow: 10px 10px 5px #888888;
 }
 
 /* The Modal (background) */
@@ -85,7 +93,7 @@ span.psw {
   height: 100%; /* Full height */
   overflow: auto; /* Enable scroll if needed */
   background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  background-color: rgba(0,0,0,0.4); /* black w/ opacity */
   padding-top: 60px;
 }
 
@@ -157,25 +165,94 @@ tr:nth-child(even) {
   background-color: #dddddd;
 }
 
+<!-- div container för delsträckonra i en finare form samt tabell -->
+
+div.container {
+    width: 100%;
+    border: 1px solid gray;
+}
+
+header, footer {
+    padding: 1em;
+    color: white;
+    background-color: #009933;
+    clear: left;
+    text-align: center;
+}
+
+nav {
+    float: left;
+    max-width: 160px;
+    margin: 0;
+    padding: 1em;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+   
+nav ul a {
+    text-decoration: none;
+}
+
+article {
+    margin-left: 170px;
+    border-left: 1px solid gray;
+    padding: 1em;
+    overflow: hidden;
+}
+
+<!-- skroll funktionen för kommentarer -->
+
+#table-wrapper {
+  position:relative;
+}
+#table-scroll {
+  height:400px;
+  overflow:auto;  
+  margin-top:20px;
+}
+
+#table-wrapper table thead th .text {
+  position:absolute;   
+  top:-20px;
+  z-index:2;
+  height:20px;
+  width:35%;
+  border:1px solid red;
+}
 
 </style>
 
 <body>
-
   <!-- Navbar -->
   <div class="w3-top">
-    <ul class="w3-navbar w3-black w3-card-2 w3-left-align">
+    <ul class="w3-navbar w3-white w3-card-2 w3-left-align">
       <li class="w3-hide-medium w3-hide-large w3-opennav w3-right">
         <a class="w3-padding-large" href="javascript:void(0)" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
       </li>
       <li><a href="#" class="w3-hover-none w3-hover-text-grey w3-padding-large">Home</a></li>
       <li class="w3-hide-small"><a href="#Status" class="w3-padding-large">Status</a></li>
-      <li class="w3-hide-small"><a href="#Kommentar1" class="w3-padding-large">Customer comments</a></li>  
+      <li class="w3-hide-small"><a href="#Kommentar1" class="w3-padding-large">Customer comment</a></li> 
+      <li class="w3-hide-small"><a href="#Snitt" class="w3-padding-large">Arena status</a></li> 	  
       <li class="w3-hide-small"><a href="#Kommentar2" class="w3-padding-large">Customer stretch</a></li>
-      <li class="w3-hide-small"><a href="#Kontakt" class="w3-padding-large">Contact us</a></li>
-  </ul>
-</div>
 
+
+      <!-- kollar om man INTE är inloggad -->
+      <?php
+      if (!isset($_SESSION['email'])) {
+        ?>
+		
+		
+		
+<li style="float: right" >
+<a href="kund.php" <i class="fa fa-globe w3-xxlarge" aria-hidden="true"></i></a>
+</li>
+
+  </ul>
+
+</div>
 
 <!-- Page content -->
 <div class="w3-content" style="max-width:2000px;margin-top:46px">
@@ -202,40 +279,63 @@ tr:nth-child(even) {
     </div>
   </div>
 
-<!-- div för kartan -->
+  
+<!-- kartan -->  
+<div class="w3-container w3-content w3-padding-64" style="max-width:950px" id="Status">
+<?php
+include'includes/map.php';
+?>
 
-<!-- Detaljer för del-sträckan 
-<h1>Detaljer för del-sträckan</h1>
-<table border='1'><th>Rating</th><th>Underlay</th><th>Edges</th><th>Grip</th><th>Depth ( Cm )</th><tr><td>1</td><td>2</td><td>3</td><td>4</td><td>54.0</td></tr><tr><td>3</td><td>3</td><td>2</td><td>4</td><td>65.0</td></tr><tr><td>2</td><td>2</td><td>4</td><td>3</td><td>43.0</td></tr></table>
-  <div class="w3-container w3-content w3-padding-64" style="max-width:800px" id="Kommentar1">
-  <form action="Kund.php" method="POST">
-	<table>
-    <h2 class="w3-wide w3-center">Kundernas kommentarer</h2>
-	 <p class="w3-opacity w3-center"><i>Kommentera sträckorna du åkt på</i></p>
-	</table>
-  </form>
-  </div>
-  <table border='1'><th>Kommentar</th><th>Alias</th><th>Betyg</th><th>Datum</th></table>  
--->
+</div>
 
-<div class="w3-container w3-content w3-padding-64" style="max-width:800px" id="Kontakt">
-  <h3>skriver bara ut den som en enkel tabell för test</h3>
-  <h4>  <a href="?DS=1">stretch One (No map)</a>
-  </h4>
-  <table>
+
+
+
+
+<div class="w3-container w3-content w3-padding-64" style="max-width:950px" id="Kommentar1">
+
+<!-- container för delsträckorna -->
+ <div class="container">
+
+<header>
+   <h1>Delsträckornas status</h1>
+</header>
+  
+<nav>
+  <ul>
+	<li> <h2> select journey section </h2></li>
+    <li><a href="?DS=1">Hedemora 1:1</a></h4></li>
+    <li><a href="#">Hedemora 1:2</a></li>
+    <li><a href="#">Hedemora 1:3</a></li>
+  </ul>
+</nav>
+
+<article>
+  <h1>Skidloppet</h1>
+  <h3>Rating explanation</h3>
+
+ <table>
     <tr>
-      <th>name</th>
-      <th>startDate</th>
-      <th>rating</th>
-      <th>underlay</th>
-      <th>edges</th>
-      <th>grip</th>
-      <th>depth</th>
-      <th>length</th>
-      <th>height</th>
-      <th>realname</th>
+      <th><i class="fa fa-map-marker" aria-hidden="true"></i>leg name</th>
+      <th><i class="fa fa-calendar" aria-hidden="true"></i>Start date</th>
+      <th><i class="fa fa-trophy" aria-hidden="true"></i>Grade</th>
+      <th>basis</th>
+      <th>Edges</th>
+      <th>Attachment</th>
+      <th><i class="fa fa-snowflake-o" aria-hidden="true"></i>Depth(cm)</th>
+      <th><i class="fa fa-road" aria-hidden="true"></i>Length (km)</th>
+      <th><i class="fa fa-arrows-v" aria-hidden="true"></i>Over sea level</th>
     </tr>
-    <?php
+</div>
+</div>
+</article>
+
+<footer>selected journey section</footer>
+
+</div>
+ 
+
+ <?php
 
     if(isset($_GET['DS'])){
 
@@ -250,7 +350,7 @@ tr:nth-child(even) {
 			$stars .= "★";
 			}
         echo '<tr>';
-        echo "<td>".$row['rspName']."</td>";
+        echo "<td>".$row['realname']."</td>";
         echo "<td>".$row['startDate']."</td>";
 		echo "<td>".$stars."</td>";
         echo "<td>".$row['underlay']."</td>";
@@ -259,7 +359,6 @@ tr:nth-child(even) {
         echo "<td>".$row['depth']."</td>";
         echo "<td>".$row['length']."</td>";
         echo "<td>".$row['height']."</td>";
-        echo "<td>".$row['realname']."</td>";
         echo "</tr>"; 
       }
     }
@@ -267,34 +366,50 @@ tr:nth-child(even) {
     ?>
   </div>
 
+  
+  
+  <div class="w3-container w3-content w3-padding-64" style="max-width:950px" id="Kommentar2">
+  <div class="container">
 
-  <div class="w3-container w3-content w3-padding-64" style="max-width:800px" id="Kontakt">
-    <h3>Customer comments</h3>
-  </h4>
-  <table>
+<header>
+   <h1>customer comments</h1>
+</header>
+<nav>
+  <ul>
+    <li>Comments about the different sections on the track. Comments are written by customers. Comments that are 48 hours old are them visible.</li>
+  </ul>
+</nav>
+<article>
+  <h1>Skidloppet</h1>
+  <h3>customer comment </h3>
+ <div id="table-wrapper">
+<div id="table-scroll"> 
+<table>
     <tr>
-      <th>rspName</th>
-      <th>cmtID</th>
-      <th>Comment</th>
-      <th>alias</th>
-      <th>grade</th>
-      <th>date</th>
-      <th>realname</th>
-
+      <th><i class="fa fa-comments" aria-hidden="true"></i>Comments</th>
+      <th><i class="fa fa-user" aria-hidden="true"></i>Name</th>
+      <th><i class="fa fa-trophy" aria-hidden="true"></i>Grade</th>
+      <th><i class="fa fa-calendar-o" aria-hidden="true"></i>Date</th>
+      <th><i class="fa fa-id-badge" aria-hidden="true"></i>leg name</th>
     </tr>
+	</div>
+	
+</article>
+<footer> Comments </footer>
+</div>
+
+
     <?php
 
     if(isset($_GET['DS'])){
 
-      $query='SELECT * FROM KundComment where rspName = :DS';
+      $query='SELECT * FROM KundComment where rspName = :DS LIMIT 30';
       $stmt = $pdo->prepare($query);
       $stmt->bindParam(':DS', $_GET['DS']);
       $stmt->execute();
 
       foreach($stmt as $key => $row){
         echo '<tr>';
-        echo "<td>".$row['rspName']."</td>";
-        echo "<td>".$row['cmtID']."</td>";
         echo "<td>".$row['kommentar']."</td>";
         echo "<td>".$row['alias']."</td>";
         echo "<td>".$row['grade']."</td>";
@@ -309,22 +424,81 @@ tr:nth-child(even) {
   </div>
 
 
-  <div class="w3-container w3-content w3-padding-64" style="max-width:800px" id="Kontakt">
-    <h3>New customer comments</h3>
+  
+    <div class="w3-container w3-content w3-padding-64" style="max-width:950px" id="Snitt">
+  
+  <div class="container">
+  <div class="w3-threethird">
+  
+  <header>
+   <h1>average grades for the entire arena</h1>
+  </header>
+   <?php
+
+   foreach($pdo->query( 'SELECT * FROM snittBetyg, snitt;' ) as $row){
+
+      # kolla VIEW snittBetyg & snitt
+      # lade till B tagg för att göra snittet enklare att se (row r,u,e,g /5)
+
+    echo '<p>Helhetsbetyg</p>';
+    echo '<div class="w3-progress-container w3-grey">';
+
+    echo '<div id="myBar" class="w3-progressbar w3-green" style="width:'.$row["rat"].'%">';
+    echo '<div class="w3-center w3-text-white"><b>'.$row["r"].'/5</b></div>';
+    echo 'echo   </div>';
+    echo ' </div>';
+    echo '   <p>Underlag</p>';
+    echo ' <div class="w3-progress-container w3-grey">';
+
+    echo '  <div id="myBar" class="w3-progressbar w3-blue" style="width:'.$row["under"].'%">';
+    echo '   <div class="w3-center w3-text-white"><b>'.$row["u"].'/5</b></div>';
+    echo '   </div>';
+    echo ' </div>';
+
+    echo '  <p>Spårkanter</p>';
+    echo ' <div class="w3-progress-container w3-grey">';
+    echo '  <div id="myBar" class="w3-progressbar w3-green" style="width:'.$row["edge"].'%">';
+    echo '    <div class="w3-center w3-text-white"><b>'.$row["e"].'/5</b></div>';
+    echo '   </div>';
+    echo ' </div>';
+
+    echo ' <p>Stavfäste</p>';
+    echo '<div class="w3-progress-container w3-grey">';
+    echo ' <div id="myBar" class="w3-progressbar w3-blue" style="width:'.$row["grip"].'%">';
+    echo '    <div class="w3-center w3-text-white"><b>'.$row["g"].'/5</b></div>';
+    echo '  </div>';
+    echo ' </div></br>';
+
+  }
+  ?>
+</div>
+</div>
+</br>
+  
+  </div>
+  
+  
+  
+  
+  <div class="w3-container w3-content w3-padding-64" style="max-width:950px">
+  <header>
+ <h1>Comment stretch</h1>
+</header>
+    <h3>New customer comment</h3>
     <form action ='Kund.php' method='POST'>
       <textarea rows="5" cols="70" name="comment" placeholder="freetext !comment"></textarea>
     </br>
     <input type="text" name="alias" placeholder="Alias..">
     <select name='grade'>
-      <option selected="selected">Rate grooves</option>
-      <option value="1">1 - Not available</option>
-      <option value="2">2 - substandard</option>
+      <option selected="selected">Rate tracks</option>
+      <option value="1">1 - Not hoist mobile</option>
+      <option value="2">2 - Substandard</option>
       <option value="3">3 - Okey</option>
-      <option value="4">4 - Good grooves</option>
+      <option value="4">4 - Good track</option>
       <option value="5">5 - Perfect</option>
     </select>
     <select size='1' name='startName'>
-      <option selected="selected"> Choose startingpoint </option>
+      <option selected="selected"> Select the starting point</option>
       <?php    
       foreach($pdo->query( 'SELECT * FROM SubPlace where name<"21" ORDER BY name;' ) as $row){
         echo '<option value="'.$row['name'].'">';
@@ -336,7 +510,7 @@ tr:nth-child(even) {
     </select>
 
     <select size='1' name='endName'>
-      <option selected="selected"> Choose endingpoint </option>
+      <option selected="selected"> select the endpoint </option>
       <?php    
       foreach($pdo->query( 'SELECT * FROM SubPlace where name<"21" ORDER BY name;' ) as $row){
         echo '<option value="'.$row['name'].'">';
@@ -346,7 +520,7 @@ tr:nth-child(even) {
       ?>
     </select>
 
-    <button type="submit" name="CreateComment">SEND COMMENT</button>
+    <button type="submit" name="CreateComment">Send comment</button>
 
   </form>
 
@@ -373,14 +547,14 @@ tr:nth-child(even) {
 }  
 ?>
 </div>
-
 </div>
 
 
 <!-- Footer -->
-<footer class="w3-container w3-padding-64 w3-center w3-opacity w3-light-grey w3-xlarge">
+<footer class="w3-container w3-padding-64 w3-center w3-opacity w3-light-grey w3-xlarge" style="max-width:100%">
 <div value="center">
-Skidloppet
+Skidloppet<br>
+English site</a>
 </div>
 </footer>
 
