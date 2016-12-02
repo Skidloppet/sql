@@ -214,7 +214,7 @@ foreach($pdo->query( 'select count(*)as i2 from FinnishedWorkOrder;' ) as $row){
                 echo "<td>".$row['skiF']." ".$row['skiL']."</td>";
                 ?>
                 <td>
-                  <form action='<?php echo $_SERVER['SCRIPT_NAME']; ?>' method='POST'>
+                  <form id="change">
                     <input type="hidden" name="orderID" value="<?php echo $row['orderID']; ?>">
                     <select name='entID'>    
                       <?php 
@@ -227,7 +227,7 @@ foreach($pdo->query( 'select count(*)as i2 from FinnishedWorkOrder;' ) as $row){
                       }
                       ?>
                     </select>
-                    <button type="submit" name="newEnt">Överlåt</button>
+                    <button type="button" onclick="SendForm('workorder', 'workorder', 'change');">Överlåt</button>
                   </form>
                 </td>
               </tr>
@@ -240,7 +240,7 @@ foreach($pdo->query( 'select count(*)as i2 from FinnishedWorkOrder;' ) as $row){
     </div>
     <?php
 # funk för att ändra ansvar på pågående order.
-    if(isset($_POST['newEnt'])){
+    if(!isset($_POST['change'])){
       $sql = "call _newResponsability (:_entID,:_orderID)";
       $stmt = $pdo->prepare($sql);
       $stmt->bindParam(":_entID", $_POST['entID'], PDO::PARAM_INT);
