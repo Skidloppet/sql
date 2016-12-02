@@ -15,13 +15,10 @@ if(isset($_GET['commentID'])){
 }
 ?>
 
-<div id="1" class="w3-container w3-orange w3-section">
-    <div class="w3-container w3-section">
-    <div class="w3-row-padding" style="margin:0 -16px"
-  <div class="w3-row-padding" style="margin:0 -16px">
-    <div class="w3-threethird">
+<div class="w3-row-padding" style="border-color:lightblue; border-style: solid; border-width: 5px;">
+  <div class="w3-threethird">
       <h5>Kund Kommentarer!</h5>
-      <table class="w3-table w3-striped w3-white">
+      <table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white">
         <tr>
           <tr>
           <th><i class="fa fa-users w3-orange w3-text-white w3-padding-tiny"></i></th>
@@ -30,7 +27,6 @@ if(isset($_GET['commentID'])){
           <th>Betyg</th>
 		  <th>Kommentar</th>
 		  <th>Datum</th>
-		  <th></th>
         </tr>        
         <?php     
 
@@ -64,6 +60,8 @@ if(isset($_GET['commentID'])){
 		
       </table>
     </div>
+</div>
+
     <?php
   if(isset($_POST['delComment'])){
   $deletedComment = $_POST['deleteComment'];
@@ -72,7 +70,4 @@ if(isset($_GET['commentID'])){
   $stmt->execute();
     }
   ?>
-  </div>
-  </div>
-  </div>
 
