@@ -49,7 +49,7 @@ if(isset($_GET['commentID'])){
 		   <td class="comment-delete">
            <form id="cucdel">
 		   <input type="hidden" name="commentID" value="<?php echo $row['commentID']; ?>">
-           <button type="button" onclick="SendForm('comments', 'comments', 'cucdele');">radera</button>
+           <button type="button" onclick="SendForm('comments', 'comments', 'cucdel');">radera</button>
            </form>
 
            </td>
@@ -70,6 +70,7 @@ if(isset($_GET['commentID'])){
   $stmt = $pdo->prepare($sql);
   $stmt->bindParam(':commentID', $_POST['commentID'], PDO::PARAM_INT);
   $stmt->execute();
+
     }
   ?>
   
