@@ -34,7 +34,7 @@ include'../connect.php';
             echo "<td>".$row['errorID']."</td>";
             ?>
             <td class="Error-delete">
-            <form action='<?php $_PHP_SELF ?>' method='POST'>
+        <form action='<?php echo $_SERVER['SCRIPT_NAME']; ?>' method='POST'>
               <input type="hidden" name="deleteError" value="<?php echo $row['errorID']; ?>">
               <input class="HoverButton" type="submit" name="delComment" value="Delete">
             </form>
@@ -58,9 +58,8 @@ include'../connect.php';
 ?>
 
 <div id="11" class="w3-container w3-red">
-    <h3>Utskrift av registrerade felanmälningar</h3>
   <h3>Ny felanmälan!</h3>
-  <form action='backend_ErrorReport.php' method='POST'>
+        <form action='<?php echo $_SERVER['SCRIPT_NAME']; ?>' method='POST'>
     <textarea rows="5" cols="70" name="desc" placeholder="Beskriv problemet..."></textarea>
     </br>
     <!--<p>Ange graden av problemets påverkan</p>-->

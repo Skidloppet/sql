@@ -8,16 +8,15 @@ include '../connect.php';
     <h5></h5>
     <table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white">
       <tr>
-        <th><i class="fa fa-users w3-orange w3-text-white w3-padding-tiny"></i>id</th>
-        <th>Namn (id)</th>
+        <th><i class="fa fa-users w3-orange w3-text-white w3-padding-tiny"></i></th>
+        <th>Modell (id)</th>
         <th>Nuvarande plats (Konstsnö m3)</th>
         <th>Status</th>
         <th>Effekt</th>
-        <th>Senast ändrad</th>
       </tr>        
       <?php     
 
-      foreach($pdo->query( 'SELECT * FROM canT order by cannonID desc;' ) as $row){
+      foreach($pdo->query( 'SELECT * FROM ca order by cannonID desc;' ) as $row){
         echo "<tr><td><i class='fa fa-eye w3-blue w3-padding-tiny'></i></td>";
         echo "<td>".$row['klass']." ( ".$row['cannonID']." ) </td>";
 /*        echo "<td>";
@@ -25,46 +24,22 @@ include '../connect.php';
           echo $brow['realName']"</br>";
               }
               echo "</td>"; */
-              echo "<td>".$row['firstName']." ".$row['lastName']." ( ".$row['entID']." )</td>";
-              echo "<td>".$row['realName']." ( ".$row['fakesnow']."m&#179</td>";
-              echo "<td>".$row['priority']."</td>";
-              echo "<td>".$row['entF']." ".$row['entL']."</td>";
-              echo "<td>".$row['info']."</td>";
-              echo "<td>".$row['sentDate']."</td>";
-              echo "<td>".$row['skiF']." ".$row['skiL']."</td>";
-              echo "<td>";
-
-              CannonSubPlace.cannonID as CcannonID, name,skiID,entID, startStamp, endStamp, priority, newStatus, info,
-              Cannon.cannonID as SCannonID, subPlaceName, model, state, effect, klass
-              from Cannon, CannonSubPlace;
-
-
-              ?>
-              <form action='<?php echo $_SERVER['SCRIPT_NAME']; ?>' method='POST'>
-                <input type="hidden" name="orderID" value="<?php echo $row['orderID']; ?>">
-                <button class="fa fa-ban HoverButton" type="submit" name="bort"> Radera</button>
-              </form>  
-            </td>
-            <td>
-              <form action='<?php echo $_SERVER['SCRIPT_NAME']; ?>' method='POST'>
-                <input type="hidden" name="orderID" value="<?php echo $row['orderID']; ?>">
-                <button class="fa fa-check HoverButton" type="submit" name="lagra"> Klarmarkera</button>
-              </form>
-            </td>
-          </tr>
-          <?php
-        }
-        ?>   
-      </table>
-    </div>
-  </div>
+              echo "<td>".$row['subPlaceName']."</td>";
+              echo "<td>".$row['state']."</td>";
+              echo "<td>".$row['effect']."</td>";
+              echo "</tr>";
+            }
+            ?>
+          </table>
+        </div>
+      </div>
 
 
 
-  <?php
-  if(isset($_POST['btn_save'])) 
-   {   $fruitArray = array('orange', 'apple', 'grapefruit', 'banana', 'watermelon'); 
- If(isset($_POST['fruit'])) 
+      <?php
+      if(isset($_POST['btn_save'])) 
+       {   $fruitArray = array('orange', 'apple', 'grapefruit', 'banana', 'watermelon'); 
+     If(isset($_POST['fruit'])) 
        {   $values = array(); // store the selection 
          foreach($_POST['fruit'] as $selection )
            {   if(in_array($selection, $fruitArray)) 
