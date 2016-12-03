@@ -56,7 +56,7 @@ if(isset($_GET['commentID'])){
  
         
         ?>  
-		   <td class="comment-delete">
+		   <td>
 		   <form id="cucdel<?php echo $row['commentID']; ?>">
 		   <input type="hidden" name="commentID" value="<?php echo $row['commentID']; ?>">
            <button type="button" onclick="SendForm('comments', 'comments', 'cucdel<?php echo $row['commentID']; ?>');">radera</button>
