@@ -14,7 +14,7 @@ foreach($pdo->query( 'select count(*)as i2 from FinnishedWorkOrder;' ) as $row){
 <div class="w3-row-padding w3-margin-bottom">
 
  <div class="w3-quarter" style="cursor:pointer" onclick="document.getElementById('id01').style.display='block'">
-  <div class="w3-container w3-green w3-padding-16">
+  <div class="w3-panel w3-card-8 w3-text-shadow w3-round-xlarge w3-container w3-green w3-padding-16">
     <div class="w3-left"><i class="fa fa-plus w3-xxxlarge"></i></div>
     <div class="w3-right">
       <h3><br></h3>
@@ -25,7 +25,7 @@ foreach($pdo->query( 'select count(*)as i2 from FinnishedWorkOrder;' ) as $row){
 </div>
 
  <div class="w3-quarter" style="cursor:pointer" onclick="document.getElementById('id01').style.display='block'">
-  <div class="w3-container w3-orange w3-padding-16">
+  <div class="w3-panel w3-card-8 w3-text-shadow w3-round-xlarge w3-container w3-orange w3-padding-16">
     <div class="w3-left"><i class="fa fa-plus w3-xxxlarge"></i></div>
     <div class="w3-right">
       <h3><br></h3>
@@ -38,7 +38,7 @@ foreach($pdo->query( 'select count(*)as i2 from FinnishedWorkOrder;' ) as $row){
 
 
 <div class="w3-quarter" style="cursor:pointer" onclick="document.getElementById('id02').style.display='block'">
-  <div class="w3-container w3-blue w3-padding-16">
+  <div class="w3-panel w3-card-8 w3-text-shadow w3-round-xlarge w3-container w3-blue w3-padding-16">
     <div class="w3-left"><i class="fa fa-arrow-right w3-xxxlarge"></i></div>
     <div class="w3-right">
       <h3><?php print_r($i);?></h3>
@@ -53,7 +53,7 @@ foreach($pdo->query( 'select count(*)as i2 from FinnishedWorkOrder;' ) as $row){
 
 
 <div class="w3-quarter" style="cursor:pointer" onclick="document.getElementById('id03').style.display='block'">
-  <div class="w3-container w3-red w3-padding-16">
+  <div class="w3-panel w3-card-8 w3-text-shadow w3-round-xlarge w3-container w3-red w3-padding-16">
     <div class="w3-left"><i class="fa fa-flag alt w3-xxxlarge"></i></div>
     <div class="w3-right">
       <h3><?php print_r($i2); ?></h3>
@@ -264,7 +264,7 @@ foreach($pdo->query( 'select count(*)as i2 from FinnishedWorkOrder;' ) as $row){
 
 
     <!-- The Modal -->
-    <div id="id03" class="w3-modal">
+    <div id="id03" class="w3-modal ">
       <div class="w3-modal-content">
           <div class="w3-container w3-padding w3-margin w3-border-top">
           <span onclick="document.getElementById('id03').style.display='none'"
