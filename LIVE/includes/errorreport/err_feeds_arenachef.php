@@ -34,93 +34,32 @@ include'../connect.php';
     echo "<td>".$row['errorID']."</td>";
     ?>
     <td class="Error-delete">
-      <form action='<?php echo $_SERVER['SCRIPT_NAME']; ?>' method='POST'>
-        <input type="hidden" name="deleteError" value="<?php echo $row['errorID']; ?>">
-        <input class="HoverButton" type="submit" name="delComment" value="Delete">
-      </form>
-    </td>
-    <?php
-    echo "</tr>";  
-  }
-  ?>
+     <form id="ErrDel<?php echo $row['errorID']; ?>">
+       <input type="hidden" name="errorID" value="<?php echo $row['errorID']; ?>">
+       <button type="button" onclick="SendForm('errorreport', 'errorreport', 'ErrDel<?php echo $row['errorID']; ?>');">radera</button>
+     </form>
+
+   </td>
+ </tr>
+ 
+ <?php
+}
+?>
+
 </table>
 <br><br>
 </div>
 
 <?php
-if(isset($_POST['delError'])){
-  $deletedError = $_POST['deleteError'];
-  $sql = "DELETE FROM Error WHERE ErrorID = $deletedError" ;
+if(isset($_POST['errorID'])){
+  $deletedError = $_POST['errorID'];
+  $sql = "DELETE FROM Error WHERE errorID = $deletedError" ;
   $sql = "DELETE FROM ErrorSubPlace WHERE errorId = $deletedError" ;
   $stmt = $pdo->prepare($sql);
   $stmt->execute();
 }
 ?>
 
-<div id="11" class="w3-container w3-red">
-  <h3>Ny felanmälan!</h3>
-  <form action='<?php echo $_SERVER['SCRIPT_NAME']; ?>' method='POST'>
-    <textarea rows="5" cols="70" name="desc" placeholder="Beskriv problemet..."></textarea>
-  </br>
-
-  <p>Ange problemets typ *</p>
-  <select name="type">
-    <?php
-    $sql = 'SHOW COLUMNS FROM Error WHERE field="type"';
-    $row = $pdo->query($sql)->fetch(PDO::FETCH_ASSOC);
-    foreach(explode("','",substr($row['Type'],6,-2)) as $option) {
-      print("<option>$option</option>");
-    }
-    ?>
-  </select>
-
-  <!-- Listbox till att välja startsträcka-->
-  <p>Vart startade problemet?:</p>
-  <select name='Start'>    
-    <?php 
-    foreach ($pdo->query('SELECT * FROM SubPlace') as $row) {
-      echo '<option value="'.$row['name'].'">';
-      echo $row['realName'];
-      echo "</option>";
-    }
-    ?>
-  </select><br>
-  <!-- Listbox till att välja slutsträcka-->
-  <p>Vart slutar problemets inverkan?:</p>
-  <select name='Slut'>    
-    <?php 
-    foreach ($pdo->query('SELECT * FROM SubPlace') as $row) {
-      echo '<option value="'.$row['name'].'">';
-      echo $row['realName'];
-      echo "</option>";
-    }
-    ?>
-  </select><br><br>
-
-  <!--<input type="text" name="Slut" placeholder="Slut.."></p>-->
-
-
-  <p><button type="submit" name="Error">Ny felanmälan</button></p></form>
-
-
-  <?php
-#  $em = $_SESSION['email'];
-
-  if(isset($_POST['Error'])){
-
-    $sql = "CALL _NewError(:newErrorDesc, :newEntID, NOW() , :newType, :startName, :endName);";
-
-    $stmt = $pdo->prepare($sql);
-    $stmt->bindParam(":newErrorDesc", $_POST['desc'], PDO::PARAM_STR);
-    $stmt->bindParam(":newEntID", $_SESSION['id'], PDO::PARAM_INT);
-    //$stmt->bindParam(":newGrade", $_POST['grade'], PDO::PARAM_STR);
-    $stmt->bindParam(":newType", $_POST['type'], PDO::PARAM_STR);
-    $stmt->bindParam(":startName", $_POST['Start'], PDO::PARAM_INT);
-    $stmt->bindParam(":endName", $_POST['Slut'], PDO::PARAM_INT);
-    $stmt->execute();
-  }    
-  ?>
-</div>
 <!-- End page content -->
 </div>
 </div>

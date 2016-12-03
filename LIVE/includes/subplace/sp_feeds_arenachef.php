@@ -18,6 +18,7 @@ include'../connect.php';
     echo "<th>Längd:</th>"; 
     echo "<th>Höjd:</th>"; 
     echo "<th>Konstsnö:</th>"; 
+    echo "<th>Nollställ konstsnö:</th>"; 
     echo "<th>Ändra ansvarig entrepenör:</th>"; 
     echo "</tr>";
 
@@ -37,30 +38,57 @@ include'../connect.php';
     echo "<td>".$row['fakesnow']."</td>";
     ?>
 
-    <td>
-      <form id="changeSubPlace">
-        <input type="hidden" name="name" value="<?php echo $row['name']; ?>">
-        <select name='entID'>    
-          <?php 
-          foreach ($pdo->query('SELECT * FROM Ent') as $row) {
-            echo '<option value="'.$row['entID'].'">';
-            echo $row['firstName']." ".$row['lastName'];
-            echo "</option>";
-          }
-          ?>
-        </select>
-        <button type="button" onclick="SendForm('subplace', 'subplace', 'changeSubPlace');">update</button>
-      </form>
-    </td>
-  </tr>
-  <?php
+<?php /*
+    <td class="subplace-update">
+     <form id="FSnowUpdate<?php echo $row['name']; ?>">
+       <input type="hidden" name="name" value="<?php echo $row['name']; ?>">
+       <button type="button" onclick="SendForm('subplace', 'subplace', 'FSnowUpdate<?php echo $row['name']; ?>');">FSnowUpdate</button>
+     </form>
+
+   </td>
+   
+
+   <td class="Change-Ent">
+    <form id="changeSubPlace<?php echo $row['name']; ?>">
+      <input type="hidden" name="name" value="<?php echo $row['name']; ?>">
+      <select name='entID'>    
+        <?php 
+        foreach ($pdo->query('SELECT * FROM Ent') as $row) {
+          echo '<option value="'.$row['entID'].'">';
+          echo $row['firstName']." ".$row['lastName'];
+          echo "</option>";
+        }
+        ?>
+      </select>
+      <button type="button" onclick="SendForm('subplace', 'subplace', 'changeSubPlace<?php echo $row['name']; ?>');">update</button>
+    </form>
+*/
+    ?>
+    <td class="subplace-update">
+     <form id="ChangeSubEnt<?php echo $row['name']; ?>">
+       <input type="hidden" name="commentID" value="<?php echo $row['name']; ?>">
+       <select id="ID<?php echo $row['entID']; ?>">    
+        <?php 
+        foreach ($pdo->query('SELECT * FROM Ent') as $row) {
+          echo '<option value="'.$row['entID'].'">';
+          echo $row['firstName']." ".$row['lastName'];
+          echo "</option>";
+        }
+        ?>
+      </select type="button" onclick="SendForm('subplace', 'subplace', 'ID<?php echo $row['entID']; ?>');">
+      <button type="button" onclick="SendForm('subplace', 'subplace', 'ChangeSubEnt<?php echo $row['name']; ?>');">uppdatera</button>
+    </form>
+
+  </td>
+</td>
+</tr>
+<?php
 }
 ?>   
 </table>
 </div>
 
 <?php
-echo "changeSubPlace $SubPlaceName";
 # funk för att ändra ansvar på pågående order.
 if(isset($_POST['name'])){
   $sql = "call _newResponsabilitySubPlace (:_entID,:_name)";
@@ -69,41 +97,11 @@ if(isset($_POST['name'])){
   $stmt->bindParam(":_name", $_POST['name'], PDO::PARAM_INT);
   $stmt->execute();
 }    
-?>
-    <?php /*
-    <td>
-      <select id="entID" name='entID'>    
-        <?php 
-              # i varje rad av svar den skriver ut så skapas en lista med alla Ent förnamn&efternamn
-              # sätter value till entrepenöresns ID 
-        foreach ($pdo->query('SELECT * FROM Ent') as $row) {
-          echo '<option value="'.$row['entID'].'">';
-          echo $row['firstName']." ".$row['lastName'];
-          echo "</option>";
-        }
-        ?>
-      </select><p><button id="ButtonEntID" type="submit" name="newEnt">Sätt entrepenör ansvar</button></p>
-    </form>
-  </td>
-  <?php
-  echo "</td></tr>";  
-}
-?>   
-</form>
-
-</table>
-</div>
-
-<?php
-
-if(isset($_POST['updateSubEnt'])){
-  $querystring='UPDATE SubPlaceViewer SET
-  entID = :newEnt
-  WHERE
-  name = :name';
-  $stmt = $pdo->prepare($querystring);
-  $stmt->bindParam(":newEnt", $_POST['newEnt'], PDO::PARAM_INT);
-  $stmt->bindParam(":name", $TargetSubPlace, PDO::PARAM_INT);
+/*
+if(isset($_POST['FSnowUpdate'])){
+  $sql = "UPDATE SubPlace SET fakesnow = '0' WHERE name = :name";
+  $stmt = $pdo->prepare($sql);
+  $stmt->bindParam(':name', $_POST['name'], PDO::PARAM_INT);
   $stmt->execute();
 }
 */
