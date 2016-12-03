@@ -124,10 +124,11 @@ foreach($pdo->query( 'select count(*)as i2 from FinnishedWorkOrder;' ) as $row){
         class="w3-closebtn">&times;</span>
 
 
+        <div class="w3-row-padding" style="margin:0 -16px">
 
-      <div class="w3-threethird">
+          <div class="w3-container w3-pink">
             <h3>ändra snökanon</h3>
-        <form action='<?php echo $_SERVER['SCRIPT_NAME']; ?>' method='POST'>
+            <form action='<?php $_PHP_SELF ?>' method='POST'>
               <select size='1' name='cannonID'>
                 <option selected="selected"> välj kanon </option>
                 <?php    
@@ -143,7 +144,7 @@ foreach($pdo->query( 'select count(*)as i2 from FinnishedWorkOrder;' ) as $row){
                 <?php    
                 foreach($pdo->query( 'SELECT * FROM SubPlace ;' ) as $row){
           # GROUP BY G?R S? DET EJ BLIR DUBLETTER
-                  echo '<option value="'.$row['realName'].'">';
+                  echo '<option value="'.$row['subPlaceName'].'">';
                   echo $row['realName'];      
                   echo '</option>';
                 }    
@@ -175,6 +176,7 @@ foreach($pdo->query( 'select count(*)as i2 from FinnishedWorkOrder;' ) as $row){
 
               }
               ?>
+            </div>
           </div>
         </div>
       </div>

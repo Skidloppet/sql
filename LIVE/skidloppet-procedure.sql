@@ -98,22 +98,21 @@ DELIMITER ;
 -- 6. Procedur för att ändra snökanoner
 DROP PROCEDURE IF EXISTS AlterCannon; 
  DELIMITER //
-CREATE PROCEDURE AlterCannon (cannonID smallint,subPlaceName varchar(32), state enum('På','Av','Urkopplad','Trasig', 'Annat'))
+CREATE PROCEDURE AlterCannon (cannonID smallint,subPlaceName smallint, state enum('on','off','unplugged','broken'))
 BEGIN
+-- insert into Cannon(cannonID,subPlaceName, status) values (cannonID, subPlaceName, status);
 
 update Cannon
-set Cannon.subPlaceName = subPlaceName
+set Cannon.subPlaceName = subPlaceName 
 where Cannon.cannonID = cannonID;
 update Cannon
-set Cannon.state = state
+set Cannon.state = state 
 where Cannon.cannonID = cannonID;
-
 END; //
 DELIMITER ;
-Call AlterCannon ('5',"Hedemora 1:3",'Av');
+Call AlterCannon ('1','2','off');
 -- select * from Cannon;
 -- select * from SubPlace;
-
 -- 7. Procedure för nya daglig rapportering
 DROP PROCEDURE IF EXISTS _newReport;
 
@@ -559,7 +558,6 @@ END //
 DELIMITER ;
 
 call _removeComment();
-
 
 
 
