@@ -332,7 +332,7 @@ article {
 <!-- kartan -->  
 <div class="w3-container w3-content w3-padding-64" style="max-width:950px" id="Status">
 <?php
-include'includes/map.php';
+include'includes/mapFkund.php';
 ?>
 
 </div>
@@ -417,7 +417,7 @@ include'includes/map.php';
 
   
   
-  <div class="w3-container w3-content w3-padding-64" style="max-width:950px" id="Kommentar2">
+
   <div class="container">
 
 <header>
@@ -528,7 +528,7 @@ include'includes/map.php';
   
   
   
-  
+    <div class="w3-container w3-content w3-padding-64" style="max-width:950px" id="Kommentar2">
   <div class="w3-container w3-content w3-padding-64" style="max-width:950px">
   <header>
  <h1>Kommentera sträcka</h1>
@@ -599,6 +599,113 @@ include'includes/map.php';
 </div>
 
 
+
+
+
+  <div class="container">
+<div id="11" class="w3-container w3-blue">
+<head>
+  <h3>Ny felanmälan!</h3>
+</header>
+
+  <form action='<?php echo $_SERVER['SCRIPT_NAME']; ?>' method='POST'>
+    <textarea rows="5" cols="70" name="desc" placeholder="Beskriv problemet..."></textarea>
+  </br>
+
+  <p>Ange problemets typ *</p>
+  <select name="type">
+    <?php
+    $sql = 'SHOW COLUMNS FROM Error WHERE field="type"';
+    $row = $pdo->query($sql)->fetch(PDO::FETCH_ASSOC);
+    foreach(explode("','",substr($row['Type'],6,-2)) as $option) {
+      print("<option>$option</option>");
+    }
+    ?>
+  </select>
+
+  <!-- Listbox till att välja startsträcka-->
+  <p>Vart startade problemet?:</p>
+  <select name='Start'>    
+    <?php 
+    foreach ($pdo->query('SELECT * FROM SubPlace') as $row) {
+      echo '<option value="'.$row['name'].'">';
+      echo $row['realName'];
+      echo "</option>";
+    }
+    ?>
+  </select><br>
+  <!-- Listbox till att välja slutsträcka-->
+  <p>Vart slutar problemets inverkan?:</p>
+  <select name='Slut'>    
+    <?php 
+    foreach ($pdo->query('SELECT * FROM SubPlace') as $row) {
+      echo '<option value="'.$row['name'].'">';
+      echo $row['realName'];
+      echo "</option>";
+    }
+    ?>
+  </select><br><br>
+
+  <!--<input type="text" name="Slut" placeholder="Slut.."></p>-->
+
+
+  <p><button type="submit" name="Error">Ny felanmälan</button></p></form>
+
+
+  <?php
+#  $em = $_SESSION['email'];
+
+  if(isset($_POST['Error'])){
+
+    $sql = "CALL _NewError(:newErrorDesc, :newEntID, NOW() , :newType, :startName, :endName);";
+
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindParam(":newErrorDesc", $_POST['desc'], PDO::PARAM_STR);
+    $stmt->bindParam(":newEntID", $_SESSION['id'], PDO::PARAM_INT);
+    //$stmt->bindParam(":newGrade", $_POST['grade'], PDO::PARAM_STR);
+    $stmt->bindParam(":newType", $_POST['type'], PDO::PARAM_STR);
+    $stmt->bindParam(":startName", $_POST['Start'], PDO::PARAM_INT);
+    $stmt->bindParam(":endName", $_POST['Slut'], PDO::PARAM_INT);
+    $stmt->execute();
+  }    
+  ?>
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <!-- Footer -->
 <footer class="w3-container w3-padding-64 w3-center w3-opacity w3-light-grey w3-xlarge" style="max-width:100%">
 <div value="center">
@@ -652,8 +759,42 @@ window.onclick = function(event) {
     modal.style.display = "none";
   }
 }
+
+
+
+
+
+
+
+
+
+<!-- script för felanmällan -->
+
+// Get the Sidenav
+var mySidenav = document.getElementById("mySidenav");
+
+// Get the DIV with overlay effect
+var overlayBg = document.getElementById("myOverlay");
+
+// Toggle between showing and hiding the sidenav, and add overlay effect
+function w3_open() {
+  if (mySidenav.style.display === 'block') {
+    mySidenav.style.display = 'none';
+    overlayBg.style.display = "none";
+  } else {
+    mySidenav.style.display = 'block';
+    overlayBg.style.display = "block";
+  }
+}
+
+// Close the sidenav with the close button
+function w3_close() {
+  mySidenav.style.display = "none";
+  overlayBg.style.display = "none";
+}
+
+
 </script>
 
 </body>
 </html>
-
