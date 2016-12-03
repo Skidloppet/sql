@@ -13,7 +13,7 @@ foreach($pdo->query( 'select count(*)as i2 from FinnishedWorkOrder;' ) as $row){
 
 <div class="w3-row-padding w3-margin-bottom">
 
- <div class="w3-third" style="cursor:pointer" onclick="document.getElementById('id01').style.display='block'">
+ <div class="w3-quarter" style="cursor:pointer" onclick="document.getElementById('id01').style.display='block'">
   <div class="w3-container w3-green w3-padding-16">
     <div class="w3-left"><i class="fa fa-plus w3-xxxlarge"></i></div>
     <div class="w3-right">
@@ -24,9 +24,20 @@ foreach($pdo->query( 'select count(*)as i2 from FinnishedWorkOrder;' ) as $row){
   </div>
 </div>
 
+ <div class="w3-quarter" style="cursor:pointer" onclick="document.getElementById('id01').style.display='block'">
+  <div class="w3-container w3-orange w3-padding-16">
+    <div class="w3-left"><i class="fa fa-plus w3-xxxlarge"></i></div>
+    <div class="w3-right">
+      <h3><br></h3>
+    </div>
+    <div class="w3-clear"></div>
+    <h4>Hantera snökanoner</h4>
+  </div>
+</div>
 
 
-<div class="w3-third" style="cursor:pointer" onclick="document.getElementById('id02').style.display='block'">
+
+<div class="w3-quarter" style="cursor:pointer" onclick="document.getElementById('id02').style.display='block'">
   <div class="w3-container w3-blue w3-padding-16">
     <div class="w3-left"><i class="fa fa-arrow-right w3-xxxlarge"></i></div>
     <div class="w3-right">
@@ -41,7 +52,7 @@ foreach($pdo->query( 'select count(*)as i2 from FinnishedWorkOrder;' ) as $row){
 
 
 
-<div class="w3-third" style="cursor:pointer" onclick="document.getElementById('id03').style.display='block'">
+<div class="w3-quarter" style="cursor:pointer" onclick="document.getElementById('id03').style.display='block'">
   <div class="w3-container w3-red w3-padding-16">
     <div class="w3-left"><i class="fa fa-flag alt w3-xxxlarge"></i></div>
     <div class="w3-right">
@@ -214,7 +225,7 @@ foreach($pdo->query( 'select count(*)as i2 from FinnishedWorkOrder;' ) as $row){
                 echo "<td>".$row['skiF']." ".$row['skiL']."</td>";
                 ?>
                 <td>
-                  <form action='<?php echo $_SERVER['SCRIPT_NAME']; ?>' method='POST'>
+                  <form id="change">
                     <input type="hidden" name="orderID" value="<?php echo $row['orderID']; ?>">
                     <select name='entID'>    
                       <?php 
@@ -227,7 +238,7 @@ foreach($pdo->query( 'select count(*)as i2 from FinnishedWorkOrder;' ) as $row){
                       }
                       ?>
                     </select>
-                    <button type="submit" name="newEnt">Överlåt</button>
+                    <button type="button" onclick="SendForm('workorder', 'workorder', 'change');">Överlåt</button>
                   </form>
                 </td>
               </tr>
@@ -240,7 +251,7 @@ foreach($pdo->query( 'select count(*)as i2 from FinnishedWorkOrder;' ) as $row){
     </div>
     <?php
 # funk för att ändra ansvar på pågående order.
-    if(isset($_POST['newEnt'])){
+    if(!isset($_POST['change'])){
       $sql = "call _newResponsability (:_entID,:_orderID)";
       $stmt = $pdo->prepare($sql);
       $stmt->bindParam(":_entID", $_POST['entID'], PDO::PARAM_INT);

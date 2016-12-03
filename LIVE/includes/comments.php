@@ -14,6 +14,8 @@ $em = $_SESSION['email'];
       <?php 
     } 
     elseif (isset($_SESSION['email'])&&($_SESSION['type'] == 'arenachef')) {
+		    include 'comment/cuc_headerbox_arenachef.php';
+
       ?>
       <div class="w3-container w3-section">
         <div class="w3-row-padding" style="margin:0 -16px">
@@ -22,7 +24,8 @@ $em = $_SESSION['email'];
             include 'comment/cuc_feeds_arenachef.php';
           }
           elseif (isset($_SESSION['email'])&&($_SESSION['type'] == 'other')) {
-
+			  
+		    include 'comment/cuc_headerbox_other.php';
       ?>
       <div class="w3-container w3-section">
         <div class="w3-row-padding" style="margin:0 -16px">
@@ -31,7 +34,8 @@ $em = $_SESSION['email'];
             include 'comment/cuc_feeds_other.php';
           }
           elseif (isset($_SESSION['email'])&&($_SESSION['type'] > '1')) {
-
+			  
+		    include 'comment/cuc_headerbox_ent.php';
       ?>
       <div class="w3-container w3-section">
         <div class="w3-row-padding" style="margin:0 -16px">
