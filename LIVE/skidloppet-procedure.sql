@@ -560,6 +560,27 @@ DELIMITER ;
 
 call _removeComment();
 
+    
+DROP PROCEDURE IF EXISTS _newResponsabilitySubPlace;
+DELIMITER //
+CREATE PROCEDURE _newResponsabilitySubPlace (
+_entID smallint,
+_name int)
+begin
+
+	update SubPlace
+    set
+    entID = _entID
+    where
+    name = _name;
+
+   COMMIT ;
+END //
+DELIMITER ;
+
+-- call _newResponsabilitySubPlace ('3','1');
+-- select * from WorkOrder;
+-- call _finnishedCannonOrder('2','1',now(),'texttesttets');
 
 
 
