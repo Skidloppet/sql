@@ -8,7 +8,6 @@ $i2 = 0;
        ?>
 
 <header class="w3-container" style="padding-top:22px">
-  <h4><b><i class="fa fa-dashboard"></i> Min kontrollpanel</b></h4>
   <style>
 .HoverButton:hover { background: Red; }
 .HoverButton2:hover { background: Green; }
