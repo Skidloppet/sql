@@ -81,76 +81,103 @@ foreach($pdo->query( 'select count(*)as i from StoredReports;') as $row){
 
 								<table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white">
 									<?php   
-									echo "<tr>";
-									echo "<th>Plats</th>"; 
+									echo "<tr>"; 
 									echo "<th>Entreprenör</th>"; 
+									echo "<th>Plats</th>"; 
 									echo "</tr>";
 
 									foreach ($pdo->query('
 										SELECT *
-										from SubPlaceViewer;
+										from SubPlaceViewer
+										group by entID;
 										')as $row) {
 
-										echo "<tr>";
-									echo "<td>".$row['realName']."</td>";
+										$luck = $row ['entID'];
+									echo "<tr>";
 									echo "<td>".$row['firstName']." ".$row['lastName']."</td>";
+									echo "<td>";
+									foreach($pdo->query( 'select realName from SubPlaceViewer where SubPlaceViewer.entID = '.$luck.' ORDER BY realName;' ) as $brow){;
+										echo $brow['realName']."</br>";
+									};
+									echo "</td>";
 									?>
-								</tr><?php } ?>
-							</table>
-							<br><br>
-						</div>
+								</tr>
+								<?php
+							}
+							?> 
+						</table><br><br>
 					</div>
 				</div>
 			</div>
-			<div id="id02" class="w3-modal">
-				<div class="w3-modal-content">
-					<div class="w3-container">
-						<span onclick="document.getElementById('id02').style.display='none'"
-						class="w3-closebtn">&times;</span>
-						<!-- Start av innehåll/Formen -->
-						<div id="11" class="w3-container">
+		</div>
+		<div id="id02" class="w3-modal">
+			<div class="w3-modal-content">
+				<div class="w3-container">
+					<span onclick="document.getElementById('id02').style.display='none'"
+					class="w3-closebtn">&times;</span>
+					<!-- Start av innehåll/Formen -->
+					<div id="11" class="w3-container">
 						
-							<h3>Nollställ konstsnö på sträcka</h3>
-							<form id="ZeroFakeSnow">
-								<p>Delsträcka/Plats:
-									<select name='Place'>    
-										<?php 
-										foreach ($pdo->query('SELECT * FROM SubPlace') as $row) {
-											echo '<option value="'.$row['name'].'">';
-											echo $row['realName'];
-											echo "</option>";
-										}
-										?></select>
-										<button type="button" onclick="SendForm('subplace', 'subplace', 'ZeroFakeSnow');">Nollställ</button></p></form>
+						<h3>Nollställ konstsnö på sträcka</h3>
+						<form id="ZeroFakeSnow">
+							<p>Delsträcka/Plats:
+								<select name='Place'>    
+									<?php 
+									foreach ($pdo->query('SELECT * FROM SubPlace') as $row) {
+										echo '<option value="'.$row['name'].'">';
+										echo $row['realName'];
+										echo "</option>";
+									}
+									?></select>
+									<button type="button" onclick="SendForm('subplace', 'subplace', 'ZeroFakeSnow');">Nollställ</button></p></form>
 
+									<h3>Alla delsträckor:</h3>
+									<table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white">
+										<?php   
+										echo "<tr>";
+										echo "<th>Plats</th>"; 
+										echo "<th>Konstsnö:</th>"; 
+										echo "</tr>";
 
-									</table>
-								</div>
+										foreach ($pdo->query('
+											SELECT *
+											from SubPlaceViewer;
+											')as $row) {
+
+											$luck = $row ['entID'];
+										echo "<tr>";
+										echo "<td>".$row['realName']."</td>";
+										echo "<td>".$row['fakesnow']." m&#179</td>";
+										echo "<tr>";
+									}
+									?> 
+								</table><br><br>
 							</div>
 						</div>
 					</div>
-
-
-
 				</div>
 
-				<?php
-				if(isset($_POST['Ent'])){
-					$sql = "call _newResponsabilitySubPlace (:_entID,:_name)";
-					$stmt = $pdo->prepare($sql);
-					$stmt->bindParam(":_entID", $_POST['Ent'], PDO::PARAM_INT);
-					$stmt->bindParam(":_name", $_POST['Start'], PDO::PARAM_INT);
-					$stmt->execute();
-				}    
-				?>
 
-				<?php
-				if(isset($_POST['Place'])){
-					$setZero = 0;
-					$UpdateFSnow = $_POST['Place'];
-					$sql = "UPDATE SubPlace SET fakesnow = $setZero WHERE name = $UpdateFSnow" ;
-					$stmt = $pdo->prepare($sql);
-					$stmt->execute();
-				}
-				?>
+
+			</div>
+
+			<?php
+			if(isset($_POST['Ent'])){
+				$sql = "call _newResponsabilitySubPlace (:_entID,:_name)";
+				$stmt = $pdo->prepare($sql);
+				$stmt->bindParam(":_entID", $_POST['Ent'], PDO::PARAM_INT);
+				$stmt->bindParam(":_name", $_POST['Start'], PDO::PARAM_INT);
+				$stmt->execute();
+			}    
+			?>
+
+			<?php
+			if(isset($_POST['Place'])){
+				$setZero = 0;
+				$UpdateFSnow = $_POST['Place'];
+				$sql = "UPDATE SubPlace SET fakesnow = $setZero WHERE name = $UpdateFSnow" ;
+				$stmt = $pdo->prepare($sql);
+				$stmt->execute();
+			}
+			?>
 
