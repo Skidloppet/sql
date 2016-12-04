@@ -2,22 +2,22 @@
 session_start();
 include 'connect.php';
 ?>
-  <!-- Top container -->
-  <div class="w3-container w3-top w3-black w3-large w3-padding" style="z-index:4">
-    <button class="w3-btn w3-hide-large w3-padding-0 w3-hover-text-grey" onclick="w3_open();"><i class="fa fa-bars"></i>  Meny</button>
-    <span class="w3-right">Skidloppet AB</span>
-    <?php
-        if (isset($_SESSION['email'])){
+<!-- Top container -->
+<div class="w3-container w3-top w3-black w3-large w3-padding" style="z-index:4">
+  <button class="w3-btn w3-hide-large w3-padding-0 " onclick="w3_open();"><i class="fa fa-bars"></i>  Meny</button>
+  <span class="w3-right">Skidloppet AB</span>
+  <?php
+  if (isset($_SESSION['email'])){
     ?>
-            <button class="w3-right w3-margin-right w3-btn w3-hide-large w3-padding-0 w3-hover-text-grey" onclick="logout.php"><i class="fa fa-unlock"></i>  Logga ut</button>
+    <button class="w3-right w3-margin-right w3-btn w3-hide-large w3-padding-0 " onclick="logout.php"><i class="fa fa-unlock"></i>  Logga ut</button>
     <?php 
-        }
-        else {
-            $url = htmlspecialchars($_GET['url']);
-            header( 'Refresh: 0; url=./Kund.php'.$url );
-        }
-    ?>
-  </div>
+  }
+  else {
+    $url = htmlspecialchars($_GET['url']);
+    header( 'Refresh: 0; url=./Kund.php'.$url );
+  }
+  ?>
+</div>
 <!-- Sidenav/menu -->
 <nav class="w3-sidenav w3-collapse w3-white w3-animate-left" style="z-index:3;width:300px;" id="mySidenav"><br>
   <a><div class="w3-container w3-row">
@@ -38,7 +38,7 @@ include 'connect.php';
       </span>
       <br>
       <a href="logout.php" class="w3-hover-none w3-hover-text-red w3-show-inline-block"><i class="fa fa-unlock"></i> Logga ut</a>
-      <a href="logout.php" class="w3-hover-none w3-hover-text-red w3-show-inline-block"><i class="fa fa-home"></i> Index</a>
+      <a href="Kund.php" class="w3-hover-none w3-hover-text-red w3-show-inline-block"><i class="fa fa-home"></i> Index</a>
     </div>
   </div></a>
   <hr>
@@ -47,7 +47,7 @@ include 'connect.php';
     <h5>Meny</h5>
   </div>
   <a href="#" class="w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>  Stäng meny</a>
-<?php   ?>
+  <?php   ?>
 
   <?php
   if (!isset($_SESSION['email'])) {
@@ -68,8 +68,8 @@ include 'connect.php';
   if (isset($_SESSION['email'])&&($_SESSION['type'] == 'arenachef')) {
     ?>
     <a href="#" data-content="users" class="<?php if(basename($_SERVER['SCRIPT_NAME']) == 'backend_anv.php'){echo 'w3-padding w3-blue'; }else { echo 'w3-padding'; } ?>"><i class="fa fa-user fa-fw"></i>  Användaradministration</a>
-	    <a href="#" data-content="subplace" class="<?php if(basename($_SERVER['SCRIPT_NAME']) == 'backend_stra.php'){echo 'w3-padding w3-blue'; }else { echo 'w3-padding'; } ?>"><i class="fa fa-share-alt fa-fw"></i>  Sträckor</a>
-  <a href="#" data-content="cannons" class="<?php if(basename($_SERVER['SCRIPT_NAME']) == 'backend_cannon.php'){echo 'w3-padding w3-blue'; }else { echo 'w3-padding'; } ?>"><i class="fa fa-asterisk fa-fw"></i>  Snökanoner</a><br><br>
+    <a href="#" data-content="subplace" class="<?php if(basename($_SERVER['SCRIPT_NAME']) == 'backend_stra.php'){echo 'w3-padding w3-blue'; }else { echo 'w3-padding'; } ?>"><i class="fa fa-share-alt fa-fw"></i>  Sträckor</a>
+    <a href="#" data-content="cannons" class="<?php if(basename($_SERVER['SCRIPT_NAME']) == 'backend_cannon.php'){echo 'w3-padding w3-blue'; }else { echo 'w3-padding'; } ?>"><i class="fa fa-asterisk fa-fw"></i>  Snökanoner</a><br><br>
     <?php   
   }
   elseif (isset($_SESSION['email'])&&($_SESSION['type'] == 'other')) {
@@ -94,4 +94,4 @@ include 'connect.php';
   <a href="backend_anv.php" class="<?php if(basename($_SERVER['SCRIPT_NAME']) == 'backend_anv.php'){echo 'w3-padding w3-blue'; }else { echo 'w3-padding'; } ?>"><i class="fa fa-user fa-fw"></i>  Anv�ndaradministration</a><br><br>
 </nav>
 
-  -->
+-->
