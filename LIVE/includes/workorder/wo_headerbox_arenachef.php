@@ -2,10 +2,10 @@
 $i = 0;
 $i2 = 0;
 
-foreach($pdo->query( 'select count(*)as i from WorkOrder;') as $row){
+foreach($pdo->query( 'select count(*)as i from wo;') as $row){
   $i = $row['i'];
 }
-foreach($pdo->query( 'select count(*)as i2 from FinnishedWorkOrder;' ) as $row){
+foreach($pdo->query( 'select count(*)as i2 from fwo;' ) as $row){
   $i2 = $row['i2'];
 }
 ?>
@@ -25,7 +25,7 @@ foreach($pdo->query( 'select count(*)as i2 from FinnishedWorkOrder;' ) as $row){
 </div>
 
 
- <div class="w3-quarter" style="cursor:pointer" onclick="document.getElementById('id01').style.display='block'">
+<div class="w3-quarter" style="cursor:pointer" onclick="document.getElementById('id04').style.display='block'">
   <div class="w3-panel w3-card-8 w3-text-shadow w3-round-xlarge w3-container w3-orange w3-padding-16">
     <div class="w3-left"><i class="fa fa-plus w3-xxxlarge"></i></div>
     <div class="w3-right">
@@ -42,10 +42,10 @@ foreach($pdo->query( 'select count(*)as i2 from FinnishedWorkOrder;' ) as $row){
   <div class="w3-panel w3-card-8 w3-text-shadow w3-round-xlarge w3-container w3-blue w3-padding-16">
     <div class="w3-left"><i class="fa fa-arrow-right w3-xxxlarge"></i></div>
     <div class="w3-right">
-      <h3><?php print_r($i);?></h3>
+      <h3><?php #print_r($i);?> </br> </h3>
     </div>
     <div class="w3-clear"></div>
-    <h4>Pågående arbetsordrar</h4>
+    <h4>Se planerade arbetspass</h4>
   </div>
 </div>
 
@@ -74,7 +74,8 @@ foreach($pdo->query( 'select count(*)as i2 from FinnishedWorkOrder;' ) as $row){
       <span onclick="document.getElementById('id01').style.display='none'"
       class="w3-closebtn">&times;</span>
       <h3>Skapa ny arbetsorder</h3>
-      <form action='<?php echo $_SERVER['SCRIPT_NAME']; ?>' method='POST'>
+      <form id="skapaAO">
+
         <p>Prioritet  *</p>
         <select name="Prioritering">
           <?php
@@ -101,7 +102,7 @@ foreach($pdo->query( 'select count(*)as i2 from FinnishedWorkOrder;' ) as $row){
       </br></br>
 
 
-      <textarea rows="5" cols="70" name="Info" placeholder="information om arbetsorder.."></textarea></br></br>
+      <textarea rows="5" cols="70" name="info1" placeholder="information om arbetsorder.."></textarea></br></br>
       <p>Entrepenör ansvarig *</p>
       <select name='EntID'>    
         <?php 
@@ -131,43 +132,45 @@ foreach($pdo->query( 'select count(*)as i2 from FinnishedWorkOrder;' ) as $row){
             }
             ?></select>
             <input type="checkbox" name="split" value="1"> Dela upp på ansvarsområden<br>
-            <p><button type="submit" name="_newSplitWorkOrder" id="_newWorkOrder">Skicka</button></p></form>
+            <button type="button" onclick="SendForm('workorder','workorder','skapaAO');" class="HoverButton" >Skicka</button>
 
-            <?php
+          </form>
+
+          <?php
 #try
-            if(isset($_POST['_newSplitWorkOrder'])){
+          if(isset($_POST['info1'])){
 
               # Frågan till proceduren
-              $sql = "CALL _newSplitWorkOrder(:newSkiID, :newEntID, NOW() ,:newPriority, :newType, :newInfo, :newSplit, :startName, :endName)";
+            $sql = "CALL _newSplitWorkOrder(:newSkiID, :newEntID, NOW() ,:newPriority, :newType, :newInfo, :newSplit, :startName, :endName)";
 
               # kontroll om akut (isf default ent, så alla kan acceptera samt stoppar eventuellt försök på split för ansvarsområden)
-        
+
         #      if ($_POST['Prioritering'] == "akut"){
          #       $_POST['EntID'] = "1";
           #      $_POST['split'] = "0";
            #   }
 
               # hantera när ingen slutstation är vald (gör så slut blir desamma som start)
-              if($_POST['Slut'] === "Q") {
-                $_POST['Slut'] = $_POST['Start'];
-             }
-
-              $stmt = $pdo->prepare($sql);
-              # OBS -> skiID tas från session.
-              $stmt->bindParam(":newSkiID", $id, PDO::PARAM_INT);
-              $stmt->bindParam(":newEntID", $_POST['EntID'], PDO::PARAM_INT);
-              $stmt->bindParam(":newPriority", $_POST['Prioritering'], PDO::PARAM_STR);
-              $stmt->bindParam(":newType", $_POST['type'], PDO::PARAM_STR);
-              $stmt->bindParam(":newInfo", $_POST['Info'], PDO::PARAM_STR);
-              $stmt->bindParam(":newSplit", $_POST['split'], PDO::PARAM_INT);
-              $stmt->bindParam(":startName", $_POST['Start'], PDO::PARAM_INT);
-              $stmt->bindParam(":endName", $_POST['Slut'], PDO::PARAM_INT);
-              $stmt->execute();
+            if($_POST['Slut'] === "Q") {
+              $_POST['Slut'] = $_POST['Start'];
             }
-            ?>
-          </div>
+
+            $stmt = $pdo->prepare($sql);
+              # OBS -> skiID tas från session.
+            $stmt->bindParam(":newSkiID", $id, PDO::PARAM_INT);
+            $stmt->bindParam(":newEntID", $_POST['EntID'], PDO::PARAM_INT);
+            $stmt->bindParam(":newPriority", $_POST['Prioritering'], PDO::PARAM_STR);
+            $stmt->bindParam(":newType", $_POST['type'], PDO::PARAM_STR);
+            $stmt->bindParam(":newInfo", $_POST['info1'], PDO::PARAM_STR);
+            $stmt->bindParam(":newSplit", $_POST['split'], PDO::PARAM_INT);
+            $stmt->bindParam(":startName", $_POST['Start'], PDO::PARAM_INT);
+            $stmt->bindParam(":endName", $_POST['Slut'], PDO::PARAM_INT);
+            $stmt->execute();
+          }
+          ?>
         </div>
       </div>
+    </div>
 
 
 
@@ -180,78 +183,71 @@ foreach($pdo->query( 'select count(*)as i2 from FinnishedWorkOrder;' ) as $row){
 
 
 
-      <!-- The Modal -->
-      <div id="id04" class="w3-modal">
-        <div class="w3-modal-content">
-          <div class="w3-container">
-            <span onclick="document.getElementById('id04').style.display='none'"
-            class="w3-closebtn">&times;</span>
-            <h3>Skicka förfrågan</h3>
+    <!-- The Modal -->
+    <div id="id04" class="w3-modal">
+      <div class="w3-modal-content">
+        <div class="w3-container">
+          <span onclick="document.getElementById('id04').style.display='none'"
+          class="w3-closebtn">&times;</span>
+          <h3>Skicka förfrågan</h3>
 
-            <form action='<?php echo $_SERVER['SCRIPT_NAME']; ?>' method='POST'>
-              <p>Välj snökanon  *</p>
-              <select name='cannonID'>    
-                <?php 
-                foreach ($pdo->query('SELECT * FROM Cannon') as $row) {
-                  echo '<option value="'.$row['cannonID'].'">';
-                  echo "( ".$row['cannonID']." )".$row['klass'];
-                  echo "</option>".$row['state'];
-                }
-                ?></select> 
+          <form id="skapaCAO">
+            <p>Välj snökanon  *</p>
+            <select name='cannonID'>    
+              <?php 
+              foreach ($pdo->query('SELECT * FROM Cannon') as $row) {
+                echo '<option value="'.$row['cannonID'].'">';
+                echo "( ".$row['cannonID']." )".$row['klass'];
+                echo "</option>".$row['state'];
+              }
+              ?></select> 
               <p>Ange ny position  *</p>
 
-                <select name='name'>    
+              <select name='name'>    
+                <?php 
+                foreach ($pdo->query('SELECT * FROM SubPlace') as $row) {
+                  echo '<option value="'.$row['name'].'">';
+                  echo $row['realName'];
+                  echo "</option>";
+                }
+                ?></select>    
+
+
+                <p>Ange ny status  *</p>
+                <select name="state">
+                  <?php
+                  $sql = 'SHOW COLUMNS FROM Cannon WHERE field="state"';
+                  $row = $pdo->query($sql)->fetch(PDO::FETCH_ASSOC);
+                  foreach(explode("','",substr($row['Type'],6,-2)) as $option) {
+                    print("<option>$option</option>");
+                  }
+                  ?>
+                </select>
+
+                <p>Entrepenör ansvarig <i>(ej akut)</i>  *</p>
+                <select name='EntID'>    
                   <?php 
-                  foreach ($pdo->query('SELECT * FROM SubPlace') as $row) {
-                    echo '<option value="'.$row['name'].'">';
-                    echo $row['realName'];
+                  foreach ($pdo->query('SELECT * FROM Ent') as $row) {
+                    echo '<option value="'.$row['entID'].'">';
+                    echo $row['firstName']." ".$row['lastName']." (".$row['entID'].") ";
                     echo "</option>";
                   }
-                  ?></select>    
+                  ?></select>   
 
-
-                  <p>Ange ny status  *</p>
-                  <select name="state">
+                  <p>Sätt prioritet  *</p>
+                  <select name="Prioritering">
                     <?php
-                    $sql = 'SHOW COLUMNS FROM Cannon WHERE field="state"';
+                    $sql = 'SHOW COLUMNS FROM WorkOrder WHERE field="priority"';
                     $row = $pdo->query($sql)->fetch(PDO::FETCH_ASSOC);
                     foreach(explode("','",substr($row['Type'],6,-2)) as $option) {
                       print("<option>$option</option>");
                     }
                     ?>
                   </select>
-
-                  <p>Entrepenör ansvarig <i>(ej akut)</i>  *</p>
-                  <select name='EntID'>    
-                    <?php 
-                    foreach ($pdo->query('SELECT * FROM Ent') as $row) {
-                      echo '<option value="'.$row['entID'].'">';
-                      echo $row['firstName']." ".$row['lastName']." (".$row['entID'].") ";
-                      echo "</option>";
-                    }
-                    ?></select>   
-
-                    <p>Sätt prioritet  *</p>
-                    <select name="Prioritering">
-                      <?php
-                      $sql = 'SHOW COLUMNS FROM WorkOrder WHERE field="priority"';
-                      $row = $pdo->query($sql)->fetch(PDO::FETCH_ASSOC);
-                      foreach(explode("','",substr($row['Type'],6,-2)) as $option) {
-                        print("<option>$option</option>");
-                      }
-                      ?>
-                    </select>
-
-
-                  </br></br>
-
-
-                  <textarea rows="5" cols="70" name="Info" placeholder="information om arbetsorder.."></textarea></br></br>
-
-
-
-
-                  <p><button type="submit" name="_newCannonOrder" >Skicka</button></p></form>
+                </br></br>
+                <textarea rows="5" cols="70" name="info2" placeholder="information om arbetsorder.."></textarea></br></br>
+                <button type="button" onclick="SendForm('workorder','workorder','skapaCAO');" class="HoverButton" >Skicka</button>
+              </form>
 
       <!--
 cannonID smallint,
@@ -266,7 +262,7 @@ info varchar (1024))
 
 <?php
 #try
-if(isset($_POST['_newCannonOrder'])){
+if(isset($_POST['info2'])){
 
               # Frågan till proceduren
   $sql = "CALL _newCannonOrder(:cannonID, :name, :skiID, :entID, NOW() ,:priority, :state, :info)";
@@ -282,7 +278,7 @@ if(isset($_POST['_newCannonOrder'])){
   $stmt->bindParam(":cannonID", $_POST['cannonID'], PDO::PARAM_INT);
   $stmt->bindParam(":entID", $_POST['EntID'], PDO::PARAM_INT);
   $stmt->bindParam(":priority", $_POST['Prioritering'], PDO::PARAM_STR);
-  $stmt->bindParam(":info", $_POST['Info'], PDO::PARAM_STR);
+  $stmt->bindParam(":info", $_POST['info2'], PDO::PARAM_STR);
   $stmt->bindParam(":name", $_POST['name'], PDO::PARAM_INT);
   $stmt->bindParam(":state", $_POST['state'], PDO::PARAM_STR);
   $stmt->execute();
@@ -335,14 +331,12 @@ if(isset($_POST['_newCannonOrder'])){
 
 
 
-
-    <div id="id03" class="w3-modal ">
-
+    <!-- The Modal -->
+    <div id="id02" class="w3-modal">
       <div class="w3-modal-content">
-        <div class="w3-container w3-padding w3-margin">
+        <div class="w3-container w3-margin w3-padding">
           <span onclick="document.getElementById('id02').style.display='none'"
           class="w3-closebtn">&times;</span>
-
 
           <h5>Entrepenörernas nästa planerade arbetspass</h5>
           <h5>Proceduren måste ändras så den kollar på StoredReports</h5>
@@ -367,54 +361,6 @@ if(isset($_POST['_newCannonOrder'])){
           </table><br>
         </div>
 
-        <div class="w3-container w3-padding w3-margin w3-border-top">
-          <h5>Pågående arbetsordrar (senaste 20st)</h5>
-          <table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white">
-            <tr>
-              <th>Order ID</th>
-              <th>Arbetsorder-Typ</th>
-              <th>Prioritet</th>
-              <th>Ansvarig</th>
-              <th>Information</th>
-              <th>Datum skickad</th>
-              <th>Skapad av</th>
-              <th>Skapad av</th>
-            </tr>        
-            <?php     
-
-            foreach($pdo->query( 'SELECT * FROM wo order by orderID desc;' ) as $row){
-              echo "<tr>";
-              echo "<td>".$row['orderID']."</td>";
-              echo "<td>".$row['type']."</td>";
-              echo "<td>".$row['priority']."</td>";
-              echo "<td>".$row['entF']." ".$row['entL']."</td>";
-              echo "<td>".$row['info']."</td>";
-              echo "<td>".$row['sentDate']."</td>";
-              echo "<td>".$row['skiF']." ".$row['skiL']."</td>";
-              ?>
-              <td>
-                <form id="change">
-                  <input type="hidden" name="orderID" value="<?php echo $row['orderID']; ?>">
-                  <select name='entID'>    
-                    <?php 
-              # i varje rad av svar den skriver ut så skapas en lista med alla Ent förnamn&efternamn
-              # sätter value till entrepenöresns ID 
-                    foreach ($pdo->query('SELECT * FROM Ent') as $row) {
-                      echo '<option value="'.$row['entID'].'">';
-                      echo $row['firstName']." ".$row['lastName'];
-                      echo "</option>";
-                    }
-                    ?>
-                  </select>
-                  <button type="button" onclick="SendForm('workorder', 'workorder', 'change');">Överlåt</button>
-                </form>
-              </td>
-            </tr>
-            <?php
-          }
-          ?>   
-        </table>
-      </div>
     </div>
   </div>
   <?php
@@ -438,7 +384,7 @@ if(isset($_POST['_newCannonOrder'])){
         <span onclick="document.getElementById('id03').style.display='none'"
         class="w3-closebtn">&times;</span>
         <div class="w3-threethird">
-          <h5>Pågående arbetsordrar</h5>
+          <h5>Avslutade arbetsordrar</h5>
           <table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white">
             <tr>
               <th><i class="fa fa-users w3-orange w3-text-white w3-padding-tiny"></i></th>
