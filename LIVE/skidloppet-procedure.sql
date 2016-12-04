@@ -405,11 +405,11 @@ skiID smallint,
 entID smallint,
 startStamp datetime,
 priority enum('low','medium','high','akut'),
-newStatus enum('on','off','unplugged','broken'),
+state enum('På','Av','Urkopplad','Trasig', 'Annat'),
 info varchar (1024))
 BEGIN
 
-INSERT INTO CannonSubPlace (cannonID, name, skiID,entID, startStamp, priority,newStatus, info) values (cannonID, name, skiID,entID, startStamp, priority,newStatus, info);
+INSERT INTO CannonSubPlace (cannonID, name, skiID,entID, startStamp, priority,newStatus, info) values (cannonID, name, skiID,entID, startStamp, priority,state, info);
 
 COMMIT ;
 END //
@@ -560,7 +560,7 @@ DELIMITER ;
 
 call _removeComment();
 
-    
+  
 DROP PROCEDURE IF EXISTS _newResponsabilitySubPlace;
 DELIMITER //
 CREATE PROCEDURE _newResponsabilitySubPlace (
@@ -583,7 +583,8 @@ DELIMITER ;
 -- call _finnishedCannonOrder('2','1',now(),'texttesttets');
 
 
-
+-- select * from SubPlaceWorkOrder;
+-- select realName from SubPlace, SubPlaceWorkOrder where SubPlace.name = SubPlaceWorkOrder.name and SubPlaceWorkOrder.orderID = 12;
 
 
 

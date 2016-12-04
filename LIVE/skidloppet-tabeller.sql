@@ -231,7 +231,7 @@ entID smallint,
 startStamp datetime,
 endStamp datetime,
 priority enum('low','medium','high','akut'),
-newStatus enum('on','Urkopplad','unplugged','broken'),
+newStatus enum('På','Av','Urkopplad','Trasig', 'Annat'),
 info varchar(1024),
 comment varchar(1024),
 primary key (orderID),
@@ -282,6 +282,7 @@ insert into Ski (password, firstName, lastName, email, number, type, regDate) va
 ('pass','Rune','Lund','Rune.Lund@skidloppet.se','04040404','arenachef','2016-11-01');
 
 insert into Ent (password, firstName, lastName, email, number, regDate) values 
+('pass','Global Användare','','ent','0205624321','2016-11-05'),
 ('sture','Sture','Ekman','Sture.Ekman@skidloppet.se','00562432','2016-11-01'),
 ('andersson','Bröderna','Andersson','Bröderna.Andersson@skidloppet.se','00562736','2016-11-01'),
 ('persson','Siv-Jan','Persson','SoJ.Persson@skidloppet.se','00561122','2016-11-01'),
@@ -353,7 +354,6 @@ insert into SubPlace (name, placeName, realName, entID, length, height, fakesnow
 ('20','Delstrackor','Björsjö 6:3','3','22','333','31'),
 ('21','Delstrackor','Björsjö 6:4','3','22','333','31'),
 ('55','Garage','HUVUDGARAGET','1','6','264','1');
-
 
 -- select * from Cannon;
 insert into Cannon (subPlaceName, model, state, effect,klass) values
@@ -431,5 +431,6 @@ insert into CommentSubPlace (CommentID, name) values
 ('3','2'),
 ('3','3');
 */
+
 
 
