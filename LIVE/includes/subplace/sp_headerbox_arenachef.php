@@ -30,18 +30,29 @@ foreach($pdo->query( 'select count(*)as i from StoredReports;') as $row){
 		</div>
 	</div>
 
-<a href="#12">
-	<div class="w3-third">
-		<div class="w3-panel w3-card-8 w3-text-shadow w3-round-xlarge w3-container w3-blue w3-padding-16">
-			<div class="w3-left"><i class="fa fa-arrow-right w3-xxxlarge"></i></div>
+	<a href="#12">
+		<div class="w3-third">
+			<div class="w3-panel w3-card-8 w3-text-shadow w3-round-xlarge w3-container w3-blue w3-padding-16">
+				<div class="w3-left"><i class="fa fa-arrow-right w3-xxxlarge"></i></div>
+				<div class="w3-right">
+					<h3><?php print_r($i); ?></h3>
+				</div>
+				<div class="w3-clear"></div>
+				<h4>Alla delsträckor</h4>
+			</div>
+		</div>
+	</a>
+
+	<div class="w3-third" style="cursor:pointer" onclick="document.getElementById('id02').style.display='block'">
+		<div class="w3-panel w3-card-8 w3-text-shadow w3-round-xlarge w3-container w3-green w3-padding-16">
+			<div class="w3-left"><i class="fa fa-minus w3-xxxlarge"></i></div>
 			<div class="w3-right">
-				<h3><?php print_r($i); ?></h3>
+				<h3><br></h3>
 			</div>
 			<div class="w3-clear"></div>
-			<h4>Alla delsträckor</h4>
+			<h4>Nollställ konstsnö på valfri delsträcka</h4>
 		</div>
 	</div>
-</a>
 
 	<!-- Popup till SKAPA RAPPORT -->
 
@@ -67,42 +78,74 @@ foreach($pdo->query( 'select count(*)as i from StoredReports;') as $row){
 								?></select>
 
 								Ny ansvarig:
-									<select name='Ent'>    
+								<select name='Ent'>    
+									<?php 
+									foreach ($pdo->query('SELECT * FROM Ent') as $row) {
+										echo '<option value="'.$row['entID'].'">';
+										echo $row['firstName']." ".$row['lastName'];
+										echo "</option>";
+									}
+									?> 
+								</select>
+								<button type="button" onclick="SendForm('subplace', 'subplace', 'ChangeSubEnt');">Spara ändring</button></p></form>
+
+								<br>
+								<h3>Alla delsträckor och den ansvarige</h3>
+
+								<table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white">
+									<?php   
+									echo "<tr>";
+									echo "<th>Plats</th>"; 
+									echo "<th>Entreprenör</th>"; 
+									echo "</tr>";
+
+									foreach ($pdo->query('
+										SELECT *
+										from SubPlaceViewer;
+										')as $row) {
+
+										echo "<tr>";
+									echo "<td>".$row['realName']."</td>";
+									echo "<td>".$row['firstName']." ".$row['lastName']."</td>";
+									?>
+								</tr><?php } ?>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="id02" class="w3-modal">
+				<div class="w3-modal-content">
+					<div class="w3-container">
+						<span onclick="document.getElementById('id02').style.display='none'"
+						class="w3-closebtn">&times;</span>
+						<!-- Start av innehåll/Formen -->
+						<div id="11" class="w3-container">
+
+							<h3>Ny ansvarig entreprenör över delsträcka</h3>
+
+							<h3>Nollställ konstsnö på sträcka</h3>
+							<form id="ZeroFakeSnow">
+								<p>Delsträcka/Plats:
+									<select name='Place'>    
 										<?php 
-										foreach ($pdo->query('SELECT * FROM Ent') as $row) {
-											echo '<option value="'.$row['entID'].'">';
-											echo $row['firstName']." ".$row['lastName'];
+										foreach ($pdo->query('SELECT * FROM SubPlace') as $row) {
+											echo '<option value="'.$row['name'].'">';
+											echo $row['realName'];
 											echo "</option>";
 										}
-										?> 
-									</select>
-									<button type="button" onclick="SendForm('subplace', 'subplace', 'ChangeSubEnt');">Spara ändring</button></p></form>
+										?></select>
+										<button type="button" onclick="SendForm('subplace', 'subplace', 'ZeroFakeSnow');">Spara ändring</button></p></form>
 
-									<br>
-									<h3>Alla delsträckor och den ansvarige</h3>
 
-										<table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white">
-											<?php   
-											echo "<tr>";
-											echo "<th>Plats</th>"; 
-											echo "<th>Entreprenör</th>"; 
-											echo "</tr>";
-
-											foreach ($pdo->query('
-												SELECT *
-												from SubPlaceViewer;
-												')as $row) {
-
-												echo "<tr>";
-											echo "<td>".$row['realName']."</td>";
-											echo "<td>".$row['firstName']." ".$row['lastName']."</td>";
-											?>
-											</tr><?php } ?>
 									</table>
 								</div>
 							</div>
 						</div>
 					</div>
+
+
+
 				</div>
 
 				<?php
@@ -114,3 +157,14 @@ foreach($pdo->query( 'select count(*)as i from StoredReports;') as $row){
 					$stmt->execute();
 				}    
 				?>
+
+				<?php
+				if(isset($_POST['Place'])){
+					$setZero = 0;
+					$UpdateFSnow = $_POST['Place'];
+					$sql = "UPDATE SubPlace SET fakesnow = $setZero WHERE name = $UpdateFSnow" ;
+					$stmt = $pdo->prepare($sql);
+					$stmt->execute();
+				}
+				?>
+

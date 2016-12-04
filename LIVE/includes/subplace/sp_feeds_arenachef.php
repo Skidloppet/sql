@@ -42,35 +42,3 @@ include'../connect.php';
 </table><br><br>
 </div>
 
-<h3>Nollställ konstsnö på sträcka</h3>
-<form id="ZeroFakeSnow">
-  <p>Delsträcka/Plats:
-    <select name='Place'>    
-      <?php 
-      foreach ($pdo->query('SELECT * FROM SubPlace') as $row) {
-        echo '<option value="'.$row['name'].'">';
-        echo $row['realName'];
-        echo "</option>";
-      }
-      ?></select>
-      <button type="button" onclick="SendForm('subplace', 'subplace', 'ZeroFakeSnow');">Spara ändring</button></p></form>
-
-      <?php
-      if(isset($_POST['Place'])){
-        $sql = "call _newResponsabilitySubPlace (:_entID,:_name)";
-        $stmt = $pdo->prepare($sql);
-        $stmt->bindParam(":_entID", $_POST['Ent'], PDO::PARAM_INT);
-        $stmt->bindParam(":_name", $_POST['Start'], PDO::PARAM_INT);
-        $stmt->execute();
-      }    
-      ?>
-
-      <?php
-      if(isset($_POST['Place'])){
-        $setZero = 0;
-        $UpdateFSnow = $_POST['Place'];
-        $sql = "UPDATE SubPlace SET fakesnow = $setZero WHERE name = $UpdateFSnow" ;
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute();
-      }
-      ?>
