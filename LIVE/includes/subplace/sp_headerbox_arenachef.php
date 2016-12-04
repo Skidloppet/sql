@@ -110,6 +110,7 @@ foreach($pdo->query( 'select count(*)as i from StoredReports;') as $row){
 									?>
 								</tr><?php } ?>
 							</table>
+							<br><br>
 						</div>
 					</div>
 				</div>
@@ -121,9 +122,7 @@ foreach($pdo->query( 'select count(*)as i from StoredReports;') as $row){
 						class="w3-closebtn">&times;</span>
 						<!-- Start av innehåll/Formen -->
 						<div id="11" class="w3-container">
-
-							<h3>Ny ansvarig entreprenör över delsträcka</h3>
-
+						
 							<h3>Nollställ konstsnö på sträcka</h3>
 							<form id="ZeroFakeSnow">
 								<p>Delsträcka/Plats:
