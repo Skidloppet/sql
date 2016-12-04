@@ -362,7 +362,6 @@ select * from WorkOrder;
 
 -- 11. skapa färdig arbetsorder (logg)
 
--- problem med att få proceduren nedan att fungera, prövat flera lösningsalternativ utan resultat. hjälp sökes
 DROP PROCEDURE IF EXISTS _finnishedWorkOrder;
 DELIMITER //
 CREATE PROCEDURE _finnishedWorkOrder (
@@ -405,11 +404,11 @@ skiID smallint,
 entID smallint,
 startStamp datetime,
 priority enum('low','medium','high','akut'),
-newStatus enum('on','off','unplugged','broken'),
+state enum('På','Av','Urkopplad','Trasig', 'Annat'),
 info varchar (1024))
 BEGIN
 
-INSERT INTO CannonSubPlace (cannonID, name, skiID,entID, startStamp, priority,newStatus, info) values (cannonID, name, skiID,entID, startStamp, priority,newStatus, info);
+INSERT INTO CannonSubPlace (cannonID, name, skiID,entID, startStamp, priority,newStatus, info) values (cannonID, name, skiID,entID, startStamp, priority,state, info);
 
 COMMIT ;
 END //
@@ -440,10 +439,8 @@ DELIMITER ;
 -- SELECT * FROM WorkOrder;
 
 
-
     -- 14. skapa färdig CANNONorder (logg)
 
--- problem med att få proceduren nedan att fungera, prövat flera lösningsalternativ utan resultat. hjälp sökes
 DROP PROCEDURE IF EXISTS _finnishedCannonOrder;
 DELIMITER //
 CREATE PROCEDURE _finnishedCannonOrder (
@@ -464,12 +461,16 @@ begin
        orderID = finnishedOrderID;
        
    DELETE FROM CannonSubPlace where orderID=finnishedOrderID;
+   
+   
+   
+   
    COMMIT ;
 END //
 DELIMITER ;
--- call _finnishedCannonOrder('2','1',now(),'texttesttets');
-
-
+-- call _finnishedCannonOrder('31','1',now(),'texttesttets');
+-- SELECT * FROM CannonSubPlace;
+-- select * from FinnishedCannonSubPlace;
     -- 15. Byt ent ansvarig för arbetsorder.
     
 DROP PROCEDURE IF EXISTS _newResponsability;
@@ -560,9 +561,54 @@ DELIMITER ;
 
 call _removeComment();
 
+  
+DROP PROCEDURE IF EXISTS _newResponsabilitySubPlace;
+DELIMITER //
+CREATE PROCEDURE _newResponsabilitySubPlace (
+_entID smallint,
+_name int)
+begin
+
+	update SubPlace
+    set
+    entID = _entID
+    where
+    name = _name;
+
+   COMMIT ;
+END //
+DELIMITER ;
+
+-- call _newResponsabilitySubPlace ('3','1');
+-- select * from WorkOrder;
+-- call _finnishedCannonOrder('2','1',now(),'texttesttets');
+
+
+-- select * from SubPlaceWorkOrder;
+-- select realName from SubPlace, SubPlaceWorkOrder where SubPlace.name = SubPlaceWorkOrder.name and SubPlaceWorkOrder.orderID = 12;
 
 
 
+DROP PROCEDURE IF EXISTS _newResponsabilityC;
+DELIMITER //
+CREATE PROCEDURE _newResponsabilityC (
+_entID smallint,
+_orderID int)
+begin
+
+	update CannonSubPlace
+    set
+    entID = _entID
+    where
+    orderID = _orderID;
+
+   COMMIT ;
+END //
+DELIMITER ;
+
+call _newResponsabilityC ('3','30');
+-- select * from CannonSubPlace;
+-- call _finnishedCannonOrder('2','1',now(),'texttesttets');
 
 
 
