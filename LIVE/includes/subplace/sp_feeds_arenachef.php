@@ -26,15 +26,16 @@ include'../connect.php';
       from SubPlaceViewer;
       ')as $row) {
 
+      $luck = $row ['entID'];
       echo "<tr>";
     #echo "<td>".$row['name']."</td>";
     echo "<td>".$row['realName']."</td>";
     #echo "<td>".$row['entID']."</td>";
     echo "<td>".$row['firstName']." ".$row['lastName']."</td>";
     #echo "<td>".$row['placeName']."</td>";
-    echo "<td>".$row['length']."</td>";
-    echo "<td>".$row['height']."</td>";
-    echo "<td>".$row['fakesnow']."</td>";
+    echo "<td>".$row['length']." km</td>";
+    echo "<td>".$row['height']." m ö.h.</td>";
+    echo "<td>".$row['fakesnow']." m&#179</td>";
     ?>
   </tr>
   <?php
