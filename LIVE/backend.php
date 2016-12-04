@@ -107,17 +107,11 @@ function SendForm(page, go, form) {
     });
 }
 
-//Meny AJAX
-$('nav a').click(function() {
-  $.ajax({
-    type: 'GET',
-    url: 'includes/'+$(this).data('content')+'.php',
-    dataType: 'html',
-    success: function(response) {
-		//alert(response);
-      $('.includes').html(response);
+//Kontroll om includes diven är tom
+$(document).ready(function () {
+    if( $('.includes').is(':empty') ) {
+        MakeRequest('index');
     }
-  });
 });
 </script>
 
