@@ -273,11 +273,21 @@ where Ent.entID = CannonSubPlace.entID and Ski.skiID = CannonSubPlace.skiID;
 DROP VIEW IF EXISTS fwo;
 create view fwo as
 select Ent.lastName as entL, Ent.firstName entF,Ent.entID,
- Ski.lastName as skiL, Ski.firstName as skiF, 
+ Ski.lastName as skiL, Ski.firstName as skiF, Ent.email as email,
 sentDate, priority, FinnishedWorkOrder.type, info, orderID
-
 from Ent, FinnishedWorkOrder, Ski 
-where Ent.entID = FinnishedWorkOrder.entID and Ski.skiID = FinnishedWorkOrder.skiID;
+where Ent.entID = FinnishedWorkOrder.entID and Ski.skiID = FinnishedWorkOrder.skiID
+
+UNION SELECT 
+
+ Ent.lastName as entL, Ent.firstName entF,Ent.entID,
+ Ski.lastName as skiL, Ski.firstName as skiF, Ent.email as email,
+startStamp as sentDate, priority, "kanon" as type, info, orderID
+from Ent, FinnishedCannonSubPlace, Ski 
+where Ent.entID = FinnishedCannonSubPlace.entID and Ski.skiID = FinnishedCannonSubPlace.skiID;
+
+
+-- 
 -- select * from fwo;
 
 
@@ -367,12 +377,14 @@ CREATE VIEW canT AS
 -- select * from canT;
 
 
--- vy för snökanoner
 DROP VIEW IF EXISTS delWO;
 CREATE VIEW delWO AS
 	SELECT * FROM WorkOrder;
-				-- where CannonSubPlace.cannonID = Cannon.cannonID;
-                -- Group/order by realname, model, newStatus, startStamp
 -- select * from delWO;
+
+DROP VIEW IF EXISTS delCWO;
+CREATE VIEW delCWO AS
+	SELECT * FROM CannonSubPlace;
+-- select * from delCWO;
 
 

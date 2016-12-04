@@ -243,13 +243,15 @@ foreign key (entID) references Ent(entID)
 
 
 create table FinnishedCannonSubPlace (
-orderID int not null unique,
+orderID int not null auto_increment unique,
 cannonID smallint,
 name smallint,
+skiID smallint,
 entID smallint,
-startStamp timestamp,
-endStamp timestamp,
-newStatus enum('on','Urkopplad','unplugged','broken'),
+startStamp datetime,
+endStamp datetime,
+priority enum('low','medium','high','akut'),
+newStatus enum('På','Av','Urkopplad','Trasig', 'Annat'),
 info varchar(1024),
 comment varchar(1024),
 primary key (orderID),
@@ -431,6 +433,7 @@ insert into CommentSubPlace (CommentID, name) values
 ('3','2'),
 ('3','3');
 */
+
 
 
 
