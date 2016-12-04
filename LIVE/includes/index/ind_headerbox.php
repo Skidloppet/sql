@@ -12,7 +12,7 @@ foreach($pdo->query( 'select count(*)as a from wo;') as $row){
 }
 ?>
 
-<div class="w3-row-padding w3-margin-bottom">  
+<div class="w3-row-padding w3-margin-bottom" style="cursor: pointer; cursor: hand;">  
 
 
   <div class="w3-quarter" onclick="MakeRequest('workorder');">

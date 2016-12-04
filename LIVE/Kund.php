@@ -173,7 +173,7 @@ div.container {
 }
 
 header, footer {
-    padding: 1em;
+    padding: 6px;
     color: white;
     background-color: #009933;
     clear: left;
@@ -228,7 +228,7 @@ article {
 <body>
   <!-- Navbar -->
   <div class="w3-top">
-    <ul class="w3-navbar w3-white w3-card-2 w3-left-align">
+    <ul class="w3-navbar w3-black	w3-card-2 w3-left-align">
       <li class="w3-hide-medium w3-hide-large w3-opennav w3-right">
         <a class="w3-padding-large" href="javascript:void(0)" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
       </li>
@@ -237,7 +237,7 @@ article {
       <li class="w3-hide-small"><a href="#Kommentar1" class="w3-padding-large">Kundernas kommentar</a></li> 
       <li class="w3-hide-small"><a href="#Snitt" class="w3-padding-large">Arenans status</a></li> 	  
       <li class="w3-hide-small"><a href="#Kommentar2" class="w3-padding-large">Kommentera sträckan</a></li>
-
+ 
 
       <!-- kollar om man INTE är inloggad -->
       <?php
@@ -347,7 +347,7 @@ include'includes/mapFkund.php';
  <div class="container">
 
 <header>
-   <h1>Delsträckornas status</h1>
+   <h1>Delsträckornas status </h1>
 </header>
   
 <nav>
@@ -425,9 +425,99 @@ include'includes/mapFkund.php';
 </header>
 <nav>
   <ul>
-    <li>Komentarer om de olika sträckonra ute på banan. Kommentarena är skrivna av kunder. Kommentarer som är 48 timmar gamla är dem synliga.</li>
+        <li style="float: right">
+          <button onclick="document.getElementById('id02').style.display='block'" style="width:auto;"><i class="fa fa-flag w3-xxlarge" aria-hidden="true"></i></button>
+        </li>
+		<li>För felanmälan </li>
+		
+		
+		
+		
+ <div id="id02" class="modal">
+
+  <div class="container">
+<div id="11" class="w3-container w3-white">
+<head>
+  <h3>Ny felanmälan!</h3>
+</header>
+
+  <form action='<?php echo $_SERVER['SCRIPT_NAME']; ?>' method='POST'>
+    <textarea rows="5" cols="70" name="desc" placeholder="Beskriv problemet..."></textarea>
+  </br>
+
+  <p>Ange problemets typ *</p>
+  <select name="type">
+    <?php
+    $sql = 'SHOW COLUMNS FROM Error WHERE field="type"';
+    $row = $pdo->query($sql)->fetch(PDO::FETCH_ASSOC);
+    foreach(explode("','",substr($row['Type'],6,-2)) as $option) {
+      print("<option>$option</option>");
+    }
+    ?>
+  </select>
+
+  <!-- Listbox till att välja startsträcka-->
+  <p>Vart startade problemet?:</p>
+  <select name='Start'>    
+    <?php 
+    foreach ($pdo->query('SELECT * FROM SubPlace') as $row) {
+      echo '<option value="'.$row['name'].'">';
+      echo $row['realName'];
+      echo "</option>";
+    }
+    ?>
+  </select><br>
+  <!-- Listbox till att välja slutsträcka-->
+  <p>Vart slutar problemets inverkan?:</p>
+  <select name='Slut'>    
+    <?php 
+    foreach ($pdo->query('SELECT * FROM SubPlace') as $row) {
+      echo '<option value="'.$row['name'].'">';
+      echo $row['realName'];
+      echo "</option>";
+    }
+    ?>
+  </select><br><br>
+
+  <!--<input type="text" name="Slut" placeholder="Slut.."></p>-->
+
+
+  <p><button type="submit" name="Error">skicka in felanmälan</button></p></form>
+
+
+  <?php
+#  $em = $_SESSION['email'];
+
+  if(isset($_POST['Error'])){
+
+    $sql = "CALL _NewError(:newErrorDesc, :newEntID, NOW() , :newType, :startName, :endName);";
+
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindParam(":newErrorDesc", $_POST['desc'], PDO::PARAM_STR);
+    $stmt->bindParam(":newEntID", $_SESSION['id'], PDO::PARAM_INT);
+    //$stmt->bindParam(":newGrade", $_POST['grade'], PDO::PARAM_STR);
+    $stmt->bindParam(":newType", $_POST['type'], PDO::PARAM_STR);
+    $stmt->bindParam(":startName", $_POST['Start'], PDO::PARAM_INT);
+    $stmt->bindParam(":endName", $_POST['Slut'], PDO::PARAM_INT);
+    $stmt->execute();
+  }    
+  ?>
+</div>
+
+
+</div>
+
+      </form>
+    </div>
+		
+		
+		
+		
   </ul>
 </nav>
+
+
+
 <article>
   <h1>Skidloppet</h1>
   <h3>Kundernas kommentar </h3>
@@ -537,7 +627,7 @@ include'includes/mapFkund.php';
     <form action ='Kund.php' method='POST'>
       <textarea rows="5" cols="70" name="comment" placeholder="freetext !comment"></textarea>
     </br>
-    <input type="text" name="alias" placeholder="Alias..">
+    <input type="text" name="alias" placeholder="Namn">
     <select name='grade'>
       <option selected="selected">Betygsätt spåren</option>
       <option value="1">1 - Ej åkbart</option>
@@ -600,110 +690,7 @@ include'includes/mapFkund.php';
 
 
 
-
-
-  <div class="container">
-<div id="11" class="w3-container w3-blue">
-<head>
-  <h3>Ny felanmälan!</h3>
-</header>
-
-  <form action='<?php echo $_SERVER['SCRIPT_NAME']; ?>' method='POST'>
-    <textarea rows="5" cols="70" name="desc" placeholder="Beskriv problemet..."></textarea>
-  </br>
-
-  <p>Ange problemets typ *</p>
-  <select name="type">
-    <?php
-    $sql = 'SHOW COLUMNS FROM Error WHERE field="type"';
-    $row = $pdo->query($sql)->fetch(PDO::FETCH_ASSOC);
-    foreach(explode("','",substr($row['Type'],6,-2)) as $option) {
-      print("<option>$option</option>");
-    }
-    ?>
-  </select>
-
-  <!-- Listbox till att välja startsträcka-->
-  <p>Vart startade problemet?:</p>
-  <select name='Start'>    
-    <?php 
-    foreach ($pdo->query('SELECT * FROM SubPlace') as $row) {
-      echo '<option value="'.$row['name'].'">';
-      echo $row['realName'];
-      echo "</option>";
-    }
-    ?>
-  </select><br>
-  <!-- Listbox till att välja slutsträcka-->
-  <p>Vart slutar problemets inverkan?:</p>
-  <select name='Slut'>    
-    <?php 
-    foreach ($pdo->query('SELECT * FROM SubPlace') as $row) {
-      echo '<option value="'.$row['name'].'">';
-      echo $row['realName'];
-      echo "</option>";
-    }
-    ?>
-  </select><br><br>
-
-  <!--<input type="text" name="Slut" placeholder="Slut.."></p>-->
-
-
-  <p><button type="submit" name="Error">Ny felanmälan</button></p></form>
-
-
-  <?php
-#  $em = $_SESSION['email'];
-
-  if(isset($_POST['Error'])){
-
-    $sql = "CALL _NewError(:newErrorDesc, :newEntID, NOW() , :newType, :startName, :endName);";
-
-    $stmt = $pdo->prepare($sql);
-    $stmt->bindParam(":newErrorDesc", $_POST['desc'], PDO::PARAM_STR);
-    $stmt->bindParam(":newEntID", $_SESSION['id'], PDO::PARAM_INT);
-    //$stmt->bindParam(":newGrade", $_POST['grade'], PDO::PARAM_STR);
-    $stmt->bindParam(":newType", $_POST['type'], PDO::PARAM_STR);
-    $stmt->bindParam(":startName", $_POST['Start'], PDO::PARAM_INT);
-    $stmt->bindParam(":endName", $_POST['Slut'], PDO::PARAM_INT);
-    $stmt->execute();
-  }    
-  ?>
 </div>
-
-
-</div>
-
-
-
-
-
-
-
-
-
-
-
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 <!-- Footer -->
@@ -724,6 +711,19 @@ window.onclick = function(event) {
     modal.style.display = "none";
   }
 }
+
+
+var modal = document.getElementById('id02');
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+
+
+
 
 
 // Automatic Slideshow - change image every 4 seconds
@@ -761,6 +761,10 @@ window.onclick = function(event) {
 }
 
 
+<!-- FELANMÄLAN -->
+
+// Get the modal
+var modal = document.getElementById('id02');
 
 
 
