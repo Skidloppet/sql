@@ -8,10 +8,26 @@ $em = $_SESSION['email'];
 $WOO = $_SERVER["SCRIPT_NAME"];
 ?>
 
+<div class="w3-row-padding w3-margin-bottom">
+ <div class="w3-quarter" style="cursor:pointer" onclick="document.getElementById('id21').style.display='block'">
+  <div class="w3-panel w3-card-8 w3-text-shadow w3-round-xlarge w3-container w3-green w3-padding-16">
+    <div class="w3-left"><i class="fa fa-plus w3-xxxlarge"></i></div>
+    <div class="w3-right">
+      <h3><br></h3>
+    </div>
+    <div class="w3-clear"></div>
+    <h4>√Ñndra roll f√∂r skidloppet anv√§ndare</h4>
+  </div>
+</div>
+</div>
+
 
     <!-- utskrift SKI -->
-<div class="w3-container w3-section w3-green" style="z-index:4">  <h3>Utskrift av Skidloppet-anst‰llda</h3>
-    <table>
+<div class="w3-row-padding w3-panel w3-card-8 w3-round-xlarge" style="border-color:lightblue; border-style: solid; border-width: 5px;">
+<div class="w3-threethird">
+<!-- <div class="w3-container w3-section w3-green" style="z-index:4"> -->
+<h3>Skidloppet-anst√§llda</h3>
+     <table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white">
       <?php   
           echo "<tr>";
             echo "<th>skiID</th>"; 
@@ -41,9 +57,13 @@ $WOO = $_SERVER["SCRIPT_NAME"];
         ?>
       </table>
 </div>
+</div>
     <!-- utskrift ent -->
-<div class="w3-container w3-section w3-brown">  <h3>Utskrift av feta entreprenˆrer</h3>
-    <table>
+<div class="w3-row-padding w3-panel w3-card-8 w3-round-xlarge" style="border-color:lightblue; border-style: solid; border-width: 5px;">
+<div class="w3-threethird">
+<h3>Utskrift av feta entrepren√∂rer</h3>
+<table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white">
+
       <?php   
           echo "<tr>";
             echo "<th>entID</th>"; 
@@ -71,18 +91,53 @@ $WOO = $_SERVER["SCRIPT_NAME"];
         ?>
       </table>
 </div>
+</div>
 
 
 
-
-
+ 
+<!-- FUNKAR EJ JOBBA VIDARE  -->
     <!-- ny ski roll -->
-    <?php
-    include'connect.php';
-    ?>
+	<div id="id21" class="w3-modal">
+  <div class="w3-modal-content">
+    <div class="w3-container">
+      <span onclick="document.getElementById('id21').style.display='none'"
+      class="w3-closebtn">&times;</span>
+      <h3>√Ñndra roll f√∂r skidloppet anv√§ndare</h3>
+      <form id="nySki">
+	   <p>Anv√§ndare *</p>
+	   <select name="skiID">
+	      <?php    
+          foreach($pdo->query( 'SELECT * FROM Ski ORDER BY skiID;' ) as $row){
+            echo '<option value="'.$row['skiID'].'">';
+            echo $row['firstName']." ".$row['lastName']." (".$row['type'].")";      
+            echo '</option>';
+          }    
+          ?> 
+        </select>
+		
+		<p>Ny roll *</p>
+	   <select name="roll">
+	   <?php    
+          foreach($pdo->query( 'SELECT type FROM Ski GROUP BY type;' ) as $row){
+          # Denna b√∂r √§ndras d√• den inte √§r fullt funktionell.
+            echo '<option value="'.$row['type'].'">';
+            echo $row['type'];      
+            echo '</option>';
+          }    
+          ?>
+        </select>
+		<br></br>
+	  <button type="button" onclick="SendForm('user','user','nySki');" class="HoverButton" >√Ñndra</button>
+	  </form>
+	  </div>
+	  </div>
+	  </div>
+
+
     <div class="w3-container w3-section w3-cyan">
-      <h3>S‰tt ny roll fˆr en Skidloppet anv‰ndare</h3>
-      <h4>fel n‰r det inte finns nÂgon av en viss typ(dÂ fˆrsvinner alternativet)</h4>
+      <h3>S√§tt ny roll f√∂r en Skidloppet anv√§ndare</h3>
+      <h4>fel n√§r det inte finns n√•gon av en viss typ(d√• f√∂rsvinner alternativet)</h4>
       <form action='<?php $_PHP_SELF ?>' method='POST'>
         <select size='1' name='skiID'>
           <option selected="selected"> Choose employee </option>
@@ -98,7 +153,7 @@ $WOO = $_SERVER["SCRIPT_NAME"];
           <option selected="selected"> New role </option>
           <?php    
           foreach($pdo->query( 'SELECT type FROM Ski GROUP BY type;' ) as $row){
-          # Denna bˆr ‰ndras dÂ den inte ‰r fullt funktionell.
+          # Denna b√∂r √§ndras d√• den inte √§r fullt funktionell.
             echo '<option value="'.$row['type'].'">';
             echo $row['type'];      
             echo '</option>';
@@ -129,10 +184,10 @@ $WOO = $_SERVER["SCRIPT_NAME"];
 
 
        <div class ="w3-container w3-section w3-red">
-      <h3>S‰tt nytt tel-nummer fˆr en entreprenˆr anv‰ndare</h3>
+      <h3>S√§tt nytt tel-nummer f√∂r en entrepren√∂r anv√§ndare</h3>
       <form action='<?php $_PHP_SELF ?>' method='POST'>
         <select size='1' name='entID'>
-          <option selected="selected"> v‰lj entreprenˆr </option>
+          <option selected="selected"> v√§lj entrepren√∂r </option>
           <?php    
           foreach($pdo->query( 'SELECT * FROM Ent ORDER BY entID;' ) as $row){
             echo '<option value="'.$row['entID'].'">';
