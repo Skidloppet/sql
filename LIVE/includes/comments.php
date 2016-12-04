@@ -14,7 +14,6 @@ $em = $_SESSION['email'];
       <?php 
     } 
     elseif (isset($_SESSION['email'])&&($_SESSION['type'] == 'arenachef')) {
-		    include 'comment/cuc_headerbox_arenachef.php';
 
       ?>
       <div class="w3-container w3-section">
@@ -25,7 +24,6 @@ $em = $_SESSION['email'];
           }
           elseif (isset($_SESSION['email'])&&($_SESSION['type'] == 'other')) {
 			  
-		    include 'comment/cuc_headerbox_other.php';
       ?>
       <div class="w3-container w3-section">
         <div class="w3-row-padding" style="margin:0 -16px">

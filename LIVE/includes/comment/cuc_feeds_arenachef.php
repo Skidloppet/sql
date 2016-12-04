@@ -1,9 +1,14 @@
 <!DOCTYPE html>
 <?php
 include'../connect.php';
+
+
+ foreach($pdo->query( 'select count(*)as d from co;') as $row){
+  $d = $row['d'];
+}
+
 ?>
 
- 
 
 <!--
 if(isset($_GET['commentID'])){
@@ -28,6 +33,8 @@ if(isset($_GET['commentID'])){
 <div class="w3-row-padding w3-panel w3-card-8 w3-round-xlarge" style="border-color:lightblue; border-style: solid; border-width: 5px;">
   <div class="w3-threethird">
       <h3>Kund Kommentarer</h3>
+      <h5>Antal kommentarer: <?php print_r($d);?></h5>
+
       <table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white">
         <tr>
           <tr>
