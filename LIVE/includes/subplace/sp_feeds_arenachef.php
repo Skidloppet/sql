@@ -5,7 +5,8 @@ include'../connect.php';
 ?>
 
 
-<div id="12" class="w3-container w3-blue">
+<div class="w3-row-padding w3-panel w3-card-8 w3-round-xlarge" style=" border-color:lightblue; border-style: solid; border-width: 5px;">
+  <div class="w3-threethird">
   <h3>Alla delsträckor:</h3>
   <table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white">
     <?php   
@@ -41,4 +42,37 @@ include'../connect.php';
 ?> 
 </table><br><br>
 </div>
+</div>
 
+<h3>Nollställ konstsnö på sträcka</h3>
+<form id="ZeroFakeSnow">
+  <p>Delsträcka/Plats:
+    <select name='Place'>    
+      <?php 
+      foreach ($pdo->query('SELECT * FROM SubPlace') as $row) {
+        echo '<option value="'.$row['name'].'">';
+        echo $row['realName'];
+        echo "</option>";
+      }
+      ?></select>
+      <button type="button" onclick="SendForm('subplace', 'subplace', 'ZeroFakeSnow');">Spara ändring</button></p></form>
+
+      <?php
+      if(isset($_POST['Place'])){
+        $sql = "call _newResponsabilitySubPlace (:_entID,:_name)";
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindParam(":_entID", $_POST['Ent'], PDO::PARAM_INT);
+        $stmt->bindParam(":_name", $_POST['Start'], PDO::PARAM_INT);
+        $stmt->execute();
+      }    
+      ?>
+
+      <?php
+      if(isset($_POST['Place'])){
+        $setZero = 0;
+        $UpdateFSnow = $_POST['Place'];
+        $sql = "UPDATE SubPlace SET fakesnow = $setZero WHERE name = $UpdateFSnow" ;
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute();
+      }
+      ?>
