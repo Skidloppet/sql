@@ -195,6 +195,7 @@ set startName = switch2;
 end if;
 
 INSERT INTO Commenta (Kommentar, grade, alias, date) values (newComment, newGrade, newAlias, newDate);
+INSERT INTO OldCommenta (Kommentar, grade, alias, date) values (newComment, newGrade, newAlias, newDate);
 
 set LastInsert = last_insert_id();
 
@@ -203,6 +204,7 @@ SET nameCounter = startName;
 WHILE nameCounter<=endName DO
 
 	insert into CommentSubPlace(name, commentID) values (nameCounter, LastInsert);
+	insert into OldCommentSubPlace(name, commentID) values (nameCounter, LastInsert);
 	set nameCounter = nameCounter + 1;
 
 	END WHILE;
@@ -215,7 +217,8 @@ call _NewComment ('Hej','Lars','2',now(),'6','1');
 call _NewComment ('en kommentar på några spår','Klas','2',now(),'1','6');
 call _NewComment ('korar','Kalle','2',now(),'2','5');
 call _NewComment ('sånt kul','Olof','2',now(),'6','1');
-call _NewComment ('kottar','Jon Jones','2',now(),'1','6');
+call _NewComment ('kottarkottarkottarkottar','Jon Jones','2',now(),'1','6');
+-- 
 -- select * from CommentSubPlace;
 -- select * from Commenta;
 
@@ -493,7 +496,7 @@ call _newResponsability ('3','1');
 DROP PROCEDURE IF EXISTS _newNumber;
 DELIMITER //
 CREATE PROCEDURE _newNumber (
-_number int(10),
+_number varchar(13),
 _entID smallint)
 begin
 
@@ -601,6 +604,24 @@ DELIMITER ;
 call _newResponsabilityC ('3','30');
 -- select * from CannonSubPlace;
 -- call _finnishedCannonOrder('2','1',now(),'texttesttets');
+-- SELECT * FROM Commenta order by commentID desc;
 
 
-
+-- 13. procedur för att ta bort arbetsorder
+DROP PROCEDURE IF EXISTS _deleteCOM;
+DELIMITER //
+CREATE PROCEDURE _deleteCOM (delCommentID INT)
+BEGIN
+	DELETE FROM Commenta WHERE commentID=delCommentID;
+update OldCommenta set del = "1"  where commentID=delCommentID;
+END //
+DELIMITER ;
+-- 
+call _deleteCOM ('1');
+-- select count(*)as b from OldCommenta where del="1";
+-- select * from Commenta;
+-- select * from OldCommenta;
+-- select realName from SubPlace, OldCommentSubPlace where SubPlace.name = OldCommentSubPlace.name and OldCommentSubPlace.commentID = '9'; 
+-- select count(*) from OldCommentSubPlace where OldCommentSubPlace.orderID ='1' ;
+-- select count(*)as b from OldCommenta where del="1";
+-- call _deleteCOM (:commentID)

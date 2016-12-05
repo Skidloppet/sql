@@ -257,7 +257,7 @@ $WOO = $_SERVER["SCRIPT_NAME"];
 <div id="id23" class="w3-modal">
   <div class="w3-modal-content">
     <div class="w3-container">
-      <span onclick="document.getElementById('id22').style.display='none'"
+      <span onclick="document.getElementById('id23').style.display='none'"
       class="w3-closebtn">&times;</span>
       <form id="nyEnt">
   <h3>Skapa entrepenör</h3>
@@ -304,10 +304,10 @@ $WOO = $_SERVER["SCRIPT_NAME"];
  
 
 <!-- ny ski anv -->
-<div id="id23" class="w3-modal">
+<div id="id24" class="w3-modal">
   <div class="w3-modal-content">
     <div class="w3-container">
-      <span onclick="document.getElementById('id22').style.display='none'"
+      <span onclick="document.getElementById('id24').style.display='none'"
       class="w3-closebtn">&times;</span>
       <form id="nySki">
     <h3>Skapa skidloppet användare</h3>
