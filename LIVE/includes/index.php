@@ -6,10 +6,6 @@ $em = $_SESSION['email'];
 #em används i ind_feeds_ent
 ?>
 
-<!-- Header -->
-<?php
-include 'index/ind_headerbox.php';
-?>
 
 <div class="w3-container w3-section">
   <div class="w3-row-padding" style="margin:0 -16px">
@@ -29,6 +25,7 @@ include 'index/ind_headerbox.php';
 #    <!-- include content beroende på inlogg -->
 
     elseif (isset($_SESSION['email'])&&($_SESSION['type'] == 'arenachef')) {
+		include 'index/ind_headerbox_arenachef.php';
       ?>
       <div class="w3-container w3-section">
         <div class="w3-row-padding" style="margin:0 -16px">
@@ -37,6 +34,7 @@ include 'index/ind_headerbox.php';
             include 'index/ind_feeds_arenachef.php';
           }
           elseif (isset($_SESSION['email'])&&($_SESSION['type'] == 'other')) {
+			  include 'index/ind_headerbox_other.php';
             ?>
             <div class="w3-container w3-section">
               <div class="w3-row-padding" style="margin:0 -16px">
@@ -45,6 +43,7 @@ include 'index/ind_headerbox.php';
                   include 'index/ind_feeds_other.php';
                 }
                 elseif (isset($_SESSION['email'])&&($_SESSION['type'] > '1')) {
+					include 'index/ind_headerbox_ent.php';
                   ?>
                   <div class="w3-container w3-section">
                     <div class="w3-row-padding" style="margin:0 -16px">
