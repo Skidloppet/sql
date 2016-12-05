@@ -96,19 +96,6 @@ WHERE CommentID >0;
 
 
 
-/*
-------------------------------- ALTERNATIVT MÖJLIG LÖSNING GENOM TIMESTAMP I N:M TABELLEN
-DROP VIEW IF EXISTS newview;
-create view newview as
-SELECT ReportSubPlace.name as rspName, reportID -- rating 
-from ReportSubPlace
-  join Report on ReportSubPlace.reportID = Report.reportID
-order by rspName, abs(stamp - now());
-
-select * from newview;
-*/
-
-
 -- 7. Vy för senaste rapporten på en delsträcka
 -- denna vyn hämtar den senaste rapportID för en del-sträcka
 DROP VIEW IF EXISTS overview;
@@ -387,4 +374,9 @@ CREATE VIEW delCWO AS
 	SELECT * FROM CannonSubPlace;
 -- select * from delCWO;
 
+
+DROP VIEW IF EXISTS delCA;
+CREATE VIEW delCA AS
+	SELECT * FROM Cannon;
+-- select * from delCA;
 

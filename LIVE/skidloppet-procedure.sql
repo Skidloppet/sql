@@ -1,15 +1,7 @@
 /*
- 
-procedur & php för avklarade workorder
-procedur & php för avklarade snökanon-workorder
+-- 1. Procedure för att skapa en Entrepenör
+-- 2. Procedure för att skapa en Skidloppet användare
 
-- implementera SMS för akut arbetsorder (10._newWorkOrder & NyArbetsOrder.php).
-- bilder för Report(daligt underhåll samt alternativt kundkommentar, ent, ski bilder?)
-- ny procedur för att acceptera akut order (ändra ansvar till den entID som accepterar)
-- procedur för att ta bort arbetsorder(val för borttagning eller loggning(genomförd))
-- procedur för automatiskt borttagning av kommentarer 48h
-- procedur för att beställa snö (ex. flytta kanon & ha den igång x timmar?)
-- procedur för att sätta en tävlingsarbetsorder (arbetsorder som berör allt?!) LÅG PRIO
 */
 
 -- 1. Procedure för att skapa en Entrepenör

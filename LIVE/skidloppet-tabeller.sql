@@ -2,21 +2,6 @@ drop database SlitABSkidloppet;
 create database SlitABSkidloppet CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 use SlitABSkidloppet;
 
--- Tabell för inloggningsförsök (anti brute-force)
-create table login_attempts(
-userID int(11) not null,
-time varchar (30) not null
-)engine=innodb;
-
-
-create table img (
-img_id int 	not null auto_increment,
-name varchar (50),
-path varchar(100),
--- img			blob	,
--- img_size 	varchar (25) not null default '',
-primary key (img_id)
-)engine=innodb;
 
 -- Tabell för Skidloppet anställda
 create table Ski(
@@ -109,7 +94,6 @@ entID smallint null,
 length mediumint,
 height smallint,
 fakesnow smallint,
--- fakesnow kommer nollställas när en arbetsorder hämtar snö, kommer öka när kanoner har status on * tid * effekt (m2)
 primary key (name),
 foreign key (placeName) references Place(name),
 foreign key (entID) references Ent(entID)
@@ -121,7 +105,6 @@ create table Cannon (
 cannonID smallint not null auto_increment unique,
 subPlaceName varchar(32) null,
 model char (3) not null, 
--- model visar om det är stationär eller ej
 state enum('På','Av','Urkopplad','Trasig', 'Annat') null,
 effect DECIMAL(4,3), -- producerar ca: 1.226 m3/minut ()(fasta), flyttbara producerar ca: 0.5 m3 /mint
 klass varchar(32) not null, 
@@ -206,22 +189,8 @@ foreign key (name) references SubPlace(name)
 )engine=innodb;
 
 -- N:M tabell för N:M förhållande mellan cannon och sträckor så en arbetsorder kan flytta en eller flera snökanoner.
--- TRANSAKTION
-/*
-orderID int not null auto_increment unique,
-skiID smallint not null,
-entID smallint null,
--- (entID) Kan inte tilldelas till en specifik entreprenör vid akut prio.
-sentDate datetime,
--- ändrade från timestamp till datetime pga att det blev fel datum i finnishedworkorder när man flyttade över
-endDate timestamp,
-priority enum('low','medium','high','akut'),
-type enum('lights','tracks','dirt','trees','other') null,
-info varchar(1024),
-EntComment varchar(1024),
 
 
-*/
 create table CannonSubPlace (
 orderID int not null auto_increment unique,
 cannonID smallint,
