@@ -9,7 +9,10 @@ include 'connect.php';
   <?php
   if (isset($_SESSION['email'])){
     ?>
-    <button class="w3-right w3-margin-right w3-btn w3-hide-large w3-padding-0 " onclick="logout.php"><i class="fa fa-unlock"></i>  Logga ut</button>
+	<button class="w3-right w3-margin-right w3-btn w3-large w3-padding-0 " onclick="logout.php"><i class="fa fa-unlock"></i>  Logga ut</button>
+	
+	<button class="w3-right w3-margin-right w3-btn w3-large w3-padding-0 " onclick="Kund.php"><i class="fa fa-home"></i></button>
+
     <?php 
   }
   else {
@@ -20,8 +23,8 @@ include 'connect.php';
 </div>
 <!-- Sidenav/menu -->
 <nav class="w3-sidenav w3-collapse w3-white w3-animate-left" style="z-index:3;width:300px;" id="mySidenav"><br>
-  <a><div class="w3-container w3-row">
-    <div >
+  <div class="w3-container w3-row">
+    <div class="w3-col s4">
       <img src="user.png" alt="profilbild" class=" w3-margin-right" style="width:46px">
     </div>   
 
@@ -40,7 +43,7 @@ include 'connect.php';
       <a href="logout.php" class="w3-hover-none w3-hover-text-red w3-show-inline-block"><i class="fa fa-unlock"></i> Logga ut</a>
       <a href="Kund.php" class="w3-hover-none w3-hover-text-red w3-show-inline-block"><i class="fa fa-home"></i> Index</a>
     </div>
-  </div></a>
+  </div>
   <hr>
 
   <div class="w3-container">

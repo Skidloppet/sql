@@ -3,9 +3,9 @@
 include '../connect.php';	
 ?>	
 
-<div class="w3-row-padding" style="border-color:lightblue; border-style: solid; border-width: 5px;">
+<div class="w3-row-padding w3-panel w3-card-8 w3-round-xlarge" style=" border-color:lightblue; border-style: solid; border-width: 5px;">
   <div class="w3-threethird">
-    <h5></h5>
+    <h3>Snökanoner</h3>
     <table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white">
       <tr>
         <th><i class="fa fa-users w3-orange w3-text-white w3-padding-tiny"></i></th>
@@ -34,26 +34,3 @@ include '../connect.php';
         </div>
       </div>
 
-
-
-      <?php
-      if(isset($_POST['btn_save'])) 
-       {   $fruitArray = array('orange', 'apple', 'grapefruit', 'banana', 'watermelon'); 
-     If(isset($_POST['fruit'])) 
-       {   $values = array(); // store the selection 
-         foreach($_POST['fruit'] as $selection )
-           {   if(in_array($selection, $fruitArray)) 
-             { $values[ $selection ] = 1; } 
-             else 
-               { $values[ $selection ] = 0; } 
-           }
-         }
-       }
-       ?>
-
-<!-- 
-
-<div class="w3-container w3-third w3-margin w3-section w3-right">
-
-
--->
