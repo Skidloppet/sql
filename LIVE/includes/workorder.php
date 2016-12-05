@@ -2,6 +2,7 @@
 <html>
 <?php
 include'../connect.php';
+include './sms_text_sv.php';
 SESSION_START();
 $id = $_SESSION['id'];
 $em = $_SESSION['email'];

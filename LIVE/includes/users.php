@@ -196,7 +196,7 @@ $WOO = $_SERVER["SCRIPT_NAME"];
 
 
 
-<!-- ny ski roll -->
+<!-- nytt telnummer ent -->
 <div id="id22" class="w3-modal">
   <div class="w3-modal-content">
     <div class="w3-container">

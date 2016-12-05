@@ -4,7 +4,7 @@ include '../connect.php';
  * Integration mot Cellsynts SMS gateway via HTTP-gränssnitt
  * Skicka textmeddelande
  */
-foreach ($pdo->query('SELECT number FROM Ent WHERE entID >1') as $tel) { echo $tel['number'].','; }
+#foreach ($pdo->query('SELECT number FROM Ent WHERE entID >1 AND entID <=7') as $tel) { echo $tel['number'].','; }
 
 // Stäng av felmeddelanden
 ini_set("display_errors", "off");
@@ -19,7 +19,7 @@ $originatortype = "alpha";							// Avsändartyp (alpha = Alfanumerisk, numeric =
 $originator = "Skidloppet";						    // Avsändare
 
 $destination = "0046703713943";						// Mottagarens mobiltelefonnummer på internationellt format, i detta exempel SE
-$text = "Akut AO Typ: ".$_POST['type']." Start: ".$_POST['Start']." Slut: ".$_POST['Slut']." Besk: ".$_POST['info1']; 				            // Meddelandetext, deklareras i wo_headerbox_arenachef.php
+$text = "Akut AO Typ: ".$_POST['type']." Start: ".$_POST['Start']." Slut: ".$_POST['Slut']." Besk: ".$_POST['info1']; // Meddelandetext, deklareras i wo_headerbox_arenachef.php
 $charset = "UTF-8";
 $allowconcat = "2";
 
