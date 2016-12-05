@@ -106,6 +106,61 @@ $stmt->execute();
 
       </div>
     </div>
+
+
+
+<!-- DIV ID NUMMER 2 -->
+        <h2 id="2">mina arbetsordrarr ( logged in as: .<?php echo $em?> )</h2>
+
+<div class="w3-row-padding w3-panel w3-card-8 w3-round-xlarge" style=" border-color:lightblue; border-style: solid; border-width: 5px;">
+      <div class="w3-threethird">
+        <h4>mina arbetsordrarr ( logged in as: .<?php echo $em?> )</h4>
+        <table class="w3-table w3-striped w3-white">
+          <tr>
+            <th><u>Datum skickad</u></th>
+            <th>Område(n)</th>
+            <th>Arbetsorder-Typ</th>
+            <th>Prioritet</th>
+            <th>Ansvarig</th>
+            <th>Information</th>
+            <th>Skapad av</th>
+            <th>Arkivera</th>
+          </tr>         
+          <?php     
+
+          foreach($pdo->query( "SELECT Ski.skiID, Ski.firstName as skiF, Ski.lastName as skiL, WorkOrder.type, Ent.firstName as entF, Ent.lastName as entL, WorkOrder.info, WorkOrder.entID, sentDate, priority, orderID FROM CannonSubPlace, Ski, WorkOrder, Ent where Ent.email = '$em' and Ent.entID = WorkOrder.entID and Ski.skiID = WorkOrder.skiID and Ent.entID = CannonSubPlace.entID and Ski.skiID = CannonSubPlace.skiID") as $row){
+                echo "<td>".$row['sentDate']."</td>";
+            echo "<td>";
+            if ($row['type'] === "kanon" ){
+              foreach($pdo->query( 'select realName from SubPlace,CannonSubPlace where SubPlace.name = CannonSubPlace.name and orderID = '.$row ['orderID'].';' ) as $brow){
+                echo $brow['realName']."</br>";
+              }} else {
+                foreach($pdo->query( 'select realName from SubPlace, SubPlaceWorkOrder where SubPlace.name = SubPlaceWorkOrder.name and SubPlaceWorkOrder.orderID = '.$row ['orderID'].';' ) as $brow){;
+                  echo $brow['realName']."</br>";
+                }}
+                echo "</td>";
+                echo "<td>".$row['type']."</td>";
+                echo "<td>".$row['priority']."</td>";
+                echo "<td>".$row['entF']." ".$row['entL']."</td>";
+                echo "<td>".$row['info']."</td>";
+                echo "<td>".$row['skiF']." ".$row['skiL']."</td>";
+                ?>
+                <td>
+                  <form id="lagr<?php echo $row['orderID']; ?>">
+                    <input type="hidden" name="orderID2" value="<?php echo $row['orderID']; ?>">
+                    <input type="hidden" name="type" value="<?php echo $row['type']; ?>">
+                    <button class="fa fa-check HoverButton" type="button" onclick="SendForm('workorder', 'workorder', 'lagr<?php echo $row['orderID']; ?>');">Klarmarkera</button>
+                  </form>
+                </td>
+              </tr>
+              <?php
+            }
+            ?>   
+          </table>
+      </div>
+
+
+
     <h2>Arbetsordrar</h2>
 
 <div class="w3-row-padding w3-panel w3-card-8 w3-round-xlarge" style=" border-color:lightblue; border-style: solid; border-width: 5px;">
