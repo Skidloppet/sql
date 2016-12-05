@@ -62,7 +62,7 @@ include 'connect.php';
     <a href="#" onclick="MakeRequest('index');" class="w3-padding w3-black"><i class="fa fa-dashboard fa-fw"></i>  Översikt</a>
     <a href="#" onclick="MakeRequest('report');" class="w3-padding w3-teal"><i class="fa fa-exchange fa-fw"></i>  Rapporter</a>
     <a href="#" onclick="MakeRequest('workorder');" class="w3-padding w3-green"><i class="fa fa-eye fa-fw"></i>  Arbetsordrar</a>
-    <a href="#" onclick="MakeRequest('errorreport');" class="w3-padding w3-red"><i class="fa fa-comment fa-fw"></i>  Felanmälan</a>
+    <a href="#" onclick="MakeRequest('errorreport');" class="w3-padding w3-red"><i class="fa fa-exclamation-triangle  fa-fw"></i>  Felanmälan</a>
     <a href="#" onclick="MakeRequest('comments');" class="w3-padding w3-orange"><i class="fa fa-users fa-fw"></i>  Kundkommentarer</a>
     <?php
   } 
