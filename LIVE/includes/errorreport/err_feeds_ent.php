@@ -16,7 +16,6 @@ include'../connect.php';
         echo "<th style='background-color:white;'>Beskrivning:</th>";
         echo "<th style='background-color:white;'>Skickad:</th>";
         echo "<th style='background-color:white;'>Typ:</th>";
-        echo "<th style='background-color:white;'>Error ID:</th>";
         echo "</tr>";
 
         foreach($pdo->query( 'SELECT ErrorSubPlace.name, Error.entID, SubPlace.realName, Ent.firstName, Ent.lastName, Error.errorID, Error.errorDesc, Error.sentDate, Error.type
@@ -38,7 +37,6 @@ include'../connect.php';
         echo "<td>".$row['errorDesc']."</td>";
         echo "<td>".$row['sentDate']."</td>";
         echo "<td>".$row['type']."</td>";
-        echo "<td>".$row['errorID']."</td>";
         ?>
      </tr>
      <?php

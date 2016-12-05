@@ -17,7 +17,6 @@ include'../connect.php';
         echo "<th style='background-color:white;'>Beskrivning:</th>";
         echo "<th style='background-color:white;'>Skickad:</th>";
         echo "<th style='background-color:white;'>Typ:</th>";
-        echo "<th style='background-color:white;'>Error ID:</th>";
         echo "</tr>";
         
 # ANVÄND VIEW
@@ -43,7 +42,6 @@ include'../connect.php';
         echo "<td>".$row['errorDesc']."</td>";
         echo "<td>".$row['sentDate']."</td>";
         echo "<td>".$row['type']."</td>";
-        echo "<td>".$row['errorID']."</td>";
         ?>
         <td class="Error-delete">
          <form id="ErrDel<?php echo $row['errorID']; ?>">
