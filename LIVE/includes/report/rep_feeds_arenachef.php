@@ -3,7 +3,7 @@
 <?php
 include'../connect.php';
 ?>
-<div class="w3-container" style="padding-left:25px">
+<div class="w3-container" style="padding-left:31px">
   <div class="w3-row-padding w3-panel w3-card-8 w3-round-xlarge" style=" border-color:lightblue; border-style: solid; border-width: 5px;">
     <div class="w3-threethird">
 
@@ -11,8 +11,8 @@ include'../connect.php';
       <table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white">
         <?php   
         echo "<tr>";
-        echo "<th><u>Rapporterad:</u></th>"; 
-        echo "<th>sträcka:</th>";
+        echo "<th><u>Delsträcka:</u></th>"; 
+        echo "<th>Rapporterad:</th>"; 
         echo "<th>Kommentar:</th>";  
         echo "<th>Entreprenör:</th>"; 
         echo "<th>Nästa planerade arbetspass:</th>"; 
