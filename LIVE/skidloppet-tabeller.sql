@@ -10,7 +10,7 @@ password varchar(32) not null,
 firstName varchar(32) not null,
 lastName varchar(32) not null,
 email varchar(64) unique,
-number varchar(13) not null unique,
+number int(11) not null unique,
 type ENUM('arenachef','other'),
 regDate datetime,
 primary key (skiID)
@@ -24,7 +24,7 @@ password varchar(32)not null,
 firstName varchar(32)not null,
 lastName varchar(32) not null,
 email varchar (64) unique,
-number varchar(13) not null unique,
+number int(11) not null unique,
 regDate datetime,
 primary key (entID)
 )engine=innodb;
