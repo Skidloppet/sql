@@ -1,5 +1,4 @@
 <?php
-session_start();
 include 'connect.php';
 ?>
 <!-- Top container -->
@@ -9,9 +8,9 @@ include 'connect.php';
   <?php
   if (isset($_SESSION['email'])){
     ?>
-	<button class="w3-right w3-margin-right w3-btn w3-large w3-padding-0 " onclick="logout.php"><i class="fa fa-unlock"></i>  Logga ut</button>
-	
-	<button class="w3-right w3-margin-right w3-btn w3-large w3-padding-0 " onclick="Kund.php"><i class="fa fa-home"></i></button>
+    <button class="w3-right w3-margin-right w3-btn w3-large w3-padding-0 " onclick="logout.php"><i class="fa fa-unlock"></i>  Logga ut</button>
+
+    <button class="w3-right w3-margin-right w3-btn w3-large w3-padding-0 " onclick="Kund.php"><i class="fa fa-home"></i></button>
 
     <?php 
   }
@@ -61,12 +60,11 @@ include 'connect.php';
   else {
     ?>
     <a href="#" onclick="MakeRequest('index');" class="w3-padding w3-black"><i class="fa fa-dashboard fa-fw"></i>  Översikt</a>
-    <a href="#" onclick="MakeRequest('report');" class="w3-padding w3-teal"><i class="fa fa-dashboard fa-fw"></i>  Rapportera</a>
+    <a href="#" onclick="MakeRequest('report');" class="w3-padding w3-teal"><i class="fa fa-exchange fa-fw"></i>  Rapporter</a>
     <a href="#" onclick="MakeRequest('workorder');" class="w3-padding w3-green"><i class="fa fa-eye fa-fw"></i>  Arbetsordrar</a>
     <a href="#" onclick="MakeRequest('errorreport');" class="w3-padding w3-red"><i class="fa fa-comment fa-fw"></i>  Felanmälan</a>
     <a href="#" onclick="MakeRequest('comments');" class="w3-padding w3-orange"><i class="fa fa-users fa-fw"></i>  Kundkommentarer</a>
     <?php
-
   } 
   if (isset($_SESSION['email'])&&($_SESSION['type'] == 'arenachef')) {
     ?>

@@ -38,7 +38,7 @@ foreach($pdo->query( 'select count(*)as a from wo;') as $row){
     </div>
   </div>
 
-  <div class="w3-quarter" style="cursor:pointer" onclick="MakeRequest('subplace');">
+  <div class="w3-quarter" style="cursor:pointer" onclick="MakeRequest('report');">
     <div class="w3-panel w3-card-8 w3-text-shadow w3-round-xlarge w3-container w3-teal w3-padding-16">
       <div class="w3-left"><i class="fa fa-share-alt w3-xxxlarge"></i></div>
       <div class="w3-right">

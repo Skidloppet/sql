@@ -57,8 +57,10 @@ foreach($pdo->query( 'select count(*)as i from StoredReports;') as $row){
       <div id="11" class="w3-container">
         <h3>Ny Rapport</h3>
         <form id="IDRep">
-          <input type="text" name="WorkDate" placeholder="yyyy-mm-dd"></p>
-          <input type="text" name="Depth" placeholder="Djup.."></p>
+          <p>Nästa planerade arbetspass  <i>( förhandsval +1 dygn )</i></p>
+          <input type="text" name="WorkDate" value="<?php echo date("Y-m-d G:i", strtotime("+1 day")); ?>"></br>
+                    <p>Snödjup: <i>(cm)</i></p>
+          <input type="text" name="Depth" placeholder="ex 102.5"></p>
 
           <p>Helhetsbetyg:</p>
           <select name="Rating">

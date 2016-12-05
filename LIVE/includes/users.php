@@ -74,7 +74,6 @@ $WOO = $_SERVER["SCRIPT_NAME"];
       echo "<th>emailadress</th>"; 
       echo "<th>type</th>"; 
       echo "<th>tel-number</th>"; 
-      echo "<th>password</th>"; 
       echo "<th>regDate</th>"; 
 
       echo "</tr>";
@@ -88,7 +87,6 @@ $WOO = $_SERVER["SCRIPT_NAME"];
         echo "<td>".$row['email']."</td>";
         echo "<td>".$row['type']."</td>";
         echo "<td>".$row['number']."</td>";
-        echo "<td>".$row['password']."</td>";
         echo "<td>".$row['regDate']."</td>";
         echo "</tr>";  
       }
@@ -109,7 +107,6 @@ $WOO = $_SERVER["SCRIPT_NAME"];
       echo "<th>LastName</th>"; 
       echo "<th>emailadress</th>"; 
       echo "<th>tel-number</th>"; 
-      echo "<th>password</th>"; 
       echo "<th>regDate</th>"; 
 
       echo "</tr>";
@@ -122,7 +119,6 @@ $WOO = $_SERVER["SCRIPT_NAME"];
         echo "<td>".$row['lastName']."</td>";
         echo "<td>".$row['email']."</td>";
         echo "<td>".$row['number']."</td>";
-        echo "<td>".$row['password']."</td>";
         echo "<td>".$row['regDate']."</td>";
         echo "</tr>";  
       }
