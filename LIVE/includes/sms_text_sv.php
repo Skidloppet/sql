@@ -1,4 +1,5 @@
 <?php
+include '../connect.php';
 /**
  * Integration mot Cellsynts SMS gateway via HTTP-gränssnitt
  * Skicka textmeddelande
