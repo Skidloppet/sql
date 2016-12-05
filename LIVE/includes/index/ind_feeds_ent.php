@@ -9,12 +9,12 @@ foreach($pdo->query( 'SELECT count(*) as nmr FROM wo where priority="akut" and e
   $akut = $row['nmr'];
   if (0 < $akut){
     ?>
-    <div class="w3-container w3-orange" style="border-color:lightblue; border-style: solid; border-width: 5px;">
+    <div class="w3-row-padding w3-panel w3-card-8 w3-round-xlarge" style=" border-color:lightblue; border-style: solid; border-width: 5px;">
+    <div class="w3-threethird">
       <div class="w3-container w3-section">
         <div class="w3-row-padding" style="margin:0 -16px">
-          <div class="w3-threethird">
             <h1><b>Akuta arbetsordrar</b></h1>
-            <table class="w3-table w3-striped w3-white">
+            <table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white">
               <tr>
                 <td><i class="fa fa-users w3-orange w3-text-white w3-padding-tiny"></i></td>
                 <th>Godkänn arbetsorder</th>
@@ -23,6 +23,7 @@ foreach($pdo->query( 'SELECT count(*) as nmr FROM wo where priority="akut" and e
                 <th>Prioritet</th>
                 <th>Datum skickad</th>
                 <th>Skapad av</th>
+				
               </tr> 
 
               <?php     
@@ -30,20 +31,25 @@ foreach($pdo->query( 'SELECT count(*) as nmr FROM wo where priority="akut" and e
         # hemsidan visar entrepenörens förnamn och enfternamn genom kopplingen mellan
               foreach($pdo->query( 'SELECT * FROM wo where priority="akut" and entID="1" order by orderID desc;' ) as $row){
 
-               echo"      <form action='backend.php' method='POST'>       ";
                echo "<tr>";
                echo "<td><i class='fa fa-eye w3-blue w3-padding-tiny'></i></td>";
-               echo "<td><button><i class='fa fa-check'></i> Acceptera</button> <<---(EJ KLAR)</td>";
+              
                echo "<td>".$row['info']."</td>";
                echo "<td>".$row['type']."</td>";
-               echo "<td>".$row['priority']."</td>";
+               echo "<td>".$row['priority']."</td>";+
                echo "<td>".$row['sentDate']."</td>";
                echo "<td>".$row['skiF']." ".$row['skiL']."</td>";
                echo "</tr>";  
              }
 
              ?>   
-           </form>
+            <td>
+            <form id="acc<?php echo $row['orderID']; ?>">
+            <input type="hidden" name="orderID" value="<?php echo $row['orderID']; ?>">
+            <input type="hidden" name="type" value="<?php echo $row['type']; ?>">
+            <button class="fa fa-check HoverButton" type="button" onclick="SendForm('index', 'index', 'acc<?php echo $row['orderID']; ?>');">Acceptera</button>
+            </form>
+            </td>s
          </table>
        </div>
      </div>
@@ -56,7 +62,8 @@ foreach($pdo->query( 'SELECT count(*) as nmr FROM wo where priority="akut" and e
 
 <h2>Översikt</h2>
 
-<div  class="w3-threethird" style="border-color:lightblue; border-style: solid; border-width: 5px;">
+<div class="w3-row-padding w3-panel w3-card-8 w3-round-xlarge" style=" border-color:lightblue; border-style: solid; border-width: 5px;">
+<div class="w3-threethird">
   <?php
   include './map.php';
   ?>
@@ -76,10 +83,10 @@ if(isset($_POST['newEnt'])){
 </div>
 </div>
 
-<div class="w3-row-padding" style="border-color:lightblue; border-style: solid; border-width: 5px;">
+<div class="w3-row-padding w3-panel w3-card-8 w3-round-xlarge" style=" border-color:lightblue; border-style: solid; border-width: 5px;">
   <div class="w3-threethird">
     <h2 id="2">Mina arbetsordrar ( <?php echo $em?> )</h2>
-    <table class="w3-table w3-striped w3-white">
+    <table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white">
       <tr>
         <td><i class="fa fa-users w3-orange w3-text-white w3-padding-tiny"></i></td>
         <th>Information</th>
