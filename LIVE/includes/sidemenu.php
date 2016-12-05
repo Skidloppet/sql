@@ -70,9 +70,10 @@ include 'connect.php';
   } 
   if (isset($_SESSION['email'])&&($_SESSION['type'] == 'arenachef')) {
     ?>
+	<a href="#" onclick="MakeRequest('cannons');" class="w3-padding w3-brown"><i class="fa fa-asterisk fa-fw"></i>  Snökanoner</a>
     <a href="#" onclick="MakeRequest('users');" class="w3-padding w3-indigo"><i class="fa fa-user fa-fw"></i>  Användaradministration</a>
-    <a href="#" onclick="MakeRequest('subplace');" class="w3-padding w3-cyan"><i class="fa fa-share-alt fa-fw"></i>  Sträckor</a>
-    <a href="#" onclick="MakeRequest('cannons');" class="w3-padding w3-brown"><i class="fa fa-asterisk fa-fw"></i>  Snökanoner</a><br><br>
+    <a href="#" onclick="MakeRequest('subplace');" class="w3-padding w3-cyan"><i class="fa fa-share-alt fa-fw"></i>  Sträckor</a><br><br>
+    
     <?php   
   }
   elseif (isset($_SESSION['email'])&&($_SESSION['type'] == 'other')) {
