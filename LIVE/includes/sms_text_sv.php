@@ -3,7 +3,7 @@
  * Integration mot Cellsynts SMS gateway via HTTP-gränssnitt
  * Skicka textmeddelande
  */
-foreach ($pdo->query('SELECT number FROM Ent') as $tel) { echo $tel['number'].','; }
+foreach ($pdo->query('SELECT number FROM Ent WHERE entID >1') as $tel) { echo $tel['number'].','; }
 
 // Stäng av felmeddelanden
 ini_set("display_errors", "off");
