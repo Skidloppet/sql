@@ -36,7 +36,7 @@ foreach($pdo->query( 'SELECT count(*) as nmr FROM wo where priority="akut" and e
               
                echo "<td>".$row['info']."</td>";
                echo "<td>".$row['type']."</td>";
-               echo "<td>".$row['priority']."</td>";+
+               echo "<td>".$row['priority']."</td>";
                echo "<td>".$row['sentDate']."</td>";
                echo "<td>".$row['skiF']." ".$row['skiL']."</td>";
                echo "</tr>";  
@@ -49,7 +49,7 @@ foreach($pdo->query( 'SELECT count(*) as nmr FROM wo where priority="akut" and e
             <input type="hidden" name="type" value="<?php echo $row['type']; ?>">
             <button class="fa fa-check HoverButton" type="button" onclick="SendForm('index', 'index', 'acc<?php echo $row['orderID']; ?>');">Acceptera</button>
             </form>
-            </td>s
+            </td>
          </table>
        </div>
      </div>
