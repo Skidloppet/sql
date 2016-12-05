@@ -156,10 +156,12 @@ foreach($pdo->query( 'select count(*)as i2 from fwo;' ) as $row){
 
               # kontroll om akut (isf default ent, så alla kan acceptera samt stoppar eventuellt försök på split för ansvarsområden)
 
-        #      if ($_POST['Prioritering'] == "akut"){
-         #       $_POST['EntID'] = "1";
-          #      $_POST['split'] = "0";
-           #   }
+              if ($_POST['Prioritering'] == "akut"){
+                $_POST['EntID'] = "1";
+                $_POST['split'] = "0";
+				
+				$response = file_get_contents($sms_url . "?" . $parameters);
+              }
 
               # hantera när ingen slutstation är vald (gör så slut blir desamma som start)
                 if($_POST['Slut'] === "Q") {

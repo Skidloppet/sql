@@ -496,7 +496,7 @@ call _newResponsability ('3','1');
 DROP PROCEDURE IF EXISTS _newNumber;
 DELIMITER //
 CREATE PROCEDURE _newNumber (
-_number int(10),
+_number varchar(13),
 _entID smallint)
 begin
 

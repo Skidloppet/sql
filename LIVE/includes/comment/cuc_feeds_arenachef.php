@@ -29,7 +29,7 @@ if(isset($_POST['commentID'])){
 
 }
 ?>
-
+<div class="w3-container" style="padding-left:8px">
 <div class="w3-row-padding w3-panel w3-card-8 w3-round-xlarge" style=" border-color:lightblue; border-style: solid; border-width: 5px;">
   <div class="w3-threethird">
     <h3>Kund kommentarer <b>48h</b></h3>
@@ -76,4 +76,4 @@ if(isset($_POST['commentID'])){
  </div>
  </div>
  </div>
-
+ </div>
