@@ -3,19 +3,19 @@
 include '../connect.php';	
 ?>	
 
+
 <?php
 $akut = 0;
 foreach($pdo->query( 'SELECT count(*) as nmr FROM wo where priority="akut" and entID="1";' ) as $row){
   $akut = $row['nmr'];
   if (0 < $akut){
     ?>
-    <div class="w3-container w3-orange" style="border-color:lightblue; border-style: solid; border-width: 5px;">
-      <div class="w3-container w3-section">
+<div class="w3-row-padding w3-panel w3-card-8 w3-round-xlarge" style=" border-color:lightblue; border-style: solid; border-width: 5px;">
+  <div class="w3-threethird">
+  <div class="w3-container w3-section">
         <div class="w3-row-padding" style="margin:0 -16px">
-          <div class="w3-threethird">
             <h1><b>Akuta arbetsordrar</b></h1>
-            <table class="w3-table w3-striped w3-white">
-              <tr>
+			<table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white">              <tr>
                 <td><i class="fa fa-users w3-orange w3-text-white w3-padding-tiny"></i></td>
                 <th>Order ID</th>
                 <th>Arbetsorder-Typ</th>
@@ -55,8 +55,8 @@ foreach($pdo->query( 'SELECT count(*) as nmr FROM wo where priority="akut" and e
 ?>
 
 <h2>Översikt</h2>
-
-<div  class="w3-threethird" style="border-color:lightblue; border-style: solid; border-width: 5px;">
+<div class="w3-row-padding w3-panel w3-card-8 w3-round-xlarge" style=" border-color:lightblue; border-style: solid; border-width: 5px;">
+  <div class="w3-threethird">
   <?php
   include './map.php';
   ?>
@@ -76,10 +76,10 @@ if(isset($_POST['newEnt'])){
 </div>
 </div>
 
-<div class="w3-row-padding" style="border-color:lightblue; border-style: solid; border-width: 5px;">
+<div class="w3-row-padding w3-panel w3-card-8 w3-round-xlarge" style=" border-color:lightblue; border-style: solid; border-width: 5px;">
   <div class="w3-threethird">
     <h5>Pågående arbetsordrar</h5>
-    <table class="w3-table w3-striped w3-white">
+    <table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white">
       <tr>
         <th><i class="fa fa-users w3-orange w3-text-white w3-padding-tiny"></i></th>
         <th>Order ID</th>
@@ -110,10 +110,10 @@ if(isset($_POST['newEnt'])){
 </div>
 
 
-<div class="w3-row-padding" style="border-color:lightblue; border-style: solid; border-width: 5px; margin-top:15px;">
+<div class="w3-row-padding w3-panel w3-card-8 w3-round-xlarge" style=" border-color:lightblue; border-style: solid; border-width: 5px;">
   <div class="w3-threethird">
     <h5>Senaste avklarade rapporterna (max 5)</h5>
-    <table class="w3-table w3-striped w3-white">
+   <table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white">
       <tr>
         <th><i class="fa fa-users w3-orange w3-text-white w3-padding-tiny"></i></th>
         <th>Report-ID</th>
