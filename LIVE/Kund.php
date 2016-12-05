@@ -288,10 +288,10 @@ article {
           <div class="container">
            <div class="login3">
 
-            <label><b><b>Email</b></b></label>
+            <label><b><b><font color="black">Email</font></b></b></label>
             <input type="text" placeholder="Exempel@hotmail.com" name="email" required>
 
-            <label><b><b>Password</b></b></label>
+            <label><b><b><font color="black">Password</font></b></b></label>
             <input type="password" placeholder="******" name="pass" required>
 
             <font color="#009933"><button type="submit">Logga in</button></font>
@@ -441,15 +441,15 @@ echo "</table>";
 
 
     <div id="id02" class="modal">
-
-      <div class="container">
-        <div id="11" class="w3-container w3-white">
+      <div class="w3-modal-content">
+        <div class="w3-container">
+   <!--     <div id="11" class="w3-container w3-white">-->
           <head>
             <h3>Ny felanmälan!</h3>
           </header>
 
           <form action='<?php echo $_SERVER['SCRIPT_NAME']; ?>' method='POST'>
-            <textarea rows="5" cols="70" name="desc" placeholder="Beskriv problemet..."></textarea>
+            <textarea rows="8" cols="88" name="desc" placeholder="Beskriv problemet..."></textarea>
           </br>
 
           <p>Ange problemets typ *</p>
