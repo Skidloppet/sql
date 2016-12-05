@@ -632,7 +632,7 @@ echo "</table>";
    </header>
    <h3>Ny kundkommentar</h3>
    <form action ='Kund.php' method='POST'>
-    <textarea rows="5" cols="70" name="comment" placeholder="freetext !comment"></textarea>
+    <textarea rows="5" cols="70" name="comment" placeholder="Fritext kommentar"></textarea>
   </br>
   <input type="text" name="alias" placeholder="Namn">
   <select name='grade'>
@@ -642,7 +642,7 @@ echo "</table>";
     <option value="3">3 - Okej</option>
     <option value="4">4 - Bra spår</option>
     <option value="5">5 - Perfekt</option>
-  </select>
+  </select></br>
   <select size='1' name='startName'>
     <option selected="selected"> Välj startpunkt </option>
     <?php    

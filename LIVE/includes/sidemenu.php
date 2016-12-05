@@ -41,7 +41,7 @@ include 'connect.php';
       </span>
       <br>
       <a href="logout.php" class="w3-hover-none w3-hover-text-red w3-show-inline-block"><i class="fa fa-unlock"></i> Logga ut</a>
-      <a href="Kund.php" class="w3-hover-none w3-hover-text-red w3-show-inline-block"><i class="fa fa-home"></i> Index</a>
+      <a href="Kund.php" class="w3-hover-none w3-hover-text-red w3-show-inline-block"><i class="fa fa-home"></i> Kundvy</a>
     </div>
   </div>
   <hr>

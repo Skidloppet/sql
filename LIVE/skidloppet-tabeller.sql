@@ -81,6 +81,19 @@ kommentar varchar(1024) not null,
 alias varchar(32) not null,
 grade tinyint,
 date timestamp,
+del tinyint(1)default'0',
+primary key (commentID)
+)engine=innodb;
+
+
+-- tabell för kundkommentarer
+create table OldCommenta(
+commentID int auto_increment,
+kommentar varchar(1024) not null,
+alias varchar(32) not null,
+grade tinyint,
+date timestamp,
+del tinyint(1)default'0',
 primary key (commentID)
 )engine=innodb;
 
@@ -182,9 +195,16 @@ foreign key (name) references SubPlace(name)
 create table CommentSubPlace(
 CommentID int not null,
 name smallint not null,
--- Kanske lägga till datum för att ta bort gamla kommentarer?
 primary key (commentID, name),
-foreign key (commentID) references Commenta(commentID)ON DELETE CASCADE,
+foreign key (commentID) references Commenta(commentID)ON UPDATE CASCADE ON DELETE CASCADE,
+foreign key (name) references SubPlace(name)
+)engine=innodb;
+
+create table OldCommentSubPlace(
+CommentID int not null,
+name smallint not null,
+primary key (commentID, name),
+foreign key (commentID) references OldCommenta(commentID)ON UPDATE CASCADE ON DELETE CASCADE,
 foreign key (name) references SubPlace(name)
 )engine=innodb;
 
@@ -291,14 +311,14 @@ insert into WorkOrder (skiID, entID, sentDate, endDate, priority, info, EntComme
 insert into FinnishedWorkOrder (OrderID, entID, sentDate, endDate, priority, info, EntComment) values
 ('1','1','2016-01-15','','akut','död snubbe på spåret','text1'),
 ('3','1','2016-01-17','','low','sten','text2');
-*/
+
 insert into Commenta (Kommentar,grade, alias, date) values 
 ('Arenan bjöd på en mycket bra upplevelse med bra spår','5','Alexander Gustafsson','2016-11-11'),
 ('Delsträckorna 2:1 och 2:2 i Norrhyttan var väldigt dåligt spårad','1','Khabib Nurmanogedov','2016-01-24'),
 ('Bra spårade sträckor i Hedemora','4','Jon Jones','2017-03-01'),
 ('Trevlig upplevelse och bra spårning','5','Nate Diaz','2017-02-01'),
 ('Det ligger mycket skräp på delsträckan 3.1 i Bondhyttan','2','Connor McGregor','2017-01-01');
-
+*/
 -- select avg(grade) from Comment;
 -- select grade from Comment;
 -- select * from Ent;
@@ -402,6 +422,7 @@ insert into CommentSubPlace (CommentID, name) values
 ('3','2'),
 ('3','3');
 */
+
 
 
 

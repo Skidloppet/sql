@@ -369,6 +369,7 @@ CREATE VIEW delWO AS
 	SELECT * FROM WorkOrder;
 -- select * from delWO;
 
+
 DROP VIEW IF EXISTS delCWO;
 CREATE VIEW delCWO AS
 	SELECT * FROM CannonSubPlace;
@@ -379,4 +380,39 @@ DROP VIEW IF EXISTS delCA;
 CREATE VIEW delCA AS
 	SELECT * FROM Cannon;
 -- select * from delCA;
+
+
+DROP VIEW IF EXISTS coSP;
+create view coSP as
+SELECT 
+Commenta.kommentar, Commenta.alias, Commenta.grade,Commenta.date,Commenta.commentID,
+CommentSubPlace.CommentID as cSP
+ from Commenta, CommentSubPlace where Commenta.commentID = CommentSubPlace.commentID group by commentID;
+
+-- select * from coSP;
+
+
+DROP VIEW IF EXISTS delLagKom;
+CREATE VIEW delLagKom AS
+SELECT * FROM  OldCommenta where del='0';
+-- 
+-- select * from delLagKom;
+
+
+DROP VIEW IF EXISTS delDelKom;
+CREATE VIEW delDelKom AS
+SELECT * FROM  OldCommenta where del='1';
+-- 
+-- select * from delDelKom;
+
+
+
+
+DROP VIEW IF EXISTS delLagKom2;
+CREATE VIEW delLagKom2 AS
+	SELECT OldCommenta.commentID as id2,OldCommentSubPlace.commentID FROM  OldCommenta,OldCommentSubPlace where del="1";
+-- 
+
+-- select * from delLagKom2;
+-- delete from delLagKom where commentID>'0' ; 
 
