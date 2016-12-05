@@ -1,5 +1,5 @@
 <?php
-
+ini_set("display_errors", "off");
 include '../connect.php';
 
 $spar = '
