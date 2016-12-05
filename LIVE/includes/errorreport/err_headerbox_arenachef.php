@@ -5,19 +5,6 @@ foreach($pdo->query( 'select count(*)as i from Error;') as $row){
   $i = $row['i'];
 }
 ?>
-<!--
-  kommentareade bort /Niklas
-
-<header class="w3-container" style="padding-top:22px">
-  <style>
-.HoverButton:hover { background: Red; }
-.HoverButton2:hover { background: Green; }
-  </style>
-</header>
--->
-
-<div class="w3-row-padding w3-margin-bottom">
-
 
 <div class="w3-container" style="padding-left:20px">
   <div class="w3-row-padding w3-margin-bottom">
@@ -34,28 +21,16 @@ foreach($pdo->query( 'select count(*)as i from Error;') as $row){
   </div>
 
 
-  <a href="#12">
-    <div class="w3-quarter">
-      <div class="w3-panel w3-card-8 w3-text-shadow w3-round-xlarge w3-container w3-red w3-padding-16">
-        <div class="w3-left"><i class="fa fa-arrow-right w3-xxxlarge"></i></div>
-        <div class="w3-right">
-          <h3><?php print_r($i); ?></h3>
-        </div>
-        <div class="w3-clear"></div>
-        <h4>Aktuella felanmälningar</h4>
+  <div class="w3-quarter" style="cursor:pointer" onclick="document.getElementById('id077').style.display='block'">
+    <div class="w3-panel w3-card-8 w3-text-shadow w3-round-xlarge w3-container w3-green w3-padding-16">
+      <div class="w3-left"><i class="fa fa-plus w3-xxxlarge"></i></div>
+      <div class="w3-right">
+        <h3><br></h3>
       </div>
+      <div class="w3-clear"></div>
+      <h4>Skapa ny arbetsorder</h4>
     </div>
-  </a>
- <div class="w3-quarter" style="cursor:pointer" onclick="document.getElementById('id77').style.display='block'">
-  <div class="w3-panel w3-card-8 w3-text-shadow w3-round-xlarge w3-container w3-green w3-padding-16">
-    <div class="w3-left"><i class="fa fa-plus w3-xxxlarge"></i></div>
-    <div class="w3-right">
-      <h3><br></h3>
-    </div>
-    <div class="w3-clear"></div>
-    <h4>Skapa ny arbetsorder</h4>
   </div>
-</div>
 
 
   
@@ -64,7 +39,7 @@ foreach($pdo->query( 'select count(*)as i from Error;') as $row){
 
 
 <!-- The Modal -->
-<div id="id77" class="w3-modal">
+<div id="id077" class="w3-modal">
   <div class="w3-modal-content">
     <div class="w3-container">
       <span onclick="document.getElementById('id077').style.display='none'"

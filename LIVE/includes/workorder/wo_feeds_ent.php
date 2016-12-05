@@ -1,130 +1,159 @@
-<h2>Översikt</h2>
 
 <?php
-include '../connect.php';	
-?>	
-<div class="w3-container w3-section">
-  <div class="w3-row-padding" style="margin:0 -16px">
-   <div class="w3-threethird">
-    <h4>akuta arbetsordrar</h4>
-    <table class="w3-table w3-striped w3-white">
-      <tr>
-        <td><i class="fa fa-users w3-orange w3-text-white w3-padding-tiny"></i></td>
-        <td>OrderID</td>
-        <td>skiID</td>
-        <td>entID</td>
-        <td>SentDate</td>
-        <td>priority</td>
-      </tr>        
-      <?php     
+include '../connect.php'; 
+?>  
 
-      foreach($pdo->query( 'SELECT * FROM WorkOrder where priority="akut" and entID="1";' ) as $row){
-        echo "<tr>";
-        echo "<td><i class='fa fa-eye w3-blue w3-padding-tiny'></i></td>";
-        echo "<td><a href='backend_wo.php?akutOrderID=".urlencode($row['orderID'])."'>".$row['orderID']."</td>";
-        echo "<td>".$row['skiID']."</td>";
-        echo "<td>".$row['entID']."</td>";
-        echo "<td>".$row['sentDate']."</td>";
-        echo "<td>".$row['priority']."</td>";
-        echo "</tr>";  
-      }
-      ?>   
-    </table>
-  </div>
+<?php
+if(isset($_POST['orderID2'])){
+  if ($_POST['type'] === "kanon" ){
+   $querystring='CALL _finnishedCannonOrder(:orderID,'.$id.',NOW(),"Klarmarkerad av: '.$em.'")';
+ }
+ else {
+   $querystring='CALL _finnishedWorkOrder(:orderID,'.$id.',NOW(),"Klarmarkerad av: '.$em.'")';
+ }
+ $stmt = $pdo->prepare($querystring);
+ $stmt->bindParam(':orderID', $_POST['orderID2'],PDO::PARAM_INT);
+ $stmt->execute();
+ echo "Arbetsorder arkiverad";
+}
+?>
+<?php
+if(isset($_POST['orderID3'])){
+ if ($_POST['type'] === "kanon" ){
+  $sql = "call _newResponsabilityC (:_entID,:_orderID)";
+
+}
+else {
+  $sql = "call _newResponsability (:_entID,:_orderID)";
+
+}
+$stmt = $pdo->prepare($sql);
+$stmt->bindParam(":_entID",  $_SESSION['id'], PDO::PARAM_INT);
+$stmt->bindParam(":_orderID", $_POST['orderID3'], PDO::PARAM_INT);
+$stmt->execute();
+}    
+?>
+
+<div class="w3-container ">
+  <div class="w3-container w3-section">
+    <div class="w3-row-padding" style="margin:0 -16px">
 
 
-<!-- DIV ID NUMMER 2 -->
-        <h2 id="2">mina arbetsordrarr ( logged in as: .<?php echo $em?> )</h2>
 
+      <?php
+      $akut = 0;
+      foreach($pdo->query( 'SELECT count(*) as nmr FROM wo where priority="akut" and entID="1";' ) as $row){
+        $akut = $row['nmr'];
+        if (0 < $akut){
+          ?>
+<div class="w3-row-padding w3-panel w3-card-8 w3-round-xlarge" style=" border-color:red; border-style: solid; border-width: 5px;">
+            <div class="w3-container w3-section">
+              <div class="w3-row-padding" style="margin:0 -16px">
+                <div class="w3-threethird">
+                  <h1>Akuta arbetsordrar</h1>
+                  <table class="w3-table w3-striped w3-white">
+                    <tr>
+                      <th><u>Datum skickad</u></th>
+                      <th>Arbetsorder-Typ</th>
+                      <th>Område(n)</th>
+                      <th>Prioritet</th>
+                      <th>Information</th>
+                      <th>Skapad av</th>
+                      <th>Ange entrepenör</th>
+                    </tr> 
+
+                    <?php     
+        # hämtar alla aktiva arbetsordrar(WorkOrder) som tillhör det autoangivna akutID (#1)
+        # hemsidan visar entrepenörens förnamn och enfternamn genom kopplingen mellan
+
+                    foreach($pdo->query( 'SELECT * FROM wo where priority="akut" and entID="1" order by sentDate desc;' ) as $row){
+                     echo "<td>".$row['sentDate']."</td>";
+                     echo "<td>".$row['type']."</td>";
+                     echo "<td>";
+                     if ($row['type'] === "kanon" ){
+                      foreach($pdo->query( 'select realName from SubPlace,CannonSubPlace where SubPlace.name = CannonSubPlace.name and orderID = '.$row ['orderID'].';' ) as $brow){
+                        echo $brow['realName']."</br>";
+                      }} else {
+                        foreach($pdo->query( 'select realName from SubPlace, SubPlaceWorkOrder where SubPlace.name = SubPlaceWorkOrder.name and SubPlaceWorkOrder.orderID = '.$row ['orderID'].';' ) as $brow){;
+                          echo $brow['realName']."</br>";
+                        }}
+                        echo "</td>";
+                        echo "<td>".$row['priority']."</td>";
+                        echo "<td>".$row['info']."</td>";
+                        echo "<td>".$row['skiF']." ".$row['skiL']."</td>";
+                        ?>
+                        <td>
+                          <form id="nyEnt<?php echo $row['orderID']; ?>">
+                            <input type="hidden" name="orderID3" value="<?php echo $row['orderID']; ?>">
+                            <input type="hidden" name="type" value="<?php echo $row['type']; ?>">
+                            <button class="HoverButton" type="button" onclick="SendForm('workorder', 'workorder', 'nyEnt<?php echo $row['orderID']; ?>');"> Acceptera </button>
+                          </form>
+                        </td>
+                        <?php
+                        echo "</td></tr>";  
+                      }
+                      ?>   
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <?php
+          }
+        }
+        ?>
+
+      </div>
+    </div>
+    <h2>Arbetsordrar</h2>
+
+<div class="w3-row-padding w3-panel w3-card-8 w3-round-xlarge" style=" border-color:lightblue; border-style: solid; border-width: 5px;">
       <div class="w3-threethird">
-        <h4>mina arbetsordrarr ( logged in as: .<?php echo $em?> )</h4>
+        <h5>Pågående arbetsordrar</h5>
         <table class="w3-table w3-striped w3-white">
           <tr>
-            <td><i class="fa fa-users w3-orange w3-text-white w3-padding-tiny"></i></td>
-            <td>OrderID</td>
-            <td>skiID</td>
-            <td>entID</td>
-            <td>SentDate</td>
-            <td>priority</td>
+            <th><u>Datum skickad</u></th>
+            <th>Område(n)</th>
+            <th>Arbetsorder-Typ</th>
+            <th>Prioritet</th>
+            <th>Ansvarig</th>
+            <th>Information</th>
+            <th>Skapad av</th>
+            <th>Arkivera</th>
           </tr>        
           <?php     
 
-          foreach($pdo->query( "SELECT skiID, WorkOrder.entID, sentDate, priority, orderID FROM WorkOrder, Ent where Ent.email = '$em' and Ent.entID = WorkOrder.entID") as $row){
-            echo "<tr>";
-            echo "<td><i class='fa fa-eye w3-blue w3-padding-tiny'></i></td>";
-            echo "<td><a href='finnishedWorkOrder.php?orderID=".urlencode($row['orderID'])."'>".$row['orderID']."</td>";
-            echo "<td>".$row['skiID']."</td>";
-            echo "<td>".$row['entID']."</td>";
-            echo "<td>".$row['sentDate']."</td>";
-            echo "<td>".$row['priority']."</td>";
-            echo "</tr>";  
-          }
-          ?>   
-        </table>
+          foreach($pdo->query( 'SELECT * FROM wo order by sentDate desc;' ) as $row){
+                echo "<td>".$row['sentDate']."</td>";
+            echo "<td>";
+            if ($row['type'] === "kanon" ){
+              foreach($pdo->query( 'select realName from SubPlace,CannonSubPlace where SubPlace.name = CannonSubPlace.name and orderID = '.$row ['orderID'].';' ) as $brow){
+                echo $brow['realName']."</br>";
+              }} else {
+                foreach($pdo->query( 'select realName from SubPlace, SubPlaceWorkOrder where SubPlace.name = SubPlaceWorkOrder.name and SubPlaceWorkOrder.orderID = '.$row ['orderID'].';' ) as $brow){;
+                  echo $brow['realName']."</br>";
+                }}
+                echo "</td>";
+                echo "<td>".$row['type']."</td>";
+                echo "<td>".$row['priority']."</td>";
+                echo "<td>".$row['entF']." ".$row['entL']."</td>";
+                echo "<td>".$row['info']."</td>";
+                echo "<td>".$row['skiF']." ".$row['skiL']."</td>";
+                ?>
+                <td>
+                  <form id="lagr<?php echo $row['orderID']; ?>">
+                    <input type="hidden" name="orderID2" value="<?php echo $row['orderID']; ?>">
+                    <input type="hidden" name="type" value="<?php echo $row['type']; ?>">
+                    <button class="fa fa-check HoverButton" type="button" onclick="SendForm('workorder', 'workorder', 'lagr<?php echo $row['orderID']; ?>');">Klarmarkera</button>
+                  </form>
+                </td>
+              </tr>
+              <?php
+            }
+            ?>   
+          </table>
+        </div>
       </div>
-
-
-
-
-
-      <div class="w3-threethird">
-        <h5>mina avslutade arbetsordrarr ( logged in as: .<?php echo $em?> )</h5>
-        <table class="w3-table w3-striped w3-white">
-          <tr>
-            <td><i class="fa fa-users w3-orange w3-text-white w3-padding-tiny"></i></td>
-            <td>OrderID</td>
-            <td>skiID</td>
-            <td>entID</td>
-            <td>SentDate</td>
-            <td>priority</td>
-          </tr>        
-          <?php     
-
-          foreach($pdo->query( "SELECT skiID, FinnishedWorkOrder.entID, sentDate, priority, orderID FROM FinnishedWorkOrder, Ent where Ent.email = '$em' and Ent.entID = FinnishedWorkOrder.entID") as $row){
-            echo "<tr>";
-            echo "<td><i class='fa fa-eye w3-blue w3-padding-tiny'></i></td>";
-            echo "<td><a href='finnishedWorkOrder.php?orderID=".urlencode($row['orderID'])."'>".$row['orderID']."</td>";
-            echo "<td>".$row['skiID']."</td>";
-            echo "<td>".$row['entID']."</td>";
-            echo "<td>".$row['sentDate']."</td>";
-            echo "<td>".$row['priority']."</td>";
-            echo "</tr>";  
-          }
-          ?>   
-        </table>
-      </div>
-
-
-
-
-  <div id="1" class="w3-container">
-    <h3>finnish workorder</h3>
-    <form action='backend_wo.php' method='POST'>
-      <input type="text" name="orderID" placeholder="orderID..">
-      <input type="text" name="entID" placeholder="entID..">
-      <input type="text" name="EntComment" placeholder="kommentar..">
-      <button type="submit" name="finnished">submit</button>
-    </form>
-
-    <?php
-
-    if(isset($_POST['finnished'])){
-#try
-      $sql = "CALL _finnishedWorkOrder(:finnishedOrderID , :finnishedEntID , now() , :finnishedComment);";
-
-      $stmt = $pdo->prepare($sql);
-      $stmt->bindParam(":finnishedOrderID", $_POST['orderID'], PDO::PARAM_INT);
-      $stmt->bindParam(":finnishedEntID", $_POST['entID'], PDO::PARAM_INT);
-      $stmt->bindParam(":finnishedComment", $_POST['EntComment'], PDO::PARAM_STR);
-      $stmt->execute();
-      
-    }
-
-    ?>
-  </div>
-
-
-
-
     </div>
   </div>

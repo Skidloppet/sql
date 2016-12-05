@@ -47,7 +47,7 @@ include 'connect.php';
   <hr>
 
   <div class="w3-container">
-    <h5>Meny</h5>
+    <h4>Meny</h4>
   </div>
   <a href="#" class="w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>  Stäng meny</a>
   <?php   ?>
@@ -60,19 +60,19 @@ include 'connect.php';
   }
   else {
     ?>
-    <a href="#" onclick="MakeRequest('index');" class="<?php if(basename($_SERVER['SCRIPT_NAME']) == 'index.php') {echo 'w3-padding w3-blue'; }else { echo 'w3-padding'; }?>"><i class="fa fa-dashboard fa-fw"></i>  Översikt</a>
-    <a href="#" onclick="MakeRequest('report');" class="<?php if(basename($_SERVER['SCRIPT_NAME']) == 'report.php'){echo 'w3-padding w3-blue'; }else { echo 'w3-padding'; } ?>"><i class="fa fa-history fa-fw"></i>  Rapportera</a>
-    <a href="#" onclick="MakeRequest('workorder');" class="<?php if(basename($_SERVER['SCRIPT_NAME']) == 'workorder.php'){echo 'w3-padding w3-blue'; }else { echo 'w3-padding'; } ?>"><i class="fa fa-eye fa-fw"></i>  Arbetsordrar</a>
-    <a href="#" onclick="MakeRequest('errorreport');" class="<?php if(basename($_SERVER['SCRIPT_NAME']) == 'errorreport.php'){echo 'w3-padding w3-blue'; }else { echo 'w3-padding'; } ?>"><i class="fa fa-comment fa-fw"></i>  Felanmälan</a>
-    <a href="#" onclick="MakeRequest('comments');" class="<?php if(basename($_SERVER['SCRIPT_NAME']) == 'comments.php'){echo 'w3-padding w3-blue'; }else { echo 'w3-padding'; } ?>"><i class="fa fa-users fa-fw"></i>  Kundkommentarer</a>
+    <a href="#" onclick="MakeRequest('index');" class="w3-padding w3-black"><i class="fa fa-dashboard fa-fw"></i>  Översikt</a>
+    <a href="#" onclick="MakeRequest('report');" class="w3-padding w3-teal"><i class="fa fa-dashboard fa-fw"></i>  Rapportera</a>
+    <a href="#" onclick="MakeRequest('workorder');" class="w3-padding w3-green"><i class="fa fa-eye fa-fw"></i>  Arbetsordrar</a>
+    <a href="#" onclick="MakeRequest('errorreport');" class="w3-padding w3-red"><i class="fa fa-comment fa-fw"></i>  Felanmälan</a>
+    <a href="#" onclick="MakeRequest('comments');" class="w3-padding w3-orange"><i class="fa fa-users fa-fw"></i>  Kundkommentarer</a>
     <?php
 
   } 
   if (isset($_SESSION['email'])&&($_SESSION['type'] == 'arenachef')) {
     ?>
-    <a href="#" onclick="MakeRequest('users');" class="<?php if(basename($_SERVER['SCRIPT_NAME']) == 'backend_anv.php'){echo 'w3-padding w3-blue'; }else { echo 'w3-padding'; } ?>"><i class="fa fa-user fa-fw"></i>  Användaradministration</a>
-    <a href="#" onclick="MakeRequest('subplace');" class="<?php if(basename($_SERVER['SCRIPT_NAME']) == 'backend_stra.php'){echo 'w3-padding w3-blue'; }else { echo 'w3-padding'; } ?>"><i class="fa fa-share-alt fa-fw"></i>  Sträckor</a>
-    <a href="#" onclick="MakeRequest('cannons');" class="<?php if(basename($_SERVER['SCRIPT_NAME']) == 'backend_cannon.php'){echo 'w3-padding w3-blue'; }else { echo 'w3-padding'; } ?>"><i class="fa fa-asterisk fa-fw"></i>  Snökanoner</a><br><br>
+    <a href="#" onclick="MakeRequest('users');" class="w3-padding w3-indigo"><i class="fa fa-user fa-fw"></i>  Användaradministration</a>
+    <a href="#" onclick="MakeRequest('subplace');" class="w3-padding w3-cyan"><i class="fa fa-share-alt fa-fw"></i>  Sträckor</a>
+    <a href="#" onclick="MakeRequest('cannons');" class="w3-padding w3-brown"><i class="fa fa-asterisk fa-fw"></i>  Snökanoner</a><br><br>
     <?php   
   }
   elseif (isset($_SESSION['email'])&&($_SESSION['type'] == 'other')) {
