@@ -189,13 +189,7 @@ foreach($pdo->query( 'select count(*)as i from StoredReports;') as $row){
       #echo "<th>report ID:</th>";
           echo "</tr>";
 
-          foreach ($pdo->query('
-            SELECT Reporting.name, Reporting.entID, Reporting.startDate, Reporting.workDate, Reporting.rating, Reporting.underlay, Reporting.edges, Reporting.grip, Reporting.depth, Reporting.comment, SubPlace.realName, Ent.firstName, Ent.lastName, Reporting.reportID
-            from overview, Reporting, SubPlace, Ent
-            WHERE Reporting.name = rspName AND Reporting.reportID = rspID AND Ent.entID = Reporting.entID AND SubPlace.name = Reporting.name
-            group by reportID ORDER BY startDate desc limit 20;
-            ;
-            ')as $row) {
+          foreach ($pdo->query('Select * From Reporting group by reportID limit 20;')as $row) {
           $luck = $row['reportID'];
             echo "<tr>";
         echo "<td>";
