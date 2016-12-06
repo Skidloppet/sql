@@ -8,9 +8,7 @@ include 'connect.php';
   <?php
   if (isset($_SESSION['email'])){
     ?>
-    <button class="w3-right w3-margin-right w3-btn w3-large w3-padding-0 " onclick="logout.php"><i class="fa fa-unlock"></i>  Logga ut</button>
 
-    <button class="w3-right w3-margin-right w3-btn w3-large w3-padding-0 " onclick="Kund.php"><i class="fa fa-home"></i></button>
 
     <?php 
   }
