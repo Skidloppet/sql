@@ -48,7 +48,7 @@ sentDate datetime,
 -- ändrade från timestamp till datetime pga att det blev fel datum i finnishedworkorder när man flyttade över
 endDate timestamp,
 priority enum('Låg','Medium','Hög','Akut'),
-type enum('Ljus','Bana','Skräp','Träd','Annat') null,
+type enum('Ljus','Sträcka(or)','Skräp','Träd','Annat') null,
 info varchar(1024),
 EntComment varchar(1024),
 primary key (orderID),
