@@ -424,6 +424,7 @@ insert into CommentSubPlace (CommentID, name) values
 */
 
 
-
+/*CREATE USER 'Tomas.Karlsson@skidloppet.se'@'localhost' IDENTIFIED BY 'pass';
+GRANT SELECT, UPDATE, DELETE, INSERT ON SlitABSkidloppet.* TO 'Tomas.Karlsson@skidloppet.se';*/
 
 
