@@ -347,6 +347,69 @@ article {
   </div>
 
 
+<!-- HÄR SK SNITT STÅÅÅÅ -->
+  <div class="container">
+<div class="w3-container w3-content w3-padding-64" style="max-width:950px" id="Snitt">
+
+    <div class="w3-threethird">
+
+      <header>
+       <h1>Snittbetyg på hela arenan</h1>
+      </header>
+
+
+ <?php
+
+   foreach($pdo->query( 'SELECT 
+    CAST(AVG(u) AS DECIMAL(2,1)) as u, 
+    CAST(AVG(e) AS DECIMAL(2,1)) as e,
+  CAST(AVG(r) AS DECIMAL(2,1)) as r,
+  CAST(AVG(g) AS DECIMAL(2,1)) as g,
+  avg(rat) as rat,
+  avg(grip) as grip,
+  avg(under) as under,
+  avg(edge) as edge 
+  FROM snittBetygV2, snittV2;' ) as $row){
+
+      # kolla VIEW snittBetyg & snitt
+      # lade till B tagg för att göra snittet enklare att se (row r,u,e,g /5)
+
+    echo '<p>Helhetsbetyg</p>';
+    echo '<div class="w3-progress-container w3-grey">';
+
+    echo '<div id="myBar" class="w3-progressbar w3-green" style="width:'.$row["rat"].'%">';
+    echo '<div class="w3-center w3-text-white"><b>'.$row["r"].'/5</b></div>';
+    echo 'echo   </div>';
+    echo ' </div>';
+    echo '   <p>Underlag</p>';
+    echo ' <div class="w3-progress-container w3-grey">';
+
+    echo '  <div id="myBar" class="w3-progressbar w3-green" style="width:'.$row["under"].'%">';
+    echo '   <div class="w3-center w3-text-white"><b>'.$row["u"].'/5</b></div>';
+    echo '   </div>';
+    echo ' </div>';
+
+    echo '  <p>Spårkanter</p>';
+    echo ' <div class="w3-progress-container w3-grey">';
+    echo '  <div id="myBar" class="w3-progressbar w3-green" style="width:'.$row["edge"].'%">';
+    echo '    <div class="w3-center w3-text-white"><b>'.$row["e"].'/5</b></div>';
+    echo '   </div>';
+    echo ' </div>';
+
+    echo ' <p>Stavfäste</p>';
+    echo '<div class="w3-progress-container w3-grey">';
+    echo ' <div id="myBar" class="w3-progressbar w3-green" style="width:'.$row["grip"].'%">';
+    echo '    <div class="w3-center w3-text-white"><b>'.$row["g"].'/5</b></div>';
+    echo '  </div>';
+    echo ' </div></br>';
+
+  }
+  ?>
+
+  </br>
+  </div>
+</div>
+</div>
 
 
 
@@ -378,7 +441,6 @@ article {
    </nav>
 
 <article>
-    <h1>Skidloppet</h1>
     <h3>Betygsförklaring från entrepenör</h3>
 	<p>Betygsskala 1-5 på samtliga.</p>
 
@@ -439,7 +501,7 @@ echo "</table>";
 <div class="container">
 
   <header>
-   <h1>Allmän info om sträckorna</h1>
+   <h1> Information om sträckorna</h1>
  </header>
  <nav>
   <ul>
@@ -527,7 +589,6 @@ $kund = "1337";
 
 
 <article>
-  <h1>Skidloppet</h1>
   <h3>Kundernas kommentar </h3>
   <div id="table-wrapper">
     <div id="table-scroll"> 
@@ -574,69 +635,6 @@ $kund = "1337";
 </div>
 
 
-<!-- HÄR SK SNITT STÅÅÅÅ -->
-  <div class="container">
-<div class="w3-container w3-content w3-padding-64" style="max-width:950px" id="Snitt">
-
-    <div class="w3-threethird">
-
-      <header>
-       <h1>Snittbetyg på hela arenan</h1>
-      </header>
-
-
- <?php
-
-   foreach($pdo->query( 'SELECT 
-   	CAST(AVG(u) AS DECIMAL(2,1)) as u, 
-   	CAST(AVG(e) AS DECIMAL(2,1)) as e,
-	CAST(AVG(r) AS DECIMAL(2,1)) as r,
-	CAST(AVG(g) AS DECIMAL(2,1)) as g,
-	avg(rat) as rat,
-	avg(grip) as grip,
-	avg(under) as under,
-	avg(edge) as edge 
-	FROM snittBetygV2, snittV2;' ) as $row){
-
-      # kolla VIEW snittBetyg & snitt
-      # lade till B tagg för att göra snittet enklare att se (row r,u,e,g /5)
-
-    echo '<p>Helhetsbetyg</p>';
-    echo '<div class="w3-progress-container w3-grey">';
-
-    echo '<div id="myBar" class="w3-progressbar w3-blue" style="width:'.$row["rat"].'%">';
-    echo '<div class="w3-center w3-text-white"><b>'.$row["r"].'/5</b></div>';
-    echo 'echo   </div>';
-    echo ' </div>';
-    echo '   <p>Underlag</p>';
-    echo ' <div class="w3-progress-container w3-grey">';
-
-    echo '  <div id="myBar" class="w3-progressbar w3-green" style="width:'.$row["under"].'%">';
-    echo '   <div class="w3-center w3-text-white"><b>'.$row["u"].'/5</b></div>';
-    echo '   </div>';
-    echo ' </div>';
-
-    echo '  <p>Spårkanter</p>';
-    echo ' <div class="w3-progress-container w3-grey">';
-    echo '  <div id="myBar" class="w3-progressbar w3-blue" style="width:'.$row["edge"].'%">';
-    echo '    <div class="w3-center w3-text-white"><b>'.$row["e"].'/5</b></div>';
-    echo '   </div>';
-    echo ' </div>';
-
-    echo ' <p>Stavfäste</p>';
-    echo '<div class="w3-progress-container w3-grey">';
-    echo ' <div id="myBar" class="w3-progressbar w3-green" style="width:'.$row["grip"].'%">';
-    echo '    <div class="w3-center w3-text-white"><b>'.$row["g"].'/5</b></div>';
-    echo '  </div>';
-    echo ' </div></br>';
-
-  }
-  ?>
-
-	</br>
-  </div>
-</div>
-</div>
 
 
   <div class="w3-container w3-content w3-padding-64" style="max-width:950px" id="Kommentar2">
@@ -645,7 +643,7 @@ $kund = "1337";
    </header>
    <h3>Ny kundkommentar</h3>
    <form action ='Kund.php' method='POST'>
-    <textarea rows="5" cols="70" name="comment" placeholder="freetext !comment"></textarea>
+    <textarea rows="5" cols="70" name="comment" placeholder="Fritext kommentar.."></textarea>
   </br>
   <input type="text" name="alias" placeholder="Namn">
   <select name='grade'>
@@ -671,11 +669,6 @@ $kund = "1337";
     ?>
   </select>
 
-  
-  
-  
-  
-  
   <select size='1' name='endName'>
     <option selected="selected"> Välj slutpunkt </option>
     <?php    
@@ -685,7 +678,7 @@ $kund = "1337";
       echo '</option>';
     }    
     ?>
-  </select>
+  </select><br>
 
   <button type="submit" name="CreateComment">Skicka kommentar</button>
 

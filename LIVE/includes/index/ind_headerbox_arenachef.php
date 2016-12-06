@@ -1,5 +1,6 @@
 ﻿<?php 
 $a = 0;
+$b = 0;
 
 foreach($pdo->query( 'select count(*)as a from wo;') as $row){
   $a = $row['a'];

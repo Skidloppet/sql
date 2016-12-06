@@ -178,8 +178,8 @@ DELIMITER ;
 
 -- call _newReport (3, now(), '2016-11-12', '5', '5', '5', '5', 23.1, 'lade till kommentar bild snart?', 1, 6);
 -- call _newReport (3, now(), '2016-10-13', '2', '4', '4', '4', 23.1, 5,5);
-call _newReport (3, now(), '2016-10-13', '3', '4', '4', '4', 23.1, 'beep',1,21);
-call _newReport (3, now(), '2016-11-12', '5', '5', '5', '5', 23.1, 'lade till kommentar bild snart?', 1, 6);
+-- call _newReport (3, now(), '2016-10-13', '3', '4', '4', '4', 23.1, 'beep',1,21);
+ call _newReport (1, now(), '2016-11-12', '5', '5', '5', '5', 111.1, 'insert från sql-procedure', 1, 21);
 
 -- select * from ReportSubPlace;
 
@@ -229,7 +229,7 @@ WHILE nameCounter<=endName DO
 COMMIT ;
 END //
 DELIMITER ;
-
+/*
 call _NewComment ('Härlig Upplevelse','Connor McGregor','2',now(),'2','5');
 call _NewComment ('Hej','Lars','2',now(),'6','1');
 call _NewComment ('en kommentar på några spår','Klas','2',now(),'1','6');
@@ -239,7 +239,7 @@ call _NewComment ('kottarkottarkottarkottar','Jon Jones','2',now(),'1','6');
 -- 
 -- select * from CommentSubPlace;
 -- select * from Commenta;
-
+*/
 
 
 -- 9. Procedure för nya felanmälan
@@ -288,8 +288,8 @@ COMMIT ;
 END //
 DELIMITER ;
 
-call _NewError ('mörkt överallt','1',now(),'Ljus','1','3');
-call _NewError ('träd över spåret','2',now(),'Träd','3','1');
+-- call _NewError ('mörkt överallt','1',now(),'Ljus','1','3');
+-- call _NewError ('träd över spåret','2',now(),'Träd','3','1');
 -- select * from ErrorSubPlace;
 
 
@@ -426,7 +426,7 @@ INSERT INTO CannonSubPlace (cannonID, name, skiID,entID, startStamp, priority,ne
 COMMIT ;
 END //
 DELIMITER ;
-call _newCannonOrder ('1','2','1','1',NOW(),'Låg','on','fdgfhfgdsfad');
+-- call _newCannonOrder ('1','2','1','1',NOW(),'Låg','on','fdgfhfgdsfad');
 
 -- select * from CannonSubPlace;
 
@@ -505,7 +505,7 @@ begin
 END //
 DELIMITER ;
 
-call _newResponsability ('3','1');
+-- call _newResponsability ('3','1');
 -- select * from WorkOrder;
 -- call _finnishedCannonOrder('2','1',now(),'texttesttets');
 
@@ -530,7 +530,7 @@ begin
 END //
 DELIMITER ;
 
-call _newNumber ('1487654321','1');
+-- call _newNumber ('1487654321','1');
 -- select * from Ent;
 -- call _finnishedCannonOrder('2','1',now(),'texttesttets');
 
@@ -554,7 +554,7 @@ begin
 END //
 DELIMITER ;
 
- call _akut ('1','asd@hotmail.com');
+-- call _akut ('1','asd@hotmail.com');
 -- select * from WorkOrder;
 -- select * from Ent;
 -- call _finnishedCannonOrder('2','1',now(),'texttesttets');
@@ -574,7 +574,7 @@ where date < DATE_SUB(CURDATE(), interval 48 hour);
 END //
 DELIMITER ;
 
-call _removeComment();
+-- call _removeComment();
 
 
 -- 19 Ändra ansvarande entreprenör över sträcka
@@ -624,7 +624,7 @@ begin
 END //
 DELIMITER ;
 
-call _newResponsabilityC ('3','30');
+-- call _newResponsabilityC ('3','30');
 -- select * from CannonSubPlace;
 -- call _finnishedCannonOrder('2','1',now(),'texttesttets');
 -- SELECT * FROM Commenta order by commentID desc;
@@ -640,7 +640,7 @@ update OldCommenta set del = "1"  where commentID=delCommentID;
 END //
 DELIMITER ;
 -- 
-call _deleteCOM ('1');
+-- call _deleteCOM ('1');
 -- select count(*)as b from OldCommenta where del="1";
 -- select * from Commenta;
 -- select * from OldCommenta;
@@ -648,3 +648,4 @@ call _deleteCOM ('1');
 -- select count(*) from OldCommentSubPlace where OldCommentSubPlace.orderID ='1' ;
 -- select count(*)as b from OldCommenta where del="1";
 -- call _deleteCOM (:commentID)
+

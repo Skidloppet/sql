@@ -443,3 +443,4 @@ CREATE VIEW delLagKom2 AS
 -- select * from delLagKom2;
 -- delete from delLagKom where commentID>'0' ; 
 
+select * from er;
