@@ -19,7 +19,7 @@ foreach($pdo->query( 'select count(*)as i from StoredReports;') as $row){
 
 <div class="w3-row-padding w3-margin-bottom">
 
- <div class="w3-quarter" style="cursor:pointer" onclick="document.getElementById('id01').style.display='block'">
+ <div class="w3-third" style="cursor:pointer" onclick="document.getElementById('id01').style.display='block'">
  <div class="w3-panel w3-card-8 w3-text-shadow w3-round-xlarge w3-container w3-teal w3-padding-16">
     <div class="w3-left"><i class="fa fa-plus w3-xxxlarge"></i></div>
     <div class="w3-right">
@@ -31,7 +31,7 @@ foreach($pdo->query( 'select count(*)as i from StoredReports;') as $row){
 </div>
 
 <a href="#12">
-  <div class="w3-quarter">
+  <div class="w3-third">
     <div class="w3-panel w3-card-8 w3-text-shadow w3-round-xlarge w3-container w3-teal w3-padding-16">
       <div class="w3-left"><i class="fa fa-arrow-right w3-xxxlarge"></i></div>
       <div class="w3-right">
@@ -57,8 +57,10 @@ foreach($pdo->query( 'select count(*)as i from StoredReports;') as $row){
       <div id="11" class="w3-container">
         <h3>Ny Rapport</h3>
         <form id="IDRep">
-          <input type="text" name="WorkDate" placeholder="yyyy-mm-dd"></p>
-          <input type="text" name="Depth" placeholder="Djup.."></p>
+          <p>Nästa planerade arbetspass  <i>( förhandsval +1 dygn )</i></p>
+          <input type="text" name="WorkDate" value="<?php echo date("Y-m-d G:i", strtotime("+1 day")); ?>"></br>
+          <p>Snödjup: <i>(cm)</i></p>
+          <input type="text" name="Depth" placeholder="ex 102.5"></p>
 
           <p>Helhetsbetyg:</p>
           <select name="Rating">
@@ -157,4 +159,5 @@ foreach($pdo->query( 'select count(*)as i from StoredReports;') as $row){
       </div>
     </div>
   </div>
-</div>
+
+s

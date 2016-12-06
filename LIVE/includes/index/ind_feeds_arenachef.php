@@ -138,7 +138,16 @@ $stmt->execute();
    <h5>Snittbetygen på hela arenan</h5>
    <?php
 
-   foreach($pdo->query( 'SELECT * FROM snittBetyg, snitt;' ) as $row){
+   foreach($pdo->query( 'SELECT 
+   	CAST(AVG(u) AS DECIMAL(2,1)) as u, 
+   	CAST(AVG(e) AS DECIMAL(2,1)) as e,
+	CAST(AVG(r) AS DECIMAL(2,1)) as r,
+	CAST(AVG(g) AS DECIMAL(2,1)) as g,
+	avg(rat) as rat,
+	avg(grip) as grip,
+	avg(under) as under,
+	avg(edge) as edge 
+	FROM snittBetygV2, snittV2;' ) as $row){
 
       # kolla VIEW snittBetyg & snitt
       # lade till B tagg för att göra snittet enklare att se (row r,u,e,g /5)

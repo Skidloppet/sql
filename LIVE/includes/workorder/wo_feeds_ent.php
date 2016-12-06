@@ -106,11 +106,15 @@ $stmt->execute();
 
       </div>
     </div>
-    <h2>Arbetsordrar</h2>
+
+
+
+<!-- DIV ID NUMMER 2 -->
+        <h2 id="2">mina arbetsordrar</h2>
 
 <div class="w3-row-padding w3-panel w3-card-8 w3-round-xlarge" style=" border-color:lightblue; border-style: solid; border-width: 5px;">
       <div class="w3-threethird">
-        <h5>Pågående arbetsordrar</h5>
+        <h4>mina arbetsordrar</h4>
         <table class="w3-table w3-striped w3-white">
           <tr>
             <th><u>Datum skickad</u></th>
@@ -121,10 +125,10 @@ $stmt->execute();
             <th>Information</th>
             <th>Skapad av</th>
             <th>Arkivera</th>
-          </tr>        
+          </tr>         
           <?php     
 
-          foreach($pdo->query( 'SELECT * FROM wo order by sentDate desc;' ) as $row){
+          foreach($pdo->query( "SELECT * FROM wo WHERE email = '$em';") as $row){
                 echo "<td>".$row['sentDate']."</td>";
             echo "<td>";
             if ($row['type'] === "kanon" ){
@@ -153,7 +157,7 @@ $stmt->execute();
             }
             ?>   
           </table>
-        </div>
       </div>
-    </div>
-  </div>
+
+
+</div></div>

@@ -3,7 +3,7 @@
 include'../connect.php';
 ?>
 
-<div class="w3-container" style="padding-left:31px">
+<div class="w3-container" style="padding-left:8px">
   <div class="w3-row-padding w3-panel w3-card-8 w3-round-xlarge" style=" border-color:lightblue; border-style: solid; border-width: 5px;">
     <div class="w3-threethird">
       <h3>Utskrift av alla aktiva felanmälningar</h3>
@@ -17,7 +17,6 @@ include'../connect.php';
         echo "<th style='background-color:white;'>Beskrivning:</th>";
         echo "<th style='background-color:white;'>Skickad:</th>";
         echo "<th style='background-color:white;'>Typ:</th>";
-        echo "<th style='background-color:white;'>Error ID:</th>";
         echo "</tr>";
         
 # ANVÄND VIEW
@@ -43,7 +42,6 @@ include'../connect.php';
         echo "<td>".$row['errorDesc']."</td>";
         echo "<td>".$row['sentDate']."</td>";
         echo "<td>".$row['type']."</td>";
-        echo "<td>".$row['errorID']."</td>";
         ?>
         <td class="Error-delete">
          <form id="ErrDel<?php echo $row['errorID']; ?>">

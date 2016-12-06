@@ -210,10 +210,23 @@ select
 avg(underlay)*20 as under, 
 avg(edges)*20 as edge, 
 avg(grip)*20 as grip, 
-avg(rating)*20 as rat 
+avg(rating)*20 as rat
 from Report;
 -- select * from snittBetyg;
 
+DROP VIEW IF EXISTS snittBetygV2;
+create view snittBetygV2 as
+SELECT 
+Reporting.name, 
+avg(Reporting.rating)*20 as rat, 
+avg(Reporting.underlay)*20 as under, 
+avg(Reporting.edges)*20 as edge, 
+avg(Reporting.grip)*20 as grip, 
+Reporting.reportID
+from overview, Reporting, SubPlace
+WHERE Reporting.name = rspName AND Reporting.reportID = rspID AND SubPlace.name = Reporting.name
+GROUP BY Reporting.name;
+-- select avg(rat) from snittBetygV2;
 
 DROP VIEW IF EXISTS snitt;
 create view snitt as
@@ -226,6 +239,20 @@ from Report;
 -- select * from snitt;
 -- SELECT * FROM snittBetyg, snitt;
 
+DROP VIEW IF EXISTS snittV2;
+create view snittV2 as
+SELECT 
+Reporting.name,  
+CAST(AVG(Reporting.underlay) AS DECIMAL(2,1)) as u, 
+CAST(AVG(Reporting.edges) AS DECIMAL(2,1)) as e, 
+CAST(AVG(Reporting.grip) AS DECIMAL(2,1)) as g, 
+CAST(AVG(Reporting.rating) AS DECIMAL(2,1)) as r,
+Reporting.reportID
+from overview, Reporting, SubPlace
+WHERE Reporting.name = rspName AND Reporting.reportID = rspID AND
+SubPlace.name = Reporting.name
+GROUP BY Reporting.name;
+-- select avg(u),avg(e),avg(g),avg(r),reportID from snittV2;
 
 
 
