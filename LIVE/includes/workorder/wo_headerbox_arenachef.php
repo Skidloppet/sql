@@ -154,6 +154,11 @@ foreach($pdo->query( 'select count(*)as i2 from fwo;' ) as $row){
               # Frågan till proceduren
                 $sql = "CALL _newSplitWorkOrder(:newSkiID, :newEntID, NOW() ,:newPriority, :newType, :newInfo, :newSplit, :startName, :endName)";
 
+              # hantera när ingen slutstation är vald (gör så slut blir desamma som start)
+                if($_POST['Slut'] === "Q") {
+                  $_POST['Slut'] = $_POST['Start'];
+                }				
+				
               # kontroll om akut (isf default ent, så alla kan acceptera samt stoppar eventuellt försök på split för ansvarsområden)
 
               if ($_POST['Prioritering'] == "akut"){
@@ -163,10 +168,6 @@ foreach($pdo->query( 'select count(*)as i2 from fwo;' ) as $row){
 				$response = file_get_contents($sms_url . "?" . $parameters);
               }
 
-              # hantera när ingen slutstation är vald (gör så slut blir desamma som start)
-                if($_POST['Slut'] === "Q") {
-                  $_POST['Slut'] = $_POST['Start'];
-                }
 
                 $stmt = $pdo->prepare($sql);
               # OBS -> skiID tas från session.
