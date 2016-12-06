@@ -26,6 +26,10 @@ $stmt->execute();
 <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 <link href="https://fortawesome.github.io/Font-Awesome/assets/font-awesome/css/font-awesome.css" rel="stylesheet">
 <style>
+'
+h2 { color: #111; font-family: 'Open Sans Condensed', sans-serif; font-size: 64px; font-weight: 700; line-height: 64px; margin: 0 0 0; padding: 20px 30px; text-align: center; text-transform: uppercase; }
+
+
 body {font-family: "Lato", sans-serif}
 .mySlides {display: none}
 
@@ -33,10 +37,10 @@ body {font-family: "Lato", sans-serif}
 /* Full-width input fields */
 .login3{
 	width: 100%;
-  padding: 12px 20px;
+  padding: 10px 15px;
   margin: 8px 0;
   display: inline-block;
-  border: 1px solid #ccc;
+  border: 3px solid #ccc;
   box-sizing: border-box;
 }
 
@@ -45,7 +49,7 @@ body {font-family: "Lato", sans-serif}
 button {
   background-color: #009933;
   color: white;
-  padding: 3px 35px;
+  padding: 1px 18px;
   margin: 8px 0;
   border: none;
   cursor: pointer;
@@ -175,14 +179,14 @@ div.container {
 header, footer {
   padding: 6px;
   color: white;
-  background-color: #009933;
+  background-color: black;
   clear: left;
   text-align: center;
 }
 
 nav {
   float: left;
-  max-width: 160px;
+  max-width: 18%;
   margin: 0;
   padding: 1em;
 }
@@ -197,7 +201,7 @@ nav ul a {
 }
 
 article {
-  margin-left: 170px;
+  margin-left: 18%;
   border-left: 1px solid gray;
   padding: 1em;
   overflow: hidden;
@@ -209,7 +213,7 @@ article {
   position:relative;
 }
 #table-scroll {
-  height:400px;
+  height:250px;
   overflow:auto;  
   margin-top:20px;
 }
@@ -238,23 +242,17 @@ article {
       <li class="w3-hide-small"><a href="#Snitt" class="w3-padding-large">Arenans status</a></li> 	  
       <li class="w3-hide-small"><a href="#Kommentar2" class="w3-padding-large">Kommentera sträckan</a></li>
 
-
       <!-- kollar om man INTE är inloggad -->
       <?php
       if (!isset($_SESSION['email'])) {
         ?>
 
-
-
         <li style="float: right" >
           <a href="kundE.php" <i class="fa fa-globe w3-xxlarge" aria-hidden="true"></i></a>
         </li>
-        <!-- <i class="fa fa-globe w3-xxxlarge" aria-hidden="true"></i> -->
 
-
-
-        <li style="float: right">
-          <button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Logga in</button>
+        <li class="w3-hide-small" style="float: right">
+          <button class="w3-btn w3-round-xxlarge w3-btn w3-green" onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Logga in</button>
         </li>
 
         <?php
@@ -264,12 +262,12 @@ article {
 
         <li style="float: right; margin:0px 10px 0px 10px; ">
           <form action="backend.php" >
-            <button style="width:auto;"> backend </button>
+            <button style="width:auto;"> Arbetssida </button>
           </form>
         </li>
         <li style="float: right">
           <form action="logout.php" >
-            <button style="width:auto;">Logga ut: <?php echo $_SESSION[email];?></button>
+            <button style="width:auto;">Logga ut</button>
           </form>
         </li>
 
@@ -288,10 +286,10 @@ article {
           <div class="container">
            <div class="login3">
 
-            <label><b><b>Email</b></b></label>
+            <label><b><b><font color="black">Email</font></b></b></label>
             <input type="text" placeholder="Exempel@hotmail.com" name="email" required>
 
-            <label><b><b>Password</b></b></label>
+            <label><b><b><font color="black">Password</font></b></b></label>
             <input type="password" placeholder="******" name="pass" required>
 
             <font color="#009933"><button type="submit">Logga in</button></font>
@@ -311,37 +309,41 @@ article {
 </div>
 
 <!-- Page content -->
-<div class="w3-content" style="max-width:2000px;margin-top:46px">
+<div class="w3-content " style="max-width:100%; margin-top:46px">
+<div class="w3-content" style="max-width:100%;" >
 
   <!-- Automatic Slideshow Images -->
   <div class="mySlides w3-display-container w3-center">
-    <img src="Sny1.jpg" style="width:100%;height:450px">
+    <img src="bild1.jpg" style="width:100%;height:450px">
     <div class="w3-display-bottommiddle w3-container w3-text-white w3-padding-32 w3-hide-small">
       <p></p>
     </div>
   </div>
   <div class="mySlides w3-display-container w3-center">
-    <img src="ny2.jpg" style="width:100%;;height:450px">
+    <img src="bild3.jpg" style="width:100%;;height:450px">
     <div class="w3-display-bottommiddle w3-container w3-text-white w3-padding-32 w3-hide-small">
       <h3></h3>
       <p><b></b></p>
     </div>
   </div>
   <div class="mySlides w3-display-container w3-center">
-    <img src="ny3.jpg" style="width:100%;height:450px">
+    <img src="bild6.jpg" style="width:100%;height:450px">
     <div class="w3-display-bottommiddle w3-container w3-text-white w3-padding-32 w3-hide-small">
       <h3></h3>
       <p><b></b></p>
     </div>
   </div>
-
+  </div>
   
-  <!-- kartan -->  
-  <div class="w3-container w3-content w3-padding-64" style="max-width:950px" id="Status">
+  <div class="w3-container w3-content w3-padding-20" style="max-width:950px margin-bottom:-150px;": id="Status">
+  <div class="w3-center"> <img src="skidlogo.jpg" style="width:70%;height:250px">
+</div>
+  
+  <!-- kartan --> 
+  <div class="w3-container w3-content w3-padding-64" style="max-width:950px": id="Status">
     <?php
     include'includes/mapFkund.php';
     ?>
-
   </div>
 
 
@@ -359,28 +361,38 @@ article {
 
      <nav>
       <ul>
-       <li> <h2> Välj delsträcka </h2></li>
-       <li><a href="?DS=1">Hedemora 1:1</a></h4></li>
-       <li><a href="#">Hedemora 1:2</a></li>
-       <li><a href="#">Hedemora 1:3</a></li>
+<p class="w3-border-bottom"><i>För mer inforamtion om sträckorna får du genom att klicka på delsträckorna på kartan ovan.</i></p>
+<p>Hedemora     46 Km </p>
+<p>Norrhyttan   62 Km </p>
+<p>Bondhyttan   66 Km </p>
+<p>Bommansbo    88 Km </p>
+<p>Smejdeback   66 Km </p>
+<p>Björsjö      88 Km </p>
+	  
+	  
+	  
+	  
+	  
+	  
      </ul>
    </nav>
 
-   <article>
+<article>
     <h1>Skidloppet</h1>
-    <h3>Betygsförklaring</h3>
+    <h3>Betygsförklaring från entrepenör</h3>
+	<p>Betygsskala 1-5 på samtliga.</p>
 
     <table>
       <tr>
-        <th><i class="fa fa-map-marker" aria-hidden="true"></i>Sträckans namn</th>
-        <th><i class="fa fa-calendar" aria-hidden="true"></i>Start datum</th>
-        <th><i class="fa fa-trophy" aria-hidden="true"></i>Betyg</th>
+        <th>Delsträcka</th>
+        <th>Startdatum</th>
+        <th>Betyg</th>
         <th>Underlag</th>
         <th>Kanter</th>
         <th>Fäste</th>
-        <th><i class="fa fa-snowflake-o" aria-hidden="true"></i>Djup(cm)</th>
-        <th><i class="fa fa-road" aria-hidden="true"></i>Längd (km)</th>
-        <th><i class="fa fa-arrows-v" aria-hidden="true"></i>m.ö.h</th>
+        <th>Djup(cm)</th>
+        <th>Längd (km)</th>
+        <th>m.ö.h</th>
       </tr>
     </div>
   </div>
@@ -424,32 +436,33 @@ echo "</table>";
 
 
 
-
 <div class="container">
 
   <header>
-   <h1>Kundkommentarer</h1>
+   <h1>Allmän info om sträckorna</h1>
  </header>
  <nav>
   <ul>
     <li style="float: right">
       <button onclick="document.getElementById('id02').style.display='block'" style="width:auto;"><i class="fa fa-flag w3-xxlarge" aria-hidden="true"></i></button>
     </li>
-    <li>För felanmälan </li>
-
+    <li>Felanmälan </li>
+   
+   
+   
 
 
 
     <div id="id02" class="modal">
-
-      <div class="container">
-        <div id="11" class="w3-container w3-white">
+      <div class="w3-modal-content">
+        <div class="w3-container">
+   <!--     <div id="11" class="w3-container w3-white">-->
           <head>
             <h3>Ny felanmälan!</h3>
           </header>
 
           <form action='<?php echo $_SERVER['SCRIPT_NAME']; ?>' method='POST'>
-            <textarea rows="5" cols="70" name="desc" placeholder="Beskriv problemet..."></textarea>
+            <textarea rows="8" cols="88" name="desc" placeholder="Beskriv problemet..."></textarea>
           </br>
 
           <p>Ange problemets typ *</p>
@@ -486,23 +499,19 @@ echo "</table>";
             ?>
           </select><br><br>
 
-          <!--<input type="text" name="Slut" placeholder="Slut.."></p>-->
-
-
           <p><button type="submit" name="Error">skicka in felanmälan</button></p></form>
-
 
           <?php
 #  $em = $_SESSION['email'];
-
+$kund = "1337";
           if(isset($_POST['Error'])){
 
             $sql = "CALL _NewError(:newErrorDesc, :newEntID, NOW() , :newType, :startName, :endName);";
 
             $stmt = $pdo->prepare($sql);
             $stmt->bindParam(":newErrorDesc", $_POST['desc'], PDO::PARAM_STR);
-            $stmt->bindParam(":newEntID", $_SESSION['id'], PDO::PARAM_INT);
-    //$stmt->bindParam(":newGrade", $_POST['grade'], PDO::PARAM_STR);
+            $stmt->bindParam(":newEntID", $kund, PDO::PARAM_INT);
+
             $stmt->bindParam(":newType", $_POST['type'], PDO::PARAM_STR);
             $stmt->bindParam(":startName", $_POST['Start'], PDO::PARAM_INT);
             $stmt->bindParam(":endName", $_POST['Slut'], PDO::PARAM_INT);
@@ -510,16 +519,8 @@ echo "</table>";
           }    
           ?>
         </div>
-
-
-      </div>
-
-    </form>
-  </div>
-
-
-
-
+		</div>
+		</div>
 </ul>
 </nav>
 
@@ -538,11 +539,12 @@ echo "</table>";
           <th><i class="fa fa-calendar-o" aria-hidden="true"></i>Datum</th>
           <th><i class="fa fa-id-badge" aria-hidden="true"></i>Sträckans namn</th>
         </tr>
-      </div>
+    </div>
 
-    </article>
+</article> 
+   </div>
     <footer> Kommentarer </footer>
-  </div>
+
 
 
   <?php
@@ -568,65 +570,76 @@ echo "</table>";
   echo "</table>";
   ?>
 </div>
+</div>
+</div>
 
 
-
+<!-- HÄR SK SNITT STÅÅÅÅ -->
+  <div class="container">
 <div class="w3-container w3-content w3-padding-64" style="max-width:950px" id="Snitt">
 
-  <div class="container">
     <div class="w3-threethird">
 
       <header>
        <h1>Snittbetyg på hela arenan</h1>
-     </header>
-     <?php
+      </header>
 
-     foreach($pdo->query( 'SELECT * FROM snittBetyg, snitt;' ) as $row){
+
+ <?php
+
+   foreach($pdo->query( 'SELECT 
+   	CAST(AVG(u) AS DECIMAL(2,1)) as u, 
+   	CAST(AVG(e) AS DECIMAL(2,1)) as e,
+	CAST(AVG(r) AS DECIMAL(2,1)) as r,
+	CAST(AVG(g) AS DECIMAL(2,1)) as g,
+	avg(rat) as rat,
+	avg(grip) as grip,
+	avg(under) as under,
+	avg(edge) as edge 
+	FROM snittBetygV2, snittV2;' ) as $row){
 
       # kolla VIEW snittBetyg & snitt
       # lade till B tagg för att göra snittet enklare att se (row r,u,e,g /5)
 
-      echo '<p>Helhetsbetyg</p>';
-      echo '<div class="w3-progress-container w3-grey">';
+    echo '<p>Helhetsbetyg</p>';
+    echo '<div class="w3-progress-container w3-grey">';
 
-      echo '<div id="myBar" class="w3-progressbar w3-green" style="width:'.$row["rat"].'%">';
-      echo '<div class="w3-center w3-text-white"><b>'.$row["r"].'/5</b></div>';
-      echo 'echo   </div>';
-      echo ' </div>';
-      echo '   <p>Underlag</p>';
-      echo ' <div class="w3-progress-container w3-grey">';
+    echo '<div id="myBar" class="w3-progressbar w3-blue" style="width:'.$row["rat"].'%">';
+    echo '<div class="w3-center w3-text-white"><b>'.$row["r"].'/5</b></div>';
+    echo 'echo   </div>';
+    echo ' </div>';
+    echo '   <p>Underlag</p>';
+    echo ' <div class="w3-progress-container w3-grey">';
 
-      echo '  <div id="myBar" class="w3-progressbar w3-blue" style="width:'.$row["under"].'%">';
-      echo '   <div class="w3-center w3-text-white"><b>'.$row["u"].'/5</b></div>';
-      echo '   </div>';
-      echo ' </div>';
+    echo '  <div id="myBar" class="w3-progressbar w3-green" style="width:'.$row["under"].'%">';
+    echo '   <div class="w3-center w3-text-white"><b>'.$row["u"].'/5</b></div>';
+    echo '   </div>';
+    echo ' </div>';
 
-      echo '  <p>Spårkanter</p>';
-      echo ' <div class="w3-progress-container w3-grey">';
-      echo '  <div id="myBar" class="w3-progressbar w3-green" style="width:'.$row["edge"].'%">';
-      echo '    <div class="w3-center w3-text-white"><b>'.$row["e"].'/5</b></div>';
-      echo '   </div>';
-      echo ' </div>';
+    echo '  <p>Spårkanter</p>';
+    echo ' <div class="w3-progress-container w3-grey">';
+    echo '  <div id="myBar" class="w3-progressbar w3-blue" style="width:'.$row["edge"].'%">';
+    echo '    <div class="w3-center w3-text-white"><b>'.$row["e"].'/5</b></div>';
+    echo '   </div>';
+    echo ' </div>';
 
-      echo ' <p>Stavfäste</p>';
-      echo '<div class="w3-progress-container w3-grey">';
-      echo ' <div id="myBar" class="w3-progressbar w3-blue" style="width:'.$row["grip"].'%">';
-      echo '    <div class="w3-center w3-text-white"><b>'.$row["g"].'/5</b></div>';
-      echo '  </div>';
-      echo ' </div></br>';
+    echo ' <p>Stavfäste</p>';
+    echo '<div class="w3-progress-container w3-grey">';
+    echo ' <div id="myBar" class="w3-progressbar w3-green" style="width:'.$row["grip"].'%">';
+    echo '    <div class="w3-center w3-text-white"><b>'.$row["g"].'/5</b></div>';
+    echo '  </div>';
+    echo ' </div></br>';
 
-    }
-    ?>
+  }
+  ?>
+
+	</br>
   </div>
 </div>
-</br>
-
 </div>
 
 
-
-<div class="w3-container w3-content w3-padding-64" style="max-width:950px" id="Kommentar2">
-  <div class="w3-container w3-content w3-padding-64" style="max-width:950px">
+  <div class="w3-container w3-content w3-padding-64" style="max-width:950px" id="Kommentar2">
     <header>
      <h1>Kommentera sträcka</h1>
    </header>
@@ -643,6 +656,9 @@ echo "</table>";
     <option value="4">4 - Bra spår</option>
     <option value="5">5 - Perfekt</option>
   </select>
+  
+  <br>
+
   <select size='1' name='startName'>
     <option selected="selected"> Välj startpunkt </option>
     <?php    
@@ -655,6 +671,11 @@ echo "</table>";
     ?>
   </select>
 
+  
+  
+  
+  
+  
   <select size='1' name='endName'>
     <option selected="selected"> Välj slutpunkt </option>
     <?php    
@@ -694,10 +715,8 @@ if(isset($_POST['CreateComment'])){
 ?>
 </div>
 </div>
-
-
-
 </div>
+
 
 
 <!-- Footer -->
@@ -803,6 +822,22 @@ function w3_close() {
   mySidenav.style.display = "none";
   overlayBg.style.display = "none";
 }
+
+
+<!-- floatbar -->
+$(window).scroll(function(){
+    if ($(window).scrollTop() >= 200)
+    {
+        $("#floatbar").css({position:'fixed',left:'0',top:'0'});
+    }
+    else
+    {
+        $("#floatbar").css({position:'absolute',left:'0',top:'200px'});
+    }
+});
+
+
+
 
 
 </script>

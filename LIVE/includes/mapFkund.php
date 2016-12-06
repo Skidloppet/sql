@@ -1,40 +1,38 @@
 <?php
-ini_set("display_errors", "off");
-
-
+ ini_set("display_errors", "off");
 $spar = '
 <!-- Delsträcka 0 -->
 <a xlink:href="Kund.php" target="_top">
-<a/>
+<a/>;
 <!-- Delsträcka 1 -->
 <a xlink:href="Kund.php?DS=1" target="_top">
 <path d="M153.93,282.37c-0.79-7.89-.5-16.14,3.2-20.84" transform="translate(-77.06 -164.09)" style="fill:none;stroke:{color};stroke-miterlimit:10;stroke-width:2px"/>
-<a/>
+<a/>;
 
 <!-- Delsträcka 2 -->
 <a xlink:href="Kund.php?DS=2" target="_top">
 <path d="M157.13,261.53a9.93,9.93,0,0,1,2.23-2.09c6.42-4.36,16.53.26,17.42-2,1-2.5-11.74-5.94-16.25-16.26A23,23,0,0,1,158.89,230" transform="translate(-77.06 -164.09)" style="fill:none;stroke:{color};stroke-miterlimit:10;stroke-width:2px"/>
-<a/>
+<a/>;
 
 <!-- Delsträcka 3 -->
 <a xlink:href="Kund.php?DS=3" target="_top">
 <path d="M158.89,230a26.91,26.91,0,0,1,8.86-17.87c6.8-5.9,18-8.88,24.31-4.64,5.56,3.75,8.76,14.18,8.76,14.18a20.45,20.45,0,0,0,5.39,4.13" transform="translate(-77.06 -164.09)" style="fill:none;stroke:{color};stroke-miterlimit:10;stroke-width:2px"/>
-<a/>
+<a/>;
 
 <!-- Delsträcka 4 -->
 <a xlink:href="Kund.php?DS=4" target="_top">
 <path d="M206.21,225.83a14.7,14.7,0,0,0,4.45,1.46c9.85,1.52,17.67-8.18,24.74-13.45" transform="translate(-77.06 -164.09)" style="fill:none;stroke:{color};stroke-miterlimit:10;stroke-width:2px"/>
-<a/>
+<a/>;
 
 <!-- Delsträcka 5 -->
 <a xlink:href="Kund.php?DS=5" target="_top">
 <path d="M235.4,213.85c3.27-2.43,6.38-3.92,9.47-2.92,5.31,1.73,8.52,10.19,7.18,16-1.43,6.24-7.23,5.59-10.37,12.55-3.65,8.08,2.67,12.28-.39,23.62-1.92,7.09-4.91,7.37-4.87,12.41,0.06,7.44,6.66,14.16,13,17.15a23.32,23.32,0,0,0,2.62,1" transform="translate(-77.06 -164.09)" style="fill:none;stroke:{color};stroke-miterlimit:10;stroke-width:2px"/>
-<a/>
+<a/>;
 
 <!-- Delsträcka 6 -->
 <a xlink:href="Kund.php?DS=6" target="_top">
 <path d="M241.64,251.9a23.37,23.37,0,0,1-.35,11.2c-1.92,7.09-4.91,7.37-4.87,12.41,0.06,7.44,6.66,14.16,13,17.15a23.32,23.32,0,0,0,2.62,1" transform="translate(-77.06 -164.09)" style="fill:none;stroke:{color};stroke-miterlimit:10;stroke-width:2px"/>
-<a/>
+<a/>;
 
 <!-- Delsträcka 7 -->
 <a xlink:href="Kund.php?DS=7" target="_top">
@@ -44,12 +42,12 @@ $spar = '
 <!-- Delsträcka 8 -->
 <a xlink:href="Kund.php?DS=8" target="_top">
 <path d="M295.8,265.61c6.94-4.56,7.81-5.56,15.29-5.19,10.28,0.5,13.15,5.52,18.84,3.1" transform="translate(-77.06 -164.09)" style="fill:none;stroke:{color};stroke-miterlimit:10;stroke-width:2px"/>
-<a/>
+<a/>;
 
 <!-- Delsträcka 9 -->
 <a xlink:href="Kund.php?DS=9" target="_top">
 <path d="M329.93,263.52c4.67-2,5.15-6.4,11.45-21.14,2-4.58,3.61-8.44,5.11-11.67" transform="translate(-77.06 -164.09)" style="fill:none;stroke:{color};stroke-miterlimit:10;stroke-width:2px"/>
-<a/>
+<a/>;
 
 <!-- Delsträcka 10 -->
 <a xlink:href="Kund.php?DS=10" target="_top">
@@ -59,17 +57,17 @@ $spar = '
 <!-- Delsträcka 11 -->
 <a xlink:href="Kund.php?DS=11" target="_top">
 <path d="M383.53,211.22c4.9-4.29,5.57-9.36,13.38-13.23,2-1,12.36-6.13,18.06-2.22,2.47,1.69,4.47,5.25,5.7,10.53" transform="translate(-77.06 -164.09)" style="fill:none;stroke:{color};stroke-miterlimit:10;stroke-width:2px"/>
-<a/>
+<a/>;
 
 <!-- Delsträcka 12 -->
 <a xlink:href="Kund.php?DS=12" target="_top">
 <path d="M420.67,206.31c1.95,8.32,2,20.9-1,37.19" transform="translate(-77.06 -164.09)" style="fill:none;stroke:{color};stroke-miterlimit:10;stroke-width:2px"/>
-<a/>
+<a/>;
 
 <!-- Delsträcka 13 -->
 <a xlink:href="Kund.php?DS=13" target="_top">
 <path d="M419.72,243.5c-1.12,6.16-2.67,12.85-4.71,20-0.21,7.73-.22,15.08,4.57,21.56,5.48,7.41,16,12,25.43,10.77" transform="translate(-77.06 -164.09)" style="fill:none;stroke:{color};stroke-miterlimit:10;stroke-width:2px"/>
-<a/>
+<a/>;
 
 <!-- Delsträcka 14 -->
 <a xlink:href="Kund.php?DS=14" target="_top">
@@ -79,36 +77,37 @@ $spar = '
 <!-- Delsträcka 15 -->
 <a xlink:href="Kund.php?DS=15" target="_top">
 <path d="M487.46,260.87a67.76,67.76,0,0,1,14.46-8.18c9.24-3.76,14.25-3.13,25-3.59" transform="translate(-77.06 -164.09)" style="fill:none;stroke:{color};stroke-miterlimit:10;stroke-width:2px"/>
-<a/>
+<a/>;
 
 <!-- Delsträcka 16 -->
 <a xlink:href="Kund.php?DS=16" target="_top">
 <path d="M526.92,249.1a201,201,0,0,0,25.79-2.83c17.7-3,21.71-5.33,24.71-8.21" transform="translate(-77.06 -164.09)" style="fill:none;stroke:{color};stroke-miterlimit:10;stroke-width:2px"/>
-<a/>
+<a/>;
 
 <!-- Delsträcka 17 -->
 <a xlink:href="Kund.php?DS=17" target="_top">
 <path d="M577.42,238.07c10.15-9.74,4-21,11.89-29.57,2.95-3.21,7.19-5.31,12.21-6.4" transform="translate(-77.06 -164.09)" style="fill:none;stroke:{color};stroke-miterlimit:10;stroke-width:2px"/>
-<a/>
+<a/>;
 
 <!-- Delsträcka 18 -->
 <a xlink:href="Kund.php?DS=18" target="_top">
 <path d="M601.52,202.1c10-2.18,23-.36,35,4.68" transform="translate(-77.06 -164.09)" style="fill:none;stroke:{color};stroke-miterlimit:10;stroke-width:2px"/>
-<a/>
+<a/>;
 
 <!-- Delsträcka 19 -->
 <a xlink:href="Kund.php?DS=19" target="_top">
 <path d="M636.54,206.77a67.45,67.45,0,0,1,18.35,11.29,65.14,65.14,0,0,1,13.95,17.62" transform="translate(-77.06 -164.09)" style="fill:none;stroke:{color};stroke-miterlimit:10;stroke-width:2px"/>
-<a/>
+<a/>;
 
 <!-- Delsträcka 20 -->
 <a xlink:href="Kund.php?DS=20" target="_top">
 <path d="M668.83,235.68c4.29,8,5.87,15.58,3.13,19.17-1.7,2.22-4.92,2.74-6.47,6.63-1.32,3.31-1.07,8.16,1.55,10.64,3.53,3.32,8.7-.13,17.31.06,6.22,0.14,14.53,2.19,19.66,6.5" transform="translate(-77.06 -164.09)" style="fill:none;stroke:{color};stroke-miterlimit:10;stroke-width:2px"/>
-<a/>
+<a/>;
 
 <!-- Delsträcka 21 -->
 <a xlink:href="Kund.php?DS=21" target="_top">
-<path d="M704,278.67a14.2,14.2,0,0,1,3.23,3.77c4.63,8.08,0,22.08-12.29,33.13" transform="translate(-77.06 -164.09)" style="fill:none;stroke:{color};stroke-miterlimit:10;stroke-width:2px"/>';
+<path d="M704,278.67a14.2,14.2,0,0,1,3.23,3.77c4.63,8.08,0,22.08-12.29,33.13" transform="translate(-77.06 -164.09)" style="fill:none;stroke:{color};stroke-miterlimit:10;stroke-width:2px"/>
+</a>';
 
 
 $sparArr = explode("a/>",$spar);
@@ -143,7 +142,7 @@ foreach($sparArr AS $key => $val){
 }
 
 ?>
-
+<div>
 <svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 634.39 189.23">
 <defs>
 <symbol id="Compass_Rose" data-name="Compass Rose" viewBox="0 0 51.15 60.64">
@@ -171,20 +170,32 @@ foreach($sparArr AS $key => $val){
 	echo $val.'a/>';
 }
 ?>
+
+
 <!-- Start Hedemora -->
+
 <circle cx="206.21" cy="227.48" r="5.67" transform="translate(-130.16 -101) rotate(-15.44)" style="fill:#e71e25;stroke:#231f20;stroke-miterlimit:10"/>
+
 <!-- Norrhyttan -->
 <circle cx="601.52" cy="203.13" r="5.67" transform="matrix(0.96, -0.27, 0.27, 0.96, -109.42, 3.33)" style="fill:#e71e25;stroke:#231f20;stroke-miterlimit:10"/>
+
 <!-- Bondhyttan -->
 <circle cx="486.92" cy="260.87" r="5.67" transform="translate(-128.92 -25.09) rotate(-15.44)" style="fill:#e71e25;stroke:#231f20;stroke-miterlimit:10"/>
+
 <!-- Bomansbo -->
 <circle cx="383.15" cy="210.79" r="5.67" transform="translate(-119.34 -54.51) rotate(-15.44)" style="fill:#e71e25;stroke:#231f20;stroke-miterlimit:10"/>
+
 <!-- Smedjebacken -->
 <circle cx="154.82" cy="285.59" r="5.67" transform="matrix(0.96, -0.27, 0.27, 0.96, -147.48, -112.58)" style="fill:#e71e25;stroke:#231f20;stroke-miterlimit:10"/>
+
 <!-- Bj򲳪򠭭 -->
 <circle cx="295.8" cy="267.18" r="5.67" transform="translate(-137.49 -75.72) rotate(-15.44)" style="fill:#e71e25;stroke:#231f20;stroke-miterlimit:10"/>
+
 <!-- Grängesberg Mål -->
 <circle cx="693.67" cy="315.94" r="5.67" transform="translate(-136.12 31.92) rotate(-15.44)" style="fill:#e71e25;stroke:#231f20;stroke-miterlimit:10"/>
+
+
+
 <!-- Linjer som visar delsträcksbrytning -->
 <line x1="75.98" y1="90" x2="85.97" y2="104.89" style="fill:none;stroke:#231f20;stroke-miterlimit:10;stroke-width:2px"/>
 <line x1="73.36" y1="65.48" x2="91.26" y2="66.42" style="fill:none;stroke:#231f20;stroke-miterlimit:10;stroke-width:2px"/>
@@ -203,3 +214,4 @@ foreach($sparArr AS $key => $val){
 <line x1="174.11" y1="89.22" x2="156.38" y2="86.6" style="fill:none;stroke:#231f20;stroke-miterlimit:10;stroke-width:2px"/>
 <use width="51.15" height="60.64" transform="translate(-9.36 137.62) rotate(-15.44)" xlink:href="#Compass_Rose"/>
 </svg>
+</div>
