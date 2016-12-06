@@ -6,7 +6,6 @@ foreach($pdo->query( 'select count(*)as i from Error;') as $row){
 }
 ?>
 
-<div class="w3-container" style="padding-left:20px">
   <div class="w3-row-padding w3-margin-bottom">
 
    <div class="w3-quarter" style="cursor:pointer" onclick="document.getElementById('id01').style.display='block'">
@@ -33,6 +32,8 @@ foreach($pdo->query( 'select count(*)as i from Error;') as $row){
       </div>
     </div>
   </a>
+   </div>
+  </div>
 
 
 
@@ -86,7 +87,7 @@ foreach($pdo->query( 'select count(*)as i from Error;') as $row){
 
         <!--<input type="text" name="Slut" placeholder="Slut.."></p>-->
 
-        <button type="button" onclick="SendForm('errorreport', 'errorreport', 'ErrRep');">Ny Felanmälan</button></form>
+        <button type="button" onclick="SendForm('errorreport', 'errorreport', 'ErrRep');">Skicka</button></form>
 
 
         <?php
@@ -111,4 +112,4 @@ foreach($pdo->query( 'select count(*)as i from Error;') as $row){
 
     </div>
   </div>
-</div></div>
+</div>
