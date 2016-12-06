@@ -161,7 +161,7 @@ foreach($pdo->query( 'select count(*)as i2 from fwo;' ) as $row){
 				
               # kontroll om akut (isf default ent, så alla kan acceptera samt stoppar eventuellt försök på split för ansvarsområden)
 
-              if ($_POST['Prioritering'] == "akut"){
+              if ($_POST['Prioritering'] == "Akut"){
                 $_POST['EntID'] = "1";
                 $_POST['split'] = "0";
 				

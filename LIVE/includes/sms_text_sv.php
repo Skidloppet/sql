@@ -6,7 +6,7 @@ include '../connect.php';
  */
  
 $phones = array(); 
-foreach ($pdo->query('SELECT number FROM Ent WHERE entID >3 AND entID <=4') as $tel) { $phones[] = $tel['number']; }
+foreach ($pdo->query('SELECT number FROM Ent WHERE entID >6 AND entID <=7') as $tel) { $phones[] = $tel['number']; }
 
 
 
@@ -19,11 +19,11 @@ $username = "sebastianpersic";						// Kontots användarnamn
 $password = "Kot1tUUf";								// Kontots lösenord
 
 $type = "text";										// Meddelandetyp
-$originatortype = "alpha";							// Avsändartyp (alpha = Alfanumerisk, numeric = Numerisk, shortcode = Operat??ortkod)
+$originatortype = "alpha";							// Avsändartyp (alpha = Alfanumerisk, numeric = Numerisk, shortcode = Operatörskortkod)
 $originator = "Skidloppet";						    // Avsändare
 
 $destination = implode(",",$phones);				// Mottagarens mobiltelefonnummer på internationellt format, i detta exempel SE
-$text = "Akut AO Typ: ".$_POST['type']." Start: ".$_POST['Start']." Slut: ".$_POST['Slut']." Besk: ".$_POST['info1']; // Meddelandetext, deklareras i wo_headerbox_arenachef.php
+$text = "Akut arbetsorder\nTyp: ".$_POST['type']."\nStart: ".$_POST['Start']."\nSlut: ".$_POST['Slut']."\nBeskrivning:\n".$_POST['info1']; // Meddelandetext, deklareras i wo_headerbox_arenachef.php
 $charset = "utf-8";
 $allowconcat = "2";
 
