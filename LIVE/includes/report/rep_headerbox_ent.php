@@ -159,5 +159,3 @@ foreach($pdo->query( 'select count(*)as i from StoredReports;') as $row){
       </div>
     </div>
   </div>
-
-s
