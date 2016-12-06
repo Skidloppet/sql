@@ -89,12 +89,31 @@ $WOO = $_SERVER["SCRIPT_NAME"];
         echo "<td>".$row['type']."</td>";
         echo "<td>".$row['number']."</td>";
         echo "<td>".$row['regDate']."</td>";
-        echo "</tr>";  
-      }
+
+      
       ?>
+	  <td class="Anv-delete">
+         <form id="AnvDel<?php echo $row['skiID']; ?>">
+           <input type="hidden" name="skiID" value="<?php echo $row['skiID']; ?>">
+           <button type="button" onclick="SendForm('users', 'users', 'AnvDel<?php echo $row['skiID']; ?>');">radera</button>
+         </form>
+		  </td>
+     </tr>
+	     <?php
+   }
+   ?>
+
     </table>
   </div>
 </div>
+<?php
+if(isset($_POST['skiID'])){
+  $deletedError = $_POST['skiID'];
+  $sql = "DELETE FROM Ski WHERE skiID = $deletedError" ;
+  $stmt = $pdo->prepare($sql);
+  $stmt->execute();
+}
+?>
 <!-- utskrift ent -->
 <div class="w3-row-padding w3-panel w3-card-8 w3-round-xlarge" style="border-color:lightblue; border-style: solid; border-width: 5px;">
   <div class="w3-threethird">
@@ -121,9 +140,33 @@ $WOO = $_SERVER["SCRIPT_NAME"];
         echo "<td>".$row['email']."</td>";
         echo "<td>".$row['number']."</td>";
         echo "<td>".$row['regDate']."</td>";
-        echo "</tr>";  
-      }
+    
+      
       ?>
+	  	  <td class="Ent-delete">
+         <form id="EntDel<?php echo $row['entID']; ?>">
+           <input type="hidden" name="entID" value="<?php echo $row['entID']; ?>">
+           <button type="button" onclick="SendForm('users', 'users', 'EntDel<?php echo $row['entID']; ?>');">radera</button>
+         </form>
+		  </td>
+     </tr>
+	     <?php
+   }
+   ?>
+
+    </table>
+
+
+  </div>
+</div>
+<?php
+if(isset($_POST['entID'])){
+  $deletedError = $_POST['entID'];
+  $sql = "DELETE FROM Ent WHERE entID = $deletedError" ;
+  $stmt = $pdo->prepare($sql);
+  $stmt->execute();
+}
+?>
     </table>
   </div>
 </div>
