@@ -10,12 +10,7 @@ foreach($pdo->query( 'select count(*)as i from StoredReports;') as $row){
 }
 ?>
 
-<header class="w3-container" style="padding-top:22px">
-  <style>
-    .HoverButton:hover { background: Red; }
-    .HoverButton2:hover { background: Green; }
-  </style>
-</header>
+
 
 <div class="w3-row-padding w3-margin-bottom">
 
@@ -128,7 +123,7 @@ foreach($pdo->query( 'select count(*)as i from StoredReports;') as $row){
               <textarea rows="5" cols="70" name="comment" placeholder="Kommentar..."></textarea>
               <br><br>
 
-              <button type="button" onclick="SendForm('report', 'report', 'IDRep');">Ny rapport</button></form>
+              <button type="button" onclick="SendForm('report', 'report', 'IDRep');">Skicka</button></form>
 
               <?php
 
