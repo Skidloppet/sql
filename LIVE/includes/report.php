@@ -2,6 +2,7 @@
 <?php
 include'../connect.php';
 SESSION_START();
+date_default_timezone_set('Europe/Stockholm');
 $id = $_SESSION['id'];
 ?>
 

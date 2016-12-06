@@ -11,8 +11,8 @@ include'../connect.php';
       <table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white">
         <?php   
         echo "<tr>";
-        echo "<th><u>Rapporterad:</u></th>"; 
-        echo "<th>sträcka:</th>";
+        echo "<th><u>Delsträcka:</u></th>"; 
+        echo "<th>Rapporterad:</th>"; 
         echo "<th>Kommentar:</th>";  
         echo "<th>Entreprenör:</th>"; 
         echo "<th>Nästa planerade arbetspass:</th>"; 
@@ -28,17 +28,19 @@ include'../connect.php';
           SELECT Reporting.name, Reporting.entID, Reporting.startDate, Reporting.workDate, Reporting.rating, Reporting.underlay, Reporting.edges, Reporting.grip, Reporting.depth, Reporting.comment, SubPlace.realName, Ent.firstName, Ent.lastName, Reporting.reportID
           from overview, Reporting, SubPlace, Ent
           WHERE Reporting.name = rspName AND Reporting.reportID = rspID AND Ent.entID = Reporting.entID AND SubPlace.name = Reporting.name
-          GROUP BY Reporting.reportID
-          ORDER BY startDate desc;
+          GROUP BY Reporting.name
+          #ORDER BY name asc
+          ;
           ')as $row) {
-          $luck = $row['reportID'];
+          #$luck = $row['reportID'];
         echo "<tr>";
+        #echo "<td>";
+        #foreach($pdo->query( 'select realName from SubPlace, Reporting where SubPlace.name = Reporting.name and Reporting.reportID = '.$luck.';' ) as $brow){;
+        #  echo $brow['realName']."</br>";
+        #};
+        #echo "</td>";
+        echo "<td>".$row['realName']."</td>";
         echo "<td>".$row['startDate']."</td>";
-        echo "<td>";
-        foreach($pdo->query( 'select realName from SubPlace, Reporting where SubPlace.name = Reporting.name and Reporting.reportID = '.$luck.';' ) as $brow){;
-          echo $brow['realName']."</br>";
-        };
-        echo "</td>";
         echo "<td>".$row['comment']."</td>";
         echo "<td>".$row['firstName']." ".$row['lastName']."</td>";
         echo "<td>".$row['workDate']."</td>";
