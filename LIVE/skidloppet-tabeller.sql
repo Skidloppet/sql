@@ -274,12 +274,12 @@ insert into Ski (password, firstName, lastName, email, number, type, regDate) va
 
 insert into Ent (password, firstName, lastName, email, number, regDate) values 
 ('pass','Global Användare','','ent','0205624321','2016-11-05'),
-('sture','Sture','Ekman','Sture.Ekman@skidloppet.se','00562432','2016-11-01'),
-('andersson','Bröderna','Andersson','Bröderna.Andersson@skidloppet.se','00562736','2016-11-01'),
-('persson','Siv-Jan','Persson','SoJ.Persson@skidloppet.se','00561122','2016-11-01'),
-('jonas','Jonas','Hed','Jonas.Hed@skidloppet.se','0054231','2016-11-01'),
-('oswald','Oswald','Ek','Oswald.Ek@skidloppet.se','0054411','2016-11-01'),
-('rune','Rune','Kvarn','Rune.Kvarn@skidloppet.se','0051122','2016-11-01'),
+('sture','Sture','Ekman','Sture.Ekman@skidloppet.se','0046704719082','2016-11-01'),
+('andersson','Bröderna','Andersson','Bröderna.Andersson@skidloppet.se','0046707966871','2016-11-01'),
+('persson','Siv-Jan','Persson','SoJ.Persson@skidloppet.se','0046733504750','2016-11-01'),
+('jonas','Jonas','Hed','Jonas.Hed@skidloppet.se','0046709960720','2016-11-01'),
+('oswald','Oswald','Ek','Oswald.Ek@skidloppet.se','0046738733122','2016-11-01'),
+('rune','Rune','Kvarn','Rune.Kvarn@skidloppet.se','0046703713943','2016-11-01'),
 ('iris','Iris','Sax','Iris.Sax@skidloppet.se','00545454','2016-11-01'),
 ('vidar','Vidar','Ytter','Vidar.Ytter@skidloppet.se','00551232','2016-11-01'),
 ('urban','Urban','Garv','Urban.Garv@skidloppet.se','0057131323','2016-11-01');
