@@ -34,11 +34,6 @@ $stmt->execute();
 }    
 ?>
 
-<div class="w3-container ">
-  <div class="w3-container w3-section">
-    <div class="w3-row-padding" style="margin:0 -16px">
-
-
 
       <?php
       $akut = 0;
@@ -46,12 +41,14 @@ $stmt->execute();
         $akut = $row['nmr'];
         if (0 < $akut){
           ?>
+		  <div class="w3-container" style="padding-left:0px">
+  <div class="w3-container w3-section">
 <div class="w3-row-padding w3-panel w3-card-8 w3-round-xlarge" style=" border-color:red; border-style: solid; border-width: 5px;">
             <div class="w3-container w3-section">
               <div class="w3-row-padding" style="margin:0 -16px">
                 <div class="w3-threethird">
                   <h1>Akuta arbetsordrar</h1>
-                  <table class="w3-table w3-striped w3-white">
+                  <table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white">
                     <tr>
                       <th><u>Datum skickad</u></th>
                       <th>Arbetsorder-Typ</th>
@@ -106,16 +103,18 @@ $stmt->execute();
 
       </div>
     </div>
-
+</div>
+    </div>
 
 
 <!-- DIV ID NUMMER 2 -->
-        <h2 id="2">mina arbetsordrar</h2>
-
+        <h2 id="2">Mina arbetsordrar</h2>
+		  <div class="w3-container" style="padding-left:0px">
+  <div class="w3-container w3-section">
 <div class="w3-row-padding w3-panel w3-card-8 w3-round-xlarge" style=" border-color:lightblue; border-style: solid; border-width: 5px;">
       <div class="w3-threethird">
-        <h4>mina arbetsordrar</h4>
-        <table class="w3-table w3-striped w3-white">
+
+        <table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white">
           <tr>
             <th><u>Datum skickad</u></th>
             <th>Område(n)</th>
@@ -158,6 +157,7 @@ $stmt->execute();
             ?>   
           </table>
       </div>
+	  </div>
+	  </div>
+	  </div>
 
-
-</div></div>
