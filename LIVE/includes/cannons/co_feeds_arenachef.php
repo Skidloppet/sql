@@ -8,16 +8,15 @@ include '../connect.php';
     <h3>Snökanoner</h3>
     <table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white">
       <tr>
-        <th><i class="fa fa-users w3-orange w3-text-white w3-padding-tiny"></i></th>
+        
         <th>Modell (id)</th>
         <th>Position</th>
         <th>Status</th>
-        <th>Effekt</th>
+        <th>Effekt m&#179/min</th>
       </tr>        
       <?php     
 
       foreach($pdo->query( 'SELECT * FROM ca order by cannonID desc;' ) as $row){
-        echo "<tr><td><i class='fa fa-eye w3-blue w3-padding-tiny'></i></td>";
         echo "<td>".$row['klass']." (<b> ".$row['cannonID']."</b> ) </td>";
 /*        echo "<td>";
         foreach($pdo->query( 'select realName from SubPlace, SubPlaceWorkOrder where SubPlace.name = SubPlaceWorkOrder.name and SubPlaceWorkOrder.orderID = '.$row ['orderID'].';' ) as $brow){;
