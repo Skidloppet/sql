@@ -47,8 +47,8 @@ entID smallint null,
 sentDate datetime,
 -- ändrade från timestamp till datetime pga att det blev fel datum i finnishedworkorder när man flyttade över
 endDate timestamp,
-priority enum('low','medium','high','akut'),
-type enum('lights','tracks','dirt','trees','other') null,
+priority enum('Låg','Medium','Hög','Akut'),
+type enum('Ljus','Bana','Skräp','Träd','Annat') null,
 info varchar(1024),
 EntComment varchar(1024),
 primary key (orderID),
@@ -64,8 +64,8 @@ entID smallint not null,
 -- not null här pga den som genomförde arbetet
 sentDate datetime,
 endDate timestamp,
-priority enum('low','medium','high','akut'),
-type enum('lights','tracks','dirt','trees','other') null,
+priority enum('Låg','Medium','Hög','Akut'),
+type enum('Ljus','Bana','Skräp','Träd','Annat') null,
 info varchar(1024),
 EntComment varchar(1024),
 primary key (orderID),
@@ -153,9 +153,9 @@ errorID int not null auto_increment,
 entID smallint null,
 -- null entID för alla felanmälanden som skapas av motionärer
 sentDate timestamp,
--- grade enum('low','medium','high','akut'),
+-- grade enum('Låg','Medium','Hög','Akut'),
 errorDesc varchar(1024),
-type enum('lights','tracks','dirt','trees','other') not null,
+type enum('Ljus','Bana','Skräp','Träd','Annat') null,
 primary key (errorID),
 foreign key (entID) references Ent(entID)
 )engine=innodb;
@@ -219,7 +219,7 @@ skiID smallint,
 entID smallint,
 startStamp datetime,
 endStamp datetime,
-priority enum('low','medium','high','akut'),
+priority enum('Låg','Medium','Hög','Akut'),
 newStatus enum('På','Av','Urkopplad','Trasig', 'Annat'),
 info varchar(1024),
 comment varchar(1024),
@@ -239,7 +239,7 @@ skiID smallint,
 entID smallint,
 startStamp datetime,
 endStamp datetime,
-priority enum('low','medium','high','akut'),
+priority enum('Låg','Medium','Hög','Akut'),
 newStatus enum('På','Av','Urkopplad','Trasig', 'Annat'),
 info varchar(1024),
 comment varchar(1024),
@@ -303,10 +303,10 @@ insert into Place (name, info) values
 
 
 insert into WorkOrder (skiID, entID, sentDate, endDate, priority, info, EntComment,type) values 
-('1','1',now(),'','akut','ligger en död kanin på spåret', 'text1','dirt'),
-('1','2',now(),'','high','träd som ligger över spåren','text2','dirt'),
-('1','3',now(),'','medium','grus vid lerdalen','text3','dirt'),
-('1','2',now(),'','low','sten','text4','dirt'); 
+('1','1',now(),'','Akut','ligger en död kanin på spåret', 'text1','dirt'),
+('1','2',now(),'','Hög','träd som ligger över spåren','text2','dirt'),
+('1','3',now(),'','Medium','grus vid lerdalen','text3','dirt'),
+('1','2',now(),'','Låg','sten','text4','dirt'); 
 /*
 insert into FinnishedWorkOrder (OrderID, entID, sentDate, endDate, priority, info, EntComment) values
 ('1','1','2016-01-15','','akut','död snubbe på spåret','text1'),
@@ -388,7 +388,7 @@ insert into Report (entID, startDate, workDate, rating, underlay, edges, grip, d
 insert into CannonSubPlace (CannonID, name, entID, startStamp, endStamp, newStatus, info, comment) values
 ('1','1','2',now(),now(),'Urkopplad','text från ski','not finnished'),
 ('2','1','1',now(),now(),'Urkopplad','text från ski1','not finnished'),
-('3','1','3',now(),now(),'on','text från ski2','not finnished');
+('3','1','3',now(),now(),'På','text från ski2','not finnished');
 
 
 /*
@@ -424,7 +424,6 @@ insert into CommentSubPlace (CommentID, name) values
 */
 
 
-/*CREATE USER 'Tomas.Karlsson@skidloppet.se'@'localhost' IDENTIFIED BY 'pass';
-GRANT SELECT, UPDATE, DELETE, INSERT ON SlitABSkidloppet.* TO 'Tomas.Karlsson@skidloppet.se';*/
+
 
 

@@ -1,7 +1,25 @@
 /*
 -- 1. Procedure för att skapa en Entrepenör
 -- 2. Procedure för att skapa en Skidloppet användare
-
+-- 3. procedur för att göra en SKI till arenachef/other
+-- 4. Procedur för att logga in.
+-- 5. Procedur för att skapa en ny snökanon
+-- 6. Procedur för att ändra snökanoner
+-- 7. Procedure för nya daglig rapportering
+-- 8. Procedure för nya kommentarer
+-- 9. Procedure för nya felanmälan
+-- 10. Lägg till ny arbetsorder
+-- 11. skapa färdig arbetsorder (logg)
+-- 12. Procedure för nya cannon arbetsordrar
+-- 13. procedur för att ta bort arbetsorder
+-- 14. skapa färdig CANNONorder (logg)
+-- 15. Byt ent ansvarig för arbetsorder.
+-- 16. Byt ent tel-nummber 
+-- 17. mottagen akutarbetsorder
+-- 18 tar alla gammla kommentarer äldre än 48 h
+-- 19 Ändra ansvarande entreprenör över sträcka
+-- 20 Ändra ansvarande entreprenör till snökanon
+-- 21. procedur för att ta bort kommentar
 */
 
 -- 1. Procedure för att skapa en Entrepenör
@@ -234,7 +252,7 @@ newErrorDesc varchar(1024),
 newEntID smallint,
 newSentDate timestamp,
 -- newGrade enum('low','medium','high','akut'),
-newType enum('lights','tracks','dirt','trees','other'),
+newType enum('Ljus','Bana','Skräp','Träd','Annat'),
 startName tinyint,
 endName tinyint
 )
@@ -270,8 +288,8 @@ COMMIT ;
 END //
 DELIMITER ;
 
-call _NewError ('mörkt överallt','1',now(),'lights','1','3');
-call _NewError ('träd över spåret','2',now(),'trees','3','1');
+call _NewError ('mörkt överallt','1',now(),'Ljus','1','3');
+call _NewError ('träd över spåret','2',now(),'Träd','3','1');
 -- select * from ErrorSubPlace;
 
 
@@ -287,8 +305,8 @@ newEntID smallint,
 -- (entID) Kan inte tilldelas till en specifik entreprenör vid akut prio.
 newSentDate timestamp,
 -- newStartDate timestamp,
-newPriority enum('high','medium','low','akut'),
-newType enum('lights','tracks','dirt','trees','other'),
+newPriority enum('Hög','Medium','Låg','Akut'),
+newType enum('Ljus','Bana','Skräp','Träd','Annat'),
 newInfo varchar(1024),
 newSplit bool,
 startName tinyint,
@@ -347,8 +365,8 @@ COMMIT ;
 END //
 DELIMITER ;
 /*
-call _newSplitWorkOrder ('1','1',now(),'high','tracks','spåra spåren','1','1','6');
-call _newSplitWorkOrder ('1','1',now(),'akut','trees','träda träden','0','1','6');
+call _newSplitWorkOrder ('1','1',now(),'Hög','Bana','spåra spåren','1','1','6');
+call _newSplitWorkOrder ('1','1',now(),'Akut','Träd','träda träden','0','1','6');
 select * from SubPlaceWorkOrder;
 select * from WorkOrder;
 */
@@ -398,7 +416,7 @@ name smallint,
 skiID smallint,
 entID smallint,
 startStamp datetime,
-priority enum('low','medium','high','akut'),
+priority enum('Låg','Medium','Hög','Akut'),
 state enum('På','Av','Urkopplad','Trasig', 'Annat'),
 info varchar (1024))
 BEGIN
@@ -408,7 +426,7 @@ INSERT INTO CannonSubPlace (cannonID, name, skiID,entID, startStamp, priority,ne
 COMMIT ;
 END //
 DELIMITER ;
-call _newCannonOrder ('1','2','1','1',NOW(),'low','on','fdgfhfgdsfad');
+call _newCannonOrder ('1','2','1','1',NOW(),'Låg','on','fdgfhfgdsfad');
 
 -- select * from CannonSubPlace;
 
@@ -427,7 +445,7 @@ END IF;
 END //
 DELIMITER ;
 
--- CALL _newWorkOrder (1, 2, now(), 'low', 'KOTTAR ÖVERALLT RÄDDA MIG', 1, 3);
+-- CALL _newWorkOrder (1, 2, now(), 'Låg', 'KOTTAR ÖVERALLT RÄDDA MIG', 1, 3);
 
 -- CALL _deleteWorkOrder(5);
 
@@ -466,6 +484,8 @@ DELIMITER ;
 -- call _finnishedCannonOrder('31','1',now(),'texttesttets');
 -- SELECT * FROM CannonSubPlace;
 -- select * from FinnishedCannonSubPlace;
+
+
     -- 15. Byt ent ansvarig för arbetsorder.
     
 DROP PROCEDURE IF EXISTS _newResponsability;
@@ -492,7 +512,7 @@ call _newResponsability ('3','1');
 
 
 
-    -- 15. Byt ent tel-nummber 
+    -- 16. Byt ent tel-nummber 
 DROP PROCEDURE IF EXISTS _newNumber;
 DELIMITER //
 CREATE PROCEDURE _newNumber (
@@ -517,7 +537,7 @@ call _newNumber ('1487654321','1');
 
 
 
-    -- 16. mottagen akutarbetsorder
+    -- 17. mottagen akutarbetsorder
 DROP PROCEDURE IF EXISTS _akut;
 DELIMITER //
 CREATE PROCEDURE _akut (
@@ -542,7 +562,7 @@ DELIMITER ;
 -- SELECT * FROM WorkOrder where priority="akut";
 
 
--- 15 tar alla gammla kommentarer äldre än 48 h
+-- 18 tar alla gammla kommentarer äldre än 48 h
 
 DROP PROCEDURE IF EXISTS _removeComment;
 DELIMITER //
@@ -556,6 +576,8 @@ DELIMITER ;
 
 call _removeComment();
 
+
+-- 19 Ändra ansvarande entreprenör över sträcka
   
 DROP PROCEDURE IF EXISTS _newResponsabilitySubPlace;
 DELIMITER //
@@ -583,6 +605,7 @@ DELIMITER ;
 -- select realName from SubPlace, SubPlaceWorkOrder where SubPlace.name = SubPlaceWorkOrder.name and SubPlaceWorkOrder.orderID = 12;
 
 
+-- 20 Ändra ansvarande entreprenör till snökanon
 
 DROP PROCEDURE IF EXISTS _newResponsabilityC;
 DELIMITER //
@@ -607,7 +630,7 @@ call _newResponsabilityC ('3','30');
 -- SELECT * FROM Commenta order by commentID desc;
 
 
--- 13. procedur för att ta bort arbetsorder
+-- 21. procedur för att ta bort kommentar
 DROP PROCEDURE IF EXISTS _deleteCOM;
 DELIMITER //
 CREATE PROCEDURE _deleteCOM (delCommentID INT)

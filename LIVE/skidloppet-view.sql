@@ -82,7 +82,7 @@ SELECT
 WorkOrder.orderID,WorkOrder.skiID,WorkOrder.entID,WorkOrder.sentDate,
 WorkOrder.endDate,WorkOrder.priority,WorkOrder.info,WorkOrder.EntComment
 FROM WorkOrder
-WHERE WorkOrder.priority='akut';
+WHERE WorkOrder.priority='Akut';
 -- SELECT * FROM UrgentWorkOrder;
 
 
