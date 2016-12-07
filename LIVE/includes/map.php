@@ -1,5 +1,5 @@
 <?php
-ini_set("display_errors", "on");
+ini_set("display_errors", "off");
 include '../connect.php';
 
 $spar = '
@@ -144,7 +144,7 @@ foreach($sparArr AS $key => $val){
 
 ?>
 
-<svg id="Layer_2" data-name="Layer 2" onclick="MakeRequest('subplace');" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 634.39 189.23">
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 634.39 189.23">
 <defs>
 <symbol id="Compass_Rose" data-name="Compass Rose" viewBox="0 0 51.15 60.64">
 <path d="M30.77,26.28a10.22,10.22,0,1,1-5.19-1.42A10.2,10.2,0,0,1,30.77,26.28Z" style="fill:none;stroke:#231f20"/>
@@ -182,7 +182,7 @@ foreach($sparArr AS $key => $val){
 <circle cx="383.15" cy="210.79" r="5.67" transform="translate(-119.34 -54.51) rotate(-15.44)" style="fill:#e71e25;stroke:#231f20;stroke-miterlimit:10"/>
 <!-- Smedjebacken -->
 <circle cx="154.82" cy="285.59" r="5.67" transform="matrix(0.96, -0.27, 0.27, 0.96, -147.48, -112.58)" style="fill:#e71e25;stroke:#231f20;stroke-miterlimit:10"/>
-<!-- Bj򲳪򠭭>
+<!-- Bj�rsj� -->
 <circle cx="295.8" cy="267.18" r="5.67" transform="translate(-137.49 -75.72) rotate(-15.44)" style="fill:#e71e25;stroke:#231f20;stroke-miterlimit:10"/>
 <!-- Grängesberg Mål -->
 <circle cx="693.67" cy="315.94" r="5.67" transform="translate(-136.12 31.92) rotate(-15.44)" style="fill:#e71e25;stroke:#231f20;stroke-miterlimit:10"/>
@@ -203,4 +203,118 @@ foreach($sparArr AS $key => $val){
 <line x1="618.95" y1="120.26" x2="633.83" y2="110.26" style="fill:none;stroke:#231f20;stroke-miterlimit:10;stroke-width:2px"/>
 <line x1="174.11" y1="89.22" x2="156.38" y2="86.6" style="fill:none;stroke:#231f20;stroke-miterlimit:10;stroke-width:2px"/>
 <use width="51.15" height="60.64" transform="translate(-9.36 137.62) rotate(-15.44)" xlink:href="#Compass_Rose"/>
+
+
+ 
+  <text transform="translate(44.49 122.66)" style="font-size: 6px;font-family: Myriad Pro">Hedemora</tspan></text>
+  
+  <text transform="translate(208.49 92.08)" style="font-size: 6px;font-family: Myriad Pro">Bondhyttan</tspan></text>
+  
+  <text transform="translate(114.33 74.52)" style="font-size: 6px;font-family: Myriad Pro">Norrhyttan</tspan></text>
+  
+  <text transform="translate(278.99 38.14)" style="font-size: 6px;font-family: Myriad Pro">Bommansbo</tspan></text>
+  
+  <text transform="translate(382.2 87.71)" style="font-size: 6px;font-family: Myriad Pro">Smedjebacken</text>
+  
+  <text transform="translate(515.49 27.09)" style="font-size: 6px;font-family: Myriad Pro">Björsjö</text>
+  
+  <text transform="translate(576.62 154.2)" style="font-size: 6px;font-family: Myriad Pro">Grängesberg</tspan></text>
+  
+  <text x="-0.01" y="-0.02"/>  <text transform="translate(221.97 146.44)" style="font-size: 6px;font-family: Myriad Pro">Ramsvattnet</tspan></text>
+  
+  <text transform="translate(296.19 119.37)" style="font-size: 6px;font-family: Myriad Pro">Afsnan</tspan></text>
+  
+  <text x="-0.01" y="-0.02"/>  <text x="-0.01" y="-0.02"/>  <text x="-0.01" y="-0.02"/>
+  
+  <text transform="translate(455.99 149.48)" style="font-size: 6px;font-family: Myriad Pro">Sillforsen</tspan></text>
+  
+				
+			
+			
+	<a xlink:href="Kund.php?DS=1#stat" target="_top">
+  <text transform="translate(66.09 106.65)" style="font-size: 7px;font-family: Myriad Pro">1:1</text>
+	</a>
+	
+	<a xlink:href="Kund.php?DS=2#stat" target="_top">
+  <text transform="translate(103.49 97.1)" style="font-size: 7px;font-family: Myriad Pro">1:2</text>
+	</a>
+
+  	<a xlink:href="Kund.php?DS=3#stat" target="_top">
+  <text transform="translate(84.99 41.98)" style="font-size: 7px;font-family: Myriad Pro">1:3</text>
+  	</a>
+	
+	<a xlink:href="Kund.php?DS=4#stat" target="_top">
+  <text transform="translate(139.24 52.86)" style="font-size: 7px;font-family: Myriad Pro">2:1</text>
+	</a>
+  	
+	<a xlink:href="Kund.php?DS=5#stat" target="_top">
+  <text transform="translate(178.99 60.3)" style="font-size: 7px;font-family: Myriad Pro">2:2</text>
+	</a>
+  	
+	<a xlink:href="Kund.php?DS=6#stat" target="_top">
+  <text transform="translate(165.99 103.99)" style="font-size: 7px;font-family: Myriad Pro">2:3</text>
+	</a>
+  	
+	<a xlink:href="Kund.php?DS=7#stat" target="_top">
+  <text transform="translate(185.49 125.16)" style="font-size: 7px;font-family: Myriad Pro">2:4</text>
+	</a>
+  
+  <text x="-0.01" y="-0.02"/>
+  
+
+  	<a xlink:href="Kund.php?DS=8#stat" target="_top">
+  <text transform="translate(235.99 105.73)" style="font-size: 7px;font-family: Myriad Pro">3:1</text>
+	</a>
+  	
+	<a xlink:href="Kund.php?DS=9#stat" target="_top">
+  <text transform="translate(265.99 83.72)" style="font-size: 7px;font-family: Myriad Pro">3:2</text>
+	</a>
+  	
+	<a xlink:href="Kund.php?DS=10#stat" target="_top">
+  <text transform="translate(284.99 62.04)" style="font-size: 7px;font-family: Myriad Pro">3:3</text>
+	</a>
+  	
+	<a xlink:href="Kund.php?DS=11#stat" target="_top">
+  <text transform="translate(313.99 26.04)" style="font-size: 7px;font-family: Myriad Pro">4:1</text>
+	</a>
+  	
+	<a xlink:href="Kund.php?DS=12#stat" target="_top">
+  <text transform="translate(348.99 57.03)" style="font-size: 7px;font-family: Myriad Pro">4:2</text>
+	</a>
+  	
+	<a xlink:href="Kund.php?DS=13#stat" target="_top">
+  <text transform="translate(342.99 115.06)" style="font-size: 7px;font-family: Myriad Pro">4:3</text>
+	</a>
+  
+	<a xlink:href="Kund.php?DS=14#stat" target="_top">
+  <text transform="translate(393.49 120.84)" style="font-size: 7px;font-family: Myriad Pro">4:4</text>
+	</a>
+  	
+	<a xlink:href="Kund.php?DS=15#stat" target="_top">
+  <text transform="translate(430.99 98.6)" style="font-size: 7px;font-family: Myriad Pro">5:1</text>
+	</a>
+  	
+	<a xlink:href="Kund.php?DS=16#stat" target="_top">
+  <text transform="translate(462.99 93.69)" style="font-size: 7px;font-family: Myriad Pro">5:2</text>
+	</a>
+  	
+	<a xlink:href="Kund.php?DS=17#stat" target="_top">
+  <text transform="translate(510.72 63.56)" style="font-size: 7px;font-family: Myriad Pro">5:3</text>
+	</a>
+  	
+	<a xlink:href="Kund.php?DS=18#stat" target="_top">
+  <text transform="translate(545.72 34.06)" style="font-size: 7px;font-family: Myriad Pro">6:1</text>
+	</a>
+  	
+	<a xlink:href="Kund.php?DS=19#stat" target="_top">
+  <text transform="translate(586.5 51.81)" style="font-size: 7px;font-family: Myriad Pro">6:2</text>
+	</a>
+  	
+	<a xlink:href="Kund.php?DS=20#stat" target="_top">
+  <text transform="translate(601.3 93.37)" style="font-size: 7px;font-family: Myriad Pro">6:3</text>
+	</a>
+  	
+	<a xlink:href="Kund.php?DS=21#stat" target="_top">
+  <text transform="translate(612.75 134.4)" style="font-size: 7px;font-family: Myriad Pro">6:4</text>
+	</a>
 </svg>

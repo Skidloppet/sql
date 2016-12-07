@@ -1,116 +1,117 @@
 <?php
-
+ini_set("display_errors", "on");
+include '../connect.php';
 
 $spar = '
 <!-- Delsträcka 0 -->
-<a xlink:href="backend_stra.php" target="_top">
-<a/>
+</>
+
 <!-- Delsträcka 1 -->
-<a xlink:href="backend_stra.php" target="_top">
+
 <path d="M153.93,282.37c-0.79-7.89-.5-16.14,3.2-20.84" transform="translate(-77.06 -164.09)" style="fill:none;stroke:{color};stroke-miterlimit:10;stroke-width:2px"/>
-<a/>
+
 
 <!-- Delsträcka 2 -->
-<a xlink:href="backend_stra.php" target="_top">
+
 <path d="M157.13,261.53a9.93,9.93,0,0,1,2.23-2.09c6.42-4.36,16.53.26,17.42-2,1-2.5-11.74-5.94-16.25-16.26A23,23,0,0,1,158.89,230" transform="translate(-77.06 -164.09)" style="fill:none;stroke:{color};stroke-miterlimit:10;stroke-width:2px"/>
-<a/>
+
 
 <!-- Delsträcka 3 -->
-<a xlink:href="backend_stra.php" target="_top">
+
 <path d="M158.89,230a26.91,26.91,0,0,1,8.86-17.87c6.8-5.9,18-8.88,24.31-4.64,5.56,3.75,8.76,14.18,8.76,14.18a20.45,20.45,0,0,0,5.39,4.13" transform="translate(-77.06 -164.09)" style="fill:none;stroke:{color};stroke-miterlimit:10;stroke-width:2px"/>
-<a/>
+
 
 <!-- Delsträcka 4 -->
-<a xlink:href="backend_stra.php" target="_top">
+
 <path d="M206.21,225.83a14.7,14.7,0,0,0,4.45,1.46c9.85,1.52,17.67-8.18,24.74-13.45" transform="translate(-77.06 -164.09)" style="fill:none;stroke:{color};stroke-miterlimit:10;stroke-width:2px"/>
-<a/>
+
 
 <!-- Delsträcka 5 -->
-<a xlink:href="backend_stra.php" target="_top">
+
 <path d="M235.4,213.85c3.27-2.43,6.38-3.92,9.47-2.92,5.31,1.73,8.52,10.19,7.18,16-1.43,6.24-7.23,5.59-10.37,12.55-3.65,8.08,2.67,12.28-.39,23.62-1.92,7.09-4.91,7.37-4.87,12.41,0.06,7.44,6.66,14.16,13,17.15a23.32,23.32,0,0,0,2.62,1" transform="translate(-77.06 -164.09)" style="fill:none;stroke:{color};stroke-miterlimit:10;stroke-width:2px"/>
-<a/>
+
 
 <!-- Delsträcka 6 -->
-<a xlink:href="backend_stra.php" target="_top">
+
 <path d="M241.64,251.9a23.37,23.37,0,0,1-.35,11.2c-1.92,7.09-4.91,7.37-4.87,12.41,0.06,7.44,6.66,14.16,13,17.15a23.32,23.32,0,0,0,2.62,1" transform="translate(-77.06 -164.09)" style="fill:none;stroke:{color};stroke-miterlimit:10;stroke-width:2px"/>
-<a/>
+
 
 <!-- Delsträcka 7 -->
-<a xlink:href="backend_stra.php" target="_top">
+
 <path d="M252.07,293.69c9.16,3,20,.47,25.08-5.92,3.8-4.8,1.83-12.17,4.52-13.7,6.69-3.67,11-6.42,14.14-8.47" transform="translate(-77.06 -164.09)" style="fill:none;stroke:{color};stroke-miterlimit:10;stroke-width:2px"/>
-<a/>
+
 
 <!-- Delsträcka 8 -->
-<a xlink:href="backend_stra.php" target="_top">
+
 <path d="M295.8,265.61c6.94-4.56,7.81-5.56,15.29-5.19,10.28,0.5,13.15,5.52,18.84,3.1" transform="translate(-77.06 -164.09)" style="fill:none;stroke:{color};stroke-miterlimit:10;stroke-width:2px"/>
-<a/>
+
 
 <!-- Delsträcka 9 -->
-<a xlink:href="backend_stra.php" target="_top">
+
 <path d="M329.93,263.52c4.67-2,5.15-6.4,11.45-21.14,2-4.58,3.61-8.44,5.11-11.67" transform="translate(-77.06 -164.09)" style="fill:none;stroke:{color};stroke-miterlimit:10;stroke-width:2px"/>
-<a/>
+
 
 <!-- Delsträcka 10 -->
-<a xlink:href="backend_stra.php" target="_top">
+
 <path d="M346.49,230.71c3.24-7,5.72-11,8.85-12.94,8.72-5.35,14.18,1.6,24.49-4a20.12,20.12,0,0,0,3.71-2.56" transform="translate(-77.06 -164.09)" style="fill:none;stroke:{color};stroke-miterlimit:10;stroke-width:2px"/>
-<a/>
+
 
 <!-- Delsträcka 11 -->
-<a xlink:href="backend_stra.php" target="_top">
+
 <path d="M383.53,211.22c4.9-4.29,5.57-9.36,13.38-13.23,2-1,12.36-6.13,18.06-2.22,2.47,1.69,4.47,5.25,5.7,10.53" transform="translate(-77.06 -164.09)" style="fill:none;stroke:{color};stroke-miterlimit:10;stroke-width:2px"/>
-<a/>
+
 
 <!-- Delsträcka 12 -->
-<a xlink:href="backend_stra.php" target="_top">
+
 <path d="M420.67,206.31c1.95,8.32,2,20.9-1,37.19" transform="translate(-77.06 -164.09)" style="fill:none;stroke:{color};stroke-miterlimit:10;stroke-width:2px"/>
-<a/>
+
 
 <!-- Delsträcka 13 -->
-<a xlink:href="backend_stra.php" target="_top">
+
 <path d="M419.72,243.5c-1.12,6.16-2.67,12.85-4.71,20-0.21,7.73-.22,15.08,4.57,21.56,5.48,7.41,16,12,25.43,10.77" transform="translate(-77.06 -164.09)" style="fill:none;stroke:{color};stroke-miterlimit:10;stroke-width:2px"/>
-<a/>
+
 
 <!-- Delsträcka 14 -->
-<a xlink:href="backend_stra.php" target="_top">
+
 <path d="M445,295.88q0.84-.11,1.68-0.27c9.86-2,11.78-9.23,26.3-22.48a171.12,171.12,0,0,1,14.48-12.26" transform="translate(-77.06 -164.09)" style="fill:none;stroke:{color};stroke-miterlimit:10;stroke-width:2px"/>
-<a/>
+
 
 <!-- Delsträcka 15 -->
-<a xlink:href="backend_stra.php" target="_top">
+
 <path d="M487.46,260.87a67.76,67.76,0,0,1,14.46-8.18c9.24-3.76,14.25-3.13,25-3.59" transform="translate(-77.06 -164.09)" style="fill:none;stroke:{color};stroke-miterlimit:10;stroke-width:2px"/>
-<a/>
+
 
 <!-- Delsträcka 16 -->
-<a xlink:href="backend_stra.php" target="_top">
+
 <path d="M526.92,249.1a201,201,0,0,0,25.79-2.83c17.7-3,21.71-5.33,24.71-8.21" transform="translate(-77.06 -164.09)" style="fill:none;stroke:{color};stroke-miterlimit:10;stroke-width:2px"/>
-<a/>
+
 
 <!-- Delsträcka 17 -->
-<a xlink:href="backend_stra.php" target="_top">
+
 <path d="M577.42,238.07c10.15-9.74,4-21,11.89-29.57,2.95-3.21,7.19-5.31,12.21-6.4" transform="translate(-77.06 -164.09)" style="fill:none;stroke:{color};stroke-miterlimit:10;stroke-width:2px"/>
-<a/>
+
 
 <!-- Delsträcka 18 -->
-<a xlink:href="backend_stra.php" target="_top">
+
 <path d="M601.52,202.1c10-2.18,23-.36,35,4.68" transform="translate(-77.06 -164.09)" style="fill:none;stroke:{color};stroke-miterlimit:10;stroke-width:2px"/>
-<a/>
+
 
 <!-- Delsträcka 19 -->
-<a xlink:href="backend_stra.php" target="_top">
+
 <path d="M636.54,206.77a67.45,67.45,0,0,1,18.35,11.29,65.14,65.14,0,0,1,13.95,17.62" transform="translate(-77.06 -164.09)" style="fill:none;stroke:{color};stroke-miterlimit:10;stroke-width:2px"/>
-<a/>
+
 
 <!-- Delsträcka 20 -->
-<a xlink:href="backend_stra.php" target="_top">
+
 <path d="M668.83,235.68c4.29,8,5.87,15.58,3.13,19.17-1.7,2.22-4.92,2.74-6.47,6.63-1.32,3.31-1.07,8.16,1.55,10.64,3.53,3.32,8.7-.13,17.31.06,6.22,0.14,14.53,2.19,19.66,6.5" transform="translate(-77.06 -164.09)" style="fill:none;stroke:{color};stroke-miterlimit:10;stroke-width:2px"/>
-<a/>
+
 
 <!-- Delsträcka 21 -->
-<a xlink:href="backend_stra.php" target="_top">
-<path d="M704,278.67a14.2,14.2,0,0,1,3.23,3.77c4.63,8.08,0,22.08-12.29,33.13" transform="translate(-77.06 -164.09)" style="fill:none;stroke:{color};stroke-miterlimit:10;stroke-width:2px"/>';
+
+<path d="M704,278.67a14.2,14.2,0,0,1,3.23,3.77c4.63,8.08,0,22.08-12.29,33.13" transform="translate(-77.06 -164.09)" style="fill:none;stroke:{color};stroke-miterlimit:10;stroke-width:2px"';
 
 
-$sparArr = explode("a/>",$spar);
+$sparArr = explode("/>",$spar);
 
 $red ="#ff0000";
 $yellow ="#ffff00";
@@ -135,7 +136,7 @@ $grey ="#d2d1e6";
 			}
 
 	#print_r ($SubPlaceNameArray);
-
+$SubPlaceNameArray[0] = $grey;
 
 foreach($sparArr AS $key => $val){
 	 $sparArr[$key] = str_replace("{color}", $SubPlaceNameArray[$key], $val);
@@ -166,8 +167,9 @@ foreach($sparArr AS $key => $val){
 <!-- Vattendrag Sillforsen -->
 <path d="M545.3,307.11c3.5-20.69,7.87-34.72,11.38-43.95,2.94-7.74,5.75-13.35,6.24-22.47,0.36-6.69-.77-10.54,1.35-17.66,1.92-6.43,3.88-6.75,4.41-11.59,0.76-7-3-8.73-4-16.89-0.92-7.94,2.4-8.54,2.63-18" transform="translate(-77.06 -164.09)" style="fill:none;stroke:#0365f4;stroke-miterlimit:10;stroke-width:2px"/>
 <?php
+
 foreach($sparArr AS $key => $val){
-	echo $val.'a/>';
+	echo $val.'/>';
 }
 ?>
 <!-- Start Hedemora -->
@@ -180,7 +182,7 @@ foreach($sparArr AS $key => $val){
 <circle cx="383.15" cy="210.79" r="5.67" transform="translate(-119.34 -54.51) rotate(-15.44)" style="fill:#e71e25;stroke:#231f20;stroke-miterlimit:10"/>
 <!-- Smedjebacken -->
 <circle cx="154.82" cy="285.59" r="5.67" transform="matrix(0.96, -0.27, 0.27, 0.96, -147.48, -112.58)" style="fill:#e71e25;stroke:#231f20;stroke-miterlimit:10"/>
-<!-- Bj򲳪򠭭>
+<!-- Bj�rsj� -->
 <circle cx="295.8" cy="267.18" r="5.67" transform="translate(-137.49 -75.72) rotate(-15.44)" style="fill:#e71e25;stroke:#231f20;stroke-miterlimit:10"/>
 <!-- Grängesberg Mål -->
 <circle cx="693.67" cy="315.94" r="5.67" transform="translate(-136.12 31.92) rotate(-15.44)" style="fill:#e71e25;stroke:#231f20;stroke-miterlimit:10"/>
@@ -201,4 +203,118 @@ foreach($sparArr AS $key => $val){
 <line x1="618.95" y1="120.26" x2="633.83" y2="110.26" style="fill:none;stroke:#231f20;stroke-miterlimit:10;stroke-width:2px"/>
 <line x1="174.11" y1="89.22" x2="156.38" y2="86.6" style="fill:none;stroke:#231f20;stroke-miterlimit:10;stroke-width:2px"/>
 <use width="51.15" height="60.64" transform="translate(-9.36 137.62) rotate(-15.44)" xlink:href="#Compass_Rose"/>
+
+
+ 
+  <text transform="translate(44.49 122.66)" style="font-size: 6px;font-family: Myriad Pro">Hedemora</tspan></text>
+  
+  <text transform="translate(208.49 92.08)" style="font-size: 6px;font-family: Myriad Pro">Bondhyttan</tspan></text>
+  
+  <text transform="translate(114.33 74.52)" style="font-size: 6px;font-family: Myriad Pro">Norrhyttan</tspan></text>
+  
+  <text transform="translate(278.99 38.14)" style="font-size: 6px;font-family: Myriad Pro">Bommansbo</tspan></text>
+  
+  <text transform="translate(382.2 87.71)" style="font-size: 6px;font-family: Myriad Pro">Smedjebacken</text>
+  
+  <text transform="translate(515.49 27.09)" style="font-size: 6px;font-family: Myriad Pro">Björsjö</text>
+  
+  <text transform="translate(576.62 154.2)" style="font-size: 6px;font-family: Myriad Pro">Grängesberg</tspan></text>
+  
+  <text x="-0.01" y="-0.02"/>  <text transform="translate(221.97 146.44)" style="font-size: 6px;font-family: Myriad Pro">Ramsvattnet</tspan></text>
+  
+  <text transform="translate(296.19 119.37)" style="font-size: 6px;font-family: Myriad Pro">Afsnan</tspan></text>
+  
+  <text x="-0.01" y="-0.02"/>  <text x="-0.01" y="-0.02"/>  <text x="-0.01" y="-0.02"/>
+  
+  <text transform="translate(455.99 149.48)" style="font-size: 6px;font-family: Myriad Pro">Sillforsen</tspan></text>
+  
+				
+			
+			
+	<a xlink:href="Kund.php?DS=1#stat" target="_top">
+  <text transform="translate(66.09 106.65)" style="font-size: 7px;font-family: Myriad Pro">1:1</text>
+	</a>
+	
+	<a xlink:href="Kund.php?DS=2#stat" target="_top">
+  <text transform="translate(103.49 97.1)" style="font-size: 7px;font-family: Myriad Pro">1:2</text>
+	</a>
+
+  	<a xlink:href="Kund.php?DS=3#stat" target="_top">
+  <text transform="translate(84.99 41.98)" style="font-size: 7px;font-family: Myriad Pro">1:3</text>
+  	</a>
+	
+	<a xlink:href="Kund.php?DS=4#stat" target="_top">
+  <text transform="translate(139.24 52.86)" style="font-size: 7px;font-family: Myriad Pro">2:1</text>
+	</a>
+  	
+	<a xlink:href="Kund.php?DS=5#stat" target="_top">
+  <text transform="translate(178.99 60.3)" style="font-size: 7px;font-family: Myriad Pro">2:2</text>
+	</a>
+  	
+	<a xlink:href="Kund.php?DS=6#stat" target="_top">
+  <text transform="translate(165.99 103.99)" style="font-size: 7px;font-family: Myriad Pro">2:3</text>
+	</a>
+  	
+	<a xlink:href="Kund.php?DS=7#stat" target="_top">
+  <text transform="translate(185.49 125.16)" style="font-size: 7px;font-family: Myriad Pro">2:4</text>
+	</a>
+  
+  <text x="-0.01" y="-0.02"/>
+  
+
+  	<a xlink:href="Kund.php?DS=8#stat" target="_top">
+  <text transform="translate(235.99 105.73)" style="font-size: 7px;font-family: Myriad Pro">3:1</text>
+	</a>
+  	
+	<a xlink:href="Kund.php?DS=9#stat" target="_top">
+  <text transform="translate(265.99 83.72)" style="font-size: 7px;font-family: Myriad Pro">3:2</text>
+	</a>
+  	
+	<a xlink:href="Kund.php?DS=10#stat" target="_top">
+  <text transform="translate(284.99 62.04)" style="font-size: 7px;font-family: Myriad Pro">3:3</text>
+	</a>
+  	
+	<a xlink:href="Kund.php?DS=11#stat" target="_top">
+  <text transform="translate(313.99 26.04)" style="font-size: 7px;font-family: Myriad Pro">4:1</text>
+	</a>
+  	
+	<a xlink:href="Kund.php?DS=12#stat" target="_top">
+  <text transform="translate(348.99 57.03)" style="font-size: 7px;font-family: Myriad Pro">4:2</text>
+	</a>
+  	
+	<a xlink:href="Kund.php?DS=13#stat" target="_top">
+  <text transform="translate(342.99 115.06)" style="font-size: 7px;font-family: Myriad Pro">4:3</text>
+	</a>
+  
+	<a xlink:href="Kund.php?DS=14#stat" target="_top">
+  <text transform="translate(393.49 120.84)" style="font-size: 7px;font-family: Myriad Pro">4:4</text>
+	</a>
+  	
+	<a xlink:href="Kund.php?DS=15#stat" target="_top">
+  <text transform="translate(430.99 98.6)" style="font-size: 7px;font-family: Myriad Pro">5:1</text>
+	</a>
+  	
+	<a xlink:href="Kund.php?DS=16#stat" target="_top">
+  <text transform="translate(462.99 93.69)" style="font-size: 7px;font-family: Myriad Pro">5:2</text>
+	</a>
+  	
+	<a xlink:href="Kund.php?DS=17#stat" target="_top">
+  <text transform="translate(510.72 63.56)" style="font-size: 7px;font-family: Myriad Pro">5:3</text>
+	</a>
+  	
+	<a xlink:href="Kund.php?DS=18#stat" target="_top">
+  <text transform="translate(545.72 34.06)" style="font-size: 7px;font-family: Myriad Pro">6:1</text>
+	</a>
+  	
+	<a xlink:href="Kund.php?DS=19#stat" target="_top">
+  <text transform="translate(586.5 51.81)" style="font-size: 7px;font-family: Myriad Pro">6:2</text>
+	</a>
+  	
+	<a xlink:href="Kund.php?DS=20#stat" target="_top">
+  <text transform="translate(601.3 93.37)" style="font-size: 7px;font-family: Myriad Pro">6:3</text>
+	</a>
+  	
+	<a xlink:href="Kund.php?DS=21#stat" target="_top">
+  <text transform="translate(612.75 134.4)" style="font-size: 7px;font-family: Myriad Pro">6:4</text>
+	</a>
 </svg>

@@ -42,7 +42,7 @@ span.dropt:hover span {margin: 20px 0 0 170px; background: #ffffff; z-index:6;}
 </head>
 <body>
 <?php
-include'connect.php';
+include'/LIVE/connect.php';
 ?>
 <!--
 

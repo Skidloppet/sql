@@ -408,7 +408,7 @@ article {
 
     <!-- om man har klickat på en delsträcka så poppar denna uppp -->
 
-    <div class="w3-container w3-content w3-padding-64" style="max-width:950px" id="Kommentar1">
+    <div id="stat" class="w3-container w3-content w3-padding-64" style="max-width:950px" id="Kommentar1">
 
       <?php
 
