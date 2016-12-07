@@ -50,7 +50,7 @@ foreach($pdo->query( 'select count(*)as i2 from fwo;' ) as $row){
       <h3><?php print_r($i2); ?></h3>
     </div>
     <div class="w3-clear"></div>
-    <h4>Avslutade arbetsordrar (<i> max 20 </i>)</h4>
+    <h4>Avslutade arbetsordrar</h4>
   </div>
 </div>
 
