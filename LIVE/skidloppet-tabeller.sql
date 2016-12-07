@@ -294,6 +294,8 @@ insert into Ent (password, firstName, lastName, email, number, regDate) values
 ('vidar','Vidar','Ytter','Vidar.Ytter@skidloppet.se','00551232','2016-11-01'),
 ('urban','Urban','Garv','Urban.Garv@skidloppet.se','0057131323','2016-11-01');
 
+insert into Ent(entID, password, firstName, lastName, email, number, regDate) values 
+('1337','Kund','Kund','Kund','Kund','0057132323','2016-11-01');
 
 
 
@@ -434,6 +436,7 @@ insert into CommentSubPlace (CommentID, name) values
 ('3','2'),
 ('3','3');
 */
+
 
 
 
