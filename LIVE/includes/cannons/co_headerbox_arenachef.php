@@ -4,20 +4,20 @@
 
 
 
-  <div class="w3-third" style="cursor:pointer" onclick="document.getElementById('id02').style.display='block'">
+  <div class="w3-quarter" style="cursor:pointer" onclick="document.getElementById('id02').style.display='block'">
     <div class="w3-panel w3-card-8 w3-text-shadow w3-round-xlarge w3-container w3-brown w3-padding-16">
-      <div class="w3-left"><i class="fa fa-plus w3-xxxlarge"></i></div>
+      <div class="w3-left"><i class="fa fa-bolt w3-xxxlarge"></i></div>
       <div class="w3-right">
       </div>
       <div class="w3-clear"></div>
-      <h4>Hantera Snökanoner</h4>
+      <h4>Ändra Snökanoner</h4>
     </div>
   </div>
 
 
 
 
-  <div class="w3-third" style="cursor:pointer" onclick="document.getElementById('id01').style.display='block'">
+  <div class="w3-quarter" style="cursor:pointer" onclick="document.getElementById('id01').style.display='block'">
     <div class="w3-panel w3-card-8 w3-text-shadow w3-round-xlarge  w3-container w3-brown w3-padding-16">
       <div class="w3-left"><i class="fa fa-plus-square w3-xxxlarge"></i></div>
       <div class="w3-right">
@@ -31,7 +31,7 @@
 
 
 
-  <div class="w3-third" style="cursor:pointer" onclick="document.getElementById('id03').style.display='block'">
+  <div class="w3-quarter" style="cursor:pointer" onclick="document.getElementById('id03').style.display='block'">
     <div class="w3-panel w3-card-8 w3-text-shadow w3-round-xlarge w3-container w3-brown w3-padding-16">
       <div class="w3-left"><i class="fa fa-ban alt w3-xxxlarge"></i></div>
       <div class="w3-right">
@@ -40,6 +40,19 @@
       <h4>Ta bort snökanon</h4>
     </div>
   </div>
+
+
+  <div class="w3-quarter" style="cursor:pointer" onclick="document.getElementById('id044').style.display='block'">
+  <div class="w3-panel w3-card-8 w3-text-shadow w3-round-xlarge w3-container w3-brown w3-padding-16">
+    <div class="w3-left"><i class="fa fa-plus w3-xxxlarge"></i></div>
+    <div class="w3-right">
+      <h3><br></h3>
+    </div>
+    <div class="w3-clear"></div>
+    <h4>Hantera snökanoner</h4>
+  </div>
+</div>
+
 
 
 </div>
@@ -173,6 +186,162 @@
       </div>
     </div>
   </div>
+
+
+
+
+
+
+
+
+        <!-- The Modal -->
+        <div id="id044" class="w3-modal">
+          <div class="w3-modal-content">
+            <div class="w3-container">
+              <span onclick="document.getElementById('id044').style.display='none'"
+              class="w3-closebtn">&times;</span>
+              <h3>Skicka förfrågan</h3>
+
+              <form id="skapaCAO2">
+                <p>Välj snökanon  *</p>
+                <select name='cannonID'>    
+                  <?php 
+                  foreach ($pdo->query('SELECT * FROM Cannon') as $row) {
+                    echo '<option value="'.$row['cannonID'].'">';
+                    echo "( ".$row['cannonID']." )".$row['klass'];
+                    echo "</option>".$row['state'];
+                  }
+                  ?></select> 
+                  <p>Ange ny position  *</p>
+
+                  <select name='name'>    
+                    <?php 
+                    foreach ($pdo->query('SELECT * FROM SubPlace') as $row) {
+                      echo '<option value="'.$row['name'].'">';
+                      echo $row['realName'];
+                      echo "</option>";
+                    }
+                    ?></select>    
+
+
+                    <p>Ange ny status  *</p>
+                    <select name="state">
+                      <?php
+                      $sql = 'SHOW COLUMNS FROM Cannon WHERE field="state"';
+                      $row = $pdo->query($sql)->fetch(PDO::FETCH_ASSOC);
+                      foreach(explode("','",substr($row['Type'],6,-2)) as $option) {
+                        print("<option>$option</option>");
+                      }
+                      ?>
+                    </select>
+
+                    <p>Entrepenör ansvarig <i>(ej akut)</i>  *</p>
+                    <select name='EntID'>    
+                      <?php 
+                      foreach ($pdo->query('SELECT * FROM Ent') as $row) {
+                        echo '<option value="'.$row['entID'].'">';
+                        echo $row['firstName']." ".$row['lastName']." (".$row['entID'].") ";
+                        echo "</option>";
+                      }
+                      ?></select>   
+
+                      <p>Sätt prioritet  *</p>
+                      <select name="Prioritering">
+                        <?php
+                        $sql = 'SHOW COLUMNS FROM WorkOrder WHERE field="priority"';
+                        $row = $pdo->query($sql)->fetch(PDO::FETCH_ASSOC);
+                        foreach(explode("','",substr($row['Type'],6,-2)) as $option) {
+                          print("<option>$option</option>");
+                        }
+                        ?>
+                      </select>
+                    </br></br>
+                    <textarea rows="5" cols="70" name="info2" placeholder="information om arbetsorder.."></textarea></br></br>
+                    <button type="button" onclick="SendForm('cannons','cannons','skapaCAO2');" class="HoverButton" >Skicka</button>
+                  </form>
+
+      <!--
+cannonID smallint,
+name smallint,
+skiID smallint,
+entID smallint,
+startStamp datetime,
+priority enum('low','medium','high','akut'),
+newStatus enum('on','off','unplugged','broken'),
+info varchar (1024))
+-->
+
+<?php
+#try
+if(isset($_POST['info2'])){
+
+              # Frågan till proceduren
+  $sql = "CALL _newCannonOrder(:cannonID, :name, :skiID, :entID, NOW() ,:priority, :state, :info)";
+
+              # kontroll om akut (isf default ent, så alla kan acceptera samt stoppar eventuellt försök på split för ansvarsområden)
+  if ($_POST['Prioritering'] == "akut"){
+    $_POST['EntID'] = "1";
+  }
+
+  $stmt = $pdo->prepare($sql);
+              # OBS -> skiID tas från session.
+  $stmt->bindParam(":skiID", $id, PDO::PARAM_INT);
+  $stmt->bindParam(":cannonID", $_POST['cannonID'], PDO::PARAM_INT);
+  $stmt->bindParam(":entID", $_POST['EntID'], PDO::PARAM_INT);
+  $stmt->bindParam(":priority", $_POST['Prioritering'], PDO::PARAM_STR);
+  $stmt->bindParam(":info", $_POST['info2'], PDO::PARAM_STR);
+  $stmt->bindParam(":name", $_POST['name'], PDO::PARAM_INT);
+  $stmt->bindParam(":state", $_POST['state'], PDO::PARAM_STR);
+  $stmt->execute();
+}
+?>
+</div>
+
+<div class="w3-threethird w3-margin w3-padding">
+  <h5></h5>
+  <table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white">
+    <tr>
+      <th><i class="fa fa-users w3-orange w3-text-white w3-padding-tiny"></i></th>
+      <th>Modell (id)</th>
+      <th>Position</th>
+      <th>Status</th>
+      <th>Effekt</th>
+    </tr>        
+    <?php     
+
+    foreach($pdo->query( 'SELECT * FROM ca order by cannonID desc;' ) as $row){
+      echo "<tr><td><i class='fa fa-eye w3-blue w3-padding-tiny'></i></td>";
+      echo "<td>".$row['klass']." (<b> ".$row['cannonID']."</b> ) </td>";
+/*        echo "<td>";
+        foreach($pdo->query( 'select realName from SubPlace, SubPlaceWorkOrder where SubPlace.name = SubPlaceWorkOrder.name and SubPlaceWorkOrder.orderID = '.$row ['orderID'].';' ) as $brow){;
+          echo $brow['realName']"</br>";
+              }
+              echo "</td>"; */
+              echo "<td>".$row['subPlaceName']."</td>";
+              echo "<td>".$row['state']."</td>";
+              echo "<td>".$row['effect']."</td>";
+              echo "</tr>";
+            }
+            ?>
+          </table>
+        </div>
+
+
+      </div>
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
 
   <!-- The Modal -->
   <div id="id03" class="w3-modal">
