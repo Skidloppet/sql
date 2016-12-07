@@ -648,3 +648,17 @@ call _deleteCOM ('1');
 -- select count(*) from OldCommentSubPlace where OldCommentSubPlace.orderID ='1' ;
 -- select count(*)as b from OldCommenta where del="1";
 -- call _deleteCOM (:commentID)
+-- 13. procedur för att ta bort arbetsorder
+
+
+/*DROP PROCEDURE IF EXISTS deleteSki;
+DELIMITER //
+CREATE PROCEDURE deleteSki (deleteSkiID smallint)
+BEGIN
+IF (deleteSkiID IS NOT NULL) THEN
+	DELETE FROM Ski WHERE deleteSkiID=skiID;
+ELSE
+	SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'This skiID does not exist!';
+END IF;
+END //
+DELIMITER ;*/
