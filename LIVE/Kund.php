@@ -237,9 +237,7 @@ article {
         <a class="w3-padding-large" href="javascript:void(0)" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
       </li>
       <li><a href="#" class="w3-hover-none w3-hover-text-grey w3-padding-large">Hem</a></li>
-      <li class="w3-hide-small"><a href="#Kommentar1" class="w3-padding-large">Kundernas kommentar</a></li> 
       <li class="w3-hide-small"><a href="#Snitt" class="w3-padding-large">Arenans status</a></li> 	  
-      <li class="w3-hide-small"><a href="#Kommentar2" class="w3-padding-large">Kommentera sträckan</a></li>
 
       <!-- kollar om man INTE är inloggad -->
       <?php
@@ -313,20 +311,21 @@ article {
 
   <!-- Automatic Slideshow Images -->
   <div class="mySlides w3-display-container w3-center">
-    <img src="bild1.jpg" style="width:100%;height:450px">
+    <img src="bild1.jpg" style="width:100%;height:700px">
     <div class="w3-display-bottommiddle w3-container w3-text-white w3-padding-32 w3-hide-small">
       <p></p>
     </div>
   </div>
   <div class="mySlides w3-display-container w3-center">
-    <img src="bild3.jpg" style="width:100%;;height:450px">
+    <img src="bild3.jpg" style="width:100%;;height:700px">
     <div class="w3-display-bottommiddle w3-container w3-text-white w3-padding-32 w3-hide-small">
       <h3></h3>
       <p><b></b></p>
     </div>
   </div>
   <div class="mySlides w3-display-container w3-center">
-    <img src="bild6.jpg" style="width:100%;height:450px">
+    <img src="bild6.jpg" style="width:100%;height:700px">
+    <img src="bild6.jpg" style="width:100%;height:700px">
     <div class="w3-display-bottommiddle w3-container w3-text-white w3-padding-32 w3-hide-small">
       <h3></h3>
       <p><b></b></p>
@@ -339,13 +338,14 @@ article {
 </div>
   
   <!-- kartan --> 
-<div class="w3-row-padding w3-panel w3-card-8 w3-round-xlarge w3-padding" style="max-width:950px; border-color:lightblue; border-style: solid; border-width: 5px;">
+<div style="max-width: 100%;">
     <?php
     include'includes/mapFkund.php';
     ?>
     <h4>Klicka på en delsträcka för information och kommentarer *</h4>
 
   </div>
+
 
 
 
@@ -395,8 +395,8 @@ if(isset($_GET['DS'])){
         <th>Underlag</th>
         <th>Kanter</th>
         <th>Fäste</th>
-        <th>Djup(cm)</th>
-        <th>Längd (km)</th>
+        <th>Djup</th>
+        <th>Längd</th>
         <th>m.ö.h</th>
       </tr>
     </div>
@@ -423,12 +423,12 @@ if(isset($_GET['DS'])){
    echo '<tr>';
    echo "<td>".$row['realname']."</td>";
    echo "<td>".$row['startDate']."</td>";
-   echo "<td>".$stars."</td>";
-   echo "<td>".$row['underlay']."</td>";
-   echo "<td>".$row['edges']."</td>";
-   echo "<td>".$row['grip']."</td>";
-   echo "<td>".$row['depth']."</td>";
-   echo "<td>".$row['length']."</td>";
+   echo "<td>".$stars."/5</td>";
+   echo "<td>".$row['underlay']."/5</td>";
+   echo "<td>".$row['edges']."/5</td>";
+   echo "<td>".$row['grip']."/5</td>";
+   echo "<td>".$row['depth']."Cm</td>";
+   echo "<td>".$row['length']."Km</td>";
    echo "<td>".$row['height']."</td>";
    echo "</tr>"; 
  }
@@ -562,7 +562,7 @@ $kund = "1337";
       echo '<tr>';
       echo "<td>".$row['kommentar']."</td>";
       echo "<td>".$row['alias']."</td>";
-      echo "<td>".$row['grade']."</td>";
+      echo "<td>".$row['grade']."/5</td>";
       echo "<td>".$row['date']."</td>";
       echo "<td>".$row['realname']."</td>";
 
