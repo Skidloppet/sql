@@ -506,7 +506,7 @@ begin
 END //
 DELIMITER ;
 
-call _newResponsability ('3','1');
+-- call _newResponsability ('3','1');
 -- select * from WorkOrder;
 -- call _finnishedCannonOrder('2','1',now(),'texttesttets');
 
@@ -531,7 +531,7 @@ begin
 END //
 DELIMITER ;
 
-call _newNumber ('1487654321','1');
+-- call _newNumber ('1487654321','1');
 -- select * from Ent;
 -- call _finnishedCannonOrder('2','1',now(),'texttesttets');
 
@@ -555,7 +555,7 @@ begin
 END //
 DELIMITER ;
 
- call _akut ('1','asd@hotmail.com');
+ -- call _akut ('1','asd@hotmail.com');
 -- select * from WorkOrder;
 -- select * from Ent;
 -- call _finnishedCannonOrder('2','1',now(),'texttesttets');
@@ -575,7 +575,7 @@ where date < DATE_SUB(CURDATE(), interval 48 hour);
 END //
 DELIMITER ;
 
-call _removeComment();
+-- call _removeComment();
 
 
 -- 19 Ändra ansvarande entreprenör över sträcka
@@ -625,7 +625,7 @@ begin
 END //
 DELIMITER ;
 
-call _newResponsabilityC ('3','30');
+-- call _newResponsabilityC ('3','30');
 -- select * from CannonSubPlace;
 -- call _finnishedCannonOrder('2','1',now(),'texttesttets');
 -- SELECT * FROM Commenta order by commentID desc;
@@ -641,7 +641,7 @@ update OldCommenta set del = "1"  where commentID=delCommentID;
 END //
 DELIMITER ;
 -- 
-call _deleteCOM ('1');
+-- call _deleteCOM ('1');
 -- select count(*)as b from OldCommenta where del="1";
 -- select * from Commenta;
 -- select * from OldCommenta;
@@ -650,6 +650,7 @@ call _deleteCOM ('1');
 -- select count(*)as b from OldCommenta where del="1";
 -- call _deleteCOM (:commentID)
 -- 13. procedur för att ta bort arbetsorder
+
 
 
 

@@ -38,111 +38,115 @@ foreach($pdo->query( 'select count(*)as i from Error;') as $row){
 
 
 
-<!-- The Modal -->
-<div id="id077" class="w3-modal">
-  <div class="w3-modal-content">
-    <div class="w3-container">
-      <span onclick="document.getElementById('id077').style.display='none'"
-      class="w3-closebtn">&times;</span>
-      <h3>Skapa ny arbetsorder</h3>
-      <form id="skapaAO">
 
-        <p>Prioritet  *</p>
-        <select name="Prioritering">
-          <?php
-          $sql = 'SHOW COLUMNS FROM WorkOrder WHERE field="priority"';
-          $row = $pdo->query($sql)->fetch(PDO::FETCH_ASSOC);
-          foreach(explode("','",substr($row['Type'],6,-2)) as $option) {
-            print("<option>$option</option>");
-          }
-          ?>
-        </select>
+    <!-- The Modal -->
+    <div id="id077" class="w3-modal">
+      <div class="w3-modal-content">
+        <div class="w3-container">
+          <span onclick="document.getElementById('id077').style.display='none'"
+          class="w3-closebtn">&times;</span>
+          <h3>Skapa ny arbetsorder</h3>
+          <form id="skapaAO2">
 
-        <p>Typ  *</p>
-        <select name="type">
-          <?php
-          $sql = 'SHOW COLUMNS FROM WorkOrder WHERE field="type"';
-          $row = $pdo->query($sql)->fetch(PDO::FETCH_ASSOC);
-          foreach(explode("','",substr($row['Type'],6,-2)) as $option) {
-            print("<option>$option</option>");
-          }
-          ?>
-        </select>
+            <p>Prioritet  *</p>
+            <select name="Prioritering">
+              <?php
+              $sql = 'SHOW COLUMNS FROM WorkOrder WHERE field="priority"';
+              $row = $pdo->query($sql)->fetch(PDO::FETCH_ASSOC);
+              foreach(explode("','",substr($row['Type'],6,-2)) as $option) {
+                print("<option>$option</option>");
+              }
+              ?>
+            </select>
 
-
-      </br></br>
+            <p>Typ  *</p>
+            <select name="type">
+              <?php
+              $sql = 'SHOW COLUMNS FROM WorkOrder WHERE field="type"';
+              $row = $pdo->query($sql)->fetch(PDO::FETCH_ASSOC);
+              foreach(explode("','",substr($row['Type'],6,-2)) as $option) {
+                print("<option>$option</option>");
+              }
+              ?>
+            </select>
 
 
-      <textarea rows="5" cols="70" name="info1" placeholder="information om arbetsorder.."></textarea></br></br>
-      <p>Entrepenör ansvarig *</p>
-      <select name='EntID'>    
-        <?php 
-        foreach ($pdo->query('SELECT * FROM Ent') as $row) {
-          echo '<option value="'.$row['entID'].'">';
-          echo $row['firstName']." ".$row['lastName']." (".$row['entID'].") ";
-          echo "</option>";
-        }
-        ?></select>   
+          </br></br>
 
-        <select name='Start'>    
-          <?php 
-          foreach ($pdo->query('SELECT * FROM SubPlace') as $row) {
-            echo '<option value="'.$row['name'].'">';
-            echo $row['realName'];
-            echo "</option>";
-          }
-          ?></select>  
 
-          <select name='Slut' >    
+          <textarea rows="5" cols="70" name="info1" placeholder="information om arbetsorder.."></textarea></br></br>
+          <p>Entrepenör ansvarig *</p>
+          <select name='EntID'>    
             <?php 
-            echo '<option selected="selected" value="Q" > Välj t.o.m delsträcka ';
-            foreach ($pdo->query('SELECT * FROM SubPlace') as $row) {
-              echo '<option value="'.$row['name'].'">';
-              echo $row['realName'];
+            foreach ($pdo->query('SELECT * FROM Ent') as $row) {
+              echo '<option value="'.$row['entID'].'">';
+              echo $row['firstName']." ".$row['lastName']." (".$row['entID'].") ";
               echo "</option>";
             }
-            ?></select>
-            <input type="checkbox" name="split" value="1"> Dela upp på ansvarsområden<br>
-            <button type="button" onclick="SendForm('workorder','workorder','skapaAO');" class="HoverButton" >Skicka</button>
+            ?></select>   <br><br>
 
-          </form>
+          <p>Välj plats(er) *</p>
+            <select name='Start'>    
+              <?php 
+              foreach ($pdo->query('SELECT * FROM SubPlace') as $row) {
+                echo '<option value="'.$row['name'].'">';
+                echo $row['realName'];
+                echo "</option>";
+              }
+              ?></select>  
 
-          <?php
+              <select name='Slut' >    
+                <?php 
+                echo '<option selected="selected" value="Q" > Välj t.o.m delsträcka ';
+                foreach ($pdo->query('SELECT * FROM SubPlace') as $row) {
+                  echo '<option value="'.$row['name'].'">';
+                  echo $row['realName'];
+                  echo "</option>";
+                }
+                ?></select><br><br>
+                <input type="checkbox" name="split" value="1"> Dela upp på ansvarsområden ( <i>Ej akut*</i> )<br><br>
+                <button type="button" onclick="SendForm('errorreport','errorreport','skapaAO2');" class="HoverButton" >Skicka</button>
+
+              </form>
+
+              <?php
 #try
-          if(isset($_POST['info1'])){
+              if(isset($_POST['info1'])){
 
               # Frågan till proceduren
-            $sql = "CALL _newSplitWorkOrder(:newSkiID, :newEntID, NOW() ,:newPriority, :newType, :newInfo, :newSplit, :startName, :endName)";
-
-              # kontroll om akut (isf default ent, så alla kan acceptera samt stoppar eventuellt försök på split för ansvarsområden)
-
-        #      if ($_POST['Prioritering'] == "akut"){
-         #       $_POST['EntID'] = "1";
-          #      $_POST['split'] = "0";
-           #   }
+                $sql = "CALL _newSplitWorkOrder(:newSkiID, :newEntID, NOW() ,:newPriority, :newType, :newInfo, :newSplit, :startName, :endName)";
 
               # hantera när ingen slutstation är vald (gör så slut blir desamma som start)
-            if($_POST['Slut'] === "Q") {
-              $_POST['Slut'] = $_POST['Start'];
-            }
+                if($_POST['Slut'] === "Q") {
+                  $_POST['Slut'] = $_POST['Start'];
+                }       
+        
+              # kontroll om akut (isf default ent, så alla kan acceptera samt stoppar eventuellt försök på split för ansvarsområden)
 
-            $stmt = $pdo->prepare($sql);
+              if ($_POST['Prioritering'] == "Akut"){
+                $_POST['EntID'] = "1";
+                $_POST['split'] = "0";
+        
+        $response = file_get_contents($sms_url . "?" . $parameters);
+              }
+
+
+                $stmt = $pdo->prepare($sql);
               # OBS -> skiID tas från session.
-            $stmt->bindParam(":newSkiID", $id, PDO::PARAM_INT);
-            $stmt->bindParam(":newEntID", $_POST['EntID'], PDO::PARAM_INT);
-            $stmt->bindParam(":newPriority", $_POST['Prioritering'], PDO::PARAM_STR);
-            $stmt->bindParam(":newType", $_POST['type'], PDO::PARAM_STR);
-            $stmt->bindParam(":newInfo", $_POST['info1'], PDO::PARAM_STR);
-            $stmt->bindParam(":newSplit", $_POST['split'], PDO::PARAM_INT);
-            $stmt->bindParam(":startName", $_POST['Start'], PDO::PARAM_INT);
-            $stmt->bindParam(":endName", $_POST['Slut'], PDO::PARAM_INT);
-            $stmt->execute();
-          }
-          ?>
+                $stmt->bindParam(":newSkiID", $id, PDO::PARAM_INT);
+                $stmt->bindParam(":newEntID", $_POST['EntID'], PDO::PARAM_INT);
+                $stmt->bindParam(":newPriority", $_POST['Prioritering'], PDO::PARAM_STR);
+                $stmt->bindParam(":newType", $_POST['type'], PDO::PARAM_STR);
+                $stmt->bindParam(":newInfo", $_POST['info1'], PDO::PARAM_STR);
+                $stmt->bindParam(":newSplit", $_POST['split'], PDO::PARAM_INT);
+                $stmt->bindParam(":startName", $_POST['Start'], PDO::PARAM_INT);
+                $stmt->bindParam(":endName", $_POST['Slut'], PDO::PARAM_INT);
+                $stmt->execute();
+              }
+              ?>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-
 
 
 
