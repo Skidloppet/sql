@@ -178,8 +178,8 @@ DELIMITER ;
 
 -- call _newReport (3, now(), '2016-11-12', '5', '5', '5', '5', 23.1, 'lade till kommentar bild snart?', 1, 6);
 -- call _newReport (3, now(), '2016-10-13', '2', '4', '4', '4', 23.1, 5,5);
--- call _newReport (3, now(), '2016-10-13', '3', '4', '4', '4', 23.1, 'beep',1,21);
- call _newReport (1, now(), '2016-11-12', '5', '5', '5', '5', 111.1, 'insert från sql-procedure', 1, 21);
+call _newReport (3, now(), '2016-10-13', '3', '4', '4', '4', 23.1, 'beep',1,21);
+call _newReport (3, now(), '2016-11-12', '5', '5', '5', '5', 23.1, 'lade till kommentar bild snart?', 1, 6);
 
 -- select * from ReportSubPlace;
 
@@ -229,7 +229,7 @@ WHILE nameCounter<=endName DO
 COMMIT ;
 END //
 DELIMITER ;
-/*
+
 call _NewComment ('Härlig Upplevelse','Connor McGregor','2',now(),'2','5');
 call _NewComment ('Hej','Lars','2',now(),'6','1');
 call _NewComment ('en kommentar på några spår','Klas','2',now(),'1','6');
@@ -239,7 +239,7 @@ call _NewComment ('kottarkottarkottarkottar','Jon Jones','2',now(),'1','6');
 -- 
 -- select * from CommentSubPlace;
 -- select * from Commenta;
-*/
+
 
 
 -- 9. Procedure för nya felanmälan
@@ -288,8 +288,8 @@ COMMIT ;
 END //
 DELIMITER ;
 
--- call _NewError ('mörkt överallt','1',now(),'Ljus','1','3');
--- call _NewError ('träd över spåret','2',now(),'Träd','3','1');
+call _NewError ('mörkt överallt','1',now(),'Ljus','1','3');
+call _NewError ('träd över spåret','2',now(),'Träd','3','1');
 -- select * from ErrorSubPlace;
 
 
@@ -346,7 +346,6 @@ if newSplit = 1 then
             where WorkOrder.orderID = LastInsert;
 -- tilldelar LastInsert reportID's auto_increment värde för kopplingen i N:M tabellen
 		insert into SubPlaceWorkOrder(name, orderID) values (nameCounter, LastInsert);
-		 insert into FinnishedSubPlaceWorkOrder(name, orderID) values (nameCounter, LastInsert);
 		set nameCounter = nameCounter + 1;
 		END WHILE;
 	else
@@ -359,7 +358,6 @@ if newSplit = 1 then
 --     for ($i=0;$i<$numRecs;$i++) {       <-- alternativ lösning (ev. bättre & snyggare)
 		WHILE nameCounter<=endName DO
 			insert into SubPlaceWorkOrder(name, orderID) values (nameCounter, LastInsert);
-			 insert into FinnishedSubPlaceWorkOrder(name, orderID) values (nameCounter, LastInsert);
 			set nameCounter = nameCounter + 1;
 			END WHILE;
 		end if;
@@ -367,10 +365,9 @@ COMMIT ;
 END //
 DELIMITER ;
 /*
-delete from FinnishedSubPlaceWorkOrder where orderID='1';
-call _newSplitWorkOrder ('2','2',now(),'Hög','Bana','spåra spåren','1','1','6');
+call _newSplitWorkOrder ('1','1',now(),'Hög','Bana','spåra spåren','1','1','6');
 call _newSplitWorkOrder ('1','1',now(),'Akut','Träd','träda träden','0','1','6');
-select * from FinnishedSubPlaceWorkOrder;
+select * from SubPlaceWorkOrder;
 select * from WorkOrder;
 */
 
@@ -405,9 +402,9 @@ begin
 END //
 DELIMITER ;
 -- call _finnishedWorkOrder('2','3',now(),'text');
+-- select * from WorkOrder;
 -- select * from FinnishedWorkOrder;
--- select * from SubPlaceWorkOrder;
--- select realName from SubPlace, FinnishedSubPlaceWorkOrder where SubPlace.name = FinnishedSubPlaceWorkOrder.name and FinnishedSubPlaceWorkOrder.orderID = '5';
+
 
 -- 12. Procedure för nya cannon arbetsordrar
 DROP PROCEDURE IF EXISTS _newCannonOrder;
@@ -425,12 +422,11 @@ info varchar (1024))
 BEGIN
 
 INSERT INTO CannonSubPlace (cannonID, name, skiID,entID, startStamp, priority,newStatus, info) values (cannonID, name, skiID,entID, startStamp, priority,state, info);
--- INSERT INTO FinnishedCannonSubPlace (cannonID, name, skiID,entID, startStamp, priority,newStatus, info) values (cannonID, name, skiID,entID, startStamp, priority,state, info);
 
 COMMIT ;
 END //
 DELIMITER ;
--- call _newCannonOrder ('1','2','1','1',NOW(),'Låg','on','fdgfhfgdsfad');
+call _newCannonOrder ('1','2','1','1',NOW(),'Låg','on','fdgfhfgdsfad');
 
 -- select * from CannonSubPlace;
 
@@ -479,10 +475,13 @@ begin
        
    DELETE FROM CannonSubPlace where orderID=finnishedOrderID;
    
+   
+   
+   
    COMMIT ;
 END //
 DELIMITER ;
--- call _finnishedCannonOrder('1','1',now(),'texttesttets');
+-- call _finnishedCannonOrder('31','1',now(),'texttesttets');
 -- SELECT * FROM CannonSubPlace;
 -- select * from FinnishedCannonSubPlace;
 
@@ -506,7 +505,7 @@ begin
 END //
 DELIMITER ;
 
--- call _newResponsability ('3','1');
+call _newResponsability ('3','1');
 -- select * from WorkOrder;
 -- call _finnishedCannonOrder('2','1',now(),'texttesttets');
 
@@ -531,7 +530,7 @@ begin
 END //
 DELIMITER ;
 
--- call _newNumber ('1487654321','1');
+call _newNumber ('1487654321','1');
 -- select * from Ent;
 -- call _finnishedCannonOrder('2','1',now(),'texttesttets');
 
@@ -555,7 +554,7 @@ begin
 END //
 DELIMITER ;
 
--- call _akut ('1','asd@hotmail.com');
+ call _akut ('1','asd@hotmail.com');
 -- select * from WorkOrder;
 -- select * from Ent;
 -- call _finnishedCannonOrder('2','1',now(),'texttesttets');
@@ -575,7 +574,7 @@ where date < DATE_SUB(CURDATE(), interval 48 hour);
 END //
 DELIMITER ;
 
--- call _removeComment();
+call _removeComment();
 
 
 -- 19 Ändra ansvarande entreprenör över sträcka
@@ -625,7 +624,7 @@ begin
 END //
 DELIMITER ;
 
--- call _newResponsabilityC ('3','30');
+call _newResponsabilityC ('3','30');
 -- select * from CannonSubPlace;
 -- call _finnishedCannonOrder('2','1',now(),'texttesttets');
 -- SELECT * FROM Commenta order by commentID desc;
@@ -641,7 +640,7 @@ update OldCommenta set del = "1"  where commentID=delCommentID;
 END //
 DELIMITER ;
 -- 
--- call _deleteCOM ('1');
+call _deleteCOM ('1');
 -- select count(*)as b from OldCommenta where del="1";
 -- select * from Commenta;
 -- select * from OldCommenta;
@@ -649,6 +648,6 @@ DELIMITER ;
 -- select count(*) from OldCommentSubPlace where OldCommentSubPlace.orderID ='1' ;
 -- select count(*)as b from OldCommenta where del="1";
 -- call _deleteCOM (:commentID)
-
+-- 13. procedur för att ta bort arbetsorder
 
 
