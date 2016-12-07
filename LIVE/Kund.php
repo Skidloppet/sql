@@ -311,20 +311,20 @@ article {
 
   <!-- Automatic Slideshow Images -->
   <div class="mySlides w3-display-container w3-center">
-    <img src="bild1.jpg" style="width:100%;height:700px">
+    <img src="bild1.jpg" style="width:100%;height:470px">
     <div class="w3-display-bottommiddle w3-container w3-text-white w3-padding-32 w3-hide-small">
       <p></p>
     </div>
   </div>
   <div class="mySlides w3-display-container w3-center">
-    <img src="bild3.jpg" style="width:100%;;height:700px">
+    <img src="bild3.jpg" style="width:100%;;height:470px">
     <div class="w3-display-bottommiddle w3-container w3-text-white w3-padding-32 w3-hide-small">
       <h3></h3>
       <p><b></b></p>
     </div>
   </div>
   <div class="mySlides w3-display-container w3-center">
-    <img src="bild6.jpg" style="width:100%;height:700px">
+    <img src="bild6.jpg" style="width:100%;height:470px">
     <div class="w3-display-bottommiddle w3-container w3-text-white w3-padding-32 w3-hide-small">
       <h3></h3>
       <p><b></b></p>
@@ -513,7 +513,6 @@ $kund = "1337";
             $stmt = $pdo->prepare($sql);
             $stmt->bindParam(":newErrorDesc", $_POST['desc'], PDO::PARAM_STR);
             $stmt->bindParam(":newEntID", $kund, PDO::PARAM_INT);
-
             $stmt->bindParam(":newType", $_POST['type'], PDO::PARAM_STR);
             $stmt->bindParam(":startName", $_POST['Start'], PDO::PARAM_INT);
             $stmt->bindParam(":endName", $_POST['Slut'], PDO::PARAM_INT);
@@ -583,7 +582,7 @@ $kund = "1337";
    </header>
    <h3>Ny kommentar</h3>
    <form action ='Kund.php' method='POST'>
-    <textarea rows="5" cols="70" name="comment" placeholder="Fritext kommentar.."></textarea>
+    <textarea rows="5" cols="70" name="comment" placeholder="Skriv här..."></textarea>
   </br>
   <input type="text" name="alias" placeholder="Namn">
   <select name='grade'>
@@ -624,7 +623,7 @@ $kund = "1337";
 
 </form>
 
-
+ 
 <?php
   # skapa ett errormedelande vid fel input (inget alias, kommentar över 1024 tecken, inget start/slut)
 
