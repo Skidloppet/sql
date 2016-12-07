@@ -58,7 +58,7 @@ foreign key (entID) references Ent(entID)
 
 -- tabell för arbetsorder
 create table FinnishedWorkOrder (
-orderID int not null unique,
+orderID int not null auto_increment unique,
 skiID smallint not null,
 entID smallint not null,
 -- not null här pga den som genomförde arbetet
@@ -69,7 +69,7 @@ type enum('Ljus','Bana','Skräp','Träd','Annat') null,
 info varchar(1024),
 EntComment varchar(1024),
 primary key (orderID),
--- foreign key (skiID) references Ski(skiID),
+ foreign key (skiID) references Ski(skiID),
 foreign key (entID) references Ent(entID)
 )engine=innodb;
 
@@ -180,6 +180,16 @@ orderID int not null,
 -- Kanske lägga till datum för pågående arbete eller annat?
 primary key (orderID, name),
 foreign key (orderID) references WorkOrder(orderID)ON DELETE CASCADE,
+foreign key (name) references SubPlace(name)
+)engine=innodb;
+
+create table FinnishedSubPlaceWorkOrder(
+id int not null auto_increment unique,
+name smallint not null,
+orderID int not null,
+-- Kanske lägga till datum för pågående arbete eller annat?
+primary key (id),
+-- foreign key (orderID) references WorkOrder(orderID)ON DELETE CASCADE,
 foreign key (name) references SubPlace(name)
 )engine=innodb;
 
@@ -301,13 +311,13 @@ insert into Place (name, info) values
 ('Garage','Garage för pistmaskiner');
 
 
-
+/*
 insert into WorkOrder (skiID, entID, sentDate, endDate, priority, info, EntComment,type) values 
 ('1','1',now(),'','Akut','ligger en död kanin på spåret', 'text1','dirt'),
 ('1','2',now(),'','Hög','träd som ligger över spåren','text2','dirt'),
 ('1','3',now(),'','Medium','grus vid lerdalen','text3','dirt'),
 ('1','2',now(),'','Låg','sten','text4','dirt'); 
-/*
+
 insert into FinnishedWorkOrder (OrderID, entID, sentDate, endDate, priority, info, EntComment) values
 ('1','1','2016-01-15','','akut','död snubbe på spåret','text1'),
 ('3','1','2016-01-17','','low','sten','text2');
@@ -379,7 +389,7 @@ insert into Cannon (subPlaceName, model, state, effect,klass) values
 ('HUVUDGARAGET','MOV','Urkopplad','0.5','Top Gun 7'),
 ('HUVUDGARAGET','MOV','Urkopplad','0.5','Top Gun 7');
 
-
+/*
 insert into Report (entID, startDate, workDate, rating, underlay, edges, grip, depth) values
 ('1','2011-11-11','2011-09-11','1','2','3','4','54'),
 ('1','2011-11-11','2011-10-11','3','3','2','4','65'),
@@ -391,7 +401,7 @@ insert into CannonSubPlace (CannonID, name, entID, startStamp, endStamp, newStat
 ('3','1','3',now(),now(),'På','text från ski2','not finnished');
 
 
-/*
+
 insert into Error (entID, sentDate, grade, errorDesc, type) values 
 ('1',now(),'high','fallna träd','trees'),
 ('1',now(),'akut','grus','dirt'),
@@ -403,13 +413,13 @@ insert into ReportSubPlace(reportID, name) values
 ('1','3'),
 ('2','1'),
 ('2','2');
-*/
+
 
 insert into SubPlaceWorkOrder(name,orderID) values 
 ('1','1'),
 ('1','2'),
 ('1','3');
-/*
+
 insert into ErrorSubPlace(name,errorID) values 
 ('1','1'),
 ('1','2'),
@@ -422,6 +432,9 @@ insert into CommentSubPlace (CommentID, name) values
 ('3','2'),
 ('3','3');
 */
+
+
+
 
 
 
