@@ -353,20 +353,20 @@ article {
 
     <!-- Automatic Slideshow Images -->
     <div class="mySlides w3-display-container w3-center">
-      <img src="bild1.jpg" style="width:100%;height:470px">
+      <img src="bild1.jpg" style="width:100%;height:640px">
       <div class="w3-display-bottommiddle w3-container w3-text-white w3-padding-32 w3-hide-small">
         <p></p>
       </div>
     </div>
     <div class="mySlides w3-display-container w3-center">
-      <img src="bild3.jpg" style="width:100%;;height:470px">
+      <img src="bild3.jpg" style="width:100%;;height:640px">
       <div class="w3-display-bottommiddle w3-container w3-text-white w3-padding-32 w3-hide-small">
         <h3></h3>
         <p><b></b></p>
       </div>
     </div>
     <div class="mySlides w3-display-container w3-center">
-      <img src="bild6.jpg" style="width:100%;height:470px">
+      <img src="bild6.jpg" style="width:100%;height:640px">
       <div class="w3-display-bottommiddle w3-container w3-text-white w3-padding-32 w3-hide-small">
         <h3></h3>
         <p><b></b></p>
@@ -377,14 +377,18 @@ article {
   <div class="w3-container w3-content w3-padding-20" style="max-width:950px margin-bottom:-150px;": id="Status">
     <div class="w3-center"> <img src="skidlogo.jpg" style="width:70%;height:250px">
     </div>
-    
+
     <!-- kartan --> 
-    <div style="max-width: 100%;">
+    <div style="max-width: 100%; ">
       <?php
       include'includes/mapFkund.php';
       ?>
       <h4>Klicka på en delsträcka för information och kommentarer *</h4>
 
+        <li class="w3-green w3-card" style="width:25px; height:25px;   border-radius: 50%;"></li>Grönt = 4/5
+        <li class="w3-yellow w3-card" style="width:25px; height:25px;   border-radius: 50%;"></li>Gult = 3
+        <li class="w3-red w3-card" style="width:25px; height:25px;   border-radius: 50%;"></li>Rött = 1/2
+      
     </div>
 
 
@@ -404,7 +408,7 @@ article {
         <div class="container">
 
           <header>
-           <h1>Delsträckornas status </h1>
+           <h1>Information om vald delsträcka </h1>
          </header>
 
          <nav>
@@ -415,12 +419,12 @@ article {
             <p>Bommansbo    88 Km </p>
             <p>Smejdeback   66 Km </p>
             <p>Björsjö      88 Km </p>
-            
-            
-            
-            
-            
-            
+
+
+
+
+
+
           </ul>
         </nav>
 
@@ -432,11 +436,11 @@ article {
             <tr>
               <th>Delsträcka</th>
               <th>Startdatum</th>
-              <th>Betyg</th>
+              <th>Helhets betyg</th>
               <th>Underlag</th>
-              <th>Kanter</th>
-              <th>Fäste</th>
-              <th>Djup</th>
+              <th>Spåranter</th>
+              <th>Stavfäste</th>
+              <th>Snödjup</th>
               <th>Längd</th>
               <th>m.ö.h</th>
             </tr>
@@ -464,12 +468,12 @@ article {
      echo '<tr>';
      echo "<td>".$row['realname']."</td>";
      echo "<td>".$row['startDate']."</td>";
-     echo "<td>".$stars."/5</td>";
-     echo "<td>".$row['underlay']."/5</td>";
-     echo "<td>".$row['edges']."/5</td>";
-     echo "<td>".$row['grip']."/5</td>";
-     echo "<td>".$row['depth']."Cm</td>";
-     echo "<td>".$row['length']."Km</td>";
+     echo "<td>".$stars."</td>";
+     echo "<td>".$row['underlay']." / 5</td>";
+     echo "<td>".$row['edges']." / 5</td>";
+     echo "<td>".$row['grip']." / 5</td>";
+     echo "<td>".$row['depth']." cm</td>";
+     echo "<td>".$row['length']." km</td>";
      echo "<td>".$row['height']."</td>";
      echo "</tr>"; 
    }
@@ -483,7 +487,7 @@ article {
  <div class="container">
 
   <header>
-   <h1> Information om sträckorna</h1>
+   <h1> Kundkommentarer ( <i>48h</i> )</h1>
  </header>
  <nav>
   <ul>
@@ -491,9 +495,9 @@ article {
       <button onclick="document.getElementById('id02').style.display='block'" style="width:auto;"><i class="fa fa-flag w3-xxlarge" aria-hidden="true"></i></button>
     </li>
     <li>Felanmälan </li>
-    
-    
-    
+
+
+
 
 
 
@@ -554,7 +558,6 @@ article {
 
 
 <article>
-  <h3>Kommentar </h3>
   <div id="table-wrapper">
     <div id="table-scroll"> 
       <table>
