@@ -125,7 +125,6 @@ klass varchar(32) not null,
 primary key (cannonID)
 )engine=innodb;
 
-
 -- Tabell för avrapportering av dagligt underhåll 
 create table Report(
 reportID int not null auto_increment unique,
@@ -240,7 +239,6 @@ foreign key (skiID) references Ski(SkiID),
 foreign key (entID) references Ent(entID)
 )engine=innodb;
 
-
 create table FinnishedCannonSubPlace (
 orderID int not null auto_increment unique,
 cannonID smallint,
@@ -282,8 +280,10 @@ insert into Ski (password, firstName, lastName, email, number, type, regDate) va
 ('pass','Anna','Holm','Anna.Holm@skidloppet.se','1234522293','other','2016-11-01'),
 ('pass','Rune','Lund','Rune.Lund@skidloppet.se','04040404','arenachef','2016-11-01');
 
+
 insert into Ent (password, firstName, lastName, email, number, regDate) values 
-('pass','Global Användare','','ent','0205624321','2016-11-05'),
+('pass','Global','','ent','0205624321','2016-11-05'),
+('Kund','Kund','','Kund','0057132323','2016-11-01'),
 ('sture','Sture','Ekman','Sture.Ekman@skidloppet.se','0046704719082','2016-11-01'),
 ('andersson','Bröderna','Andersson','Bröderna.Andersson@skidloppet.se','0046707966871','2016-11-01'),
 ('persson','Siv-Jan','Persson','SoJ.Persson@skidloppet.se','0046733504750','2016-11-01'),
@@ -294,8 +294,7 @@ insert into Ent (password, firstName, lastName, email, number, regDate) values
 ('vidar','Vidar','Ytter','Vidar.Ytter@skidloppet.se','00551232','2016-11-01'),
 ('urban','Urban','Garv','Urban.Garv@skidloppet.se','0057131323','2016-11-01');
 
-insert into Ent(entID, password, firstName, lastName, email, number, regDate) values 
-('1337','Kund','Kund','Kund','Kund','0057132323','2016-11-01');
+
 
 
 
@@ -436,6 +435,7 @@ insert into CommentSubPlace (CommentID, name) values
 ('3','2'),
 ('3','3');
 */
+
 
 
 

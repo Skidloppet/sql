@@ -19,6 +19,10 @@ if(isset($_POST['CreateComment'])){
 
     #$deleteC = "DELETE FROM Commenta WHERE date < NOW() - INTERVAL 48 HOUR;";
   $sql = "CALL _NewComment(:newComment, :newAlias, :newGrade, now(), :startName, :endName);";
+
+                if($_POST['Slut'] === "Q") {
+                  $_POST['Slut'] = $_POST['Start'];
+                }     
   $stmt = $pdo->prepare($sql);
     #$stmt = $pdo->query($deleteC);
 
@@ -34,9 +38,12 @@ if(isset($_POST['CreateComment'])){
 
 <?php
 #  $em = $_SESSION['email'];
-$kund = "1337";
+$kund = "1";
 if(isset($_POST['Error'])){
 
+                if($_POST['Slut'] === "Q") {
+                  $_POST['Slut'] = $_POST['Start'];
+                }     
   $sql = "CALL _NewError(:newErrorDesc, :newEntID, NOW() , :newType, :startName, :endName);";
 
   $stmt = $pdo->prepare($sql);
@@ -539,6 +546,7 @@ article {
         <p>Vart slutar problemets inverkan?:</p>
         <select name='Slut'>    
           <?php 
+           echo '<option selected="selected" value="Q" > Välj t.o.m delsträcka ';
           foreach ($pdo->query('SELECT * FROM SubPlace') as $row) {
             echo '<option value="'.$row['name'].'">';
             echo $row['realName'];
@@ -639,7 +647,8 @@ article {
 
 <select size='1' name='endName'>
   <option selected="selected"> Välj slutpunkt </option>
-  <?php    
+  <?php  
+             echo '<option selected="selected" value="Q" > Välj t.o.m delsträcka ';  
   foreach($pdo->query( 'SELECT * FROM SubPlace where name<"21" ORDER BY name;' ) as $row){
     echo '<option value="'.$row['name'].'">';
     echo $row['realName'];      
