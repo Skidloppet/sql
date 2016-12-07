@@ -384,18 +384,22 @@ article {
   <div class="w3-container w3-content w3-padding-20" style="max-width:950px margin-bottom:-150px;": id="Status">
     <div class="w3-center"> <img src="skidlogo.jpg" style="width:70%;height:250px">
     </div>
-
+<br>
+<br>
     <!-- kartan --> 
     <div style="max-width: 100%; ">
+	<div class="w3-center">
+	<h1><i>Översikt över arenan</i> </h1>
+	</div>
       <?php
       include'includes/mapFkund.php';
       ?>
       <h4>Klicka på en delsträcka för information och kommentarer *</h4>
-
+<ul>
         <li class="w3-green w3-card" style="width:25px; height:25px;   border-radius: 50%;"></li>Grönt = 4/5
-        <li class="w3-yellow w3-card" style="width:25px; height:25px;   border-radius: 50%;"></li>Gult = 3
+        <li class="w3-yellow w3-card" style="width:25px; height:25px;  border-radius: 50%;"></li>Gult = 4/5
         <li class="w3-red w3-card" style="width:25px; height:25px;   border-radius: 50%;"></li>Rött = 1/2
-      
+      </ul>
     </div>
 
 

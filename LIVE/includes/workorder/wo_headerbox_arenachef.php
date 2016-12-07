@@ -122,9 +122,10 @@ foreach($pdo->query( 'select count(*)as i2 from fwo;' ) as $row){
               echo $row['firstName']." ".$row['lastName']." (".$row['entID'].") ";
               echo "</option>";
             }
-            ?></select>   <br><br>
+            ?></select>   
 
             <p>Välj plats(er) *</p>
+
             <select name='Start'>    
               <?php 
               foreach ($pdo->query('SELECT * FROM SubPlace') as $row) {
@@ -284,8 +285,9 @@ if(isset($_POST['info2'])){
   $sql = "CALL _newCannonOrder(:cannonID, :name, :skiID, :entID, NOW() ,:priority, :state, :info)";
 
               # kontroll om akut (isf default ent, så alla kan acceptera samt stoppar eventuellt försök på split för ansvarsområden)
-  if ($_POST['Prioritering'] == "akut"){
+  if ($_POST['Prioritering'] == "Akut"){
     $_POST['EntID'] = "1";
+	#$response = file_get_contents($sms_url . "?" . $parameters);
   }
 
   $stmt = $pdo->prepare($sql);
@@ -402,7 +404,8 @@ if(isset($_POST['info2'])){
             <h5>Avslutade arbetsordrar</h5>
             <table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white">
               <tr>
-                <th>Påverkade sträckor</th>
+                <th><i class="fa fa-users w3-orange w3-text-white w3-padding-tiny"></i></th>
+                <th>Order ID</th>
                 <th>Arbetsorder-Typ</th>
                 <th>Prioritet</th>
                 <th>Ansvarig</th>
