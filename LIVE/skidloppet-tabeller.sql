@@ -295,15 +295,7 @@ insert into Ent (password, firstName, lastName, email, number, regDate) values
 ('urban','Urban','Garv','Urban.Garv@skidloppet.se','0057131323','2016-11-01');
 
 
-/* Sture Ekman, delsträckor 1, 2
-Bröderna Andersson delsträckor 3, 4
-Siv och Jan Persson delsträckor 5, 6, 7
-Jonas Hed delsträckor 8, 9, 10
-Oswald Ek delsträckor 11, 12
-Rune Kvarn delsträckor 13, 14, 15
-Iris Sax delsträckor 16, 17
-Vidar Ytter delsträckor 18, 19
-Urban Garv delsträckor 20, 21 */
+
 
 insert into Place (name, info) values 
 ('Vattendrag','Vattendrag som är tillängliga för snötillverkning'),
@@ -332,28 +324,38 @@ insert into Commenta (Kommentar,grade, alias, date) values
 -- select avg(grade) from Comment;
 -- select grade from Comment;
 -- select * from Ent;
+
+/* Sture Ekman, delsträckor 1, 2
+Bröderna Andersson delsträckor 3, 4
+Siv och Jan Persson delsträckor 5, 6, 7
+Jonas Hed delsträckor 8, 9, 10
+Oswald Ek delsträckor 11, 12
+Rune Kvarn delsträckor 13, 14, 15
+Iris Sax delsträckor 16, 17
+Vidar Ytter delsträckor 18, 19
+Urban Garv delsträckor 20, 21 */
 insert into SubPlace (name, placeName, realName, entID, length, height, fakesnow) values 
-('1','Delstrackor','Hedemora 1:1','1','12','21','23'),
-('2','Delstrackor','Hedemora 1:2','1','17','476','11'),
-('3','Delstrackor','Hedemora 1:3','1','29','376','3'),
-('4','Delstrackor','Norrhyttan 2:1','2','12','198','5'),
-('5','Delstrackor','Norrhyttan 2:2','2','6','264','1'),
-('6','Delstrackor','Norrhyttan 2:3','2','22','333','31'),
-('7','Delstrackor','Norrhyttan 2:4','2','22','333','31'),
-('8','Delstrackor','Bondhyttan 3:1','3','22','333','31'),
-('9','Delstrackor','Bondhyttan 3:2','3','22','333','31'),
-('10','Delstrackor','Bondhyttan 3:3','3','22','333','31'),
-('11','Delstrackor','Bommansbo 4:1','1','22','333','31'),
-('12','Delstrackor','Bommansbo 4:2','1','22','333','31'),
-('13','Delstrackor','Bommansbo 4:3','1','22','333','31'),
-('14','Delstrackor','Bommansbo 4:4','1','22','333','31'),
-('15','Delstrackor','Smedjebacken 5:1','2','22','333','31'),
-('16','Delstrackor','Smedjebacken 5:2','2','22','333','31'),
-('17','Delstrackor','Smedjebacken 5:3','2','22','333','31'),
-('18','Delstrackor','Björsjö 6:1','3','22','333','31'),
-('19','Delstrackor','Björsjö 6:2','3','22','333','31'),
-('20','Delstrackor','Björsjö 6:3','3','22','333','31'),
-('21','Delstrackor','Björsjö 6:4','3','22','333','31'),
+('1','Delstrackor','Hedemora 1:1','2','12','21','23'), 
+('2','Delstrackor','Hedemora 1:2','2','17','476','11'),
+('3','Delstrackor','Hedemora 1:3','3','29','376','3'),
+('4','Delstrackor','Norrhyttan 2:1','3','12','198','5'),
+('5','Delstrackor','Norrhyttan 2:2','4','6','264','1'),
+('6','Delstrackor','Norrhyttan 2:3','4','22','333','31'),
+('7','Delstrackor','Norrhyttan 2:4','4','22','333','31'),
+('8','Delstrackor','Bondhyttan 3:1','5','22','333','31'),
+('9','Delstrackor','Bondhyttan 3:2','5','22','333','31'),
+('10','Delstrackor','Bondhyttan 3:3','5','22','333','31'),
+('11','Delstrackor','Bommansbo 4:1','6','22','333','31'),
+('12','Delstrackor','Bommansbo 4:2','6','22','333','31'),
+('13','Delstrackor','Bommansbo 4:3','7','22','333','31'),
+('14','Delstrackor','Bommansbo 4:4','7','22','333','31'),
+('15','Delstrackor','Smedjebacken 5:1','7','22','333','31'),
+('16','Delstrackor','Smedjebacken 5:2','8','22','333','31'),
+('17','Delstrackor','Smedjebacken 5:3','8','22','333','31'),
+('18','Delstrackor','Björsjö 6:1','9','22','333','31'),
+('19','Delstrackor','Björsjö 6:2','9','22','333','31'),
+('20','Delstrackor','Björsjö 6:3','10','22','333','31'),
+('21','Delstrackor','Björsjö 6:4','10','22','333','31'),
 ('55','Garage','HUVUDGARAGET','1','6','264','1');
 
 -- select * from Cannon;
