@@ -5,11 +5,53 @@ include'connect.php';
 # default_charset = "utf-8";
 
 
-$sql = "CALL _removeComment()";
-$stmt = $pdo->prepare($sql);
-$stmt->execute();
-
 ?>
+
+
+
+<?php
+  # skapa ett errormedelande vid fel input (inget alias, kommentar över 1024 tecken, inget start/slut)
+
+if(isset($_POST['CreateComment'])){
+  /*deleteC skulle vart bättre att göra i mysql som ett event men då man måste ha super behörighet för detta gjordes det i php 
+  med koden: DELETE FROM Commenta WHERE date < NOW() - INTERVAL 48 HOUR; i mysql. nackdelen med detta är att kommentarerna endast tas bort 
+  när någon skriver en ny. Om man gjort ett mysql event kunde man ställt in så att detta tas bort i ett bestämmt intervall*/
+
+    #$deleteC = "DELETE FROM Commenta WHERE date < NOW() - INTERVAL 48 HOUR;";
+  $sql = "CALL _NewComment(:newComment, :newAlias, :newGrade, now(), :startName, :endName);";
+  $stmt = $pdo->prepare($sql);
+    #$stmt = $pdo->query($deleteC);
+
+  $stmt->bindParam(":newComment", $_POST['comment'], PDO::PARAM_STR);
+  $stmt->bindParam(":newAlias", $_POST['alias'], PDO::PARAM_STR);
+  $stmt->bindParam(":newGrade", $_POST['grade'], PDO::PARAM_INT);
+  $stmt->bindParam(":startName", $_POST['startName'], PDO::PARAM_INT);
+  $stmt->bindParam(":endName", $_POST['endName'], PDO::PARAM_INT);
+  $stmt->execute();
+}  
+?>
+
+
+<?php
+#  $em = $_SESSION['email'];
+$kund = "1337";
+if(isset($_POST['Error'])){
+
+  $sql = "CALL _NewError(:newErrorDesc, :newEntID, NOW() , :newType, :startName, :endName);";
+
+  $stmt = $pdo->prepare($sql);
+  $stmt->bindParam(":newErrorDesc", $_POST['desc'], PDO::PARAM_STR);
+  $stmt->bindParam(":newEntID", $kund, PDO::PARAM_INT);
+  $stmt->bindParam(":newType", $_POST['type'], PDO::PARAM_STR);
+  $stmt->bindParam(":startName", $_POST['Start'], PDO::PARAM_INT);
+  $stmt->bindParam(":endName", $_POST['Slut'], PDO::PARAM_INT);
+  $stmt->execute();
+}    
+?>
+
+
+
+
 
 
 
@@ -307,138 +349,138 @@ article {
 
 <!-- Page content -->
 <div class="w3-content " style="max-width:100%; margin-top:46px">
-<div class="w3-content" style="max-width:100%;" >
+  <div class="w3-content" style="max-width:100%;" >
 
-  <!-- Automatic Slideshow Images -->
-  <div class="mySlides w3-display-container w3-center">
-    <img src="bild1.jpg" style="width:100%;height:470px">
-    <div class="w3-display-bottommiddle w3-container w3-text-white w3-padding-32 w3-hide-small">
-      <p></p>
+    <!-- Automatic Slideshow Images -->
+    <div class="mySlides w3-display-container w3-center">
+      <img src="bild1.jpg" style="width:100%;height:470px">
+      <div class="w3-display-bottommiddle w3-container w3-text-white w3-padding-32 w3-hide-small">
+        <p></p>
+      </div>
     </div>
-  </div>
-  <div class="mySlides w3-display-container w3-center">
-    <img src="bild3.jpg" style="width:100%;;height:470px">
-    <div class="w3-display-bottommiddle w3-container w3-text-white w3-padding-32 w3-hide-small">
-      <h3></h3>
-      <p><b></b></p>
+    <div class="mySlides w3-display-container w3-center">
+      <img src="bild3.jpg" style="width:100%;;height:470px">
+      <div class="w3-display-bottommiddle w3-container w3-text-white w3-padding-32 w3-hide-small">
+        <h3></h3>
+        <p><b></b></p>
+      </div>
     </div>
-  </div>
-  <div class="mySlides w3-display-container w3-center">
-    <img src="bild6.jpg" style="width:100%;height:470px">
-    <div class="w3-display-bottommiddle w3-container w3-text-white w3-padding-32 w3-hide-small">
-      <h3></h3>
-      <p><b></b></p>
+    <div class="mySlides w3-display-container w3-center">
+      <img src="bild6.jpg" style="width:100%;height:470px">
+      <div class="w3-display-bottommiddle w3-container w3-text-white w3-padding-32 w3-hide-small">
+        <h3></h3>
+        <p><b></b></p>
+      </div>
     </div>
-  </div>
   </div>
   
   <div class="w3-container w3-content w3-padding-20" style="max-width:950px margin-bottom:-150px;": id="Status">
-  <div class="w3-center"> <img src="skidlogo.jpg" style="width:70%;height:250px">
-</div>
-  
-  <!-- kartan --> 
-<div style="max-width: 100%;">
-    <?php
-    include'includes/mapFkund.php';
-    ?>
-    <h4>Klicka på en delsträcka för information och kommentarer *</h4>
-
-  </div>
-
-
-
-
-
-<!-- om man har klickat på en delsträcka så poppar denna uppp -->
-
-  <div class="w3-container w3-content w3-padding-64" style="max-width:950px" id="Kommentar1">
-
-<?php
-
-if(isset($_GET['DS'])){
-
-?>
-    <!-- container för delsträckorna -->
-    <div class="container">
-
-      <header>
-       <h1>Delsträckornas status </h1>
-     </header>
-
-     <nav>
-      <ul>
-<p>Hedemora     46 Km </p>
-<p>Norrhyttan   62 Km </p>
-<p>Bondhyttan   66 Km </p>
-<p>Bommansbo    88 Km </p>
-<p>Smejdeback   66 Km </p>
-<p>Björsjö      88 Km </p>
-    
-    
-    
-    
-    
-    
-     </ul>
-   </nav>
-
-<article>
-    <h3>Betygsförklaring från entrepenör</h3>
-  <p>Betygsskala 1-5 på samtliga.</p>
-
-    <table>
-      <tr>
-        <th>Delsträcka</th>
-        <th>Startdatum</th>
-        <th>Betyg</th>
-        <th>Underlag</th>
-        <th>Kanter</th>
-        <th>Fäste</th>
-        <th>Djup</th>
-        <th>Längd</th>
-        <th>m.ö.h</th>
-      </tr>
+    <div class="w3-center"> <img src="skidlogo.jpg" style="width:70%;height:250px">
     </div>
-  </div>
-</article>
+    
+    <!-- kartan --> 
+    <div style="max-width: 100%;">
+      <?php
+      include'includes/mapFkund.php';
+      ?>
+      <h4>Klicka på en delsträcka för information och kommentarer *</h4>
 
-<footer>Vald delsträcka</footer>
-
-</div>
+    </div>
 
 
-<?php
 
-  $query='SELECT * FROM KundDetaljer where rspName = :DS';
-  $stmt = $pdo->prepare($query);
-  $stmt->bindParam(':DS', $_GET['DS']);
-  $stmt->execute();
 
-  foreach($stmt as $key => $row){
-   $stars = "";
-   for($i=0;$i<$row["rating"];$i++){
-     $stars .= "★";
+
+    <!-- om man har klickat på en delsträcka så poppar denna uppp -->
+
+    <div class="w3-container w3-content w3-padding-64" style="max-width:950px" id="Kommentar1">
+
+      <?php
+
+      if(isset($_GET['DS'])){
+
+        ?>
+        <!-- container för delsträckorna -->
+        <div class="container">
+
+          <header>
+           <h1>Delsträckornas status </h1>
+         </header>
+
+         <nav>
+          <ul>
+            <p>Hedemora     46 Km </p>
+            <p>Norrhyttan   62 Km </p>
+            <p>Bondhyttan   66 Km </p>
+            <p>Bommansbo    88 Km </p>
+            <p>Smejdeback   66 Km </p>
+            <p>Björsjö      88 Km </p>
+            
+            
+            
+            
+            
+            
+          </ul>
+        </nav>
+
+        <article>
+          <h3>Betygsförklaring från entrepenör</h3>
+          <p>Betygsskala 1-5 på samtliga.</p>
+
+          <table>
+            <tr>
+              <th>Delsträcka</th>
+              <th>Startdatum</th>
+              <th>Betyg</th>
+              <th>Underlag</th>
+              <th>Kanter</th>
+              <th>Fäste</th>
+              <th>Djup</th>
+              <th>Längd</th>
+              <th>m.ö.h</th>
+            </tr>
+          </div>
+        </div>
+      </article>
+
+      <footer>Vald delsträcka</footer>
+
+    </div>
+
+
+    <?php
+
+    $query='SELECT * FROM KundDetaljer where rspName = :DS';
+    $stmt = $pdo->prepare($query);
+    $stmt->bindParam(':DS', $_GET['DS']);
+    $stmt->execute();
+
+    foreach($stmt as $key => $row){
+     $stars = "";
+     for($i=0;$i<$row["rating"];$i++){
+       $stars .= "★";
+     }
+     echo '<tr>';
+     echo "<td>".$row['realname']."</td>";
+     echo "<td>".$row['startDate']."</td>";
+     echo "<td>".$stars."/5</td>";
+     echo "<td>".$row['underlay']."/5</td>";
+     echo "<td>".$row['edges']."/5</td>";
+     echo "<td>".$row['grip']."/5</td>";
+     echo "<td>".$row['depth']."Cm</td>";
+     echo "<td>".$row['length']."Km</td>";
+     echo "<td>".$row['height']."</td>";
+     echo "</tr>"; 
    }
-   echo '<tr>';
-   echo "<td>".$row['realname']."</td>";
-   echo "<td>".$row['startDate']."</td>";
-   echo "<td>".$stars."/5</td>";
-   echo "<td>".$row['underlay']."/5</td>";
-   echo "<td>".$row['edges']."/5</td>";
-   echo "<td>".$row['grip']."/5</td>";
-   echo "<td>".$row['depth']."Cm</td>";
-   echo "<td>".$row['length']."Km</td>";
-   echo "<td>".$row['height']."</td>";
-   echo "</tr>"; 
- }
 
-echo "</table>";
-?>
-</div>
+   echo "</table>";
+   ?>
+ </div>
 
 
 
-<div class="container">
+ <div class="container">
 
   <header>
    <h1> Information om sträckorna</h1>
@@ -449,79 +491,63 @@ echo "</table>";
       <button onclick="document.getElementById('id02').style.display='block'" style="width:auto;"><i class="fa fa-flag w3-xxlarge" aria-hidden="true"></i></button>
     </li>
     <li>Felanmälan </li>
-   
-   
-   
+    
+    
+    
 
 
 
     <div id="id02" class="modal">
       <div class="w3-modal-content">
         <div class="w3-container">
-   <!--     <div id="11" class="w3-container w3-white">-->
-          <head>
-            <h3>Ny felanmälan!</h3>
-          </header>
+         <!--     <div id="11" class="w3-container w3-white">-->
+         <head>
+          <h3>Ny felanmälan!</h3>
+        </header>
 
-          <form action='<?php echo $_SERVER['SCRIPT_NAME']; ?>' method='POST'>
-            <textarea rows="8" cols="88" name="desc" placeholder="Beskriv problemet..."></textarea>
-          </br>
+        <form action='<?php echo $_SERVER['SCRIPT_NAME']; ?>' method='POST'>
+          <textarea rows="8" cols="88" name="desc" placeholder="Beskriv problemet..."></textarea>
+        </br>
 
-          <p>Ange problemets typ *</p>
-          <select name="type">
-            <?php
-            $sql = 'SHOW COLUMNS FROM Error WHERE field="type"';
-            $row = $pdo->query($sql)->fetch(PDO::FETCH_ASSOC);
-            foreach(explode("','",substr($row['Type'],6,-2)) as $option) {
-              print("<option>$option</option>");
-            }
-            ?>
-          </select>
-
-          <!-- Listbox till att välja startsträcka-->
-          <p>Vart startade problemet?:</p>
-          <select name='Start'>    
-            <?php 
-            foreach ($pdo->query('SELECT * FROM SubPlace') as $row) {
-              echo '<option value="'.$row['name'].'">';
-              echo $row['realName'];
-              echo "</option>";
-            }
-            ?>
-          </select><br>
-          <!-- Listbox till att välja slutsträcka-->
-          <p>Vart slutar problemets inverkan?:</p>
-          <select name='Slut'>    
-            <?php 
-            foreach ($pdo->query('SELECT * FROM SubPlace') as $row) {
-              echo '<option value="'.$row['name'].'">';
-              echo $row['realName'];
-              echo "</option>";
-            }
-            ?>
-          </select><br><br>
-
-          <p><button type="submit" name="Error">skicka in felanmälan</button></p></form>
-
+        <p>Ange problemets typ *</p>
+        <select name="type">
           <?php
-#  $em = $_SESSION['email'];
-$kund = "1337";
-          if(isset($_POST['Error'])){
-
-            $sql = "CALL _NewError(:newErrorDesc, :newEntID, NOW() , :newType, :startName, :endName);";
-
-            $stmt = $pdo->prepare($sql);
-            $stmt->bindParam(":newErrorDesc", $_POST['desc'], PDO::PARAM_STR);
-            $stmt->bindParam(":newEntID", $kund, PDO::PARAM_INT);
-            $stmt->bindParam(":newType", $_POST['type'], PDO::PARAM_STR);
-            $stmt->bindParam(":startName", $_POST['Start'], PDO::PARAM_INT);
-            $stmt->bindParam(":endName", $_POST['Slut'], PDO::PARAM_INT);
-            $stmt->execute();
-          }    
+          $sql = 'SHOW COLUMNS FROM Error WHERE field="type"';
+          $row = $pdo->query($sql)->fetch(PDO::FETCH_ASSOC);
+          foreach(explode("','",substr($row['Type'],6,-2)) as $option) {
+            print("<option>$option</option>");
+          }
           ?>
-        </div>
+        </select>
+
+        <!-- Listbox till att välja startsträcka-->
+        <p>Vart startade problemet?:</p>
+        <select name='Start'>    
+          <?php 
+          foreach ($pdo->query('SELECT * FROM SubPlace') as $row) {
+            echo '<option value="'.$row['name'].'">';
+            echo $row['realName'];
+            echo "</option>";
+          }
+          ?>
+        </select><br>
+        <!-- Listbox till att välja slutsträcka-->
+        <p>Vart slutar problemets inverkan?:</p>
+        <select name='Slut'>    
+          <?php 
+          foreach ($pdo->query('SELECT * FROM SubPlace') as $row) {
+            echo '<option value="'.$row['name'].'">';
+            echo $row['realName'];
+            echo "</option>";
+          }
+          ?>
+        </select><br><br>
+
+        <p><button type="submit" name="Error">skicka in felanmälan</button></p></form>
+
+      </div>
     </div>
-    </div>
+  </div>
 </ul>
 </nav>
 
@@ -539,11 +565,11 @@ $kund = "1337";
           <th><i class="fa fa-calendar-o" aria-hidden="true"></i>Datum</th>
           <th><i class="fa fa-id-badge" aria-hidden="true"></i>Sträckans namn</th>
         </tr>
-    </div>
+      </div>
 
-</article> 
-   </div>
-    <footer> Kommentarer </footer>
+    </article> 
+  </div>
+  <footer> Kommentarer </footer>
 
 
 
@@ -576,75 +602,54 @@ $kund = "1337";
 
 
 
-  <div class="w3-container w3-content w3-padding-64" style="max-width:950px" id="Kommentar2">
-    <header>
-     <h1>Kommentera sträcka</h1>
-   </header>
-   <h3>Ny kommentar</h3>
-   <form action ='Kund.php' method='POST'>
-    <textarea rows="5" cols="70" name="comment" placeholder="Skriv här..."></textarea>
-  </br>
-  <input type="text" name="alias" placeholder="Namn">
-  <select name='grade'>
-    <option selected="selected">Betygsätt spåren</option>
-    <option value="1">1 - Ej åkbart</option>
-    <option value="2">2 - Undermåliga spår</option>
-    <option value="3">3 - Okej</option>
-    <option value="4">4 - Bra spår</option>
-    <option value="5">5 - Perfekt</option>
-  </select>
-  
-  <br>
+<div class="w3-container w3-content w3-padding-64" style="max-width:950px" id="Kommentar2">
+  <header>
+   <h1>Kommentera sträcka</h1>
+ </header>
+ <h3>Ny kommentar</h3>
+ <form action ='Kund.php' method='POST'>
+  <textarea rows="5" cols="70" name="comment" placeholder="Skriv här..."></textarea>
+</br>
+<input type="text" name="alias" placeholder="Namn">
+<select name='grade'>
+  <option selected="selected">Betygsätt spåren</option>
+  <option value="1">1 - Ej åkbart</option>
+  <option value="2">2 - Undermåliga spår</option>
+  <option value="3">3 - Okej</option>
+  <option value="4">4 - Bra spår</option>
+  <option value="5">5 - Perfekt</option>
+</select>
 
-  <select size='1' name='startName'>
-    <option selected="selected"> Välj startpunkt </option>
-    <?php    
-    foreach($pdo->query( 'SELECT * FROM SubPlace where name<"21" ORDER BY name;' ) as $row){
-      echo '<option value="'.$row['name'].'">';
-      echo $row['realName'];      
-      echo '</option>';
-    }               
+<br>
 
-    ?>
-  </select>
+<select size='1' name='startName'>
+  <option selected="selected"> Välj startpunkt </option>
+  <?php    
+  foreach($pdo->query( 'SELECT * FROM SubPlace where name<"21" ORDER BY name;' ) as $row){
+    echo '<option value="'.$row['name'].'">';
+    echo $row['realName'];      
+    echo '</option>';
+  }               
 
-  <select size='1' name='endName'>
-    <option selected="selected"> Välj slutpunkt </option>
-    <?php    
-    foreach($pdo->query( 'SELECT * FROM SubPlace where name<"21" ORDER BY name;' ) as $row){
-      echo '<option value="'.$row['name'].'">';
-      echo $row['realName'];      
-      echo '</option>';
-    }    
-    ?>
-  </select><br>
+  ?>
+</select>
 
-  <button type="submit" name="CreateComment">Skicka kommentar</button>
+<select size='1' name='endName'>
+  <option selected="selected"> Välj slutpunkt </option>
+  <?php    
+  foreach($pdo->query( 'SELECT * FROM SubPlace where name<"21" ORDER BY name;' ) as $row){
+    echo '<option value="'.$row['name'].'">';
+    echo $row['realName'];      
+    echo '</option>';
+  }    
+  ?>
+</select><br>
+
+<button type="submit" name="CreateComment">Skicka kommentar</button>
 
 </form>
 
- 
-<?php
-  # skapa ett errormedelande vid fel input (inget alias, kommentar över 1024 tecken, inget start/slut)
 
-if(isset($_POST['CreateComment'])){
-  /*deleteC skulle vart bättre att göra i mysql som ett event men då man måste ha super behörighet för detta gjordes det i php 
-  med koden: DELETE FROM Commenta WHERE date < NOW() - INTERVAL 48 HOUR; i mysql. nackdelen med detta är att kommentarerna endast tas bort 
-  när någon skriver en ny. Om man gjort ett mysql event kunde man ställt in så att detta tas bort i ett bestämmt intervall*/
-
-    #$deleteC = "DELETE FROM Commenta WHERE date < NOW() - INTERVAL 48 HOUR;";
-  $sql = "CALL _NewComment(:newComment, :newAlias, :newGrade, now(), :startName, :endName);";
-  $stmt = $pdo->prepare($sql);
-    #$stmt = $pdo->query($deleteC);
-
-  $stmt->bindParam(":newComment", $_POST['comment'], PDO::PARAM_STR);
-  $stmt->bindParam(":newAlias", $_POST['alias'], PDO::PARAM_STR);
-  $stmt->bindParam(":newGrade", $_POST['grade'], PDO::PARAM_INT);
-  $stmt->bindParam(":startName", $_POST['startName'], PDO::PARAM_INT);
-  $stmt->bindParam(":endName", $_POST['endName'], PDO::PARAM_INT);
-  $stmt->execute();
-}  
-?>
 </div>
 
 <?php
@@ -663,33 +668,33 @@ if(isset($_POST['CreateComment'])){
 
 
 <!-- HÄR SK SNITT STÅÅÅÅ -->
-  <div class="container">
-<div class="w3-container w3-content w3-padding-64" style="max-width:950px" id="Snitt">
+<div class="container">
+  <div class="w3-container w3-content w3-padding-64" style="max-width:950px" id="Snitt">
 
     <div class="w3-threethird">
 
       <header>
        <h1>Snittbetyg på hela arenan</h1>
-      </header>
+     </header>
 
 
- <?php
+     <?php
 
-   foreach($pdo->query( 'SELECT 
-    CAST(AVG(u) AS DECIMAL(2,1)) as u, 
-    CAST(AVG(e) AS DECIMAL(2,1)) as e,
-  CAST(AVG(r) AS DECIMAL(2,1)) as r,
-  CAST(AVG(g) AS DECIMAL(2,1)) as g,
-  avg(rat) as rat,
-  avg(grip) as grip,
-  avg(under) as under,
-  avg(edge) as edge 
-  FROM snittBetygV2, snittV2;' ) as $row){
+     foreach($pdo->query( 'SELECT 
+      CAST(AVG(u) AS DECIMAL(2,1)) as u, 
+      CAST(AVG(e) AS DECIMAL(2,1)) as e,
+      CAST(AVG(r) AS DECIMAL(2,1)) as r,
+      CAST(AVG(g) AS DECIMAL(2,1)) as g,
+      avg(rat) as rat,
+      avg(grip) as grip,
+      avg(under) as under,
+      avg(edge) as edge 
+      FROM snittBetygV2, snittV2;' ) as $row){
 
       # kolla VIEW snittBetyg & snitt
       # lade till B tagg för att göra snittet enklare att se (row r,u,e,g /5)
 
-    echo '<p>Helhetsbetyg</p>';
+      echo '<p>Helhetsbetyg</p>';
     echo '<div class="w3-progress-container w3-grey">';
 
     echo '<div id="myBar" class="w3-progressbar w3-green" style="width:'.$row["rat"].'%">';
@@ -721,8 +726,8 @@ if(isset($_POST['CreateComment'])){
   }
   ?>
 
-  </br>
-  </div>
+</br>
+</div>
 </div>
 </div>
 
@@ -840,14 +845,14 @@ function w3_close() {
 
 <!-- floatbar -->
 $(window).scroll(function(){
-    if ($(window).scrollTop() >= 200)
-    {
-        $("#floatbar").css({position:'fixed',left:'0',top:'0'});
-    }
-    else
-    {
-        $("#floatbar").css({position:'absolute',left:'0',top:'200px'});
-    }
+  if ($(window).scrollTop() >= 200)
+  {
+    $("#floatbar").css({position:'fixed',left:'0',top:'0'});
+  }
+  else
+  {
+    $("#floatbar").css({position:'absolute',left:'0',top:'200px'});
+  }
 });
 
 
