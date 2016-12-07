@@ -41,7 +41,7 @@ DELIMITER ;
 -- call CreateEnt ('pass','lasse','berghagen','lasseBH@gmail.com','0704728934');
 -- call CreateEnt ('pass','lasse','berghagen','OveSwag@hotmail.com','0704728934');
 
- 
+ select * from Error;
  -- 2. Procedure för att skapa en Skidloppet användare
  -- IF satsen kollar om Ent har tagit email adressen redan
 DROP PROCEDURE IF EXISTS CreateSki;
@@ -59,7 +59,7 @@ END;
 DELIMITER ;
 -- call CreateSki ('pass','Stefan','Holm','StaffeOG@hotmail.com','0732728934','other');
 -- call CreateSki ('pass','Stefan','Holm','lasseBH@gmail.com','0732738934','other');
-
+select * from Ski;
 
 -- 3. procedur för att göra en SKI till arenachef/other
  -- IF satsen kollar om Ent har tagit email adressen redan
@@ -179,7 +179,7 @@ DELIMITER ;
 -- call _newReport (3, now(), '2016-11-12', '5', '5', '5', '5', 23.1, 'lade till kommentar bild snart?', 1, 6);
 -- call _newReport (3, now(), '2016-10-13', '2', '4', '4', '4', 23.1, 5,5);
 call _newReport (3, now(), '2016-10-13', '3', '4', '4', '4', 23.1, 'beep',1,21);
-call _newReport (3, now(), '2016-11-12', '5', '5', '5', '5', 23.1, 'lade till kommentar bild snart?', 1, 6);
+-- call _newReport (3, now(), '2016-11-12', '5', '5', '5', '5', 23.1, 'lade till kommentar bild snart?', 1, 6);
 
 -- select * from ReportSubPlace;
 
@@ -229,7 +229,7 @@ WHILE nameCounter<=endName DO
 COMMIT ;
 END //
 DELIMITER ;
-
+/*
 call _NewComment ('Härlig Upplevelse','Connor McGregor','2',now(),'2','5');
 call _NewComment ('Hej','Lars','2',now(),'6','1');
 call _NewComment ('en kommentar på några spår','Klas','2',now(),'1','6');
@@ -239,7 +239,7 @@ call _NewComment ('kottarkottarkottarkottar','Jon Jones','2',now(),'1','6');
 -- 
 -- select * from CommentSubPlace;
 -- select * from Commenta;
-
+*/
 
 
 -- 9. Procedure för nya felanmälan
@@ -288,12 +288,13 @@ COMMIT ;
 END //
 DELIMITER ;
 
-call _NewError ('mörkt överallt','1',now(),'Ljus','1','3');
-call _NewError ('träd över spåret','2',now(),'Träd','3','1');
+-- call _NewError ('mörkt överallt','1',now(),'Ljus','1','3');
+-- call _NewError ('träd över spåret','2',now(),'Träd','3','1');
 -- select * from ErrorSubPlace;
 
-
-
+CALL CreateSki( 'losen', 'asd', 'asdghfdfsgaf' , '12345grdfasf', '234567', 'other');
+select * from Ski;
+select * from Ent;
 -- 10. Lägg till ny arbetsorder
 
 DROP PROCEDURE IF EXISTS _newSplitWorkOrder;
@@ -649,5 +650,6 @@ call _deleteCOM ('1');
 -- select count(*)as b from OldCommenta where del="1";
 -- call _deleteCOM (:commentID)
 -- 13. procedur för att ta bort arbetsorder
+
 
 
