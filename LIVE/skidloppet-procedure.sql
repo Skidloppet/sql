@@ -41,7 +41,7 @@ DELIMITER ;
 -- call CreateEnt ('pass','lasse','berghagen','lasseBH@gmail.com','0704728934');
 -- call CreateEnt ('pass','lasse','berghagen','OveSwag@hotmail.com','0704728934');
 
- select * from Error;
+-- select * from Error;
  -- 2. Procedure för att skapa en Skidloppet användare
  -- IF satsen kollar om Ent har tagit email adressen redan
 DROP PROCEDURE IF EXISTS CreateSki;
@@ -59,7 +59,7 @@ END;
 DELIMITER ;
 -- call CreateSki ('pass','Stefan','Holm','StaffeOG@hotmail.com','0732728934','other');
 -- call CreateSki ('pass','Stefan','Holm','lasseBH@gmail.com','0732738934','other');
-select * from Ski;
+-- select * from Ski;
 
 -- 3. procedur för att göra en SKI till arenachef/other
  -- IF satsen kollar om Ent har tagit email adressen redan
@@ -120,7 +120,7 @@ where Cannon.cannonID = cannonID;
 
 END; //
 DELIMITER ;
-Call AlterCannon ('5',"Hedemora 1:3",'Av');
+-- Call AlterCannon ('5',"Hedemora 1:3",'Av');
 -- select * from Cannon;
 -- select * from SubPlace;
 
@@ -178,7 +178,7 @@ DELIMITER ;
 
 -- call _newReport (3, now(), '2016-11-12', '5', '5', '5', '5', 23.1, 'lade till kommentar bild snart?', 1, 6);
 -- call _newReport (3, now(), '2016-10-13', '2', '4', '4', '4', 23.1, 5,5);
-call _newReport (3, now(), '2016-10-13', '3', '4', '4', '4', 23.1, 'beep',1,21);
+call _newReport (3, now(), '2016-10-13', '5', '4', '4', '4', 23.1, 'statisk rapport',1,21);
 -- call _newReport (3, now(), '2016-11-12', '5', '5', '5', '5', 23.1, 'lade till kommentar bild snart?', 1, 6);
 
 -- select * from ReportSubPlace;
@@ -292,9 +292,8 @@ DELIMITER ;
 -- call _NewError ('träd över spåret','2',now(),'Träd','3','1');
 -- select * from ErrorSubPlace;
 
-CALL CreateSki( 'losen', 'asd', 'asdghfdfsgaf' , '12345grdfasf', '234567', 'other');
-select * from Ski;
-select * from Ent;
+
+
 -- 10. Lägg till ny arbetsorder
 
 DROP PROCEDURE IF EXISTS _newSplitWorkOrder;
@@ -339,7 +338,7 @@ if newSplit = 1 then
 -- eid är entrepenörens id från delsträckan som = nameCounter
         -- skapar en arbetsorder för varje delsträcka
 		INSERT INTO WorkOrder (skiID, entID, sentDate, priority,type, info, EntComment)
-		values (newSkiID, newEntID, now(), newPriority,newType, newInfo, "BAJS finnished/accepted(emergency) yet");
+		values (newSkiID, newEntID, now(), newPriority,newType, newInfo, "not finnished/accepted(emergency) yet");
         		SET LastInsert = last_insert_id();
 
         		update WorkOrder
@@ -356,7 +355,6 @@ if newSplit = 1 then
 		values (newSkiID, newEntID, now(), newPriority,newType, newInfo, "not finnished/accepted(emergency) yet");
 -- tilldelar LastInsert reportID's auto_increment värde för kopplingen i N:M tabellen
 		SET LastInsert = last_insert_id();
---     for ($i=0;$i<$numRecs;$i++) {       <-- alternativ lösning (ev. bättre & snyggare)
 		WHILE nameCounter<=endName DO
 			insert into SubPlaceWorkOrder(name, orderID) values (nameCounter, LastInsert);
 			set nameCounter = nameCounter + 1;
@@ -422,13 +420,14 @@ state enum('På','Av','Urkopplad','Trasig', 'Annat'),
 info varchar (1024))
 BEGIN
 
-INSERT INTO CannonSubPlace (cannonID, name, skiID,entID, startStamp, priority,newStatus, info) values (cannonID, name, skiID,entID, startStamp, priority,state, info);
 
+INSERT INTO CannonSubPlace (cannonID, name, skiID,entID, startStamp, priority,newStatus, info) values (cannonID, name, skiID,entID, startStamp, priority,state, info);
 COMMIT ;
 END //
 DELIMITER ;
-call _newCannonOrder ('1','2','1','1',NOW(),'Låg','on','fdgfhfgdsfad');
 
+-- call _newCannonOrder ('1','7','1','1',NOW(),'Låg','Av','fdgfhfgdsfad');
+-- 
 -- select * from CannonSubPlace;
 
 
@@ -650,6 +649,7 @@ DELIMITER ;
 -- select count(*)as b from OldCommenta where del="1";
 -- call _deleteCOM (:commentID)
 -- 13. procedur för att ta bort arbetsorder
+
 
 
 

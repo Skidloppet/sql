@@ -43,7 +43,7 @@ $WOO = $_SERVER["SCRIPT_NAME"];
           }
           elseif (isset($_SESSION['email'])&&($_SESSION['type'] > '1')) {
 
-            include 'workorder/wo_headerbox_ent.php';
+            #include 'workorder/wo_headerbox_ent.php';
             ?>
             <div class="w3-row-padding" style="margin:0 -16px">
               <div class="w3-threethird">

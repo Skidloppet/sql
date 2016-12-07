@@ -34,7 +34,7 @@ foreach($pdo->query( 'select count(*)as a from wo;') as $row){
       <h3><?php print_r($b);?></h3>
       </div>
       <div class="w3-clear" ></div>
-      <h4>Nya felmeddelande</h4>
+      <h4>Felmeddelande</h4>
     </div>
   </div>
 

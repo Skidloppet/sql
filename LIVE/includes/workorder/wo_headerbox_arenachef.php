@@ -122,9 +122,10 @@ foreach($pdo->query( 'select count(*)as i2 from fwo;' ) as $row){
               echo $row['firstName']." ".$row['lastName']." (".$row['entID'].") ";
               echo "</option>";
             }
-            ?></select>   <br><br>
+            ?></select>   
 
-          <p>Välj plats(er) *</p>
+            <p>Välj plats(er) *</p>
+
             <select name='Start'>    
               <?php 
               foreach ($pdo->query('SELECT * FROM SubPlace') as $row) {
@@ -143,7 +144,7 @@ foreach($pdo->query( 'select count(*)as i2 from fwo;' ) as $row){
                   echo "</option>";
                 }
                 ?></select><br><br>
-                <input type="checkbox" name="split" value="1"> Dela upp på ansvarsområden ( <i>Ej akut*</i> )<br><br>
+                <input type="checkbox" name="split" value="1"> Dela upp på delsträckor ( <i>Ej akut*</i> )<br><br>
                 <button type="button" onclick="SendForm('workorder','workorder','skapaAO');" class="HoverButton" >Skicka</button>
 
               </form>
@@ -159,15 +160,15 @@ foreach($pdo->query( 'select count(*)as i2 from fwo;' ) as $row){
                 if($_POST['Slut'] === "Q") {
                   $_POST['Slut'] = $_POST['Start'];
                 }				
-				
+
               # kontroll om akut (isf default ent, så alla kan acceptera samt stoppar eventuellt försök på split för ansvarsområden)
 
-              if ($_POST['Prioritering'] == "Akut"){
-                $_POST['EntID'] = "1";
-                $_POST['split'] = "0";
-				
-				$response = file_get_contents($sms_url . "?" . $parameters);
-              }
+                if ($_POST['Prioritering'] == "Akut"){
+                  $_POST['EntID'] = "1";
+                  $_POST['split'] = "0";
+
+             #     $response = file_get_contents($sms_url . "?" . $parameters);
+                }
 
 
                 $stmt = $pdo->prepare($sql);
@@ -186,14 +187,6 @@ foreach($pdo->query( 'select count(*)as i2 from fwo;' ) as $row){
             </div>
           </div>
         </div>
-
-
-
-
-
-
-
-
 
 
 
@@ -247,7 +240,7 @@ foreach($pdo->query( 'select count(*)as i2 from fwo;' ) as $row){
                         echo $row['firstName']." ".$row['lastName']." (".$row['entID'].") ";
                         echo "</option>";
                       }
-                      ?></select>   
+                      ?></select> 
 
                       <p>Sätt prioritet  *</p>
                       <select name="Prioritering">
@@ -264,27 +257,20 @@ foreach($pdo->query( 'select count(*)as i2 from fwo;' ) as $row){
                     <button type="button" onclick="SendForm('workorder','workorder','skapaCAO');" class="HoverButton" >Skicka</button>
                   </form>
 
-      <!--
-cannonID smallint,
-name smallint,
-skiID smallint,
-entID smallint,
-startStamp datetime,
-priority enum('low','medium','high','akut'),
-newStatus enum('on','off','unplugged','broken'),
-info varchar (1024))
--->
+
 
 <?php
 #try
-if(isset($_POST['info2'])){
 
+if(isset($_POST['info2'])){
+    
               # Frågan till proceduren
   $sql = "CALL _newCannonOrder(:cannonID, :name, :skiID, :entID, NOW() ,:priority, :state, :info)";
 
               # kontroll om akut (isf default ent, så alla kan acceptera samt stoppar eventuellt försök på split för ansvarsområden)
-  if ($_POST['Prioritering'] == "akut"){
+  if ($_POST['Prioritering'] == "Akut"){
     $_POST['EntID'] = "1";
+	#$response = file_get_contents($sms_url . "?" . $parameters);
   }
 
   $stmt = $pdo->prepare($sql);
@@ -302,7 +288,6 @@ if(isset($_POST['info2'])){
 </div>
 
 <div class="w3-threethird w3-margin w3-padding">
-  <h5></h5>
   <table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white">
     <tr>
       <th><i class="fa fa-users w3-orange w3-text-white w3-padding-tiny"></i></th>
@@ -334,14 +319,6 @@ if(isset($_POST['info2'])){
       </div>
 
     </div>
-
-
-
-
-
-
-
-
 
 
 
@@ -402,7 +379,8 @@ if(isset($_POST['info2'])){
             <h5>Avslutade arbetsordrar</h5>
             <table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white">
               <tr>
-                <th>Påverkade sträckor</th>
+                <th><i class="fa fa-users w3-orange w3-text-white w3-padding-tiny"></i></th>
+                <th>Order ID</th>
                 <th>Arbetsorder-Typ</th>
                 <th>Prioritet</th>
                 <th>Ansvarig</th>
@@ -413,28 +391,28 @@ if(isset($_POST['info2'])){
               <?php     
 
               foreach($pdo->query( 'SELECT * FROM fwo order by orderID desc;' ) as $row){
-echo "<tr><td>";
-  if ($row['type'] === "kanon" ){
-                      foreach($pdo->query( 'select realName from SubPlace,FinnishedCannonSubPlace where SubPlace.name = FinnishedCannonSubPlace.name and orderID = '.$row ['orderID'].';' ) as $brow){
-                        echo $brow['realName']."</br>";
-                      }} else {
-                        foreach($pdo->query( 'select realName from SubPlace, FinnishedSubPlaceWorkOrder where SubPlace.name = FinnishedSubPlaceWorkOrder.name and FinnishedSubPlaceWorkOrder.orderID =  '.$row ['orderID'].';' ) as $brow){;
-                          echo $brow['realName']."</br>";
-                        }}
-                        echo "</td>";
-                echo "<td>".$row['type']."</td>";
-                echo "<td>".$row['priority']."</td>";
-                echo "<td>".$row['entF']." ".$row['entL']."</td>";
-                echo "<td>".$row['info']."</td>";
-                echo "<td>".$row['sentDate']."</td>";
-                echo "<td>".$row['skiF']." ".$row['skiL']."</td>";
-                echo "</tr>";  
-              }
-              ?>   
-            </table>
+                echo "<tr><td>";
+                if ($row['type'] === "kanon" ){
+                  foreach($pdo->query( 'select realName from SubPlace,FinnishedCannonSubPlace where SubPlace.name = FinnishedCannonSubPlace.name and orderID = '.$row ['orderID'].';' ) as $brow){
+                    echo $brow['realName']."</br>";
+                  }} else {
+                    foreach($pdo->query( 'select realName from SubPlace, FinnishedSubPlaceWorkOrder where SubPlace.name = FinnishedSubPlaceWorkOrder.name and FinnishedSubPlaceWorkOrder.orderID =  '.$row ['orderID'].';' ) as $brow){;
+                      echo $brow['realName']."</br>";
+                    }}
+                    echo "</td>";
+                    echo "<td>".$row['type']."</td>";
+                    echo "<td>".$row['priority']."</td>";
+                    echo "<td>".$row['entF']." ".$row['entL']."</td>";
+                    echo "<td>".$row['info']."</td>";
+                    echo "<td>".$row['sentDate']."</td>";
+                    echo "<td>".$row['skiF']." ".$row['skiL']."</td>";
+                    echo "</tr>";  
+                  }
+                  ?>   
+                </table>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</div>
