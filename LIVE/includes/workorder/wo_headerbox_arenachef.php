@@ -50,7 +50,7 @@ foreach($pdo->query( 'select count(*)as i2 from fwo;' ) as $row){
       <h3><?php print_r($i2); ?></h3>
     </div>
     <div class="w3-clear"></div>
-    <h4>Avslutade arbetsordrar</h4>
+    <h4>Avslutade arbetsordrar (<i> max 20 </i>)</h4>
   </div>
 </div>
 
@@ -122,8 +122,9 @@ foreach($pdo->query( 'select count(*)as i2 from fwo;' ) as $row){
               echo $row['firstName']." ".$row['lastName']." (".$row['entID'].") ";
               echo "</option>";
             }
-            ?></select>   
+            ?></select>   <br><br>
 
+          <p>Välj plats(er) *</p>
             <select name='Start'>    
               <?php 
               foreach ($pdo->query('SELECT * FROM SubPlace') as $row) {
@@ -141,8 +142,8 @@ foreach($pdo->query( 'select count(*)as i2 from fwo;' ) as $row){
                   echo $row['realName'];
                   echo "</option>";
                 }
-                ?></select>
-                <input type="checkbox" name="split" value="1"> Dela upp på ansvarsområden<br>
+                ?></select><br><br>
+                <input type="checkbox" name="split" value="1"> Dela upp på ansvarsområden ( <i>Ej akut*</i> )<br><br>
                 <button type="button" onclick="SendForm('workorder','workorder','skapaAO');" class="HoverButton" >Skicka</button>
 
               </form>
@@ -401,8 +402,7 @@ if(isset($_POST['info2'])){
             <h5>Avslutade arbetsordrar</h5>
             <table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white">
               <tr>
-                <th><i class="fa fa-users w3-orange w3-text-white w3-padding-tiny"></i></th>
-                <th>Order ID</th>
+                <th>Påverkade sträckor</th>
                 <th>Arbetsorder-Typ</th>
                 <th>Prioritet</th>
                 <th>Ansvarig</th>
@@ -413,8 +413,15 @@ if(isset($_POST['info2'])){
               <?php     
 
               foreach($pdo->query( 'SELECT * FROM fwo order by orderID desc;' ) as $row){
-                echo "<tr><td><i class='fa fa-eye w3-blue w3-padding-tiny'></i></td>";
-                echo "<td>".$row['orderID']."</td>";
+echo "<tr><td>";
+  if ($row['type'] === "kanon" ){
+                      foreach($pdo->query( 'select realName from SubPlace,FinnishedCannonSubPlace where SubPlace.name = FinnishedCannonSubPlace.name and orderID = '.$row ['orderID'].';' ) as $brow){
+                        echo $brow['realName']."</br>";
+                      }} else {
+                        foreach($pdo->query( 'select realName from SubPlace, FinnishedSubPlaceWorkOrder where SubPlace.name = FinnishedSubPlaceWorkOrder.name and FinnishedSubPlaceWorkOrder.orderID =  '.$row ['orderID'].';' ) as $brow){;
+                          echo $brow['realName']."</br>";
+                        }}
+                        echo "</td>";
                 echo "<td>".$row['type']."</td>";
                 echo "<td>".$row['priority']."</td>";
                 echo "<td>".$row['entF']." ".$row['entL']."</td>";

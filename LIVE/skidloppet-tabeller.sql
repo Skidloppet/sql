@@ -58,7 +58,7 @@ foreign key (entID) references Ent(entID)
 
 -- tabell för arbetsorder
 create table FinnishedWorkOrder (
-orderID int not null unique,
+orderID int not null auto_increment unique,
 skiID smallint not null,
 entID smallint not null,
 -- not null här pga den som genomförde arbetet
@@ -69,7 +69,7 @@ type enum('Ljus','Bana','Skräp','Träd','Annat') null,
 info varchar(1024),
 EntComment varchar(1024),
 primary key (orderID),
--- foreign key (skiID) references Ski(skiID),
+ foreign key (skiID) references Ski(skiID),
 foreign key (entID) references Ent(entID)
 )engine=innodb;
 
@@ -180,6 +180,16 @@ orderID int not null,
 -- Kanske lägga till datum för pågående arbete eller annat?
 primary key (orderID, name),
 foreign key (orderID) references WorkOrder(orderID)ON DELETE CASCADE,
+foreign key (name) references SubPlace(name)
+)engine=innodb;
+
+create table FinnishedSubPlaceWorkOrder(
+id int not null auto_increment unique,
+name smallint not null,
+orderID int not null,
+-- Kanske lägga till datum för pågående arbete eller annat?
+primary key (id),
+-- foreign key (orderID) references WorkOrder(orderID)ON DELETE CASCADE,
 foreign key (name) references SubPlace(name)
 )engine=innodb;
 
@@ -422,6 +432,8 @@ insert into CommentSubPlace (CommentID, name) values
 ('3','2'),
 ('3','3');
 */
+
+
 
 
 

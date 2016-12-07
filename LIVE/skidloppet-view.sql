@@ -300,9 +300,10 @@ startStamp as sentDate, priority, "kanon" as type, info, orderID
 from Ent, FinnishedCannonSubPlace, Ski 
 where Ent.entID = FinnishedCannonSubPlace.entID and Ski.skiID = FinnishedCannonSubPlace.skiID;
 
-
 -- 
 -- select * from fwo;
+-- select realName from SubPlace,FinnishedSubPlaceWorkOrder where SubPlace.name = FinnishedSubPlaceWorkOrder.name and orderID = '8';
+-- select * from FinnishedSubPlaceWorkOrder;
 
 
 DROP VIEW IF EXISTS cv;
@@ -443,4 +444,4 @@ CREATE VIEW delLagKom2 AS
 -- select * from delLagKom2;
 -- delete from delLagKom where commentID>'0' ; 
 
-select * from er;
+

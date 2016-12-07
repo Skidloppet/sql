@@ -346,6 +346,7 @@ if newSplit = 1 then
             where WorkOrder.orderID = LastInsert;
 -- tilldelar LastInsert reportID's auto_increment värde för kopplingen i N:M tabellen
 		insert into SubPlaceWorkOrder(name, orderID) values (nameCounter, LastInsert);
+		 insert into FinnishedSubPlaceWorkOrder(name, orderID) values (nameCounter, LastInsert);
 		set nameCounter = nameCounter + 1;
 		END WHILE;
 	else
@@ -358,6 +359,7 @@ if newSplit = 1 then
 --     for ($i=0;$i<$numRecs;$i++) {       <-- alternativ lösning (ev. bättre & snyggare)
 		WHILE nameCounter<=endName DO
 			insert into SubPlaceWorkOrder(name, orderID) values (nameCounter, LastInsert);
+			 insert into FinnishedSubPlaceWorkOrder(name, orderID) values (nameCounter, LastInsert);
 			set nameCounter = nameCounter + 1;
 			END WHILE;
 		end if;
@@ -365,9 +367,10 @@ COMMIT ;
 END //
 DELIMITER ;
 /*
-call _newSplitWorkOrder ('1','1',now(),'Hög','Bana','spåra spåren','1','1','6');
+delete from FinnishedSubPlaceWorkOrder where orderID='1';
+call _newSplitWorkOrder ('2','2',now(),'Hög','Bana','spåra spåren','1','1','6');
 call _newSplitWorkOrder ('1','1',now(),'Akut','Träd','träda träden','0','1','6');
-select * from SubPlaceWorkOrder;
+select * from FinnishedSubPlaceWorkOrder;
 select * from WorkOrder;
 */
 
@@ -402,9 +405,9 @@ begin
 END //
 DELIMITER ;
 -- call _finnishedWorkOrder('2','3',now(),'text');
--- select * from WorkOrder;
 -- select * from FinnishedWorkOrder;
-
+-- select * from SubPlaceWorkOrder;
+-- select realName from SubPlace, FinnishedSubPlaceWorkOrder where SubPlace.name = FinnishedSubPlaceWorkOrder.name and FinnishedSubPlaceWorkOrder.orderID = '5';
 
 -- 12. Procedure för nya cannon arbetsordrar
 DROP PROCEDURE IF EXISTS _newCannonOrder;
@@ -422,6 +425,7 @@ info varchar (1024))
 BEGIN
 
 INSERT INTO CannonSubPlace (cannonID, name, skiID,entID, startStamp, priority,newStatus, info) values (cannonID, name, skiID,entID, startStamp, priority,state, info);
+-- INSERT INTO FinnishedCannonSubPlace (cannonID, name, skiID,entID, startStamp, priority,newStatus, info) values (cannonID, name, skiID,entID, startStamp, priority,state, info);
 
 COMMIT ;
 END //
@@ -475,13 +479,10 @@ begin
        
    DELETE FROM CannonSubPlace where orderID=finnishedOrderID;
    
-   
-   
-   
    COMMIT ;
 END //
 DELIMITER ;
--- call _finnishedCannonOrder('31','1',now(),'texttesttets');
+-- call _finnishedCannonOrder('1','1',now(),'texttesttets');
 -- SELECT * FROM CannonSubPlace;
 -- select * from FinnishedCannonSubPlace;
 
@@ -648,4 +649,6 @@ DELIMITER ;
 -- select count(*) from OldCommentSubPlace where OldCommentSubPlace.orderID ='1' ;
 -- select count(*)as b from OldCommenta where del="1";
 -- call _deleteCOM (:commentID)
+
+
 
