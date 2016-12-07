@@ -167,7 +167,7 @@ foreach($pdo->query( 'select count(*)as i2 from fwo;' ) as $row){
                   $_POST['EntID'] = "1";
                   $_POST['split'] = "0";
 
-                  $response = file_get_contents($sms_url . "?" . $parameters);
+             #     $response = file_get_contents($sms_url . "?" . $parameters);
                 }
 
 
@@ -187,14 +187,6 @@ foreach($pdo->query( 'select count(*)as i2 from fwo;' ) as $row){
             </div>
           </div>
         </div>
-
-
-
-
-
-
-
-
 
 
 
@@ -265,16 +257,7 @@ foreach($pdo->query( 'select count(*)as i2 from fwo;' ) as $row){
                     <button type="button" onclick="SendForm('workorder','workorder','skapaCAO');" class="HoverButton" >Skicka</button>
                   </form>
 
-<!--
-cannonID smallint,
-name smallint,
-skiID smallint,
-entID smallint,
-startStamp datetime,
-priority enum('low','medium','high','akut'),
-newStatus enum('on','off','unplugged','broken'),
-info varchar (1024))
--->
+
 
 <?php
 #try
@@ -336,14 +319,6 @@ if(isset($_POST['info2'])){
       </div>
 
     </div>
-
-
-
-
-
-
-
-
 
 
 
