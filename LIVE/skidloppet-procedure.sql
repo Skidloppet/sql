@@ -60,7 +60,6 @@ DELIMITER ;
 -- call CreateSki ('pass','Stefan','Holm','StaffeOG@hotmail.com','0732728934','other');
 -- call CreateSki ('pass','Stefan','Holm','lasseBH@gmail.com','0732738934','other');
 -- select * from Ski;
-
 -- 3. procedur för att göra en SKI till arenachef/other
  -- IF satsen kollar om Ent har tagit email adressen redan
 DROP PROCEDURE IF EXISTS EditSki;
@@ -174,21 +173,11 @@ WHILE nameCounter<=endName DO
 	END WHILE;
 COMMIT ;
 END //
-DELIMITER ;/*
-newEntID smallint,
-newStartDate timestamp,
-newWorkDate datetime,
-newRating enum('1','2','3','4','5'),
-newUnderlay enum('1','2','3','4','5'),
-newEdges enum('1','2','3','4','5'),
-newGrip enum('1','2','3','4','5'),
-newDepth DECIMAL(4,1),
-newComment varchar (1024),
-startName tinyint,
-endName tinyint
-*/
--- call _newReport (3, now(), '2016-11-12', '5', '5', '5', '5', 23.1, 'lade till kommentar bild snart?', 1, 6);
--- call _newReport (3, now(), '2016-10-13', '2', '4', '4', '4', 23.1, 5,5);
+DELIMITER ;
+
+
+
+
 
 call _newReport (3, now(), '2016-10-13', '5', '5', '5', '5', 30.1, 'Perfekt',1,3);
 call _newReport (4, now(), '2016-10-13', '5', '4', '5', '4', 20.0, 'Superbra dag för skidåkning',4,7);
@@ -199,9 +188,6 @@ call _newReport (8, now(), '2016-10-13', '5', '4', '4', '4', 23.4, 'Jag har inge
 call _newReport (9, now(), '2016-10-13', '1', '1', '2', '1', 0.2, 'Finns ingen snö...',18,19);
 call _newReport (10, now(), '2016-10-13', '2', '2', '1', '2', 5.7, 'Dåligt med snö.',20,21);
 
--- call _newReport (3, now(), '2016-11-12', '5', '5', '5', '5', 23.1, 'lade till kommentar bild snart?', 1, 6);
-
--- select * from ReportSubPlace;
 
 
 -- 8. Procedure för nya kommentarer
@@ -669,7 +655,6 @@ DELIMITER ;
 -- select count(*)as b from OldCommenta where del="1";
 -- call _deleteCOM (:commentID)
 -- 13. procedur för att ta bort arbetsorder
-
 
 
 
