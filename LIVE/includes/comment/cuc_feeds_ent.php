@@ -40,7 +40,7 @@ if(isset($_POST['commentID'])){
         <tr>
           <th><u>Datum</u></th>
           <th>Alias</th>
-          <th>PÂverkade str‰ckor</th>
+          <th>P√•verkade str√§ckor</th>
           <th>Betyg</th>
           <th>Kommentar</th>
           <th></th>
