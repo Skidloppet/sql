@@ -36,7 +36,7 @@ include'../connect.php';
     echo "<td>".$row['length']." km</td>";
     echo "<td>".$row['height']." m ö.h.</td>";
     echo "<td>".$row['fakesnow']." m&#179</td>";
-      ?><
+      ?>
 
   </tr>
   <?php

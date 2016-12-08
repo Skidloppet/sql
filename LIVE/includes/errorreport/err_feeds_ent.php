@@ -8,13 +8,12 @@ include'../connect.php';
 
 <div class="w3-row-padding w3-panel w3-card-8 w3-round-xlarge" style=" border-color:lightblue; border-style: solid; border-width: 5px;">
 <div class="w3-threethird">
-      <h3>Utskrift av registrerade felanmälningar</h3>
-      <p>Senaste rapporterade felanmälningar överst i tabell.</p>
+      <h3>Felanmälningar</h3>
       <table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white">
         <?php  
         echo "<tr>";
         echo "<th style='background-color:white;'>Sträcka:</th>"; 
-        echo "<th style='background-color:white;'>Entreprenör som har felanmält:</th>";
+        echo "<th style='background-color:white;'>skapad av:</th>";
         echo "<th style='background-color:white;'>Beskrivning:</th>";
         echo "<th style='background-color:white;'>Skickad:</th>";
         echo "<th style='background-color:white;'>Typ:</th>";
@@ -24,7 +23,7 @@ include'../connect.php';
           FROM Error, ErrorSubPlace, Ent, SubPlace
           WHERE Error.errorID = ErrorSubPlace.errorID AND Ent.entID = Error.entID and SubPlace.name = ErrorSubPlace.name 
           GROUP BY Error.errorID
-          ORDER BY Error.errorID desc;
+          ORDER BY sentDate desc;
           ' ) as $row){
 
           $luck = $row['errorID'];

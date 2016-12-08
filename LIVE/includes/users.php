@@ -69,12 +69,12 @@ $WOO = $_SERVER["SCRIPT_NAME"];
           <table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white">
             <?php   
             echo "<tr>";
-            echo "<th>FirstName</th>"; 
-            echo "<th>LastName</th>"; 
-            echo "<th>emailadress</th>"; 
-            echo "<th>type</th>"; 
+            echo "<th>Förnamn</th>"; 
+            echo "<th>Efternamn</th>"; 
+            echo "<th>mailadress</th>"; 
+            echo "<th>typ</th>"; 
             echo "<th>tel-number</th>"; 
-            echo "<th>regDate</th>"; 
+            echo "<th>reg-datum</th>"; 
 
             echo "</tr>";
             foreach($pdo->query( 'SELECT * FROM Ski;' ) as $row){
@@ -120,11 +120,11 @@ $WOO = $_SERVER["SCRIPT_NAME"];
 
         <?php   
         echo "<tr>";
-        echo "<th>FirstName</th>"; 
-        echo "<th>LastName</th>"; 
-        echo "<th>emailadress</th>"; 
+        echo "<th>Förnamn</th>"; 
+        echo "<th>Efternamn</th>"; 
+        echo "<th>mailadress</th>"; 
         echo "<th>tel-number</th>"; 
-        echo "<th>regDate</th>"; 
+        echo "<th>reg-datum</th>"; 
 
         echo "</tr>";
         foreach($pdo->query( 'SELECT * FROM Ent;' ) as $row){
@@ -149,24 +149,25 @@ $WOO = $_SERVER["SCRIPT_NAME"];
        <?php
      }
      ?>
-
    </table>
-
-
  </div>
 </div>
 <?php
-if(isset($_POST['entID'])){
-  $deletedError = $_POST['entID'];
-  $sql = "DELETE FROM Ent WHERE entID = $deletedError" ;
-  $stmt = $pdo->prepare($sql);
-  $stmt->execute();
-}
+   if(isset($_POST['entID'])){
+    $deletedEnt = $_POST['entID'];
+    $sql = "DELETE FROM Ent WHERE entID = $deletedEnt" ;
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute();
+  }
 ?>
 </table>
 </div>
 </div>
 </div>
+
+
+
+
 
 
 

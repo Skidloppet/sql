@@ -189,6 +189,7 @@ endName tinyint
 */
 -- call _newReport (3, now(), '2016-11-12', '5', '5', '5', '5', 23.1, 'lade till kommentar bild snart?', 1, 6);
 -- call _newReport (3, now(), '2016-10-13', '2', '4', '4', '4', 23.1, 5,5);
+
 call _newReport (3, now(), '2016-10-13', '5', '5', '5', '5', 30.1, 'Perfekt',1,3);
 call _newReport (4, now(), '2016-10-13', '5', '4', '5', '4', 20.0, 'Superbra dag för skidåkning',4,7);
 call _newReport (5, now(), '2016-10-13', '2', '2', '2', '2', 8.6, 'Dålig sträcka',8,10);
@@ -197,6 +198,7 @@ call _newReport (7, now(), '2016-10-13', '4', '4', '4', '4', 20.9, 'Fin sträcka
 call _newReport (8, now(), '2016-10-13', '5', '4', '4', '4', 23.4, 'Jag har inget speciellt att rapportera. Bra sträcka.',16,17);
 call _newReport (9, now(), '2016-10-13', '1', '1', '2', '1', 0.2, 'Finns ingen snö...',18,19);
 call _newReport (10, now(), '2016-10-13', '2', '2', '1', '2', 5.7, 'Dåligt med snö.',20,21);
+
 -- call _newReport (3, now(), '2016-11-12', '5', '5', '5', '5', 23.1, 'lade till kommentar bild snart?', 1, 6);
 
 -- select * from ReportSubPlace;
@@ -667,6 +669,7 @@ DELIMITER ;
 -- select count(*)as b from OldCommenta where del="1";
 -- call _deleteCOM (:commentID)
 -- 13. procedur för att ta bort arbetsorder
+
 
 
 
