@@ -127,7 +127,7 @@ $WOO = $_SERVER["SCRIPT_NAME"];
         echo "<th>reg-datum</th>"; 
 
         echo "</tr>";
-        foreach($pdo->query( 'SELECT * FROM Ent;' ) as $row){
+        foreach($pdo->query( 'SELECT * FROM Ent where entId > 2;' ) as $row){
             //echo "<tr><td>";
             //echo "<a href='test.php?entID=".urlencode($row['entID'])."'>".$row['entID'];
           echo "<tr>";

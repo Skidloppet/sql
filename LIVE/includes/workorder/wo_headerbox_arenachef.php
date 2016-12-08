@@ -235,9 +235,9 @@ foreach($pdo->query( 'select count(*)as i2 from fwo;' ) as $row){
                     <p>Entrepenör ansvarig <i>(ej akut)</i>  *</p>
                     <select name='EntID'>    
                       <?php 
-                      foreach ($pdo->query('SELECT * FROM Ent') as $row) {
+                      foreach ($pdo->query('SELECT * FROM Ent where entId > 2') as $row) {
                         echo '<option value="'.$row['entID'].'">';
-                        echo $row['firstName']." ".$row['lastName']." (".$row['entID'].") ";
+                        echo $row['firstName']." ".$row['lastName']." ";
                         echo "</option>";
                       }
                       ?></select> 
@@ -340,7 +340,7 @@ if(isset($_POST['info2'])){
             </tr>
             <?php
     # kolla procedur entWork...
-            foreach($pdo->query( 'SELECT * FROM entWork;' ) as $row){
+            foreach($pdo->query( 'SELECT * FROM entWork order by date desc;' ) as $row){
 
               echo ' <tr>';
               echo ' <td>'.$row["firstName"].' '.$row["lastName"].'</td>';

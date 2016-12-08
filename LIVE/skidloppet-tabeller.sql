@@ -53,7 +53,7 @@ info varchar(1024),
 EntComment varchar(1024),
 primary key (orderID),
 foreign key (skiID) references Ski(skiID),
-foreign key (entID) references Ent(entID)
+foreign key (entID) references Ent(entID) on delete set null
 )engine=innodb;
 
 -- tabell för arbetsorder
@@ -393,7 +393,6 @@ insert into Cannon (subPlaceName, model, state, effect,klass) values
 ('HUVUDGARAGET','MOV','Urkopplad','0.5','Top Gun 7'),
 ('HUVUDGARAGET','MOV','Urkopplad','0.5','Top Gun 7'),
 ('HUVUDGARAGET','MOV','Urkopplad','0.5','Top Gun 7');
-select * from Cannon;
 /*
 insert into Report (entID, startDate, workDate, rating, underlay, edges, grip, depth) values
 ('1','2011-11-11','2011-09-11','1','2','3','4','54'),
@@ -437,6 +436,7 @@ insert into CommentSubPlace (CommentID, name) values
 ('3','2'),
 ('3','3');
 */
+
 
 
 

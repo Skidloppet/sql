@@ -178,7 +178,7 @@ DELIMITER ;
 
 
 
-
+/*
 call _newReport (3, now(), '2016-10-13', '5', '5', '5', '5', 30.1, 'Perfekt',1,3);
 call _newReport (4, now(), '2016-10-13', '5', '4', '5', '4', 20.0, 'Superbra dag för skidåkning',4,7);
 call _newReport (5, now(), '2016-10-13', '2', '2', '2', '2', 8.6, 'Dålig sträcka',8,10);
@@ -188,7 +188,7 @@ call _newReport (8, now(), '2016-10-13', '5', '4', '4', '4', 23.4, 'Jag har inge
 call _newReport (9, now(), '2016-10-13', '1', '1', '2', '1', 0.2, 'Finns ingen snö...',18,19);
 call _newReport (10, now(), '2016-10-13', '2', '2', '1', '2', 5.7, 'Dåligt med snö.',20,21);
 
-
+*/
 
 -- 8. Procedure för nya kommentarer
 DROP PROCEDURE IF EXISTS _NewComment;
@@ -246,7 +246,7 @@ call _NewComment ('kottarkottarkottarkottar','Jon Jones','2',now(),'1','6');
 -- select * from CommentSubPlace;
 -- select * from Commenta;
 */
-
+-- delete from Ent where entID='6';
 
 -- 9. Procedure för nya felanmälan
 
@@ -655,6 +655,7 @@ DELIMITER ;
 -- select count(*)as b from OldCommenta where del="1";
 -- call _deleteCOM (:commentID)
 -- 13. procedur för att ta bort arbetsorder
+
 
 
 
