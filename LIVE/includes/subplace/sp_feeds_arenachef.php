@@ -16,9 +16,9 @@ include'../connect.php';
     #echo "<th>entID</th>"; 
     echo "<th>Entreprenör</th>"; 
     #echo "<th>Typ</th>"; 
-    echo "<th>Längd:</th>"; 
-    echo "<th>Höjd:</th>"; 
-    echo "<th>Konstsnö:</th>"; 
+    echo "<th>Längd</th>"; 
+    echo "<th>Höjd</th>"; 
+    echo "<th>Konstsnö</th>"; 
     echo "</tr>";
 
     foreach ($pdo->query('
@@ -36,7 +36,8 @@ include'../connect.php';
     echo "<td>".$row['length']." km</td>";
     echo "<td>".$row['height']." m ö.h.</td>";
     echo "<td>".$row['fakesnow']." m&#179</td>";
-    ?>
+      ?><
+
   </tr>
   <?php
 }
@@ -44,3 +45,4 @@ include'../connect.php';
 </table><br><br>
 </div>
 </div>
+
