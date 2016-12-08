@@ -65,7 +65,7 @@ entID smallint not null,
 sentDate datetime,
 endDate timestamp,
 priority enum('Låg','Medium','Hög','Akut'),
-type enum('Ljus','Bana','Skräp','Träd','Annat') null,
+type enum('Ljus','Spår','Skräp','Träd','Annat') null,
 info varchar(1024),
 EntComment varchar(1024),
 primary key (orderID),
@@ -154,7 +154,7 @@ entID smallint null,
 sentDate timestamp,
 -- grade enum('Låg','Medium','Hög','Akut'),
 errorDesc varchar(1024),
-type enum('Ljus','Bana','Skräp','Träd','Annat') null,
+type enum('Ljus','Spår','Skräp','Träd','Annat') null,
 primary key (errorID),
 foreign key (entID) references Ent(entID)
 )engine=innodb;
@@ -436,6 +436,7 @@ insert into CommentSubPlace (CommentID, name) values
 ('3','2'),
 ('3','3');
 */
+
 
 
 

@@ -258,7 +258,7 @@ newErrorDesc varchar(1024),
 newEntID smallint,
 newSentDate timestamp,
 -- newGrade enum('low','medium','high','akut'),
-newType enum('Ljus','Bana','Skräp','Träd','Annat'),
+newType enum('Ljus','Spår','Skräp','Träd','Annat'),
 startName tinyint,
 endName tinyint
 )
@@ -312,7 +312,7 @@ newEntID smallint,
 newSentDate timestamp,
 -- newStartDate timestamp,
 newPriority enum('Hög','Medium','Låg','Akut'),
-newType enum('Ljus','Bana','Skräp','Träd','Annat'),
+newType enum('Ljus','Spår','Skräp','Träd','Annat'),
 newInfo varchar(1024),
 newSplit bool,
 startName tinyint,
@@ -370,7 +370,7 @@ COMMIT ;
 END //
 DELIMITER ;
 /*
-call _newSplitWorkOrder ('1','1',now(),'Hög','Bana','spåra spåren','1','1','6');
+call _newSplitWorkOrder ('1','1',now(),'Hög','Spår','spåra spåren','1','1','6');
 call _newSplitWorkOrder ('1','1',now(),'Akut','Träd','träda träden','0','1','6');
 select * from SubPlaceWorkOrder;
 select * from WorkOrder;
@@ -655,6 +655,7 @@ DELIMITER ;
 -- select count(*)as b from OldCommenta where del="1";
 -- call _deleteCOM (:commentID)
 -- 13. procedur för att ta bort arbetsorder
+
 
 
 
