@@ -20,9 +20,9 @@ if(isset($_POST['CreateComment'])){
     #$deleteC = "DELETE FROM Commenta WHERE date < NOW() - INTERVAL 48 HOUR;";
   $sql = "CALL _NewComment(:newComment, :newAlias, :newGrade, now(), :startName, :endName);";
 
-                if($_POST['Slut'] === "Q") {
-                  $_POST['Slut'] = $_POST['Start'];
-                }     
+  if($_POST['endName'] === "Q") {
+    $_POST['endName'] = $_POST['startName'];
+  }     
   $stmt = $pdo->prepare($sql);
     #$stmt = $pdo->query($deleteC);
 
@@ -41,9 +41,9 @@ if(isset($_POST['CreateComment'])){
 $kund = "1";
 if(isset($_POST['Error'])){
 
-                if($_POST['Slut'] === "Q") {
-                  $_POST['Slut'] = $_POST['Start'];
-                }     
+  if($_POST['Slut'] === "Q") {
+    $_POST['Slut'] = $_POST['Start'];
+  }     
   $sql = "CALL _NewError(:newErrorDesc, :newEntID, NOW() , :newType, :startName, :endName);";
 
   $stmt = $pdo->prepare($sql);
@@ -384,82 +384,82 @@ article {
   <div class="w3-container w3-content w3-padding-20" style="max-width:950px margin-bottom:-150px;": id="Status">
     <div class="w3-center"> <img src="skidlogo.jpg" style="width:70%;height:250px">
     </div>
-<br>
-<br></div>
+    <br>
+    <br></div>
     <!-- kartan --> 
     <div style="max-width: 80%;margin: auto; ">
-	<div class="w3-center">
-	<h1><i>Översikt över arenan</i> </h1>
-	</div>
-      <?php
-      include'includes/mapFkund.php';
+     <div class="w3-center">
+       <h1><i>Översikt över arenan</i> </h1>
+     </div>
+     <?php
+     include'includes/mapFkund.php';
+     ?>
+     <h4>Klicka på en delsträcka för information och kommentarer *</h4>
+     <ul>
+      <p class="w3-green w3-card" style="width:25px; height:25px;   border-radius: 50%;"></p>Grönt = 4/5
+      <p class="w3-yellow w3-card" style="width:25px; height:25px;  border-radius: 50%;"></p>Gult = 4/5
+      <p class="w3-red w3-card" style="width:25px; height:25px;   border-radius: 50%;"></p>Rött = 1/2
+    </ul>
+  </div>
+
+
+
+
+
+  <!-- om man har klickat på en delsträcka så poppar denna uppp -->
+
+  <div id="stat" class="w3-container w3-content w3-padding-64" style="max-width:950px" id="Kommentar1">
+
+    <?php
+
+    if(isset($_GET['DS'])){
+
       ?>
-      <h4>Klicka på en delsträcka för information och kommentarer *</h4>
-<ul>
-        <p class="w3-green w3-card" style="width:25px; height:25px;   border-radius: 50%;"></p>Grönt = 4/5
-        <p class="w3-yellow w3-card" style="width:25px; height:25px;  border-radius: 50%;"></p>Gult = 4/5
-        <p class="w3-red w3-card" style="width:25px; height:25px;   border-radius: 50%;"></p>Rött = 1/2
-</ul>
-    </div>
+      <!-- container för delsträckorna -->
+      <div class="container">
 
+        <header>
+         <h1>Information om vald delsträcka </h1>
+       </header>
 
-
-
-
-    <!-- om man har klickat på en delsträcka så poppar denna uppp -->
-
-    <div id="stat" class="w3-container w3-content w3-padding-64" style="max-width:950px" id="Kommentar1">
-
-      <?php
-
-      if(isset($_GET['DS'])){
-
-        ?>
-        <!-- container för delsträckorna -->
-        <div class="container">
-
-          <header>
-           <h1>Information om vald delsträcka </h1>
-         </header>
-
-         <nav>
-          <ul>
-            <p>Hedemora     46 Km </p>
-            <p>Norrhyttan   62 Km </p>
-            <p>Bondhyttan   66 Km </p>
-            <p>Bommansbo    88 Km </p>
-            <p>Smejdeback   66 Km </p>
-            <p>Björsjö      88 Km </p>
+       <nav>
+        <ul>
+          <p>Hedemora     46 Km </p>
+          <p>Norrhyttan   62 Km </p>
+          <p>Bondhyttan   66 Km </p>
+          <p>Bommansbo    88 Km </p>
+          <p>Smejdeback   66 Km </p>
+          <p>Björsjö      88 Km </p>
 
 
 
 
 
 
-          </ul>
-        </nav>
+        </ul>
+      </nav>
 
-        <article>
-          <h3>Betygsförklaring från entrepenör</h3>
-          <p>Betygsskala 1-5 på samtliga.</p>
+      <article>
+        <h3>Betygsförklaring från entrepenör</h3>
+        <p>Betygsskala 1-5 på samtliga.</p>
 
-          <table>
-            <tr>
-              <th>Delsträcka</th>
-              <th>Startdatum</th>
-              <th>Helhets betyg</th>
-              <th>Underlag</th>
-              <th>Spåranter</th>
-              <th>Stavfäste</th>
-              <th>Snödjup</th>
-              <th>Längd</th>
-              <th>m.ö.h</th>
-            </tr>
-          </div>
+        <table>
+          <tr>
+            <th>Delsträcka</th>
+            <th>Startdatum</th>
+            <th>Helhets betyg</th>
+            <th>Underlag</th>
+            <th>Spåranter</th>
+            <th>Stavfäste</th>
+            <th>Snödjup</th>
+            <th>Längd</th>
+            <th>m.ö.h</th>
+          </tr>
         </div>
-      </article>
+      </div>
+    </article>
 
-      <footer>Vald delsträcka</footer>
+    <footer>Vald delsträcka</footer>
 
     
 
@@ -550,7 +550,7 @@ article {
         <p>Vart slutar problemets inverkan?:</p>
         <select name='Slut'>    
           <?php 
-           echo '<option selected="selected" value="Q" > Välj t.o.m delsträcka ';
+          echo '<option selected="selected" value="Q" > Välj t.o.m delsträcka ';
           foreach ($pdo->query('SELECT * FROM SubPlace') as $row) {
             echo '<option value="'.$row['name'].'">';
             echo $row['realName'];
@@ -652,7 +652,7 @@ article {
 <select size='1' name='endName'>
   <option selected="selected"> Välj slutpunkt </option>
   <?php  
-             echo '<option selected="selected" value="Q" > Välj t.o.m delsträcka ';  
+  echo '<option selected="selected" value="Q" > Välj t.o.m delsträcka ';  
   foreach($pdo->query( 'SELECT * FROM SubPlace where name<"21" ORDER BY name;' ) as $row){
     echo '<option value="'.$row['name'].'">';
     echo $row['realName'];      
