@@ -16,9 +16,9 @@ if(isset($_POST['CreateComment'])){
     #$deleteC = "DELETE FROM Commenta WHERE date < NOW() - INTERVAL 48 HOUR;";
   $sql = "CALL _NewComment(:newComment, :newAlias, :newGrade, now(), :startName, :endName);";
 
-                if($_POST['Slut'] === "Q") {
-                  $_POST['Slut'] = $_POST['Start'];
-                }     
+               if($_POST['endName'] === "Q") {
+   		 $_POST['endName'] = $_POST['startName'];
+  }      
   $stmt = $pdo->prepare($sql);
     #$stmt = $pdo->query($deleteC);
 
