@@ -149,24 +149,25 @@ $WOO = $_SERVER["SCRIPT_NAME"];
        <?php
      }
      ?>
-
    </table>
-
-
  </div>
 </div>
 <?php
-if(isset($_POST['entID'])){
-  $deletedError = $_POST['entID'];
-  $sql = "DELETE FROM Ent WHERE entID = $deletedError" ;
-  $stmt = $pdo->prepare($sql);
-  $stmt->execute();
-}
+   if(isset($_POST['entID'])){
+    $deletedEnt = $_POST['entID'];
+    $sql = "DELETE FROM Ent WHERE entID = $deletedEnt" ;
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute();
+  }
 ?>
 </table>
 </div>
 </div>
 </div>
+
+
+
+
 
 
 

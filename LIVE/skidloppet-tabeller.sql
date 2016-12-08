@@ -109,7 +109,7 @@ height smallint,
 fakesnow smallint,
 primary key (name),
 foreign key (placeName) references Place(name),
-foreign key (entID) references Ent(entID)
+foreign key (entID) references Ent(entID) on delete set null
 )engine=innodb;
 
 
@@ -176,6 +176,8 @@ foreign key (name) references SubPlace(name)
 create table SubPlaceWorkOrder(
 name smallint not null,
 orderID int not null,
+stamp timestamp,
+
 -- Kanske lägga till datum för pågående arbete eller annat?
 primary key (orderID, name),
 foreign key (orderID) references WorkOrder(orderID)ON DELETE CASCADE,
@@ -336,28 +338,28 @@ Iris Sax delsträckor 16, 17
 Vidar Ytter delsträckor 18, 19
 Urban Garv delsträckor 20, 21 */
 insert into SubPlace (name, placeName, realName, entID, length, height, fakesnow) values 
-('1','Delstrackor','Hedemora 1:1','2','12','21','23'), 
-('2','Delstrackor','Hedemora 1:2','2','17','476','11'),
-('3','Delstrackor','Hedemora 1:3','3','29','376','3'),
-('4','Delstrackor','Norrhyttan 2:1','3','12','198','5'),
-('5','Delstrackor','Norrhyttan 2:2','4','6','264','1'),
-('6','Delstrackor','Norrhyttan 2:3','4','22','333','31'),
-('7','Delstrackor','Norrhyttan 2:4','4','22','333','31'),
-('8','Delstrackor','Bondhyttan 3:1','5','22','333','31'),
-('9','Delstrackor','Bondhyttan 3:2','5','22','333','31'),
-('10','Delstrackor','Bondhyttan 3:3','5','22','333','31'),
-('11','Delstrackor','Bommansbo 4:1','6','22','333','31'),
-('12','Delstrackor','Bommansbo 4:2','6','22','333','31'),
-('13','Delstrackor','Bommansbo 4:3','7','22','333','31'),
-('14','Delstrackor','Bommansbo 4:4','7','22','333','31'),
-('15','Delstrackor','Smedjebacken 5:1','7','22','333','31'),
-('16','Delstrackor','Smedjebacken 5:2','8','22','333','31'),
-('17','Delstrackor','Smedjebacken 5:3','8','22','333','31'),
-('18','Delstrackor','Björsjö 6:1','9','22','333','31'),
-('19','Delstrackor','Björsjö 6:2','9','22','333','31'),
-('20','Delstrackor','Björsjö 6:3','10','22','333','31'),
-('21','Delstrackor','Björsjö 6:4','10','22','333','31'),
-('55','Garage','HUVUDGARAGET','1','6','264','1');
+('1','Delstrackor','Hedemora 1:1','3','12','21','23'), 
+('2','Delstrackor','Hedemora 1:2','3','17','476','11'),
+('3','Delstrackor','Hedemora 1:3','4','29','376','3'),
+('4','Delstrackor','Norrhyttan 2:1','4','12','198','5'),
+('5','Delstrackor','Norrhyttan 2:2','5','6','264','1'),
+('6','Delstrackor','Norrhyttan 2:3','5','22','333','31'),
+('7','Delstrackor','Norrhyttan 2:4','5','22','333','31'),
+('8','Delstrackor','Bondhyttan 3:1','6','22','333','31'),
+('9','Delstrackor','Bondhyttan 3:2','6','22','333','31'),
+('10','Delstrackor','Bondhyttan 3:3','6','22','333','31'),
+('11','Delstrackor','Bommansbo 4:1','7','22','333','31'),
+('12','Delstrackor','Bommansbo 4:2','7','22','333','31'),
+('13','Delstrackor','Bommansbo 4:3','8','22','333','31'),
+('14','Delstrackor','Bommansbo 4:4','8','22','333','31'),
+('15','Delstrackor','Smedjebacken 5:1','8','22','333','31'),
+('16','Delstrackor','Smedjebacken 5:2','9','22','333','31'),
+('17','Delstrackor','Smedjebacken 5:3','9','22','333','31'),
+('18','Delstrackor','Björsjö 6:1','10','22','333','31'),
+('19','Delstrackor','Björsjö 6:2','10','22','333','31'),
+('20','Delstrackor','Björsjö 6:3','11','22','333','31'),
+('21','Delstrackor','Björsjö 6:4','11','22','333','31'),
+('55','Garage','HUVUDGARAGET','1','1','264','1');
 
 -- select * from Cannon;
 insert into Cannon (subPlaceName, model, state, effect,klass) values
@@ -384,14 +386,14 @@ insert into Cannon (subPlaceName, model, state, effect,klass) values
 ('HUVUDGARAGET','MOV','Urkopplad','0.5','Top Gun 7'),
 ('HUVUDGARAGET','MOV','Urkopplad','0.5','Top Gun 7'),
 ('HUVUDGARAGET','MOV','Urkopplad','0.5','Top Gun 7'),
-('HUVUDGARAGET','MOV','Urkopplad','0.5','Top Gun 7'),
+('Smedjebacken 5:2','MOV','På','0.5','Top Gun 7'),
 ('HUVUDGARAGET','MOV','Urkopplad','0.5','Top Gun 7'),
 ('HUVUDGARAGET','MOV','Urkopplad','0.5','Top Gun 7'),
 ('HUVUDGARAGET','MOV','Urkopplad','0.5','Top Gun 7'),
 ('HUVUDGARAGET','MOV','Urkopplad','0.5','Top Gun 7'),
 ('HUVUDGARAGET','MOV','Urkopplad','0.5','Top Gun 7'),
 ('HUVUDGARAGET','MOV','Urkopplad','0.5','Top Gun 7');
-
+select * from Cannon;
 /*
 insert into Report (entID, startDate, workDate, rating, underlay, edges, grip, depth) values
 ('1','2011-11-11','2011-09-11','1','2','3','4','54'),
@@ -435,6 +437,7 @@ insert into CommentSubPlace (CommentID, name) values
 ('3','2'),
 ('3','3');
 */
+
 
 
 

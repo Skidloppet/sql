@@ -178,7 +178,7 @@ DELIMITER ;
 
 -- call _newReport (3, now(), '2016-11-12', '5', '5', '5', '5', 23.1, 'lade till kommentar bild snart?', 1, 6);
 -- call _newReport (3, now(), '2016-10-13', '2', '4', '4', '4', 23.1, 5,5);
-call _newReport (3, now(), '2016-10-13', '5', '4', '4', '4', 23.1, 'statisk rapport',1,21);
+call _newReport (3, now(), '2016-10-13', '5', '4', '4', '4', 23.1, 'Standard rapport',1,21);
 -- call _newReport (3, now(), '2016-11-12', '5', '5', '5', '5', 23.1, 'lade till kommentar bild snart?', 1, 6);
 
 -- select * from ReportSubPlace;
@@ -649,6 +649,7 @@ DELIMITER ;
 -- select count(*)as b from OldCommenta where del="1";
 -- call _deleteCOM (:commentID)
 -- 13. procedur för att ta bort arbetsorder
+
 
 
 

@@ -27,9 +27,7 @@ CREATE VIEW AllUsers AS
         Ski 
     UNION SELECT 
         entID as id, email, password, number as type, firstName, lastName, number, regDate
-    FROM
-        Ent;
--- select * from AllUsers;
+    FROM        Ent;-- select * from AllUsers;
 -- select * from AllUsers WHERE password='pass' and email='stefan';
 
 
@@ -443,5 +441,6 @@ CREATE VIEW delLagKom2 AS
 
 -- select * from delLagKom2;
 -- delete from delLagKom where commentID>'0' ; 
+
 
 
