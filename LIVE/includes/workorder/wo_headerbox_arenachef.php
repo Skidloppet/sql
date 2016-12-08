@@ -122,7 +122,7 @@ foreach($pdo->query( 'select count(*)as i2 from fwo;' ) as $row){
               echo $row['firstName']." ".$row['lastName']." (".$row['entID'].") ";
               echo "</option>";
             }
-            ?></select>   
+            ?></select>  <input type="checkbox" name="split" value="1"> Tilldela till ansvarig entreprenör ( <i>Ej akut*</i> ) 
 
             <p>Välj plats(er) *</p>
 
@@ -144,7 +144,7 @@ foreach($pdo->query( 'select count(*)as i2 from fwo;' ) as $row){
                   echo "</option>";
                 }
                 ?></select><br><br>
-                <input type="checkbox" name="split" value="1"> Dela upp på delsträckor ( <i>Ej akut*</i> )<br><br>
+                <br><br>
                 <button type="button" onclick="SendForm('workorder','workorder','skapaAO');" class="HoverButton" >Skicka</button>
 
               </form>
