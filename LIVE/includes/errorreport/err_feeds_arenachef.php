@@ -13,7 +13,7 @@ include'../connect.php';
             #echo "<th style='background-color:white;'>Sträcka:</th>";
         echo "<th style='background-color:white;'>Sträcka:</th>"; 
             #echo "<th style='background-color:white;'>entID:</th>";
-        echo "<th style='background-color:white;'>Entreprenör:</th>";
+        echo "<th style='background-color:white;'>Skapad av:</th>";
         echo "<th style='background-color:white;'>Beskrivning:</th>";
         echo "<th style='background-color:white;'>Skickad:</th>";
         echo "<th style='background-color:white;'>Typ:</th>";
@@ -24,7 +24,7 @@ include'../connect.php';
           FROM Error, ErrorSubPlace, Ent, SubPlace
           WHERE Error.errorID = ErrorSubPlace.errorID AND Ent.entID = Error.entID and SubPlace.name = ErrorSubPlace.name 
           GROUP BY Error.errorID
-          ORDER BY Error.errorID desc;
+          ORDER BY sentDate desc;
           ' ) as $row){
 
           $luck = $row['errorID'];
