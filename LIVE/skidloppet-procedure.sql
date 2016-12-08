@@ -174,11 +174,29 @@ WHILE nameCounter<=endName DO
 	END WHILE;
 COMMIT ;
 END //
-DELIMITER ;
-
+DELIMITER ;/*
+newEntID smallint,
+newStartDate timestamp,
+newWorkDate datetime,
+newRating enum('1','2','3','4','5'),
+newUnderlay enum('1','2','3','4','5'),
+newEdges enum('1','2','3','4','5'),
+newGrip enum('1','2','3','4','5'),
+newDepth DECIMAL(4,1),
+newComment varchar (1024),
+startName tinyint,
+endName tinyint
+*/
 -- call _newReport (3, now(), '2016-11-12', '5', '5', '5', '5', 23.1, 'lade till kommentar bild snart?', 1, 6);
 -- call _newReport (3, now(), '2016-10-13', '2', '4', '4', '4', 23.1, 5,5);
-call _newReport (3, now(), '2016-10-13', '5', '4', '4', '4', 23.1, 'statisk rapport',1,21);
+call _newReport (3, now(), '2016-10-13', '5', '5', '5', '5', 30.1, 'Perfekt',1,3);
+call _newReport (4, now(), '2016-10-13', '5', '4', '5', '4', 20.0, 'Superbra dag för skidåkning',4,7);
+call _newReport (5, now(), '2016-10-13', '2', '2', '2', '2', 8.6, 'Dålig sträcka',8,10);
+call _newReport (6, now(), '2016-10-13', '3', '3', '2', '4', 13.5, 'Funkar, borde bli bättre när snön kommer!',11,12);
+call _newReport (7, now(), '2016-10-13', '4', '4', '4', '4', 20.9, 'Fin sträcka!',13,15);
+call _newReport (8, now(), '2016-10-13', '5', '4', '4', '4', 23.4, 'Jag har inget speciellt att rapportera. Bra sträcka.',16,17);
+call _newReport (9, now(), '2016-10-13', '1', '1', '2', '1', 0.2, 'Finns ingen snö...',18,19);
+call _newReport (10, now(), '2016-10-13', '2', '2', '1', '2', 5.7, 'Dåligt med snö.',20,21);
 -- call _newReport (3, now(), '2016-11-12', '5', '5', '5', '5', 23.1, 'lade till kommentar bild snart?', 1, 6);
 
 -- select * from ReportSubPlace;
