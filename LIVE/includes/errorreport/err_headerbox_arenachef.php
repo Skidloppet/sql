@@ -75,15 +75,15 @@ foreach($pdo->query( 'select count(*)as i from Error;') as $row){
 
 
           <textarea rows="5" cols="70" name="info1" placeholder="information om arbetsorder.."></textarea></br></br>
-          <p>Entrepenör ansvarig *</p>
+          <p>Entrepenör ansvarig * ( <i>Ej akut</i> )</p>
           <select name='EntID'>    
             <?php 
-            foreach ($pdo->query('SELECT * FROM Ent') as $row) {
+            foreach ($pdo->query('SELECT * FROM Ent where entID > 2') as $row) {
               echo '<option value="'.$row['entID'].'">';
-              echo $row['firstName']." ".$row['lastName']." (".$row['entID'].") ";
+              echo $row['firstName']." ".$row['lastName']."";
               echo "</option>";
             }
-            ?></select>   <br><br>
+            ?></select> <input type="checkbox" name="split" value="1"> Tilldela till ansvarig entreprenör  ( <i>Ej akut</i> )
 
           <p>Välj plats(er) *</p>
             <select name='Start'>    
@@ -104,7 +104,6 @@ foreach($pdo->query( 'select count(*)as i from Error;') as $row){
                   echo "</option>";
                 }
                 ?></select><br><br>
-                <input type="checkbox" name="split" value="1"> Dela upp på ansvarsområden ( <i>Ej akut*</i> )<br><br>
                 <button type="button" onclick="SendForm('errorreport','errorreport','skapaAO2');" class="HoverButton" >Skicka</button>
 
               </form>

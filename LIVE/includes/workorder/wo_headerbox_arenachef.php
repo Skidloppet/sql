@@ -380,7 +380,6 @@ if(isset($_POST['info2'])){
             <table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white">
               <tr>
                 <th><i class="fa fa-users w3-orange w3-text-white w3-padding-tiny"></i></th>
-                <th>Order ID</th>
                 <th>Arbetsorder-Typ</th>
                 <th>Prioritet</th>
                 <th>Ansvarig</th>

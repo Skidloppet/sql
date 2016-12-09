@@ -34,7 +34,7 @@ if(isset($_POST['CreateComment'])){
 
 <?php
 #  $em = $_SESSION['email'];
-$kund = "1";
+$kund = "2";
 if(isset($_POST['Error'])){
 
                 if($_POST['Slut'] === "Q") {

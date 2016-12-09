@@ -29,9 +29,9 @@ DROP PROCEDURE IF EXISTS CreateEnt;
 DELIMITER //
 CREATE PROCEDURE CreateEnt(pass varchar(32), firstName varchar(32), lastName varchar(32), email varchar (64), number int(10))
 BEGIN
-    DECLARE encryptedpassword VARCHAR(32);
-    set encryptedpassword=LEFT(PASSWORD(pass),32); -- krypterar lösenorder
-    INSERT INTO Ent(password, firstName, lastName, email, number, regDate) VALUES (encryptedpassword, firstName, lastName, email, number, NOW());
+   -- DECLARE encryptedpassword VARCHAR(32);
+   -- set encryptedpassword=LEFT(PASSWORD(pass),32); -- krypterar lösenorder
+    INSERT INTO Ent(password, firstName, lastName, email, number, regDate) VALUES (pass, firstName, lastName, email, number, NOW());
 IF exists(select email from Ski where Ski.email=email)>0 THEN
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'This email is already taken by Skidloppet';
         end if;    
@@ -48,9 +48,9 @@ DROP PROCEDURE IF EXISTS CreateSki;
 DELIMITER //
 CREATE PROCEDURE CreateSki(pass varchar(32), firstName varchar(32), lastName varchar(32), email varchar (64), number int(10), type enum('arenachef','other'))
 BEGIN
-    DECLARE encryptedpassword VARCHAR(32);
-    set encryptedpassword=LEFT(PASSWORD(pass),32);
-    INSERT INTO Ski(password, firstName, lastName, email, number, type, regDate) VALUES (encryptedpassword, firstName, lastName, email, number,type, NOW());
+   -- DECLARE encryptedpassword VARCHAR(32);
+  --  set encryptedpassword=LEFT(PASSWORD(pass),32);
+    INSERT INTO Ski(password, firstName, lastName, email, number, type, regDate) VALUES (pass, firstName, lastName, email, number,type, NOW());
     IF exists(select email from Ent where Ent.email=email)>0 THEN
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'This email is already taken by Entrepenör';
         end if;    
@@ -655,6 +655,7 @@ DELIMITER ;
 -- select count(*)as b from OldCommenta where del="1";
 -- call _deleteCOM (:commentID)
 -- 13. procedur för att ta bort arbetsorder
+
 
 
 
