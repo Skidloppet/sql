@@ -16,9 +16,9 @@ if(isset($_POST['CreateComment'])){
     #$deleteC = "DELETE FROM Commenta WHERE date < NOW() - INTERVAL 48 HOUR;";
   $sql = "CALL _NewComment(:newComment, :newAlias, :newGrade, now(), :startName, :endName);";
 
-               if($_POST['endName'] === "Q") {
-   		 $_POST['endName'] = $_POST['startName'];
-  }      
+                if($_POST['endName'] === "Q") {
+                  $_POST['endName'] = $_POST['startName'];
+                }     
   $stmt = $pdo->prepare($sql);
     #$stmt = $pdo->query($deleteC);
 
@@ -34,7 +34,7 @@ if(isset($_POST['CreateComment'])){
 
 <?php
 #  $em = $_SESSION['email'];
-$kund = "2";
+$kund = "1";
 if(isset($_POST['Error'])){
 
                 if($_POST['Slut'] === "Q") {
@@ -390,12 +390,12 @@ article {
       <?php
       include'includes/mapFkund.php';
       ?>
-      <h4>Klicka på en delsträcka för information och kommentarer *</h4>
-<ul>
-        <p class="w3-green w3-card" style="width:25px; height:25px;   border-radius: 50%;"></p>Grönt = 4/5
-        <p class="w3-yellow w3-card" style="width:25px; height:25px;  border-radius: 50%;"></p>Gult = 4/5
-        <p class="w3-red w3-card" style="width:25px; height:25px;   border-radius: 50%;"></p>Rött = 1/2
-</ul>
+      <h4 style="display: inline; ">Klicka på en delsträcka för information och kommentarer *</h4>
+<p class="w3-card" style="display: inline; width:25px; height:25px; padding:4px; border-radius: 5%;" >Betygskala 0-5</p>
+        <p class="w3-green w3-card" style="display: inline; width:25px; height:25px; padding:4px; border-radius: 5%;">Grönt = 4/5</p>
+        <p class="w3-yellow w3-card" style="display: inline; width:25px; height:25px; padding:4px; border-radius: 5%;">Gult = 3</p>
+        <p class="w3-red w3-card" style="display: inline; width:25px; height:25px; padding:4px;  border-radius: 5%;">Rött = 1/2</p>
+
     </div>
 
 
